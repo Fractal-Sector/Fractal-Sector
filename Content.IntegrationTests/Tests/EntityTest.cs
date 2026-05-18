@@ -1,4 +1,3 @@
-#nullable enable // Mono change
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
@@ -54,8 +53,7 @@ namespace Content.IntegrationTests.Tests
                     // TODO: Fix this better in engine.
                     mapSystem.SetTile(grid.Owner, grid.Comp, Vector2i.Zero, new Tile(1));
                     var coord = new EntityCoordinates(grid.Owner, 0, 0);
-                    //entityMan.SpawnEntity(protoId, coord);
-                    SpawnEntity(entityMan, protoId, coord); // Replacement from Monolith.
+                    entityMan.SpawnEntity(protoId, coord);
                 }
             });
 
@@ -112,8 +110,7 @@ namespace Content.IntegrationTests.Tests
                     .ToList();
                 foreach (var protoId in protoIds)
                 {
-                    //entityMan.SpawnEntity(protoId, map.GridCoords);
-                    SpawnEntity(entityMan, protoId, map.GridCoords); // Replacement from Monolith.
+                    entityMan.SpawnEntity(protoId, map.GridCoords);
                 }
             });
             await server.WaitRunTicks(450); // 15 seconds, enough to trigger most update loops
@@ -179,8 +176,7 @@ namespace Content.IntegrationTests.Tests
                 {
                     mapSys.CreateMap(out var mapId);
                     var grid = mapManager.CreateGridEntity(mapId);
-                    //var ent = sEntMan.SpawnEntity(protoId, new EntityCoordinates(grid.Owner, 0.5f, 0.5f));
-                    var ent = SpawnEntity(sEntMan, protoId, new EntityCoordinates(grid.Owner, 0.5f, 0.5f)); // Replacement from Monolith.
+                    var ent = sEntMan.SpawnEntity(protoId, new EntityCoordinates(grid.Owner, 0.5f, 0.5f));
                     foreach (var (_, component) in sEntMan.GetNetComponents(ent))
                     {
                         sEntMan.Dirty(ent, component);
@@ -290,8 +286,7 @@ namespace Content.IntegrationTests.Tests
                     var serverEntities = new HashSet<EntityUid>(Entities(server.EntMan));
                     var clientEntities = new HashSet<EntityUid>(Entities(client.EntMan));
                     EntityUid uid = default;
-                    //await server.WaitPost(() => uid = server.EntMan.SpawnEntity(protoId, coords));
-                    await server.WaitPost(() => uid = SpawnEntity(server.EntMan, protoId, coords)); // Replacement from Monolith.
+                    await server.WaitPost(() => uid = server.EntMan.SpawnEntity(protoId, coords));
                     await pair.RunTicksSync(3);
 
                     // If the entity deleted itself, check that it didn't spawn other entities
@@ -432,8 +427,7 @@ namespace Content.IntegrationTests.Tests
                             continue;
                         }
 
-                        //var entity = entityManager.SpawnEntity(null, testLocation);
-                        var entity = SpawnEntity(entityManager, null, testLocation); // Replacement from Monolith.
+                        var entity = entityManager.SpawnEntity(null, testLocation);
 
                         Assert.That(entityManager.GetComponent<MetaDataComponent>(entity).EntityInitialized);
 
@@ -460,12 +454,12 @@ namespace Content.IntegrationTests.Tests
 
             await pair.CleanReturnAsync();
         }
-        //Monolith Start
+
         private EntityUid SpawnEntity(
             IEntityManager entManager,
-            string? protoName,
+            string protoName,
             MapCoordinates coordinates,
-            ComponentRegistry? registry = null)
+            ComponentRegistry registry = null)
         {
             try
             {
@@ -482,9 +476,9 @@ namespace Content.IntegrationTests.Tests
 
         private EntityUid SpawnEntity(
             IEntityManager entManager,
-            string? protoName,
+            string protoName,
             EntityCoordinates coordinates,
-            ComponentRegistry? registry = null)
+            ComponentRegistry registry = null)
         {
             try
             {
@@ -498,6 +492,5 @@ namespace Content.IntegrationTests.Tests
 
             return EntityUid.Invalid;
         }
-        //Monolith End
     }
 }

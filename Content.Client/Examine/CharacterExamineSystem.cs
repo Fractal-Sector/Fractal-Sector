@@ -48,7 +48,7 @@ public sealed class CharacterExamineSystem : EntitySystem
             Act = () => OpenCharacterWindow(uid),
             Category = VerbCategory.Examine,
             ClientExclusive = true,
-            ShowOnExamineTooltip = true,
+            ShowOnExamineTooltip = false,
         });
         // End Wayfarer
     }
@@ -66,7 +66,7 @@ public sealed class CharacterExamineSystem : EntitySystem
             Act = () => OpenCharacterWindow(uid),
             Category = VerbCategory.Examine,
             ClientExclusive = true,
-            ShowOnExamineTooltip = true,
+            ShowOnExamineTooltip = false,
         });
     }
 

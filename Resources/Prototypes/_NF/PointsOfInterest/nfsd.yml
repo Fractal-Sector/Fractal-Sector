@@ -38,7 +38,7 @@
         - type: StationNameSetup
           mapNameTemplate: 'CGP Outpost'
         - type: ExtraStationInformation
-          iconPath: /Textures/_NF/Interface/StationIcons/nfsd-banner.png
+          icon: /Textures/_NF/Interface/StationIcons/nfsd-banner.png
           stationSubtext: 'frontier-lobby-nfsd-subtext'
           stationDescription: 'frontier-lobby-nfsd-description'
           lobbySortOrder: 2

@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   auto-assign:
-    if: github.repository == 'project-wayfarer/wayfarer-14'
+    if: github.repository == 'Orehum-Project/Orehum-Sector'
     runs-on: ubuntu-latest
 
     steps:

@@ -124919,13 +124919,6 @@ entities:
     - type: Transform
       pos: -2.5,-47.5
       parent: 2
-- proto: VendingMachineKink
-  entities:
-  - uid: 17500
-    components:
-    - type: Transform
-      pos: -10.5,-49.5
-      parent: 2
 - proto: VendingMachineMailDrobe
   entities:
   - uid: 17501

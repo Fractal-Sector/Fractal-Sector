@@ -21624,13 +21624,6 @@ entities:
     - type: Transform
       pos: 45.5,19.5
       parent: 1
-- proto: VendingMachineKink
-  entities:
-  - uid: 3244
-    components:
-    - type: Transform
-      pos: 32.5,-1.5
-      parent: 1
 - proto: VendingMachineMedical
   entities:
   - uid: 1944

@@ -2,7 +2,7 @@ name: Build & Run Shipyard Tests
 
 on:
   pull_request:
-    branches: [ "master" ]
+    branches: [ "new" ]
     paths:
       - "Resources/Maps/_NF/Shuttles/**/*.yml" # Ship grids
       - "Resources/Maps/_WF/Shuttles/**/*.yml" # Wayfarer: Ship grids
@@ -38,7 +38,7 @@ jobs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v4.1.0
       with:
-        dotnet-version: 9.0.x
+        dotnet-version: 10.0.x
 
     - name: Install Dependencies
       run: dotnet restore
