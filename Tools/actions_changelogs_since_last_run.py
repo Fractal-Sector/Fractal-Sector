@@ -97,6 +97,9 @@ def get_last_changelog() -> str:
     session.headers["X-GitHub-Api-Version"] = "2022-11-28"
 
     most_recent = get_most_recent_workflow(session, github_repository, github_run)
+    if most_recent is None:
+        print("No previous successful workflow runs found. Using empty changelog as baseline.")
+        return "Entries: []"
     last_sha = most_recent["head_commit"]["id"]
     print(f"Last successful publish job was {most_recent['id']}: {last_sha}")
     last_changelog_stream = get_last_changelog_by_sha(
@@ -122,13 +125,13 @@ def get_last_changelog_by_sha(
         headers=headers,
         params=params,
     )
-    
+
     # Handle 404 errors (e.g., after repository migration or first run)
     if resp.status_code == 404:
         print(f"Could not find commit {sha} in repository {github_repository}")
         print("This is normal after a repository migration. Using empty changelog as baseline.")
         return "Entries: []"
-    
+
     resp.raise_for_status()
     return resp.text
 
