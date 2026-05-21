@@ -21,7 +21,7 @@
       #            !type:NanotrasenNameGenerator
       #            prefixCreator: '14'
       - type: ExtraStationInformation
-        iconPath: /Textures/_WF/Logo/icon/icon-256x256.png # Wayfarer: change to _WF
+        icon: /Textures/_WF/Logo/icon/icon-256x256.png # Wayfarer: change to _WF
         stationSubtext: 'frontier-lobby-frontier-subtext'
         stationDescription: 'frontier-lobby-frontier-description'
         lobbySortOrder: 1
