@@ -6,7 +6,7 @@ on:
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  CHANGELOG_DIR: Resources/Changelog/Wayfarer.yml # Wayfarer: Changelog.yml<Wayfarer.yml
+  CHANGELOG_DIR: Resources/Changelog/Orehum.yml # Orehum: Changelog.yml<Orehum.yml
   PR_NUMBER: ${{ github.event.number }}
 
 jobs:
@@ -24,7 +24,7 @@ jobs:
 
       - name: Setup Git
         run: |
-          git config --global user.name "${{ vars.CHANGELOG_USER || 'Wayfarer Bot' }}"
+          git config --global user.name "${{ vars.CHANGELOG_USER || 'OrehumBot' }}"
           git config --global user.email "${{ vars.CHANGELOG_EMAIL || 'noreply@github.com' }}"
         shell: bash
 
