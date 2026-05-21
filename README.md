@@ -1,28 +1,27 @@
 <div class="header" align="center">
-<img alt="Wayfarer Station" height="300" src="Resources/Textures/_WF/Logo/logo.png?raw=true" />
+<img alt="Wayfarer Station" height="300" src="Resources/Textures/_Orehum/Logo/logo.png?raw=true" />
 </div>
 
-Wayfarer 14 is a fork of [Frontier Station](https://github.com/new-frontiers-14/frontier-station-14), which itself is a fork of [Space Station 14](https://github.com/space-wizards/space-station-14) that runs on [Robust Toolbox](https://github.com/space-wizards/RobustToolbox) engine written in C#.
+**Orehum Sector** это репозиторий англоязычного фронтира [Frontier Station](https://github.com/new-frontiers-14/frontier-station-14) и оригинального билда [Space Station 14](https://github.com/space-wizards/space-station-14), которые работают на движке [Robust Toolbox](https://github.com/space-wizards/RobustToolbox) от Space Wizards написанном на C#.
 
 
-This is the primary repo for Wayfarer 14.
+Это основной репозиторий проекта Orehum Sector
 
-If you want to host or create content for Wayfarer 14, this is the repo you need. It contains both RobustToolbox and the content pack for development of new content packs.
+Если вы хотите создавать или размещать контент для Orehum Sector, вам нужен именно этот репозиторий. Он содержит как RobustToolbox, так и набор контента для разработки нового контента.
 
-## Links
+## Ссылки
 
-#### Wayfarer 14
+#### Orehum Sector
 <div class="header" align="center">
 
-[Website](https://wayfarer14.com/) | [Discord](https://discord.gg/QpVfma2eAp) | [Wiki](https://wayfarer14.com/wiki)
-
+[Github](https://github.com/Orehum-Project/Orehum-Sector/) | [Discord](https://discord.gg/ZC94VrbFNY)
 </div>
 
 
 #### Frontier Station
 <div class="header" align="center">
 
-[Discord](https://discord.com/invite/frontier) | [Steam](https://store.steampowered.com/app/1255460/Space_Station_14/) | [Patreon](https://www.patreon.com/frontierstation14) | [Wiki](https://frontierstation.wiki.gg/)
+[Discord](https://discord.com/invite/frontier) | [Patreon](https://www.patreon.com/frontierstation14) | [Wiki](https://frontierstation.wiki.gg/)
 
 </div>
 
@@ -33,41 +32,42 @@ If you want to host or create content for Wayfarer 14, this is the repo you need
 
 </div>
 
-## Contributing
+## Вклад
 
-We are happy to accept contributions from anybody. Get in Discord if you want to help. Don't be afraid to ask for help either!
+Мы рады любой помощи и вкладу в проект от каждого желающего. Если вы хотите помочь, заходите в наш [Discord-сервер](https://discord.gg/ZC94VrbFNY).
+Хотя соблюдение [правил контрибьюта Space Station 14](https://docs.spacestation14.com/en/general-development/codebase-info/pull-request-guidelines.html) не является строго обязательным для Orehum Sector, мы рекомендуем ознакомиться с ними, чтобы придерживаться лучших практик разработки.
 
-We are not currently accepting translations of the game on our main repository. If you would like to translate the game into another language, consider creating a fork or contributing to a fork.
+## Сборка
 
-If you make any contributions, note that any changes made to files belonging to our upstream should be properly marked with comments (see the "Changes to upstream files" section in [CONTRIBUTING.md](CONTRIBUTING.md)).
+Следуйте [гайду от Space Wizards](https://docs.spacestation14.com/en/general-development/setup/setting-up-a-development-environment.html) по настройке рабочей среды, но учитывайте, что наши репозитории отличаются и некоторые вещи могут отличаться.
+Мы предлагаем несколько скриптов, показанных ниже, чтобы облегчить работу.
 
-## Building
+### Необходимые зависимости
 
-1. Clone this repo:
-```shell
-git clone https://github.com/project-wayfarer/wayfarer-14.git
-```
-2. Go to the project folder and run `RUN_THIS.py` to initialize the submodules and load the engine:
-```shell
-cd wayfarer-14
-python RUN_THIS.py
-```
-3. Compile the solution:
+> - Git
+> - .NET SDK 10.0.101
 
-Build the server using `dotnet build`.
+### Windows
 
-[More detailed instructions on building the project.](https://docs.spacestation14.com/en/general-development/setup.html)
+> 1. Склонируйте данный репозиторий
+> 2. Запустите `git submodule update --init --recursive` в командной строке, чтобы скачать движок игры
+> 3. Запускайте `Scripts/bat/buildAllDebug.bat` после любых изменений в коде проекта
+> 4. Запустите `Scripts/bat/runQuickAll.bat`, чтобы запустить клиент и сервер
+> 5. Подключитесь к локальному серверу и играйте
 
-## License
+### Linux
 
-Read [LEGAL.md](LEGAL.md) for legal information regarding code licensing, including a table of attributions for each namespace within the codebase.
+> 1. Склонируйте данный репозиторий.
+> 2. Запустите `git submodule update --init --recursive` в командной строке, чтобы скачать движок игры
+> 3. Запускайте `Scripts/sh/buildAllDebug.sh` после любых изменений в коде проекта
+> 4. Запустите `Scripts/sh/runQuickAll.sh`, чтобы запустить клиент и сервер
+> 5. Подключитесь к локальному серверу и играйте
 
-Most assets are licensed under CC-BY-SA 3.0 unless stated otherwise. Assets have their license and the copyright in the metadata file. Example.
+### MacOS
 
-Code taken from Emberfall was specifically relicensed under MIT terms with [permission from MilonPL](https://github.com/new-frontiers-14/frontier-station-14/pull/3607)
+> Предположительно, также, как и на Линуксе.
 
-[2fca06eaba205ae6fe3aceb8ae2a0594f0effee0](https://github.com/project-wayfarer/wayfarer-14/commit/2fca06eaba205ae6fe3aceb8ae2a0594f0effee0) was pushed on July 1, 2024 at 16:04 UTC
+## Лицензия
+Для получения подробной информации о лицензировании внимательно прочтите файл [LEGAL.md](LEGAL.md)
 
-Most assets are licensed under [CC-BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/) unless stated otherwise. Assets have their license and copyright specified in the metadata file. For example, see the [metadata for a crowbar](Resources/Textures/Objects/Tools/crowbar.rsi/meta.json).
 
-Note that some assets are licensed under the non-commercial [CC-BY-NC-SA 3.0](https://creativecommons.org/licenses/by-nc-sa/3.0/) or similar non-commercial licenses and will need to be removed if you wish to use this project commercially.

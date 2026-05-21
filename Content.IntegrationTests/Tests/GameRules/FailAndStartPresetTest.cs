@@ -74,7 +74,7 @@ public sealed class FailAndStartPresetTest
 
         Assert.That(server.CfgMan.GetCVar(CCVars.GridFill), Is.False);
         Assert.That(server.CfgMan.GetCVar(CCVars.GameLobbyFallbackEnabled), Is.True);
-        Assert.That(server.CfgMan.GetCVar(CCVars.GameLobbyDefaultPreset), Is.EqualTo("secret"));
+        Assert.That(server.CfgMan.GetCVar(CCVars.GameLobbyDefaultPreset), Is.EqualTo("nftest"));
         server.CfgMan.SetCVar(CCVars.GridFill, true);
         server.CfgMan.SetCVar(CCVars.GameLobbyFallbackEnabled, false);
         server.CfgMan.SetCVar(CCVars.GameLobbyDefaultPreset, "TestPreset");
@@ -85,7 +85,7 @@ public sealed class FailAndStartPresetTest
         Assert.That(ticker.PlayerGameStatuses[client.User!.Value], Is.EqualTo(PlayerGameStatus.NotReadyToPlay));
 
         // Try to start nukeops without readying up
-        await pair.WaitCommand("setgamepreset TestPresetTenPlayers 9999");
+        await pair.WaitCommand("setgamepreset TestPresetTenPlayers");
         await pair.WaitCommand("startround");
         await pair.RunTicksSync(10);
 

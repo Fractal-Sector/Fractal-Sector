@@ -17,7 +17,8 @@
 <!-- Подтвердите следующее, поставив X в скобках [X]: -->
 - [ ] Я прочитал(а) и следую [Рекомендациям по оформлению Pull Request и Changelog](https://docs.spacestation14.com/en/general-development/codebase-info/pull-request-guidelines.html).
 - [ ] Я добавил(а) медиафайлы к этому PR или он не требует демонстрации в игре.
-- [ ] Я подтверждаю, что мои изменения находятся под лицензией [Exodus CLA](https://github.com/SerbiaStrong-220/Monolith/blob/master/LICENSES/CLA.txt) и соглашаюсь с её условиями.
+- [ ] Я подтверждаю, что мои изменения находятся под лицензией [Orehum CLA](https://github.com/Orehum-Project/Orehum-Sector/blob/new/LICENSES/CLA.txt) и соглашаюсь с её условиями.
+- [ ] Я проверил(а), что мои изменения стабильно работают.
 <!-- Вы должны понимать, что несоблюдение вышеуказанного может привести к закрытию вашего PR по усмотрению сопровождающего -->
 
 ## Критические изменения

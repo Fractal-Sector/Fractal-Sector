@@ -1,0 +1,14 @@
+Entries:
+- author: IsNotAcceptable
+  changes:
+    - type: Add
+      message: Добавлено веселье!
+    - type: Remove
+      message: Удалено веселье!
+    - type: Tweak
+      message: Изменено веселье!
+    - type: Fix
+      message: Исправлено веселье!
+  id: 1
+  time: '2026-05-21T13:56:07.0000000+00:00'
+  url: https://github.com/Orehum-Project/Orehum-Sector/pull/2

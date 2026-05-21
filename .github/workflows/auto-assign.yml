@@ -21,7 +21,7 @@ jobs:
             const pr = context.payload.pull_request
             const author = pr.user.login
 
-            const reviewers = ['drraccoony']
+            const reviewers = ['IsNotAcceptable']
             const filteredReviewers = reviewers.filter(r => r !== author)
 
             await github.rest.issues.addAssignees({
