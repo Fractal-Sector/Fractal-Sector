@@ -5,7 +5,7 @@ on:
 
 jobs:
   labeler:
-    if: github.actor != 'PJBot' && github.actor != 'OrehumBot' # Orehum: FontierATC<OrehumBot
+    if: github.actor != 'PJBot' && github.actor != 'web-flow' # Orehum: FontierATC<web-flow
     permissions:
       contents: read
       pull-requests: write

@@ -24,7 +24,7 @@ jobs:
 
       - name: Setup Git
         run: |
-          git config --global user.name "${{ vars.CHANGELOG_USER || 'OrehumBot' }}"
+          git config --global user.name "${{ vars.CHANGELOG_USER || 'web-flow' }}"
           git config --global user.email "${{ vars.CHANGELOG_EMAIL || 'noreply@github.com' }}"
         shell: bash
 
