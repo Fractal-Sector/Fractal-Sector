@@ -40,7 +40,6 @@
     FacialHair: MobHumanoidAnyMarking
     UndergarmentTop: MobHumanoidAnyMarking
     UndergarmentBottom: MobHumanoidAnyMarking
-    Genital: MobHumanoidAnyMarking
     Chest: MobAurelianVoxTorso
     Eyes: MobAurelianVoxEyes
     LArm: MobAurelianVoxLArm

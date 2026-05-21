@@ -51,7 +51,6 @@
     Hair: MobHumanoidAnyMarking
     FacialHair: MobHumanoidAnyMarking
     Snout: MobHumanoidAnyMarking
-    Genital: MobHumanoidAnyMarking
     RArmExtension: MobHumanoidAnyMarking # Adds Wing Slot, this will look weird as fuck
     # End Wayfarer
 
@@ -108,9 +107,6 @@
       points: 32 # Wayfarer
       required: false
     # Wayfarer Start
-    Genital:
-      points: 32
-      required: false
     Overlay:
       points: 32
       required: false

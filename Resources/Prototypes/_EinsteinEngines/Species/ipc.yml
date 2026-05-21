@@ -50,7 +50,6 @@
     Snout: MobHumanoidAnyMarking
     UndergarmentTop: MobHumanoidAnyMarking
     UndergarmentBottom: MobHumanoidAnyMarking
-    Genital: MobHumanoidAnyMarking
     Eyes: MobHumanoidEyes
     RArmExtension: MobHumanoidAnyMarking # Adds Wing Slot
 
@@ -98,9 +97,6 @@
       points: 32 # WF
       required: false
     UndergarmentBottom:
-      points: 32 # WF
-      required: false
-    Genital:
       points: 32 # WF
       required: false
     Overlay:

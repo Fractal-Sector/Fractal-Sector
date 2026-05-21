@@ -26,7 +26,6 @@
     Snout: MobHumanoidAnyMarking
     UndergarmentTop: MobHumanoidAnyMarking
     UndergarmentBottom: MobHumanoidAnyMarking
-    Genital: MobHumanoidAnyMarking
     Chest: MobHumanTorso
     Eyes: MobHumanoidEyes
     HeadTop: MobHumanoidAnyMarking
@@ -82,9 +81,6 @@
       points: 32 # WF
       required: false
     UndergarmentBottom:
-      points: 32 # WF
-      required: false
-    Genital:
       points: 32 # WF
       required: false
     Overlay:

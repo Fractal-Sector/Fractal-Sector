@@ -16,8 +16,7 @@ public sealed partial class ModifyUndiesComponent : Component
     public List<HumanoidVisualLayers> BodyPartTargets =
     [
         HumanoidVisualLayers.UndergarmentTop,
-        HumanoidVisualLayers.UndergarmentBottom,
-        HumanoidVisualLayers.Genital
+        HumanoidVisualLayers.UndergarmentBottom
     ];
 }
 

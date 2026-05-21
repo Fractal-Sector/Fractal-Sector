@@ -36,32 +36,7 @@ namespace Content.Shared.Humanoid.Markings
             for (int i = 0; i < colorCount; i++)
                 colors.Add(Color.White);
             _markingColors = colors;
-            // Coyote Start
-            if (category == MarkingCategories.UndergarmentBottom || category == MarkingCategories.UndergarmentTop)
-            {
-                CanToggleVisible = true;
-                OtherCanToggleVisible = true;
-            }
-            else if (category == MarkingCategories.Genital)
-            {
-                ShowAtStart = false;
-                CanToggleVisible = true;
-                OtherCanToggleVisible = false;
-                PutOnVerb = "show";
-                PutOnVerb2p = "shows";
-                TakeOffVerb = "hide";
-                TakeOffVerb2p = "hides";
-            }
-            else
-            {
-                CanToggleVisible = false;
-                OtherCanToggleVisible = false;
-                PutOnVerb = "show";
-                PutOnVerb2p = "shows";
-                TakeOffVerb = "hide";
-                TakeOffVerb2p = "hides";
-            }
-            // Coyote End
+
         }
 
         public Marking(Marking other)

@@ -1,7 +1,5 @@
 using System.Linq;
 using Content.Server.Humanoid;
-using Content.Server.Consent;
-using Content.Shared.Consent;
 using Content.Shared.DoAfter;
 using Content.Shared.FloofStation;
 using Content.Shared.Humanoid;
@@ -32,9 +30,6 @@ public sealed class ModifyUndiesSystem : EntitySystem
     [Dependency] private readonly HumanoidAppearanceSystem _humanoid = default!;
     [Dependency] private readonly SharedDoAfterSystem _doAfterSystem = default!;
     [Dependency] private readonly EntityManager _entMan = default!;
-    [Dependency] private readonly ConsentSystem _consent = default!;
-
-    private static readonly ProtoId<ConsentTogglePrototype> GenitalMarkingsConsent = "GenitalMarkings";
 
     public static readonly VerbCategory UndiesCat =
         new("verb-categories-undies", "/Textures/Interface/VerbIcons/undies.png");
@@ -71,23 +66,7 @@ public sealed class ModifyUndiesSystem : EntitySystem
             // Skip if we don't have permission to modify this marking
             if (isMine && !marking.CanToggleVisible || !isMine && !marking.OtherCanToggleVisible)
                 continue;
-            // Skip genital markings based on consent
 
-            // Coyote: This can probably be removed now that users can control genital interactions through the marking interface.
-
-            if (mProt.BodyPart == HumanoidVisualLayers.Genital)
-            {
-                // If user and target are the same person, they can always interact with their own markings
-                if (args.User != args.Target)
-                {
-                    // For other players, only check the target's consent setting
-                    var hasTargetConsent = _consent.HasConsent(args.Target, GenitalMarkingsConsent);
-                    if (!hasTargetConsent)
-                    {
-                        continue;
-                    }
-                }
-            }
             //var localizedName = Loc.GetString($"marking-{mProt.ID}"); // Coyote: See below
             var localizedName = string.IsNullOrEmpty(marking.CustomName) ? Loc.GetString($"marking-{mProt.ID}") : marking.CustomName; // Coyote: Marking system improvements.
             var partSlot = mProt.BodyPart;
@@ -98,7 +77,6 @@ public sealed class ModifyUndiesSystem : EntitySystem
             {
                 HumanoidVisualLayers.UndergarmentTop => new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/bra.png")),
                 HumanoidVisualLayers.UndergarmentBottom => new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/underpants.png")),
-                HumanoidVisualLayers.Genital => new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/love.png")),
                 //_ => new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/undies.png")) // Coyote: See below
                 _ => mProt.Sprites.FirstOrDefault() ?? new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/undies.png")) // Coyote: Marking system improvements.
             };
@@ -126,7 +104,7 @@ public sealed class ModifyUndiesSystem : EntitySystem
                     var doAfterArgs = new DoAfterArgs(
                         EntityManager,
                         args.User,
-                        0.25f,
+                        2,
                         ev,
                         args.Target,
                         args.Target,

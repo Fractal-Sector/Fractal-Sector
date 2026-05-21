@@ -655,12 +655,6 @@ public abstract class SharedHumanoidAppearanceSystem : EntitySystem
         markingObject.Forced = forced;
         humanoid.MarkingSet.AddBack(prototype.MarkingCategory, markingObject);
 
-        // Automatically hide markings not set to be visible at start
-        if (!marking.ShowAtStart) // Coyote: prototype.MarkingCategory == MarkingCategories.Genital to !marking.ShowAtStart
-        {
-            humanoid.HiddenMarkings.Add(marking.MarkingId); // Coyote: marking to marking.markingId
-        }
-
         if (sync)
             Dirty(uid, humanoid);
     }
