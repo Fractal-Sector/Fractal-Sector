@@ -20,8 +20,7 @@
       - EncryptionKeyNfsd
       - EncryptionKeyTraffic
       - EncryptionKeyGreeting
-      - EncryptionKeyHorny # Wayfarer
-      - EncryptionKeyExtremeKink # Wayfarer
+
 
 - type: entity
   parent: TelecomServer

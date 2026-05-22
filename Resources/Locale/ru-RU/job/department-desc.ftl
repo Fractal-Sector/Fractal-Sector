@@ -1,7 +1,6 @@
 department-Cargo-description = Выполняйте запросы, зарабатывайте космокредиты и доставляйте экипажу полезные припасы.
 department-Civilian-description = Исследуйте космос, зарабатывайте и просто ищите приключения на свою шкуру.
 department-Command-description = Управляйте экипажем и обеспечивайте его эффективную работу.
-department-Engineering-description = Поддерживайте наличие электроэнергии и целостность станции.
 department-Medical-description = Поддерживайте здоровье экипажа.
 department-Security-description = Поддерживайте порядок на станции.
 department-Science-description = Изучайте артефакты и аномалии, обеспечивайте членов экипажа новыми продвинутыми устройствами.

@@ -1,0 +1,11 @@
+job-supervisors-sr = the Station Representative
+job-supervisors-bailiff = the Master at Arms
+job-supervisors-cadet = all higher ranking CGP personnel
+job-supervisors-freebooters-union = no one but yourself
+job-supervisors-nf-pirate = no one but yourself
+job-supervisors-nf-pirate-captain = no one but yourself
+job-supervisors-nfsd = Peacekeepers, the Master at Arms, and the Commodore
+job-supervisors-plant-manager = the Plant Manager
+job-supervisors-prisoner = all CGP personnel
+job-supervisors-sergeant = the Senior Peacekeeper
+job-supervisors-sheriff = the Commodore

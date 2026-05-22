@@ -1,7 +1,7 @@
-ent-JetpackNfsd = джетпак дсбф
+ent-JetpackNfsd = джетпак ГМК
     .suffix = Пустой
     .desc = { ent-JetpackSecurity.desc }
-ent-JetpackNfsdFilled = джетпак дсбф
+ent-JetpackNfsdFilled = джетпак ГМК
     .suffix = Заполненный
     .desc = { ent-JetpackNfsd.desc }
 

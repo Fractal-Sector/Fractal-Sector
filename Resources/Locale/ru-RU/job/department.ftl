@@ -1,9 +1,8 @@
 department-Cargo = Отдел снабжения
 department-Civilian = Исследователи
-department-Command = Командование
 department-Engineering = Инженерный отдел
 department-Medical = Медицинский отдел
-department-Security = Служба безопасности
+department-Security = Галактические миротворцы Конкордии
 department-Science = Научный отдел
 department-Specific = На определённых станциях
 department-CentralCommand = Управление Секторальным Флотом
