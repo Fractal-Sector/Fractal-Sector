@@ -1,38 +1,33 @@
 <Document>
-# Rule B4: Rules of Escalation
-following guidelines apply to both Outlaws, Wayfarers and CGP.
-Players should attempt their best to follow escalation within these guidelines, these rules are not intended to be followed as a step-by-step guide, but rather that you as a player should do your best to WARN then DO. We understand not all combat can perfectly follow this, but make an effort as a player to ensure both sides get a fair fight. While you have to give the other side a reasonable time to reply, if they ignore you, stonewall you or run away, you are allowed to escalate in return. Likewise, if the opposing side escalates to a certain level, you are allowed to respond in turn or at a step higher.
+  # B4: Правила эскалации конфликтов
 
-There are 3 important steps to escalation.
+  Данные правила распространяются на всех игроков, включая вольных бродяг, сотрудников корпораций и нарушителей. Игроки должны стремиться следовать принципу «Предупреди, затем действуй». Мы понимаем, что не каждый бой можно провести по строгой схеме, но вы обязаны приложить усилия, чтобы у обеих сторон был шанс на честный поединок. Вы должны дать оппоненту разумное время на ответ. Если вас игнорируют, уходят от диалога или убегают, вы имеете право повысить уровень эскалации. Точно так же, если противоположная сторона применяет силу, вы можете ответить тем же или на шаг сильнее.
 
-Hail/Radio/Greet the opposing side /// Example: "IFFless ship in the UIV, identify yourself"
-Inform verbally/brandish your intent to use either lethal or non-lethal force // Example: Someone broke into your ship, you show them your weapon and tell them to get out
-Use that force // Example: After warning them, the CGP didn't stop chasing you, load those cannonballs.
+  Три важных этапа эскалации
 
-DO:
--Give your opponent a chance to respond or opt out of the fight.
--Give an actionable demand. (Eg. "Drop your wallet.", "Get out of my ship.")
--Give some visual indicator if possible. (Eg. wielding the weapon, a "courtesy wiggle", rapid movement while in harm mode facing your opponent)
--understand not everyone carries less than lethal weapons, and therefore cannot always start with less than lethals.
--Make sure the force you use is proportional to the threat. Don't shoot someone just because they wronged you.
+  Первый этап — это установление контакта. Вы должны связаться по радио или поприветствовать противоположную сторону. Например, запросить у неизвестного корабля в вашем секторе идентификацию.
 
-DO NOT:
--Attack your opponent while they are typing."
--Don't attempt to use your opponent's talking attempts to get a jump on them.
+  Второй этап — устное предупреждение или демонстрация намерений применить силу. Например, если кто-то проник на ваш корабль, вы достаете оружие и требуете покинуть палубу.
 
+  Третий этап — непосредственное применение силы. Например, если после предупреждения преследование вашего корабля не прекратилось, вы открываете огонь из бортовых орудий.
 
-Special considerations
+  Что необходимо делать при конфликте
 
--LOOC communications
-Sometimes you are having a hard day, or you are about to go to sleep and can't exactly fight right now. Players are within their right to lighten an engagement by communicating with the opposing party in LOOC. The usage of this will be scrutinized, using it in bad faith will be dealt with, don't expect to shoot at a CGP ship and then ask in LOOC to be let go.
+  Всегда давайте оппоненту шанс ответить или выйти из боя. Ставьте четкие и выполнимые требования, например, бросить кошелек или покинуть корабль. По возможности используйте визуальные сигналы, такие как взятие оружия в руки или демонстративное переключение в боевой режим напротив оппонента.
 
--Typing players
-Under no circumstance you should be initiating combat while the other side is typing, make sure your opponent is ready for the fight before you begin it.
+  Мы понимаем, что не у всех персонажей есть с собой нелетальное оружие, поэтому не всегда возможно начать конфликт с резиновых пуль или тайзеров. Однако помните, что применяемая вами сила должна быть соразмерна угрозе. Запрещено расстреливать персонажа из боевого оружия только потому, что он вам нахамил.
 
--Cache/Vault
-The cache and vault zone are a PVP allowed zone. Lethal force is autorized for all parties to use within the NFZ, this does not mean you get to wordlessly shoot people, but a simple "leave or we shoot" is more than enough. By entering the NFZ you consent to the fact you, your ship and whatever you acquired this round will be damaged or lost. Being inside the vault/cache counts as being an active combatant, expect CGP to lethal you.``
+  Что категорически запрещено
 
--Combat separation and de-escalation
-Just because someone shot you a day ago, doesn't mean you can immediately shoot them the moment you see them. Escalation naturally cools down as the 2 affected parties separate and go their own ways.
-During the first 15 minutes after separating, parties may re engage at the same level of escalation as before. This means if someone shot a cannonball at you and you found them 10 minutes after, you are allowed to respond in kind
+  Запрещено нападать на оппонента, пока он пишет сообщение в чат. Над его головой в этот момент появляется визуальный индикатор. Никогда не используйте моменты, когда ваш противник пытается заговорить с вами, чтобы получить тактическое преимущество и напасть исподтишка.
+
+  Особые ситуации и исключения
+
+  Иногда у вас может быть тяжелый день в реальной жизни или вы собираетесь идти спать и физически не готовы к долгим боям. Игроки имеют право попросить снизить градус конфликта, написав об этом оппонентам в LOOC. Использование этой возможности будет строго проверяться администрацией на предмет добросовестности. Не стоит сначала обстреливать корпоративный шаттл, а потом просить в LOOC отпустить вас, потому что вам пора спать.
+
+  Ни при каких обстоятельствах нельзя начинать боевые действия, пока другая сторона набирает текст. Перед началом боя убедитесь, что ваш противник готов к сражению.
+
+  Зоны тайников и центрального хранилища являются территориями, где разрешено PvP. В этих нейтральных зонах всем сторонам разрешено использовать летальное оружие. Это не означает, что можно беззвучно расстреливать всех подряд, но простого предупреждения в духе «уходите или мы стреляем» будет более чем достаточно. Входя в такую опасную зону, вы автоматически соглашаетесь с тем, что ваш персонаж, корабль и все добытые за раунд ресурсы могут быть повреждены или безвозвратно потеряны. Нахождение внутри хранилища приравнивает вас к активному комбатанту.
+
+  Если кто-то стрелял в вас вчера, это не дает вам права мгновенно открыть огонь при встрече с ним сегодня. Конфликт естественным образом остывает, когда задействованные стороны расходятся в разные стороны. В течение первых 15 минут после разделения стороны могут повторно вступить в бой на том же уровне эскалации, который был до этого. Это означает, что если по вашему кораблю открыли огонь, а вы потеряли противника и снова нашли его через 10 минут, вы имеете полное право сразу ответить ему тем же.
 </Document>
