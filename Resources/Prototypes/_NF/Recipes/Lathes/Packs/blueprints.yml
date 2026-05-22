@@ -116,7 +116,6 @@
   # PortableFission
   - PortableGeneratorDKJrMachineCircuitboard
   # RapidConstruction
-  - ShipyardRPD # Wayfarer
   - ShipyardRCD
   - ShipyardRCDAmmo
   # ConstructionBags
@@ -139,6 +138,10 @@
   # PersonalPropulsion
   - JetpackBlue
   - JetpackCaptain
+  # Wayfarer
+  - ShipyardRPD
+  # Far Horizons
+  - RadiationBlockingProjector
 
 # region Medical
 - type: latheRecipePack
