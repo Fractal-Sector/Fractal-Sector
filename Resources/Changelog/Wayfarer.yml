@@ -3542,3 +3542,85 @@ Entries:
   id: 6900
   time: '2026-05-20T11:12:24.0000000+00:00'
   url: https://github.com/project-wayfarer/wayfarer-14/pull/930
+- author: Luweth
+  changes:
+    - type: Add
+      message: Added Aurelian meatbrain and tongues.
+    - type: Tweak
+      message: Adjusted Aurelian Density(mass/weight).
+  id: 6901
+  time: '2026-05-21T14:10:44.0000000+00:00'
+  url: https://github.com/project-wayfarer/wayfarer-14/pull/933
+- author: DevArchwave
+  changes:
+    - type: Tweak
+      message: Biomass buffers needed to be nerfed a little.
+  id: 6902
+  time: '2026-05-21T14:11:39.0000000+00:00'
+  url: https://github.com/project-wayfarer/wayfarer-14/pull/939
+- author: DevArchwave
+  changes:
+    - type: Add
+      message: Damage cap system. All races -should- have this by default.
+  id: 6903
+  time: '2026-05-21T16:59:28.0000000+00:00'
+  url: https://github.com/project-wayfarer/wayfarer-14/pull/929
+- author: stinkiestdog
+  changes:
+    - type: Tweak
+      message: Collars can now be engraved.
+  id: 6904
+  time: '2026-05-21T16:59:56.0000000+00:00'
+  url: https://github.com/project-wayfarer/wayfarer-14/pull/927
+- author: Whisper
+  changes:
+    - type: Add
+      message: All mobs should be carriable, but their weights will still apply.
+    - type: Tweak
+      message: Synthetics (IPCs) now weigh the same as humans (heavier).
+  id: 6905
+  time: '2026-05-21T22:05:05.0000000+00:00'
+  url: https://github.com/project-wayfarer/wayfarer-14/pull/932
+- author: VVersengt
+  changes:
+    - type: Fix
+      message: >-
+        Shelegs now properly spawn with hardsuits when selecting Wayfarer or
+        Emergency Responder roles
+  id: 6906
+  time: '2026-05-21T23:12:21.0000000+00:00'
+  url: https://github.com/project-wayfarer/wayfarer-14/pull/952
+- author: VVersengt
+  changes:
+    - type: Tweak
+      message: Solar Flares no longer disable Command, CGP and Medical radio channels.
+  id: 6907
+  time: '2026-05-22T02:05:14.0000000+00:00'
+  url: https://github.com/project-wayfarer/wayfarer-14/pull/941
+- author: VVersengt
+  changes:
+    - type: Fix
+      message: >-
+        Hristov, cannonballs and pirate cannons are now properly tagged as Black
+        Market
+    - type: Add
+      message: Spell scrolls are now marked as contraband for the purposes of turn-ins
+  id: 6908
+  time: '2026-05-22T02:11:55.0000000+00:00'
+  url: https://github.com/project-wayfarer/wayfarer-14/pull/951
+- author: Khaomi
+  changes:
+    - type: Tweak
+      message: Allow periods in character name
+  id: 6909
+  time: '2026-05-22T04:39:06.0000000+00:00'
+  url: https://github.com/project-wayfarer/wayfarer-14/pull/931
+- author: VVersengt
+  changes:
+    - type: Fix
+      message: >-
+        Fixed pre-filled security and cgp jetpacks having the incorrect tank
+        volumes.
+  id: 6910
+  time: '2026-05-22T04:41:02.0000000+00:00'
+  url: https://github.com/project-wayfarer/wayfarer-14/pull/940

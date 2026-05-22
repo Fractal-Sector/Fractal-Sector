@@ -4,6 +4,21 @@
   parent: [BaseMob, MobDamageable, MobCombat, MobAtmosExposed, MobFlammable]
   abstract: true
   components:
+# Wayfarer: This is needed due to the unique base
+    - type: Carriable
+      canPickup: false
+    - type: Fixtures
+      fixtures:
+        fix1:
+          shape:
+            !type:PhysShapeCircle
+            radius: 0.35
+          density: 185
+          mask:
+          - MobMask
+          layer:
+          - MobLayer
+# End Wayfarer
     - type: ContentEye
     - type: CameraRecoil
     - type: Reactive
@@ -294,7 +309,6 @@
       priority: 1
       lightningExplode: false
     - type: ComplexInteraction
-    - type: Carriable
     - type: Crawler
     - type: InteractionVerbs
       allowedVerbs:
