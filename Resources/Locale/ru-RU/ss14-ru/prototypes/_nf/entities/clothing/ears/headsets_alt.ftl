@@ -1,0 +1,16 @@
+ent-ClothingHeadsetAltMercenary = полноразмерная гарнитура наёмника
+    .desc = { ent-ClothingHeadsetAlt.desc }
+ent-ClothingHeadsetAltPilot = полноразмерная гарнитура пилота
+    .desc = { ent-ClothingHeadsetAlt.desc }
+ent-ClothingHeadsetAltNfsdGreen = полноразмерная гарнитура ГМК
+    .desc = { ent-ClothingHeadsetAlt.desc }
+ent-ClothingHeadsetAltNfsdBrown = полноразмерная гарнитура ГМК
+    .desc = { ent-ClothingHeadsetAlt.desc }
+ent-ClothingHeadsetAltNfsdCreamandBrown = полноразмерная гарнитура ГМК
+    .desc = { ent-ClothingHeadsetAlt.desc }
+ent-ClothingHeadsetAltNfsdBrownCentcom = полноразмерная гарнитура ГМК
+    .desc = { ent-ClothingHeadsetAlt.desc }
+ent-ClothingHeadsetAltNfsdGreenCentcom = полноразмерная гарнитура ГМК
+    .desc = { ent-ClothingHeadsetAlt.desc }
+ent-ClothingHeadsetAltNfsdCreamandBrownCentcom = полноразмерная гарнитура ГМК
+    .desc = { ent-ClothingHeadsetAlt.desc }
