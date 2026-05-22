@@ -22,7 +22,7 @@ For code taken under the MIT license, this means you must not remove the copy of
 
 Code created by Frontier contributors is found in _NF Namespaces.
 
-Upstream code from [Frontier Station](https://github.com/new-frontiers-14/frontier-station-14) was taken under [the AGPLv3 license](LICENSE-AGPLv3.txt).
+Upstream code from [Frontier Station](https://github.com/new-frontiers-14/frontier-station-14) was taken under [the AGPLv3 license](LICENSES/AGPL-3-or-later.txt).
 <!-- Any code not in a specific Namespace, excluding Nyanotrasen subdirectories, is sublicensed as MIT plus AGPLv3 from the Space Wizards Federation. TODO: Update wording ^-->
 
 Assets have distinct licenses in attributions.yml and meta.json files which must be followed individually.
@@ -33,6 +33,7 @@ The table below lists all Namespaces (along with the Nyanotrasen subdirectory) i
 
 | Subdirectory | Fork Name | Source Repository | Original License |
 |--------------|-----------|-------------------|------------------|
+| `_Orehum` | Orehum Project | https://github.com/Orehum-Project/Orehum-Sector | AGPL 3.0 |
 | `_WF` | Wayfarer | https://github.com/drraccoony/wayfarer-14 | AGPL 3.0 |
 | `_NF` | Frontier Station | https://github.com/new-frontiers-14/frontier-station-14 | AGPL 3.0 |
 | `_CD` | Cosmatic Drift | https://github.com/cosmatic-drift-14/cosmatic-drift | MIT |
