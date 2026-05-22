@@ -1,11 +1,10 @@
 <Document>
-# Rule D1: Safe Zones
+  # D1: Безопасные зоны
 
- - Dusk Station and 200 meters around Dusk, is a safe zone.  You are not to be engaging in any PvP, griefing or other antagonistic activity within this space.
- - Medical Dispatch and Edison are lite-safe zones, and you are not to be engaging in PvP or griefing.  Although you can conduct antagonistic activity in these locations.
- - The CGP Outpost is a safe zone, you cannot engage in PvP, griefing or outlaw activity, although outlaws can aHelp to request that this be lifted.  This will be confirmed with CGP so that both sides can prepare.
- - Perdition is a safe zone, you cannot engage in PvP, griefing or CGP activity, although CGP can aHelp to request that this be lifted. This will be confirmed with Outlaws so that both sides can prepare.
- - Characters fleeing to a safe zone are to be disengaged, unless they are CGP fleeing to Quanteey or an Outlaw fleeing to Perdition.  In which case you can pursue them and the safezone is briefly lifted for that scene.
- - Dangerous research on anomalies or artifacts are not to be done within Safe Zones or Lite-Safe Zones
-
+  - Станция спутников и пространство в радиусе 200 метров вокруг нее являются абсолютной безопасной зоной. В этом секторе категорически запрещено устраивать PvP, заниматься гриферством или проявлять любую иную враждебную активность.
+  - Медицинский диспетчерский пункт и станция Эдисон считаются облегченными безопасными зонами. Здесь запрещено устраивать перестрелки и заниматься гриферством, однако нарушителям разрешено проводить скрытные антагонистические действия, не связанные с прямым насилием.
+  - База ГМК является безопасной зоной, где запрещено PvP, гриферство и криминальная деятельность. Нарушители закона могут написать в aHelp с просьбой временно снять этот статус для проведения штурма. Администрация согласует это с силами безопасности, чтобы обе стороны успели подготовиться к штурму.
+  - Секретная база изгоев является безопасной зоной, где запрещено PvP, гриферство и любая активность сотрудников ГМК. Офицеры ГМК могут запросить через aHelp разрешение на проведение облавы. Администрация предупредит нарушителей, чтобы обе стороны были готовы к боевому столкновению.
+  - Если преследуемый вами персонаж успел добежать до безопасной зоны, вы обязаны прекратить преследование и выйти из боя. Исключением являются случаи, когда офицер пытается укрыться на своей базе или нарушитель бежит в убежище изгоев. В таких ситуациях вы имеете право продолжить погоню по горячим следам, и статус безопасной зоны временно снимается для этой конкретной боевой сцены.
+  - Категорически запрещено проводить опасные эксперименты с аномалиями, артефактами или нестабильными химическими веществами на территории безопасных и облегченных безопасных зон. Все подобные исследования должны проходить в глубоком космосе.
 </Document>
