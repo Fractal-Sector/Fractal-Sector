@@ -14,15 +14,15 @@ This means they remain at liberty to contribute their work anywhere they please.
 
 ## Code license
 
-The project as a whole is licensed under the terms of the [AGPLv3](LICENSE-AGPLv3.txt) and must be followed regardless of parent licenses.
+The project as a whole is licensed under the terms of the [AGPLv3](../LICENSES/AGPL-3.0-or-later.txt) and must be followed regardless of parent licenses.
 
-Where code from other authors is used, you must follow the terms of both the AGPLv3 and their license as given in the Attributions table below. Copyright information for all AGPLv3-licensed code is listed in [COPYRIGHT-AGPLv3.txt](COPYRIGHT-AGPLv3.txt).
+Where code from other authors is used, you must follow the terms of both the AGPLv3 and their license as given in the Attributions table below. Copyright information for all AGPLv3-licensed code is listed in [COPYRIGHT.txt](../LICENSES/COPYRIGHT.txt).
 
 For code taken under the MIT license, this means you must not remove the copy of the MIT license from any distribution.
 
 Code created by Frontier contributors is found in _NF Namespaces.
 
-Upstream code from [Frontier Station](https://github.com/new-frontiers-14/frontier-station-14) was taken under [the AGPLv3 license](LICENSES/AGPL-3-or-later.txt).
+Upstream code from [Frontier Station](https://github.com/new-frontiers-14/frontier-station-14) was taken under [the AGPLv3 license](../LICENSES/AGPL-3.0-or-later.txt).
 <!-- Any code not in a specific Namespace, excluding Nyanotrasen subdirectories, is sublicensed as MIT plus AGPLv3 from the Space Wizards Federation. TODO: Update wording ^-->
 
 Assets have distinct licenses in attributions.yml and meta.json files which must be followed individually.
