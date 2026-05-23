@@ -99,7 +99,7 @@ public sealed class FailAndStartPresetTest
         // Ready up and start nukeops
         await pair.WaitClientCommand("toggleready True");
         Assert.That(ticker.PlayerGameStatuses[client.User!.Value], Is.EqualTo(PlayerGameStatus.ReadyToPlay));
-        await pair.WaitCommand("setgamepreset TestPreset 9999");
+        await pair.WaitCommand("setgamepreset TestPreset");
         await pair.WaitCommand("startround");
         await pair.RunTicksSync(10);
 
@@ -113,7 +113,7 @@ public sealed class FailAndStartPresetTest
         ticker.SetGamePreset((GamePresetPrototype?) null);
         server.CfgMan.SetCVar(CCVars.GridFill, false);
         server.CfgMan.SetCVar(CCVars.GameLobbyFallbackEnabled, true);
-        server.CfgMan.SetCVar(CCVars.GameLobbyDefaultPreset, "secret");
+        server.CfgMan.SetCVar(CCVars.GameLobbyDefaultPreset, "nftest");
         server.System<TestRuleSystem>().Run = false;
         await pair.CleanReturnAsync();
     }
