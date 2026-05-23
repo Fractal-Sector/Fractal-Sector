@@ -1,6 +1,6 @@
 ent-AirlockSergeantGlassLocked = { ent-AirlockNfsdGlass }
     .desc = { ent-AirlockNfsdGlass.desc }
-    .suffix = ДСБФ, Лейтенант
+    .suffix = ГМК, Лейтенант
 ent-AirlockSergeantLocked = { ent-AirlockNfsd }
     .desc = { ent-AirlockNfsd.desc }
-    .suffix = ДСБФ, Лейтенант
+    .suffix = ГМК, Лейтенант

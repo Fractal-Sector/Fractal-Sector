@@ -54,46 +54,46 @@ ent-CentcomAgentSkirt = юбка агента УСФ
 ent-ClothingBackpackMessengerCentcom = мессенджер УСФ
 
 # NFSD
-ent-ClothingMaskGasNfsdAlt = тактический противогаз ДСБФ
-    .desc = Модифицированная версия стандартного противогаза ДСБФ, обеспечивающая повышенный комфорт при длительном ношении.
+ent-ClothingMaskGasNfsdAlt = тактический противогаз ГМК
+    .desc = Модифицированная версия стандартного противогаза ГМК, обеспечивающая повышенный комфорт при длительном ношении.
 
 ent-ClothingMaskGasNfsdCoroner = противогаз коронера
     .desc = Продвинутый медицинский противогаз, обеспечивающий владельцу полную защиту от нежелательных газов... Конечно, при наличии кислородного баллона.
 
-ent-ClothingMaskGasNfsdAdvanced = усиленный противогаз ДСБФ
+ent-ClothingMaskGasNfsdAdvanced = усиленный противогаз ГМК
     .desc = Версия противогаза, разработанная для опасных операций и экстремальных условий.
 
-ent-ClothingBeltNfsdEngineer = пояс специалиста ДСБФ
+ent-ClothingBeltNfsdEngineer = пояс специалиста ГМК
     .desc = Плотный тактический пояс с множеством креплений для инструментов и устройств технической поддержки.
 
 ent-ClothingBeltNfsdEngineerFilled = { ent-ClothingBeltNfsdEngineer }
     .desc = { ent-ClothingBeltNfsdEngineer.desc }
 
-ent-ClothingUniformJumpsuitNfsdForgeDec = униформа детектива ДСБФ
+ent-ClothingUniformJumpsuitNfsdForgeDec = униформа детектива ГМК
     .desc = Строгая, но функциональная униформа для сотрудников следственного отдела.
 
-ent-ClothingUniformJumpsuitNfsdForgeCoroner = униформа коронера ДСБФ
-    .desc = Лёгкая, но прочная униформа для медицинских специалистов ДСБФ. Идеальна для оказания помощи прямо на месте происшествия - даже под огнём.
+ent-ClothingUniformJumpsuitNfsdForgeCoroner = униформа коронера ГМК
+    .desc = Лёгкая, но прочная униформа для медицинских специалистов ГМК. Идеальна для оказания помощи прямо на месте происшествия - даже под огнём.
 
-ent-ClothingUniformJumpsuitNfsdForgeCoronerAlt = свитер коронера ДСБФ
-    .desc = Тёплый вязаный свитер с эмблемой ДСБФ. Предпочитаемая одежда тех, кто проводит слишком много времени среди холодных тел.
+ent-ClothingUniformJumpsuitNfsdForgeCoronerAlt = свитер коронера ГМК
+    .desc = Тёплый вязаный свитер с эмблемой ГМК. Предпочитаемая одежда тех, кто проводит слишком много времени среди холодных тел.
 
-ent-ClothingUniformJumpsuitNfsdSpecialist = униформа специалиста ДСБФ
+ent-ClothingUniformJumpsuitNfsdSpecialist = униформа специалиста ГМК
     .desc = Универсальная униформа для технических специалистов. Сочетает прочность, комфорт и профессиональный вид.
 
-ent-ClothingUniformJumpskirtNfsdForgeDec = униформа детектива ДСБФ
+ent-ClothingUniformJumpskirtNfsdForgeDec = униформа детектива ГМК
     .desc = Строгая, но функциональная униформа для сотрудников следственного отдела.
 
-ent-ClothingUniformJumpskirtNfsdForgeCoroner = униформа коронера ДСБФ
-    .desc = Лёгкая, но прочная униформа для медицинских специалистов ДСБФ. Идеальна для оказания помощи прямо на месте происшествия - даже под огнём.
+ent-ClothingUniformJumpskirtNfsdForgeCoroner = униформа коронера ГМК
+    .desc = Лёгкая, но прочная униформа для медицинских специалистов ГМК. Идеальна для оказания помощи прямо на месте происшествия - даже под огнём.
 
-ent-ClothingUniformJumpskirtNfsdForgeCoronerAlt = свитер коронера ДСБФ
-    .desc = Тёплый вязаный свитер с эмблемой ДСБФ. Предпочитаемая одежда тех, кто проводит слишком много времени среди холодных тел.
+ent-ClothingUniformJumpskirtNfsdForgeCoronerAlt = свитер коронера ГМК
+    .desc = Тёплый вязаный свитер с эмблемой ГМК. Предпочитаемая одежда тех, кто проводит слишком много времени среди холодных тел.
 
-ent-ClothingUniformJumpskirtNfsdSpecialist = униформа специалиста ДСБФ
+ent-ClothingUniformJumpskirtNfsdSpecialist = униформа специалиста ГМК
     .desc = Универсальная униформа для технических специалистов. Сочетает прочность, комфорт и профессиональный вид.
 
-ent-ClothingNeckNfsdBadgeEngineer = значок специалиста ДСБФ
+ent-ClothingNeckNfsdBadgeEngineer = значок специалиста ГМК
     .suffix = Серебро - Специалист
     .desc = { ent-ClothingNeckNfsdBadge.desc }
 
