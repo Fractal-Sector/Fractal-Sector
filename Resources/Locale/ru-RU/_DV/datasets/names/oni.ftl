@@ -1,0 +1,83 @@
+## Male, First
+# 陽
+names-oni-last-male-dataset-1 = Киёси
+# 明
+names-oni-last-male-dataset-2 = Сатоси
+# 光
+names-oni-last-male-dataset-3 = Теру
+names-oni-last-male-dataset-4 = Хироси
+# 天
+names-oni-last-male-dataset-5 = Такаси
+# 永一
+names-oni-last-male-dataset-6 = Eeichi
+# Эйчиро
+names-oni-last-male-dataset-7 = Эйчиро
+names-oni-last-male-dataset-8 = Кёсабуро
+names-oni-last-male-dataset-9 = Цутому
+names-oni-last-male-dataset-10 = Цуёси
+names-oni-last-male-dataset-11 = Кэнси
+names-oni-last-male-dataset-12 = Кэндзи
+names-oni-last-male-dataset-13 = Кэничи
+names-oni-last-male-dataset-14 = Сусуму
+names-oni-last-male-dataset-15 = Кёносукэ
+# Марс
+names-oni-last-male-dataset-16 = Суйсэй
+# Справочник
+names-oni-last-male-dataset-17 = Шутен
+
+## Женские имена, первое
+# 星
+names-oni-last-female-dataset-1 = Акари
+names-oni-last-female-dataset-2 = Кира
+names-oni-last-female-dataset-3 = Кирамеки
+# 陽
+names-oni-last-female-dataset-4 = Аки
+names-oni-last-female-dataset-5 = Акихо
+names-oni-last-female-dataset-6 = Акими
+# 明
+names-oni-last-female-dataset-7 = Акаси
+names-oni-last-female-dataset-8 = Сая
+# 月
+names-oni-last-female-dataset-9 = Апоро
+names-oni-last-female-dataset-10 = Аруте
+names-oni-last-female-dataset-11 = Мегуру
+# 天
+names-oni-last-female-dataset-12 = Тиара
+names-oni-last-female-dataset-13 = Суйсей
+# Вода
+names-oni-last-female-dataset-14 = Ио
+names-oni-last-female-dataset-15 = Аои
+names-oni-last-female-dataset-16 = Мизу
+# Эпические отсылки
+names-oni-last-female-dataset-17 = Шутен
+names-oni-last-female-dataset-18 = Суика
+
+# Местоположение
+names-oni-location-dataset-1 = Амибоси
+names-oni-location-dataset-2 = Амефурибоси
+names-oni-location-dataset-3 = Аобоси
+names-oni-location-dataset-4 = Аситаребоси
+names-oni-location-dataset-5 = Чирикобоси
+names-oni-location-dataset-6 = Чичирибоси
+names-oni-location-dataset-7 = Экиэбоси
+names-oni-location-dataset-8 = Инамибоси
+names-oni-location-dataset-9 = Хацуиноси
+names-oni-location-dataset-10 = Хикицубоси
+names-oni-location-dataset-11 = Хотохорибоси
+names-oni-location-dataset-12 = Карасукибоси
+names-oni-location-dataset-13 = Мибоси
+names-oni-location-dataset-14 = Намамебоси
+names-oni-location-dataset-15 = Накагобоси
+names-oni-location-dataset-16 = Нурибоси
+names-oni-location-dataset-17 = Соибоси
+names-oni-location-dataset-18 = Субоси
+names-oni-location-dataset-19 = Субарубоси
+names-oni-location-dataset-20 = Тамаонобоси
+names-oni-location-dataset-21 = Тасукибоси
+names-oni-location-dataset-22 = Татарабоси
+names-oni-location-dataset-23 = Томитебоси
+names-oni-location-dataset-24 = Томобоси
+names-oni-location-dataset-25 = Токакибоси
+names-oni-location-dataset-26 = Торокибоси
+names-oni-location-dataset-27 = Умиямебоси
+names-oni-location-dataset-28 = Урукибоси
