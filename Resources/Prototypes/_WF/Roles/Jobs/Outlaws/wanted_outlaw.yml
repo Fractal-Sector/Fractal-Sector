@@ -3,7 +3,7 @@
   name: job-name-nf-pirate-captain
   description: job-description-nf-pirate-captain
   playTimeTracker: JobPirateCaptain
-  whitelisted: true
+  whitelisted: false #Orehum: true<false
   startingGear: WantedOutlawStartingGear
   requirements:
   - !type:DepartmentTimeRequirement

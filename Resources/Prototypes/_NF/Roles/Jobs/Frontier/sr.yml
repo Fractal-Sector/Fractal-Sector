@@ -3,7 +3,7 @@
   name: job-name-sr
   description: job-description-sr
   playTimeTracker: JobHeadOfPersonnel
-  whitelisted: true
+  whitelisted: false #Orehum: true<false
   startingGear: SrGear
   alwaysUseSpawner: true
   icon: "JobIconHeadOfPersonnel"

@@ -6,7 +6,7 @@
   requirements:
     - !type:OverallPlaytimeRequirement
       time: 129600 # 36 hours
-  whitelisted: true
+  whitelisted: false #Orehum: true<false
   startingGear: NFPirateFirstMateGear
   alwaysUseSpawner: true
   hideConsoleVisibility: true
