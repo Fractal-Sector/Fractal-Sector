@@ -31,7 +31,7 @@
   minPlayers: 0
   stations:
     Edison:
-      stationProto: RecordsFrontierOutpost
+      stationProto: RecordsMarketFrontierOutpost # Wayfarer RecordsFrontierOutpost<RecordsMarketFrontierOutpost
       gridComponents:
       - type: VesselInfo # WF
         description: "Проблемы казались неразрешимыми. Но мы были инженерами, а инженеры могут сделать практически все, что угодно." # NASA engineer quote
