@@ -19,3 +19,28 @@ Entries:
   id: 2
   time: '2026-05-22T17:37:47.0000000+00:00'
   url: https://github.com/Orehum-Project/Orehum-Sector/pull/3
+- author: IsNotAcceptable
+  changes:
+    - type: Remove
+      message: >-
+        Устранена необходимость в вайтлисте для игры во многих ролях. Сохранено
+        общее требование к почасовой оплате.
+    - type: Add
+      message: Добавлен атмосферный корабль HES Arribane. Viva Atmosia!
+    - type: Add
+      message: Новая раса Ovinia (люди-овцы/бараны)
+    - type: Add
+      message: Ядерный реактор. Реакторы РБМК не взрываются. Вы заблуждаетесь.
+    - type: Add
+      message: Добавлена ​​структура для многоплиточных машин.
+    - type: Add
+      message: >-
+        Теперь можно создавать большие двигатели. Они обладают большей тягой и
+        могут перемещать больший вес, но не более высокую скорость.
+    - type: Tweak
+      message: Теперь гораздо больше рас могут выбирать любой цвет кожи.
+    - type: Fix
+      message: "Оружие, найденное в данжах, использует правильные тэги для обозначения контрабанды.\t\t\t\t"
+  id: 3
+  time: '2026-05-25T04:51:12.0000000+00:00'
+  url: https://github.com/Orehum-Project/Orehum-Sector/pull/6
