@@ -198,8 +198,9 @@
     - NFEngineeringStructureBoardsStatic
     - NFEngineeringMaterialsStatic
     - NFInflatablesStatic
-    - CSPlumbingStatic # CS - showers, sinks, drains
     - NFEngineeringArchetypeStatic
+    # Coyote Sector
+    - CSPlumbingStatic # Showers, sinks, drains
 
   - type: BlueprintReceiver
     whitelist:

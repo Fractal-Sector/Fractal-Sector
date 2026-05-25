@@ -7,7 +7,7 @@
     - !type:RoleTimeRequirement
       role: JobMedicalER
       time: 86400 # 24 hours (WF job roletime requirement)
-  whitelisted: true
+  whitelisted: false #Orehum: true<false
   startingGear: DocGear
   alwaysUseSpawner: true
   icon: "JobIconDoc"

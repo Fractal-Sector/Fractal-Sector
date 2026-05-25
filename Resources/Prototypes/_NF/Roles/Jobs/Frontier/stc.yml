@@ -5,7 +5,7 @@
   playTimeTracker: JobStc
   startingGear: StcGear
   alwaysUseSpawner: true
-  whitelisted: true
+  whitelisted: false #Orehum: true<false
   canBeAntag: false
   icon: "JobIconStc"
   supervisors: job-supervisors-sr
