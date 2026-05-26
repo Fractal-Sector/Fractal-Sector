@@ -17,7 +17,7 @@
         description: "С Рассвета начинается новый путь."
       components:
       - type: StationNameSetup
-        mapNameTemplate: 'Станция Рассвет' # Orehum: Dusk Station<Станция Рассвета
+        mapNameTemplate: 'Станция Рассвета' # Orehum: Dusk Station<Станция Рассвета
 #          nameGenerator:
 #            !type:NanotrasenNameGenerator
 #            prefixCreator: '14'
