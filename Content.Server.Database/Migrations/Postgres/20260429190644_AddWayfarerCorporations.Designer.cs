@@ -6,6 +6,7 @@ using System.Text.Json;
 using Content.Server.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using NpgsqlTypes;
@@ -15,9 +16,11 @@ using NpgsqlTypes;
 namespace Content.Server.Database.Migrations.Postgres
 {
     [DbContext(typeof(PostgresServerDbContext))]
-    partial class PostgresServerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260429190644_AddWayfarerCorporations")]
+    partial class AddWayfarerCorporations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1542,56 +1545,6 @@ namespace Content.Server.Database.Migrations.Postgres
                     b.ToTable("wayfarer_community_goals", (string)null);
                 });
 
-            modelBuilder.Entity("Content.Server.Database.WayfarerCommunityGoalContribution", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasColumnName("id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<long>("Amount")
-                        .HasColumnType("bigint")
-                        .HasColumnName("amount");
-
-                    b.Property<string>("CharacterName")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("character_name");
-
-                    b.Property<DateTime>("ContributedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("contributed_at");
-
-                    b.Property<string>("EntityPrototypeId")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("entity_prototype_id");
-
-                    b.Property<Guid>("PlayerUserId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("player_user_id");
-
-                    b.Property<int>("RequirementId")
-                        .HasColumnType("integer")
-                        .HasColumnName("requirement_id");
-
-                    b.Property<int>("RoundId")
-                        .HasColumnType("integer")
-                        .HasColumnName("round_id");
-
-                    b.HasKey("Id")
-                        .HasName("PK_wayfarer_community_goal_contributions");
-
-                    b.HasIndex("PlayerUserId");
-
-                    b.HasIndex("RequirementId")
-                        .HasDatabaseName("IX_wayfarer_community_goal_contributions_requirement_id");
-
-                    b.ToTable("wayfarer_community_goal_contributions", (string)null);
-                });
-
             modelBuilder.Entity("Content.Server.Database.WayfarerCommunityGoalRequirement", b =>
                 {
                     b.Property<int>("Id")
@@ -1931,10 +1884,6 @@ namespace Content.Server.Database.Migrations.Postgres
                         .HasColumnType("uuid")
                         .HasColumnName("owner_user_id");
 
-                    b.Property<int?>("ProfileId")
-                        .HasColumnType("integer")
-                        .HasColumnName("profile_id");
-
                     b.Property<DateTime>("PurchaseDate")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("purchase_date");
@@ -1946,9 +1895,6 @@ namespace Content.Server.Database.Migrations.Postgres
                         .IsUnique();
 
                     b.HasIndex("OwnerUserId");
-
-                    b.HasIndex("ProfileId")
-                        .HasDatabaseName("IX_wayfarer_safety_deposit_box_profile_id");
 
                     b.ToTable("wayfarer_safety_deposit_box", (string)null);
                 });
@@ -2572,18 +2518,6 @@ namespace Content.Server.Database.Migrations.Postgres
                     b.Navigation("Profile");
                 });
 
-            modelBuilder.Entity("Content.Server.Database.WayfarerCommunityGoalContribution", b =>
-                {
-                    b.HasOne("Content.Server.Database.WayfarerCommunityGoalRequirement", "Requirement")
-                        .WithMany("Contributions")
-                        .HasForeignKey("RequirementId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("FK_wayfarer_community_goal_contributions_wayfarer_community_go~");
-
-                    b.Navigation("Requirement");
-                });
-
             modelBuilder.Entity("Content.Server.Database.WayfarerCommunityGoalRequirement", b =>
                 {
                     b.HasOne("Content.Server.Database.WayfarerCommunityGoal", "Goal")
@@ -2618,17 +2552,6 @@ namespace Content.Server.Database.Migrations.Postgres
                         .HasConstraintName("FK_wayfarer_corporation_members_wayfarer_corporations_corporat~");
 
                     b.Navigation("Corporation");
-                });
-
-            modelBuilder.Entity("Content.Server.Database.WayfarerSafetyDepositBox", b =>
-                {
-                    b.HasOne("Content.Server.Database.Profile", "Profile")
-                        .WithMany()
-                        .HasForeignKey("ProfileId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .HasConstraintName("FK_wayfarer_safety_deposit_box_profile_profile_id");
-
-                    b.Navigation("Profile");
                 });
 
             modelBuilder.Entity("Content.Server.Database.WayfarerSafetyDepositBoxItem", b =>
@@ -2781,9 +2704,11 @@ namespace Content.Server.Database.Migrations.Postgres
                     b.Navigation("Requirements");
                 });
 
-            modelBuilder.Entity("Content.Server.Database.WayfarerCommunityGoalRequirement", b =>
+            modelBuilder.Entity("Content.Server.Database.WayfarerCorporation", b =>
                 {
-                    b.Navigation("Contributions");
+                    b.Navigation("Members");
+
+                    b.Navigation("PendingInvites");
                 });
 
             modelBuilder.Entity("Content.Server.Database.WayfarerSafetyDepositBox", b =>
