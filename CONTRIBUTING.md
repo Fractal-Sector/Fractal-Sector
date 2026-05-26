@@ -1,66 +1,65 @@
-# Contributing to Wayfarer Station
+# Contributing to Orehum Sector
 
-If you're considering contributing to Wayfarer, [Wizard's Den's PR guidelines](https://docs.spacestation14.com/en/general-development/codebase-info/pull-request-guidelines.html) are a good starting point for code quality and version tracking etiquette. Note that we do not have the same master/stable branch distinction.
+Если вы рассматриваете возможность внесения вклада в Orehum Sector, [руководство по запросам на слияние от Wizard's Den](https://docs.spacestation14.com/en/general-development/codebase-info/pull-request-guidelines.html) станет хорошей отправной точкой для обеспечения качества кода и соблюдения правил отслеживания версий. Обратите внимание, что у нас нет разделения на ветки master и stable.
 
-Importantly, do not make webedits. From the text above:
-> Do not use GitHub's web editor to create PRs. PRs submitted through the web editor may be closed without review.
+Важно: не вносите изменения в веб-страницу. Из текста выше:
+> Не используйте веб-редактор GitHub для создания запросов на слияние (PR). Запросы на слияние, отправленные через веб-редактор, могут быть закрыты без проверки.
 
-"Upstream" refers to the [new-frontiers-14/frontier-station-14](https://github.com/new-frontiers-14/frontier-station-14/) repository that this fork was created from.
+"Upstream" относится к репозиторию [new-frontiers-14/frontier-station-14](https://github.com/new-frontiers-14/frontier-station-14/), из которого был создан этот форк.
 
-# Wayfarer-specific content
+# Уникальный контент Orehum Sector
 
-In general, anything you create from scratch (vs. modifying something that exists from upstream) should go in a Wayfarer-specific subfolder, `_WF`.
+В целом, всё, что вы создаёте с нуля (в отличие от модификации уже существующего кода из исходного репозитория), следует размещать в подпапке, предназначенной для Orehum Sector, — `_Orehum`.
 
 Examples:
-- `Content.Server/_WF/Shipyard/Systems/ShipyardSystem.cs`
-- `Resources/Prototypes/_WF/Loadouts/role_loadouts.yml`
-- `Resources/Audio/_WF/Voice/Goblin/goblin-scream-03.ogg`
-- `Resources/Textures/_WF/Tips/clippy.rsi/left.png`
-- `Resources/Locale/en-US/_WF/devices/pda.ftl`
-- `Resources/ServerInfo/_WF/Guidebook/Medical/Doc.xml`
+- `Content.Server/_Orehum/Shipyard/Systems/ShipyardSystem.cs`
+- `Resources/Prototypes/_Orehum/Loadouts/role_loadouts.yml`
+- `Resources/Audio/_Orehum/Voice/Goblin/goblin-scream-03.ogg`
+- `Resources/Textures/_Orehum/Tips/clippy.rsi/left.png`
+- `Resources/Locale/ru-RU/_Orehum/devices/pda.ftl`
+- `Resources/ServerInfo/_Orehum/Guidebook/Medical/Doc.xml`
 
-# Changes to upstream files
+# Изменения в файлах апстрима
 
-If you make a change to an upstream C# or YAML file, **you must add comments on or around the changed lines**.
-The comments should clarify what changed, to make conflict resolution simpler when a file is changed upstream.
-If you make changes to values, to be consistent, leave a comment in the form `Wayfarer: OLD<NEW`.
+Если вы вносите изменения в существующий апстрим-файл C# или YAML, вы обязаны добавить комментарии над или рядом с измененными строками.
+Эти комментарии необходимы, чтобы упростить разрешение конфликтов (conflict resolution), когда этот же файл обновится в апстриме. При изменении числовых или строковых значений для единообразия оставляйте комментарий в формате ```Orehum: СТАРОЕ<НОВОЕ```.
 
-For YAML specifically, if you add a component or add a list of contiguous fields, use block comments, but if you make limited edits to a component's fields, comment the fields individually.
+В частности, в формате YAML, если вы добавляете компонент или список смежных полей, используйте блочные комментарии, но если вы вносите ограниченные изменения в поля компонента, комментируйте поля по отдельности.
 
-For C# files, if you are adding a lot of code, consider using a partial class when it makes sense.
+В файлах C#, если вы добавляете много кода, рассмотрите возможность использования частичного класса, когда это целесообразно.
 
-If cherry-picking upstream features, it is best to comment with the PR number that was cherry-picked.
+Если используются отдельные элементы из исходного кода, лучше указать в комментарии номер запроса на слияние, который был использован.
 
-As an aside, fluent (.ftl) files **do not support comments on the same line** as a locale value - leave a comment on the line above if modifying values.
+В качестве дополнительной информации, файлы fluent (.ftl) **не поддерживают комментарии на той же строке, что и значение локали** — оставляйте комментарий на строке выше, если изменяете значения.
 
-## Examples of comments in upstream or ported files
+## Примеры комментариев в измененных или перенесенных файлах
 
-A single line comment on a changed yml field:
+Однострочный комментарий к измененному полю в yml:
 ```yml
 - type: entity
   id: TorsoHarpy
   name: "harpy torso"
-  parent: [PartHarpy, BaseTorso] # Wayfarer: add BaseTorso
+  parent: [PartHarpy, BaseTorso] # Orehum: add BaseTorso
 ```
 
-A change to a value (note: `OLD<NEW`)
+Изменение конкретного значения (формат: `СТАРОЕ<НОВОЕ`)
 ```yml
   - type: Gun
-    fireRate: 4 # Wayfarer: 3<4
+    fireRate: 4 # Orehum: 3<4
     availableModes:
     - SemiAuto
 ```
 
-A cyborg module with an added moduleId field (inline blank comment), a commented out bucket (inline blank comment), and a DroppableBorgModule that we've added (begin/end block comment).
+Добавление и комментирование модулей киборга (строчный комментарий, закомментированное старое поле и выделенный блоком новый компонент):
 ```yml
   - type: ItemBorgModule
-    moduleId: Gardening # Wayfarer
+    moduleId: Gardening # Orehum
     items:
     - HydroponicsToolMiniHoe
     - HydroponicsToolSpade
     - HydroponicsToolClippers
-    # - Bucket # Wayfarer
-  # Wayfarer: droppable borg items
+    # - Bucket # Orehum
+  # Orehum: droppable borg items
   - type: DroppableBorgModule
     moduleId: Gardening
     items:
@@ -68,63 +67,62 @@ A cyborg module with an added moduleId field (inline blank comment), a commented
       whitelist:
         tags:
         - Bucket
-  # End Wayfarer
+  # End Orehum
 ```
 
-A comment on a new imported namespace:
+Комментарий к новому импортированному пространству имен в C#:
 ```cs
-using Content.Client._WF.Emp.Overlays; // Wayfarer
+using Content.Client._WF.Emp.Overlays; // Orehum
 ```
-
-A pair of comments enclosing a block of added code:
+Выделение добавленного блока кода в файле C#:
 ```cs
 component.Capacity = state.Capacity;
 
 component.UIUpdateNeeded = true;
 
-// Wayfarer: ensure signature colour is consistent
+// Orehum: ensure signature colour is consistent
 if (TryComp<StampComponent>(uid, out var stamp))
 {
     stamp.StampedColor = state.Color;
 }
-// End Wayfarer
+// End Orehum
 ```
 
-An edit to a Delta-V locale file, note the `OLD<NEW` format and the separate line for the comment.
+Правка файла локализации Fluent (комментарий строго на строке выше):
 ```fluent
-# Wayfarer: "Job Whitelists"<"Role Whitelists"
+# Orehum: "Job Whitelists"<"Role Whitelists"
 player-panel-job-whitelists = Role Whitelists
 ```
 
-# Mapping
+# Маппинг (Создание карт и шаттлов)
 
-For ship submissons, refer to the [Ship Submission Requirements](SHIP_SUBMISSION_REQUIREMENTS.md)
+При создании и отправке кораблей обязательно сверяйтесь с документом [SHIP_SUBMISSION_REQUIREMENTS.md](docs/SHIP_SUBMISSION_REQUIREMENTS.md)
 
-In general:
+Общие правила:
 
-Wayfarer uses specific prototypes for points of interest and ship maps (e.g. to store spawn information, station spawn data, or ship price and categories).  For ships, these are stored in the VesselPrototype (Resources/Prototypes/_WF/Shipyard) or PointOfInterestPrototype (Resources/Prototypes/_WF/PointsOfInterest).  If creating a new ship or POI, refer to existing prototypes.
+Orehum Sector использует специальные прототипы для POI и карт шаттлов (например, для хранения информации о появлении, данных о появлении станций или цен и категорий шаттл). Для шаттл эти данные хранятся в VesselPrototype (Resources/Prototypes/_Orehum/Shipyard) или PointOfInterestPrototype (Resources/Prototypes/_Orehum/PointsOfInterest). При создании нового шаттла или POI используйте существующие прототипы.
 
-If you are making changes to a map, check with the map's maintainer (or if none, its author), and avoid having multiple open features with changes to the same map.
+Если вы вносите изменения в карту, свяжитесь с её администратором (или, если его нет, с автором) и избегайте одновременного открытия нескольких объектов с изменениями на одной и той же карте.
 
-Conflicts with maps make PRs mutually exclusive so either your work on the maintainer's work will be lost, communicate to avoid this!
+Конфликты с картами делают запросы на слияние взаимоисключающими, поэтому либо ваша работа над проектом сопровождающего будет потеряна, поэтому общайтесь, чтобы этого избежать!
 
-# Before you submit
+# Перед отправкой пулл-реквеста
 
-Double-check your diff on GitHub before submitting: look for unintended commits or changes and remove accidental whitespace or line-ending changes.
+Внимательно проверьте свой diff на GitHub перед финальной отправкой: убедитесь, что туда не попали лишние коммиты, случайные пробелы или изменения кодировки строк.
 
-Additionally, for PRs that've been open for a long time, if you see `RobustToolbox` in the changed files, you have to revert it. Use `git checkout upstream/master RobustToolbox` (replacing `upstream` with the name of your new-Wayfarers-14/Wayfarer-station-14 remote)
+Если ваш PR долго висел открытым и в списке измененных файлов вы заметили `RobustToolbox`, этот движковый компонент необходимо откатить. Используйте команду: `git checkout upstream/master RobustToolbox` (заменив `upstream` на имя вашего удаленного репозитория Orehum Sector).
 
-# Changelogs
+# Ченжлоги
 
-Currently, all changelogs go to the Wayfarer changelog. The ADMIN: prefix does nothing at the moment.
+На данный момент все ченжлоги пишутся напрямую в общий список изменений Orehum. Префикс ADMIN: на текущий момент не имеет технического функционала и игнорируется.
 
-# Additional resources
+# Дополнительные ресурсы
 
-If you are new to contributing to SS14 in general, have a look at the [SS14 docs](https://docs.spacestation14.io/) or ask for help in `#dev-help` on [Discord](https://discord.gg/tpuAT7d3zm/)!
+Если вы новичок в разработке SS14, ознакомьтесь с [документацией SS14](https://docs.spacestation14.io/) или обратитесь за помощью в канале `#dev-help` на [Discord](https://discord.gg/tpuAT7d3zm/)!
 
-## AI-Generated Content
-You may use AI tools to assist with code, but any AI-generated code must be thoroughly tested and audited before submission. Submitting untested or unaudited AI-generated code is not allowed.
+## Контент, созданный с помощью ИИ
+Вы можете использовать инструменты искусственного интеллекта для помощи в написании кода, но любой сгенерированный ИИ код должен быть тщательно протестирован и проверен перед отправкой. Отправка непротестированного или непроверенного кода, сгенерированного ИИ, не допускается.
 
-AI-generated sprites and art are not allowed to be submitted to the repository.
+Загрузка спрайтов и графических изображений, созданных с помощью ИИ, в репозиторий запрещена.
 
-Trying to PR untested/unaudited AI-generated code or any AI-generated art may result in you being banned from contributing.
+Попытки отправить запрос на слияние (PR) непротестированного/неаудированного кода, сгенерированного ИИ, или любого изображения, созданного ИИ, могут привести к блокировке вашего права на участие в проекте.
