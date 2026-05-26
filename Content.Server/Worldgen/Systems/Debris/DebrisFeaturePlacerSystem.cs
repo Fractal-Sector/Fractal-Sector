@@ -59,7 +59,6 @@ public sealed class DebrisFeaturePlacerSystem : BaseWorldSystem
         SubscribeLocalEvent<DebrisFeaturePlacerControllerComponent, WorldChunkUnloadedEvent>(OnChunkUnloaded);
         SubscribeLocalEvent<OwnedDebrisComponent, ComponentShutdown>(OnDebrisShutdown);
         SubscribeLocalEvent<OwnedDebrisComponent, MoveEvent>(OnDebrisMove);
-        SubscribeLocalEvent<OwnedDebrisComponent, TryCancelGC>(OnTryCancelGC);
         SubscribeLocalEvent<SimpleDebrisSelectorComponent, TryGetPlaceableDebrisFeatureEvent>(
             OnTryGetPlacableDebrisEvent);
 
@@ -189,14 +188,6 @@ public sealed class DebrisFeaturePlacerSystem : BaseWorldSystem
     }
 
     /// <summary>
-    ///     Handles GC cancellation in case the chunk is still loaded.
-    /// </summary>
-    private void OnTryCancelGC(EntityUid uid, OwnedDebrisComponent component, ref TryCancelGC args)
-    {
-        args.Cancelled |= HasComp<LoadedChunkComponent>(component.OwningController);
-    }
-
-    /// <summary>
     ///     Handles debris moving, and making sure it stays parented to a chunk for loading purposes.
     /// </summary>
     private void OnDebrisMove(EntityUid uid, OwnedDebrisComponent component, ref MoveEvent args)
@@ -261,15 +252,7 @@ public sealed class DebrisFeaturePlacerSystem : BaseWorldSystem
     private void OnChunkUnloaded(EntityUid uid, DebrisFeaturePlacerControllerComponent component,
         ref WorldChunkUnloadedEvent args)
     {
-        foreach (var (vector, debris) in component.OwnedDebris)
-        {
-            if (debris is not null)
-            {
-                component.PendingDeSpawns.Enqueue((vector, debris.Value, args.Chunk));
-                // _gc.TryGCEntity(debris.Value); // gonb.
-            }
-        }
-        // component.DoSpawns = true;
+        component.DoSpawns = true;
     }
 
     /// <summary>

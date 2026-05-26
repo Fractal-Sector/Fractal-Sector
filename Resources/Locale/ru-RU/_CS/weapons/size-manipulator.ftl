@@ -9,8 +9,8 @@ size-manipulator-min-size = Цель уже достигла минимальн�
 size-manipulator-consent-denied = Цель не дает согласия на изменение размера!
 
 ## Проверка текста на наличие объектов с измененным размером
-size-manipulator-examine-bigger = {CAPITALIZE(SUBJECT($target))} {CONJUGATE-BASIC($target, «appear», «appears»)} выглядит в {$scale} раз больше.
-size-manipulator-examine-smaller = {CAPITALIZE(SUBJECT($target))} {CONJUGATE-BASIC($target, «appear», «appears»)} в {$scale} раз меньше.
+size-manipulator-examine-bigger = {CAPITALIZE(SUBJECT($target))} {CONJUGATE-BASIC($target, "appear", "appears")} выглядит в {$scale} раз больше.
+size-manipulator-examine-smaller = {CAPITALIZE(SUBJECT($target))} {CONJUGATE-BASIC($target, "appear", "appears")} в {$scale} раз меньше.
 
 ## Изучить текст
 ent-WeaponSizeManipulator = size manipulator
