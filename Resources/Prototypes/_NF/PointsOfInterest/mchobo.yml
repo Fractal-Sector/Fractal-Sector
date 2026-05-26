@@ -12,7 +12,7 @@
 - type: pointOfInterest
   id: McHobo
   parent: BasePOI
-  name: Derelict McCargo
+  name: "Заброшенный МакХобольдс"
   minimumDistance: 3250
   maximumDistance: 5600
   spawnGroup: Scrapyard
@@ -24,7 +24,7 @@
 
 - type: gameMap
   id: McHobo
-  mapName: "Derelict McCargo"
+  mapName: "Заброшенный МакХобольдс"
   mapPath: /Maps/_NF/POI/mchobo.yml
   minPlayers: 0
   stations:
@@ -32,8 +32,8 @@
       stationProto: DeadDropRecordsFrontierOutpost
       gridComponents:
       - type: VesselInfo # WF
-        description: "Home of the McGuffin. May we take your order?"
+        description: "Место, наполненное беззаконием и наркотиками."
       components:
         - type: StationNameSetup
-          mapNameTemplate: "Derelict McCargo"
+          mapNameTemplate: "Заброшенный МакХобольдс"
         - type: BindToStationVariationPassExemption

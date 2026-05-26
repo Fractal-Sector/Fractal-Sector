@@ -11,7 +11,7 @@
 - type: pointOfInterest
   id: Medical
   parent: BasePOI
-  name: 'Medical Dispatch'
+  name: 'Медицинский Центр'
   minimumDistance: 1650
   maximumDistance: 3400
   spawnGroup: Required
@@ -25,7 +25,7 @@
 
 - type: gameMap
   id: Medical
-  mapName: 'Medical Dispatch'
+  mapName: 'Медицинский Центр'
   mapPath: /Maps/_NF/POI/medical.yml
   minPlayers: 0
   stations:
@@ -33,10 +33,10 @@
       stationProto: RecordsFrontierOutpost
       gridComponents:
       - type: VesselInfo # WF
-        description: "Primum non nocere." # first, do no harm
+        description: "Не навреди." # first, do no harm
       components:
         - type: StationNameSetup
-          mapNameTemplate: 'Medical Dispatch'
+          mapNameTemplate: 'Медицинский Центр'
         - type: ExtraStationInformation
           icon: /Textures/_NF/Interface/StationIcons/medic.png
           stationSubtext: 'frontier-lobby-medical-subtext'

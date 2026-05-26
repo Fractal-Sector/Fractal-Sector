@@ -1,2 +1,2 @@
-﻿station-frontier-outpost = Frontier Outpost
-station-nsfd = CGP Outpost
+﻿station-frontier-outpost = Аванпост Рассвет
+station-nsfd = Аванпост ГМК
