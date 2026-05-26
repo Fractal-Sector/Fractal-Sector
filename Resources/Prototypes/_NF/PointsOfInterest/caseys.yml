@@ -11,7 +11,7 @@
 - type: pointOfInterest
   id: CaseysCasino
   parent: BasePOI
-  name: "Crazy Casey's Casino"
+  name: "Казино сумасшедшей Кейси"
   minimumDistance: 3250
   maximumDistance: 5600
   gridPath: /Maps/_NF/POI/caseyscasino.yml
@@ -22,7 +22,7 @@
 
 - type: gameMap
   id: CaseysCasino
-  mapName: "Crazy Casey's Casino"
+  mapName: "Казино сумасшедшей Кейси"
   mapPath: /Maps/_NF/POI/caseyscasino.yml
   minPlayers: 0
   stations:
@@ -30,7 +30,7 @@
       stationProto: DeadDropFrontierOutpost
       gridComponents:
       - type: VesselInfo # WF
-        description: "The only sure thing about luck is that it will change."
+        description: "Единственное, в чем можно быть уверенным в удаче, - это в том, что она изменится."
       components:
         - type: StationNameSetup
-          mapNameTemplate: "Crazy Casey's Casino"
+          mapNameTemplate: "Казино сумасшедшей Кейси"

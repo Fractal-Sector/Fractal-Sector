@@ -11,9 +11,9 @@
 - type: pointOfInterest
   id: Grifty
   parent: BasePOI
-  name: "Grifty's Gas n Grub"
-  minimumDistance: 3250
-  maximumDistance: 5600
+  name: "Заправка Грифти"
+  minimumDistance: 4850
+  maximumDistance: 6600
   spawnGroup: Scrapyard
   gridPath: /Maps/_NF/POI/grifty.yml
   addComponents:
@@ -26,7 +26,7 @@
 
 - type: gameMap
   id: Grifty
-  mapName: "Grifty's Gas n Grub"
+  mapName: "Заправка Грифти"
   mapPath: /Maps/_NF/POI/grifty.yml
   minPlayers: 0
   stations:
@@ -37,5 +37,5 @@
         description: "Life is not a tour of gas stations."
       components:
         - type: StationNameSetup
-          mapNameTemplate: "Grifty's Gas n Grub"
+          mapNameTemplate: "Заправка Грифти"
         - type: BindToStationVariationPassExemption

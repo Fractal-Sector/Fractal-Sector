@@ -11,7 +11,7 @@
 - type: pointOfInterest
   id: ThePit
   parent: BasePOI
-  name: "The Pit"
+  name: "Бойцовская Яма"
   minimumDistance: 2200
   maximumDistance: 4200
   spawnGroup: Arena
@@ -26,7 +26,7 @@
 
 - type: gameMap
   id: ThePit
-  mapName: "The Pit"
+  mapName: "Бойцовская Яма"
   mapPath: /Maps/_NF/POI/arena.yml
   minPlayers: 0
   stations:
@@ -34,7 +34,7 @@
       stationProto: DeadDropFrontierOutpost
       gridComponents:
       - type: VesselInfo # WF
-        description: "We fight not for freedom, nor for wealth, nor honor, but only and alone for glory." # 1320 Declaration of Arbroath but switched freedom and glory
+        description: "Мы сражаемся не за свободу, не за богатство, не за честь, а только за славу." # 1320 Declaration of Arbroath but switched freedom and glory
       components:
         - type: StationNameSetup
-          mapNameTemplate: "The Pit"
+          mapNameTemplate: "Бойцовская Яма"

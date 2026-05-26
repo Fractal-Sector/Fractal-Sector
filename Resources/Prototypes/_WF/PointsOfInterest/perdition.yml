@@ -5,7 +5,7 @@
 - type: pointOfInterest
   id: Perdition
   parent: BasePOI
-  name: Perdition
+  name: '$/Г[И%()БЕ~]Л:Ь'
   minimumDistance: 9000
   maximumDistance: 11000
   spawnGamePreset: [ NFPirate ]
@@ -20,7 +20,7 @@
 
 - type: gameMap
   id: Perdition
-  mapName: 'Perdition'
+  mapName: '$/Г[И%()БЕ~]Л:Ь'
   mapPath: /Maps/_WF/POI/perdition.yml
   minPlayers: 0
   stations:
@@ -28,12 +28,12 @@
       stationProto: RecordsFrontierOutpost
       gridComponents:
       - type: VesselInfo
-        description: "An abandoned mining outpost turned refuge for the exiled."
+        description: "Заброшенный шахтерский аванпост превратился в убежище для изгнанников."
       - type: VesselMusic
         ambientMusicPrototype: CamelotMusic
       components:
         - type: StationNameSetup
-          mapNameTemplate: 'Perdition'
+          mapNameTemplate: '$/Г[И%()БЕ~]Л:Ь'
         - type: ExtraStationInformation
           icon: /Textures/_NF/Interface/Pirate/piratelogo.png
           stationSubtext: 'frontier-lobby-pirate-subtext'

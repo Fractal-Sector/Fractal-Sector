@@ -11,7 +11,7 @@
 - type: pointOfInterest
   id: Lodge
   parent: BasePOI
-  name: 'Expeditionary Lodge'
+  name: 'Экспедиционный Корпус'
   minimumDistance: 1650
   maximumDistance: 3400
   spawnGroup: Required
@@ -25,7 +25,7 @@
 
 - type: gameMap
   id: Lodge
-  mapName: 'Expeditionary Lodge'
+  mapName: 'Экспедиционный Корпус'
   mapPath: /Maps/_NF/POI/lodge.yml
   minPlayers: 0
   stations:
@@ -33,10 +33,10 @@
       stationProto: RecordsFrontierOutpost
       gridComponents:
       - type: VesselInfo # WF
-        description: "Aut viam inveniam aut faciam." # I will either find a way or make one. (idk, I just googled 'mercenary latin phrases' :3)
+        description: "Либо найди способ, либо сделай это." # I will either find a way or make one. (idk, I just googled 'mercenary latin phrases' :3)
       components:
         - type: StationNameSetup
-          mapNameTemplate: 'Expeditionary Lodge'
+          mapNameTemplate: 'Экспедиционный Корпус'
         - type: ExtraStationInformation
           icon: /Textures/_NF/Interface/StationIcons/mercenary.png
           stationSubtext: 'frontier-lobby-exped-subtext'

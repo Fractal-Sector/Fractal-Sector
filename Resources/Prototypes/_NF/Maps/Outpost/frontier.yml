@@ -1,6 +1,6 @@
 - type: gameMap
   id: Frontier
-  mapName: 'Dusk' # WF
+  mapName: 'Рассвет' # Orehum: Dusk<Рассвет
   # mapPath: /Maps/_NF/Outpost/frontier.yml
   mapPath: /Maps/_WF/Outpost/dusk.yml # Wayfarer: change to _WF
   minPlayers: 0
@@ -14,10 +14,10 @@
       - type: VesselMusic
         ambientMusicPrototype: ColossusCentralMusic
       - type: VesselInfo # WF
-        description: "From the Dusk begins a new dawn."
+        description: "С Рассвета начинается новый путь."
       components:
       - type: StationNameSetup
-        mapNameTemplate: 'Dusk Station' # WF
+        mapNameTemplate: 'Станция Рассвета' # Orehum: Dusk Station<Станция Рассвета
 #          nameGenerator:
 #            !type:NanotrasenNameGenerator
 #            prefixCreator: '14'

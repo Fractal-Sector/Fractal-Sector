@@ -11,7 +11,7 @@
 - type: pointOfInterest
   id: Edison
   parent: BasePOI
-  name: 'Edison Power Plant'
+  name: 'Электростанция Эдисона'
   minimumDistance: 3650
   maximumDistance: 5400
   minimumClearance: 1000
@@ -26,7 +26,7 @@
 
 - type: gameMap
   id: Edison
-  mapName: 'Edison Power Plant'
+  mapName: 'Электростанция Эдисона'
   mapPath: /Maps/_NF/POI/edison.yml
   minPlayers: 0
   stations:
@@ -34,10 +34,10 @@
       stationProto: RecordsFrontierOutpost
       gridComponents:
       - type: VesselInfo # WF
-        description: "The problems seemed impossible. But we were engineers, and engineers can do damn near anything." # NASA engineer quote
+        description: "Проблемы казались неразрешимыми. Но мы были инженерами, а инженеры могут сделать практически все, что угодно." # NASA engineer quote
       components:
         - type: StationNameSetup
-          mapNameTemplate: 'Edison Power Plant'
+          mapNameTemplate: 'Электростанция Эдисона'
         - type: ExtraStationInformation
           icon: /Textures/_NF/Interface/StationIcons/banner_engineering.png
           stationSubtext: frontier-lobby-edison-subtext

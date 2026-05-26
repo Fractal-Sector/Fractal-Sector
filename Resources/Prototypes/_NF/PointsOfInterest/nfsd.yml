@@ -11,7 +11,7 @@
 - type: pointOfInterest
   id: Nfsd
   parent: BasePOI
-  name: 'CGP Outpost'
+  name: 'Аванпост ГМК'
   minimumDistance: 750
   maximumDistance: 1000
   spawnGroup: Required
@@ -25,7 +25,7 @@
 
 - type: gameMap
   id: Nfsd
-  mapName: 'CGP Outpost'
+  mapName: 'Аванпост ГМК'
   mapPath: /Maps/_NF/POI/nfsd.yml
   minPlayers: 0
   stations:
@@ -33,10 +33,10 @@
       stationProto: SecurityFrontierOutpost
       gridComponents:
       - type: VesselInfo # WF
-        description: "Facta non verba." # actions, not words - Kiara copied my latin thing from MD >:(
+        description: "Не зарабатывайте деньги." # actions, not words - Kiara copied my latin thing from MD >:(
       components:
         - type: StationNameSetup
-          mapNameTemplate: 'CGP Outpost'
+          mapNameTemplate: 'Аванпост ГМК'
         - type: ExtraStationInformation
           icon: /Textures/_NF/Interface/StationIcons/nfsd-banner.png
           stationSubtext: 'frontier-lobby-nfsd-subtext'
@@ -49,9 +49,9 @@
             SeniorOfficer: [ 1, 1 ]
             Brigmedic: [ 1, 2 ]
             NFDetective: [ 1, 1 ]
-            Deputy: [ 3, 3 ]
-            Cadet: [ 0, 0 ]
-            Prisoner: [ 0, 0 ]
+            Deputy: [ 2, 2 ]
+            Cadet: [ 3, 3 ]
+            Prisoner: [ 2, 2 ]
           tags:
           - HeadOfPersonnel
           - HeadOfSecurity

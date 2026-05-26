@@ -11,9 +11,9 @@
 - type: pointOfInterest
   id: LPBravo
   parent: BasePOI
-  name: 'Listening Point Bravo'
-  minimumDistance: 4000
-  maximumDistance: 6000
+  name: 'Прослушиваемый пункт Браво'
+  minimumDistance: 5000
+  maximumDistance: 7500
   spawnGroup: SyndicateFOB
   gridPath: /Maps/_NF/POI/lpbravo.yml
   hideWarp: true
@@ -29,7 +29,7 @@
 
 - type: gameMap
   id: LPBravo
-  mapName: 'Listening Point Bravo'
+  mapName: 'Прослушиваемый пункт Браво'
   mapPath: /Maps/_NF/POI/lpbravo.yml
   minPlayers: 0
   stations:
@@ -38,10 +38,10 @@
       stationProto: StandardFrontierOutpost
       gridComponents:
       - type: VesselInfo # WF
-        description: "There is no place they will not find you."
+        description: "Нет такого места, где бы они тебя не нашли."
       components:
         - type: StationNameSetup
-          mapNameTemplate: 'Listening Point Bravo'
+          mapNameTemplate: 'Прослушиваемый пункт Браво'
         - type: StationJobs
           availableJobs: {}
         - type: StationDeadDropHintExempt
