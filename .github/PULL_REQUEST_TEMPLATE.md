@@ -15,7 +15,7 @@
 
 ## Требования
 <!-- Подтвердите следующее, поставив X в скобках [X]: -->
-- [ ] Я прочитал(а) [CONTRIBUTING.md](CONTRIBUTING.md) и следую [Рекомендациям по оформлению Pull Request и Changelog](https://docs.spacestation14.com/en/general-development/codebase-info/pull-request-guidelines.html).
+- [ ] Я прочитал(а) [CONTRIBUTING.md](../CONTRIBUTING.md) и следую [Рекомендациям по оформлению Pull Request и Changelog](https://docs.spacestation14.com/en/general-development/codebase-info/pull-request-guidelines.html).
 - [ ] Я добавил(а) медиафайлы к этому PR или он не требует демонстрации в игре.
 - [ ] Я ознакомился(ась) с [Правила подачи заявок на суда](docs/SHIP_SUBMISSION_REQUIREMENTS.md), если это применимо.
 - [ ] Я подтверждаю, что мои изменения находятся под лицензией [Orehum CLA](https://github.com/Orehum-Project/Orehum-Sector/blob/new/LICENSES/CLA.txt) и соглашаюсь с её условиями.
