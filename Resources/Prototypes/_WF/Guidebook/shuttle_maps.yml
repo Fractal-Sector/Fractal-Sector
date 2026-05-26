@@ -272,3 +272,16 @@
   - type: Sprite
     sprite: _WF/Guidebook/shuttle_maps/128x96.rsi
     state: ratrod
+
+- type: entity
+  parent: PosterBase
+  id: ShuttleMapMoppet
+  name: "Moppet"
+  description: "Detailed map of a Moppet shuttle."
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _WF/Guidebook/shuttle_maps/128x96.rsi
+    state: moppet
+
+
