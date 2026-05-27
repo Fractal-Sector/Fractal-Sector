@@ -1,4 +1,5 @@
 humanoid-profile-editor-randomize-everything-button = Случайный персонаж
+humanoid-profile-editor-customspeciename-label = Пользовательское название расы:
 humanoid-profile-editor-name-label = Имя:
 humanoid-profile-editor-name-random-button = Сгенерировать
 humanoid-profile-editor-appearance-tab = Внешность
@@ -55,3 +56,7 @@ humanoid-profile-editor-trait-count-hint = Доступно очков: [{ $curr
 trait-category-disabilities = Ограничения
 trait-category-speech = Черты речи
 trait-category-quirks = Причуды
+humanoid-profile-editor-height-label = Высота:
+humanoid-profile-editor-height-value = {$cm} см
+humanoid-profile-editor-width-label = Ширина:
+humanoid-profile-editor-width-value = {$cm} см

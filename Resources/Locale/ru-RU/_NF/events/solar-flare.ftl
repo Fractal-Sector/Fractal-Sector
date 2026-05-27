@@ -1,2 +1,2 @@
-station-event-solar-flare-nf-start-announcement = Attention. A solar flare has been detected in the sector. Some communication channels may not function.
-station-event-solar-flare-nf-end-announcement = The solar flare has ended. Communication channels are no longer affected.
+station-event-solar-flare-nf-start-announcement = Внимание. В секторе зафиксирована солнечная вспышка. Некоторые каналы связи могут не функционировать.
+station-event-solar-flare-nf-end-announcement = Солнечная вспышка прекратилась. Работа каналов связи полностью восстановлена.

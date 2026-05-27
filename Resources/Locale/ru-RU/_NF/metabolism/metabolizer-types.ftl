@@ -1,2 +1,2 @@
-metabolizer-type-goblin = Goblin
+metabolizer-type-goblin = Гоблин
 metabolizer-type-sheleg = Sheleg

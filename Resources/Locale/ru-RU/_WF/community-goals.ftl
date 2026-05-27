@@ -1,0 +1,9 @@
+community-goal-console-title = Терминал общих целей
+community-goal-console-unknown-item = Этот предмет не удается идентифицировать.
+community-goal-console-not-needed = {$item} не требуется ни для одной активной общей цели.
+community-goal-console-staging-full = Зона подготовки заполнена! Сначала внесите вклад или заберите предметы.
+community-goal-console-item-staged = Подготовлено {$amount}x {$item} для внесения вклада.
+community-goal-console-committed = В общие цели отправлено предметов следующих типов: {$types}!
+community-goal-console-contributed-targeted = Внесено {$amount}x {$item} для выполнения требования!
+community-goal-console-contribute-req = Внести вклад
+community-goal-console-commit-failed = Что-то пошло не так при регистрации вашего вклада. Ваши предметы были возвращены.

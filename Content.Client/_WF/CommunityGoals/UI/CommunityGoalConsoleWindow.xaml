@@ -8,7 +8,7 @@
         <!-- ═══ Left column: Goals ═══ -->
         <BoxContainer Orientation="Vertical" VerticalExpand="True"
                       SetWidth="480" SeparationOverride="4" Margin="0 0 4 0">
-            <Label Text="Community Goals" FontColorOverride="#aaffaa"
+            <Label Text="Общественные цели" FontColorOverride="#aaffaa"
                    HorizontalAlignment="Center" Margin="6 6 6 2"/>
             <PanelContainer VerticalExpand="True">
                 <PanelContainer.PanelOverride>
@@ -31,7 +31,7 @@
         <!-- ═══ Right column: Staging ═══ -->
         <BoxContainer Orientation="Vertical" VerticalExpand="True" HorizontalExpand="True"
                       SizeFlagsStretchRatio="2" SeparationOverride="4" Margin="4 0 0 0">
-            <Label Text="Staging Area" FontColorOverride="#ddddaa"
+            <Label Text="Зона подготовки" FontColorOverride="#ddddaa"
                    HorizontalAlignment="Center" Margin="6 6 6 2"/>
             <PanelContainer VerticalExpand="True">
                 <PanelContainer.PanelOverride>
@@ -47,11 +47,11 @@
                     </ScrollContainer>
                 </BoxContainer>
             </PanelContainer>
-            <Label Name="StagingCount" Text="Nothing staged" FontColorOverride="#888888"
+            <Label Name="StagingCount" Text="Ничего не подготовлено" FontColorOverride="#888888"
                    HorizontalAlignment="Center" Margin="4 4 4 2"/>
-            <Button Name="CommitButton" Text="Contribute All"
+            <Button Name="CommitButton" Text="Внести всё"
                     HorizontalExpand="True" Disabled="True" Margin="6 0"/>
-            <Button Name="ClearButton" Text="Return Items"
+            <Button Name="ClearButton" Text="Вернуть предметы"
                     HorizontalExpand="True" Disabled="True" Margin="6 4"/>
         </BoxContainer>
 
