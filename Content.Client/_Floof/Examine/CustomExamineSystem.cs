@@ -21,11 +21,11 @@ public sealed class CustomExamineSystem : SharedCustomExamineSystem
     public override void Initialize()
     {
         base.Initialize();
-        SubscribeLocalEvent<GetVerbsEvent<Verb>>(OnGetVerbs);
         //SubscribeLocalEvent<ActivateInWorldEvent>(OnActivateInWorld, after: [typeof(StrippableSystem)]); # Wayfarer: There's already a right click menu. This isn't needed.
         SubscribeLocalEvent<CustomExamineComponent, AfterAutoHandleStateEvent>(OnStateUpdate);
     }
 
+    /* Orehum: remove ChangeExamine
     private void OnGetVerbs(GetVerbsEvent<Verb> args)
     {
         if (_player.LocalSession is null || !CanChangeExamine(_player.LocalSession, args.Target))
@@ -41,7 +41,6 @@ public sealed class CustomExamineSystem : SharedCustomExamineSystem
             DoContactInteraction = false
         });
     }
-    /* // Wayfarer: Redundant. Removed.
     private void OnActivateInWorld(ActivateInWorldEvent ev)
     {
         // This one works only if user == target, because otherwise it would conflict with stripping ui
