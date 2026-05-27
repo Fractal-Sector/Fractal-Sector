@@ -21,26 +21,25 @@ public sealed class CustomExamineSystem : SharedCustomExamineSystem
     public override void Initialize()
     {
         base.Initialize();
-        SubscribeLocalEvent<GetVerbsEvent<Verb>>(OnGetVerbs);
         //SubscribeLocalEvent<ActivateInWorldEvent>(OnActivateInWorld, after: [typeof(StrippableSystem)]); # Wayfarer: There's already a right click menu. This isn't needed.
         SubscribeLocalEvent<CustomExamineComponent, AfterAutoHandleStateEvent>(OnStateUpdate);
     }
 
-    private void OnGetVerbs(GetVerbsEvent<Verb> args)
-    {
-        if (_player.LocalSession is null || !CanChangeExamine(_player.LocalSession, args.Target))
-            return;
-
-        var target = args.Target;
-        args.Verbs.Add(new Verb
-        {
-            Act = () => OpenUi(target),
-            Text = Loc.GetString("custom-examine-verb"),
-            Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/pencil.png")),
-            ClientExclusive = true,
-            DoContactInteraction = false
-        });
-    }
+    // private void OnGetVerbs(GetVerbsEvent<Verb> args)
+    // {
+    //     if (_player.LocalSession is null || !CanChangeExamine(_player.LocalSession, args.Target))
+    //         return;
+    //
+    //     var target = args.Target;
+    //     args.Verbs.Add(new Verb
+    //     {
+    //         Act = () => OpenUi(target),
+    //         Text = Loc.GetString("custom-examine-verb"),
+    //         Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/pencil.png")),
+    //         ClientExclusive = true,
+    //         DoContactInteraction = false
+    //     });
+    // }
     /* // Wayfarer: Redundant. Removed.
     private void OnActivateInWorld(ActivateInWorldEvent ev)
     {
