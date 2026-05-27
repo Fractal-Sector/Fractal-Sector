@@ -1,1 +1,1 @@
-bluespace-syndicate-crate-event-announcement = We have received reports of crates containing syndicate items arriving through bluespace. Please notify the CGP immediately if finding such a crate.
+bluespace-syndicate-crate-event-announcement = Поступили сообщения о ящиках с предметами Синдиката, прибывающих через блюспейс. Пожалуйста, немедленно сообщите ГМК в случае обнаружения такого ящика.

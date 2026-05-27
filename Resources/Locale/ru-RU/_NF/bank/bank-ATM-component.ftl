@@ -1,40 +1,40 @@
 ## UI
-bank-atm-menu-title = NT Galactic Bank
-bank-atm-menu-balance-label = Balance:{" "}
-bank-atm-menu-no-bank = No Bank Account!
-bank-atm-menu-withdraw-button = Withdraw
-bank-atm-menu-deposit-label = Deposit:{" "}
-bank-atm-menu-amount-label = Withdraw:{" "}
-bank-atm-menu-no-deposit = Empty
-bank-atm-menu-deposit-button = Deposit
-bank-atm-reason-label = For:{" "}
-bank-atm-description-label = Description:{" "}
+bank-atm-menu-title = Галактический банк Штерн
+bank-atm-menu-balance-label = Баланс:{" "}
+bank-atm-menu-no-bank = Нет банковского счёта!
+bank-atm-menu-withdraw-button = Снять
+bank-atm-menu-deposit-label = Депозит:{" "}
+bank-atm-menu-amount-label = Снять:{" "}
+bank-atm-menu-no-deposit = Пусто
+bank-atm-menu-deposit-button = Внести
+bank-atm-reason-label = Назначение:{" "}
+bank-atm-description-label = Описание:{" "}
 
-vending-machine-menu-cash-slot-label = Cash Slot:{" "}
+vending-machine-menu-cash-slot-label = Слот для наличных:{" "}
 
-bank-insufficient-funds = Insufficient Funds
-bank-atm-menu-transaction-denied = Transaction Denied
-bank-atm-menu-deposit-successful = Deposit Accepted
-bank-atm-menu-withdraw-successful = Transfer Approved
-bank-atm-menu-wrong-cash = Wrong Currency Type
-station-bank-atm-menu-title = Station Administration
+bank-insufficient-funds = Недостаточно средств
+bank-atm-menu-transaction-denied = Транзакция отклонена
+bank-atm-menu-deposit-successful = Депозит принят
+bank-atm-menu-withdraw-successful = Перевод одобрен
+bank-atm-menu-wrong-cash = Неверный тип валюты
+station-bank-atm-menu-title = Администрация станции
 # Withdrawal reasons
-station-bank-payroll = Payroll
-station-bank-work-order = Work Order
-station-bank-supplies = Station Supplies
-station-bank-bounty = Bounty
+station-bank-payroll = Выплата зарплаты
+station-bank-work-order = Наряд-заказ
+station-bank-supplies = Снабжение станции
+station-bank-bounty = Награда
 # Deposit reasons
-station-bank-fines = Fines
-station-bank-donation = Donation
-station-bank-assets-sold = Assets Sold
+station-bank-fines = Штрафы
+station-bank-donation = Пожертвование
+station-bank-assets-sold = Продажа активов
 # Misc reasons (withdrawal and deposit)
-station-bank-required = (Required)
-station-bank-other = Other
+station-bank-required = (Обязательно)
+station-bank-other = Другое
 
-station-bank-requires-reason = NT Requires transaction details
-station-bank-unauthorized = Unauthorized!
-bank-atm-menu-cash-error = ERR: INVALID
+station-bank-requires-reason = Штерн требует указать детали транзакции
+station-bank-unauthorized = Отказано в доступе!
+bank-atm-menu-cash-error = ОШИБКА: НЕВЕРНО
 
 ## ATM entity
-bank-ATM-cashSlot = Cash Slot
-station-bank-ATM-cashSlot = Cash Slot
+bank-ATM-cashSlot = Слот для наличных
+station-bank-ATM-cashSlot = Слот для наличных

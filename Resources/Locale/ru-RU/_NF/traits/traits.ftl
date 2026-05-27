@@ -1,41 +1,41 @@
-trait-stinky-name = Stinky
-trait-stinky-desc = You smell bad, like a dying corpse.
+trait-stinky-name = Вонючий
+trait-stinky-desc = Вы отвратительно пахнете, словно разлагающийся труп.
 
-trait-stinky-examined = [color=lightblue]{CAPITALIZE(SUBJECT($target))} smells foul.[/color]
+trait-stinky-examined = [color=lightblue]{CAPITALIZE(SUBJECT($target))} отвратительно пахнет.[/color]
 
-trait-stinky-in-range-others = {$target} smells foul!
-trait-stinky-in-range-self = Something smells foul!
+trait-stinky-in-range-others = От {$target} воняет!
+trait-stinky-in-range-self = Чем-то отвратительно воняет!
 
-trait-goblin-accent-name = Goblin cant
-trait-goblin-accent-desc = You speak in a secret language many find annoying and not that secretive.
+trait-goblin-accent-name = Косяк гоблина
+trait-goblin-accent-desc = Вы говорите на тайном языке, который многих раздражает, и не такой уж скрытный.
 
-trait-scandinavian-name = Scandinavian accent
-trait-scandinavian-desc = You have to assemble the sentence yourself.
+trait-scandinavian-name = Скандинавский акцент
+trait-scandinavian-desc = Вам приходится собирать предложения самостоятельно.
 
-trait-pious-name = Pious
-trait-pious-desc = You are in touch with the gods, but your vows keep you from striking in anger.
+trait-pious-name = Набожный
+trait-pious-desc = Вы находитесь в гармонии с богами, но ваши обеты не позволяют вам наносить удары в гневе.
 
-trait-streetpunk-accent-name = Streetpunk accent
-trait-streetpunk-accent-desc = Ya were born in a sprawlin' megacity an' never went to school. An' it shows, choom.
+trait-streetpunk-accent-name = Уличный акцент
+trait-streetpunk-accent-desc = Ты родился в огромном мегаполисе и никогда не ходил в школу. И это заметно, чум.
 
-trait-unclonable-name = Unclonable
-trait-unclonable-desc = Whether due to an administrative oversight or abnormal genetics, your genes aren't sequenced by NT, and you cannot be cloned.
+trait-unclonable-name = Неклонируемый
+trait-unclonable-desc = Будь то из-за административной ошибки или аномальной генетики, ваши гены не внесены в базу данных NT, и вас невозможно клонировать.
 
-trait-lizard-accent-name = Reptilian accent
-trait-lizard-accent-desc = Be it through continual ekssposssure or otherwissse, you sssound like a reptile.
+trait-lizard-accent-name = Рептилий акцент
+trait-lizard-accent-desc = Будь то из-зза поссстоянного влияния или чего-то еще, вы зззвучите как рептилия.
 
-trait-moth-accent-name = Moth accent
-trait-moth-accent-desc = Some of your words have a certain buzzz to them.
+trait-moth-accent-name = Мотыльковый акцент
+trait-moth-accent-desc = Некоторые ваши слова имеют характерное жжжужжание.
 
-trait-dwarf-accent-name = Dwarven accent
-trait-dwarf-accent-desc = Ye sound like ye've spent tae long wi ae pickaxe in your hands. Rock and stone!
+trait-dwarf-accent-name = Дворфийский акцент
+trait-dwarf-accent-desc = Ты звучишь так, будто слишк'м долго пробыл с киркой в руках. Скала и камень!
 
-trait-russian-accent-name = Russian Accent
-trait-russian-accent-desc = Usнаика иот iисludеd.
+trait-russian-accent-name = Русский акцент
+trait-russian-accent-desc = Ушанка в комплект не входит.
 
-trait-fluffy-name = Fluffy (Moth only)
-trait-fluffy-desc = You look more fluffy than other moths.
+trait-fluffy-name = Пушистый (Только для мотыльков)
+trait-fluffy-desc = Вы выглядите гораздо пушистее, чем другие мотыльки.
 
 # These traits are bound to be replaced with a slider, but they live here for now.
-trait-tall-name = Tall
-trait-short-name = Short
+trait-tall-name = Высокий
+trait-short-name = Низкий

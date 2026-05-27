@@ -1,46 +1,45 @@
+station-event-bluespace-dungeon-start-announcement = Обнаружены сигнатуры приближающегося крупного объекта. Соблюдайте осторожность при исследовании, Руководящий орган Конкордии не несёт ответственности за причинённый ущерб или гибель персонала.
+station-event-bluespace-dungeon-warning-announcement = На инородном объекте обнаружена блюспейс-нестабильность, до предполагаемого убытия осталось пять минут.
+station-event-bluespace-dungeon-end-announcement = Обнаружена критическая блюспейс-нестабильность, инородный объект покинул сектор.
 
-station-event-bluespace-dungeon-start-announcement = Signatures of a large inbound object have been detected. Investigate with caution, Concordia's Governing Body is not liable for damages sustained or loss of life.
-station-event-bluespace-dungeon-warning-announcement = Bluespace instability detected on foreign object, five minutes until estimated departure.
-station-event-bluespace-dungeon-end-announcement = Critical bluespace instability detected, the foreign object has exited the sector.
+station-event-bluespace-scrap-start-announcement = В блюспейс-коридорах обнаружены штормы, в ближайшее время ожидается прибытие обломков. Повреждённые корабли являются законными целями для утилизации.
+station-event-bluespace-scrap-warning-announcement = На обломках обнаружена блюспейс-нестабильность, до ожидаемого убытия осталось пять минут.
+station-event-bluespace-scrap-end-announcement = Обнаружена критическая блюспейс-нестабильность, обломки шторма покинули сектор.
 
-station-event-bluespace-scrap-start-announcement = Storms detected in bluespace lanes, expect inbound wreckage shortly. Wrecked ships are valid salvage targets.
-station-event-bluespace-scrap-warning-announcement = Bluespace instability detected on wreckage, five minutes until expected departure.
-station-event-bluespace-scrap-end-announcement = Critical bluespace instability detected, storm wreckage has exited the sector.
+station-event-bluespace-vault-start-announcement = В сектор направляется правительственное бронированное хранилище. В радиусе 200 метров вокруг него установлена бесполётная зона. ГМК уполномочены применять оружие на поражение против нарушителей. Счета станции будут вознаграждены за его безопасный возврат.
+station-event-bluespace-vault-warning-announcement = Инициализированы процедуры удалённого FTL-перемещения, до эвакуации хранилища осталось пять минут.
+station-event-bluespace-vault-end-announcement = Мы забрали хранилище из вашего сектора. Средства переведены на счета станции.
 
-station-event-bluespace-vault-start-announcement = A Governmental armored vault is inbound to the sector. There is a No Fly Zone for 200 meters around it. CGP is authorized to use lethal force on trespassers. Station accounts will be rewarded for its safe return.
-station-event-bluespace-vault-warning-announcement = Remote FTL procedures initialized, five minutes until vault extraction.
-station-event-bluespace-vault-end-announcement = We have retrieved the vault from your sector. Station accounts have been paid.
+station-event-bluespace-cache-start-announcement = В сектор направляется оружейный тайник Мили-тех. В радиусе 200 метров вокруг него установлена бесполётная зона. ГМК уполномочены применять оружие на поражение против нарушителей. Счета станции будут вознаграждены за охрану тайника.
+station-event-bluespace-cache-warning-announcement = Инициализированы процедуры удалённого FTL-перемещения, до эвакуации оружейного тайника осталось пять минут.
+station-event-bluespace-cache-end-announcement = Мы забрали оружейный тайник Мили-тех из вашего сектора. Средства переведены на счета станции.
 
-station-event-bluespace-cache-start-announcement = A Mili-tech weapons cache is inbound to the sector. There is a No Fly Zone for 200 meters around it. CGP is authorized to use lethal force on trespassers. Station accounts will be rewarded for guarding the cache.
-station-event-bluespace-cache-warning-announcement = Remote FTL procedures initialized, five minutes until weapons cache extraction.
-station-event-bluespace-cache-end-announcement = We have retrieved the Mili-tech weapons cache from your sector. Station accounts have been paid.
+station-event-bluespace-asteroid-start-announcement = Сканирование дальнего действия указывает на вход необычно крупного астероида в сектор. Правительство Конкордии советует старателям скорректировать свои операции для достижения максимальной выгоды.
+station-event-bluespace-asteroid-warning-announcement = На астероиде обнаружена блюспейс-нестабильность, до предполагаемого убытия осталось пять минут.
+station-event-bluespace-asteroid-end-announcement = Обнаружена критическая блюспейс-нестабильность, астероид покинул сектор.
 
-station-event-bluespace-asteroid-start-announcement = Long range scans indicate an unusually large asteroid entering the sector. Concordia Government advises prospectors to divert operations for maximum profit potential.
-station-event-bluespace-asteroid-warning-announcement = Bluespace instability detected on asteroid, five minutes until estimated departure.
-station-event-bluespace-asteroid-end-announcement = Critical bluespace instability detected, the asteroid has exited the sector.
+station-event-bluespace-ship-start-announcement = Мы обнаружили необычную FTL-сигнатуру — сканирование дальнего действия указывает на неизвестный корабль. Правительство Конкордии не может гарантировать безопасность старателей в его окрестностях, примите к сведению.
+station-event-bluespace-ship-warning-announcement = Инициализированы процедуры удалённого FTL-перемещения, до рассеивания корабля осталось пять минут.
+station-event-bluespace-ship-end-announcement = В соответствии со схемами движения FTL-трафика Правительства Конкордии, неизвестный корабль был рассеян для предотвращения столкновения.
 
-station-event-bluespace-ship-start-announcement = We have detected an unusual FTL signature - long range scans indicate an unknown ship. Concordia Government cannot confirm safety for prospectors within its vicinity, be advised.
-station-event-bluespace-ship-warning-announcement = Remote FTL procedures initialized, five minutes until ship dissipation.
-station-event-bluespace-ship-end-announcement = In compliance with Concordia Governments FTL traffic patterns, the unknown ship has been dissipated to ensure non-collision.
+station-event-bluespace-syndicate-ftl-interception-start-announcement = Внимание всем свободным Странникам! Военноe командование Конкордии прервало FTL-прыжок судна Мили-тех. Согласно нашим сканерам глубокого космоса, судно либо уже вошло в реальное пространство в вашем секторе, либо вот-вот войдёт.
+station-event-bluespace-syndicate-ftl-interception-warning-announcement = Инициализированы процедуры удалённого FTL-перемещения, до рассеивания судна Мили-тех осталось пять минут.
+station-event-bluespace-syndicate-ftl-interception-end-announcement = В соответствии со схемами движения FTL-трафика Правительства Конкордии, судно Мили-тех было рассеяно для предотвращения столкновения.
 
-station-event-bluespace-syndicate-ftl-interception-start-announcement = Attention all available Wayfarers! Concordia's Naval Command has disrupted the FTL-jump of Mili-tech vessel, according to our deepspace scanners the vessel either already entered the real space in your sector or is about to enter.
-station-event-bluespace-syndicate-ftl-interception-warning-announcement = Remote FTL procedures initialized, five minutes until Mili-tech vessel dissipation.
-station-event-bluespace-syndicate-ftl-interception-end-announcement = In compliance with Concordia Governments FTL traffic patterns, the Mili-tech vessel has been dissipated to ensure non-collision.
+station-event-bluespace-wizardfederation-scout-start-announcement = Внимание всем свободным Странникам! Военноe командование Конкордии обнаружило блюспейс-аномалию в вашем секторе, сигнатура которой указывает на скорое прибытие малого судна Федерации Волшебников.
+station-event-bluespace-wizardfederation-scout-warning-announcement = Инициализированы процедуры удалённого FTL-перемещения, до рассеивания судна Федерации Волшебников осталось пять минут.
+station-event-bluespace-wizardfederation-scout-end-announcement = В соответствии со схемами движения FTL-трафика Правительства Конкордии, неизвестное судно было рассеяно для предотвращения столкновения.
 
-station-event-bluespace-wizardfederation-scout-start-announcement = Attention all available Wayfarers! Concordia's Naval Command detected a Bluespace Anomaly in your sector with the signature indicative of the imminent arrival of a small Wizard Federation vessel.
-station-event-bluespace-wizardfederation-scout-warning-announcement = Remote FTL procedures initialized, five minutes until Wizard Federation vessel dissipation.
-station-event-bluespace-wizardfederation-scout-end-announcement = In compliance with Concordia Governments FTL traffic patterns, the unknown ship has been dissipated to ensure non-collision.
+station-event-bluespace-bloodmoon-start-announcement = Внимание всем свободным Странникам! Военноe командование Конкордии обнаружило блюспейс-аномалию в вашем секторе, сигнатура которой указывает на скорое прибытие судна Культа Крови.
+station-event-bluespace-bloodmoon-warning-announcement = Инициализированы процедуры удалённого FTL-перемещения, до рассеивания судна Культа Крови осталось пять минут.
+station-event-bluespace-bloodmoon-end-announcement = В соответствии со схемами движения FTL-трафика Правительства Конкордии, неизвестное судно было рассеяно для предотвращения столкновения.
 
-station-event-bluespace-bloodmoon-start-announcement = Attention all available Wayfarers! Concordia's Naval Command detected a Bluespace Anomaly in your sector with the signature indicative of the imminent arrival of a Blood Cult vessel.
-station-event-bluespace-bloodmoon-warning-announcement = Remote FTL procedures initialized, five minutes until Blood Cult vessel dissipation.
-station-event-bluespace-bloodmoon-end-announcement = In compliance with Concordia Governments FTL traffic patterns, the unknown ship has been dissipated to ensure non-collision.
-
-station-event-bluespace-generic-ftl-start-announcement = Attention all Wayfarers! Concordia's Naval Command has detected an unidentified vessel entering the Zekke Sector. Investigate with caution, NanoTrasen is not liable for damages sustained or loss of life.
-station-event-bluespace-generic-ftl-warning-announcement = Remote FTL procedures initialized, five minutes until unidentified vessel dissipation.
-station-event-bluespace-generic-ftl-end-announcement = In compliance with Concordia Governments FTL traffic patterns, the unknown ship has been dissipated to ensure non-collision.
+station-event-bluespace-generic-ftl-start-announcement = Внимание всем Странникам! Военноe командование Конкордии обнаружило неопознанное судно, входящее в сектор Зекке. Соблюдайте осторожность при исследовании, Руководящий орган Конкордии не несёт ответственности за причинённый ущерб или гибель персонала.
+station-event-bluespace-generic-ftl-warning-announcement = Инициализированы процедуры удалённого FTL-перемещения, до рассеивания неопознанного судна осталось пять минут.
+station-event-bluespace-generic-ftl-end-announcement = В соответствии со схемами движения FTL-трафика Правительства Конкордии, неизвестное судно было рассеяно для предотвращения столкновения.
 
 station-event-bluespace-name-BrokenMcDelivery = McDelivery
-station-event-bluespace-name-Cave = Cave
-station-event-bluespace-name-UnidentifiedVessel = Unidentified Vessel
-station-event-bluespace-name-SecureNTVault = Secure Governmental Vault
-station-event-bluespace-name-SyndicateWeaponsCache = Mili-Tech Weapons Cache
+station-event-bluespace-name-Cave = Пещера
+station-event-bluespace-name-UnidentifiedVessel = Неопознанное судно
+station-event-bluespace-name-SecureNTVault = Защищённое правительственное хранилище
+station-event-bluespace-name-SyndicateWeaponsCache = Оружейный тайник Мили-тех

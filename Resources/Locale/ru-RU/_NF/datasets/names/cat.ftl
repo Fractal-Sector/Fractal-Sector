@@ -191,7 +191,7 @@ names-cat-bingus-dataset-54 = Bagel
 names-cat-bingus-dataset-55 = Twinkle
 names-cat-bingus-dataset-56 = Marmalade
 names-cat-bingus-dataset-57 = Bonsai
-names-cat-bingus-dataset-58 = Goblin
+names-cat-bingus-dataset-58 = Гоблин
 names-cat-bingus-dataset-59 = Opal
 
 

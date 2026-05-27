@@ -1,3 +1,3 @@
-chat-radio-traffic = Shortband
-chat-radio-greeting = Greeting
-chat-radio-nfsd = CGP
+chat-radio-traffic = Трафик
+chat-radio-greeting = Приветствие
+chat-radio-nfsd = ГМК

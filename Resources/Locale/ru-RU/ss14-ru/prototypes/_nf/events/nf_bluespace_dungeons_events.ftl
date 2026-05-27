@@ -1,1 +1,1 @@
-ent-BluespaceDungeonBase = NT Мониторинг Блюспейс Активности
+ent-BluespaceDungeonBase = Мониторинг Блюспейс Активности
