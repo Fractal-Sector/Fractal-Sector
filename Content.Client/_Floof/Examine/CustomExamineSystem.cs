@@ -25,22 +25,22 @@ public sealed class CustomExamineSystem : SharedCustomExamineSystem
         SubscribeLocalEvent<CustomExamineComponent, AfterAutoHandleStateEvent>(OnStateUpdate);
     }
 
-    // private void OnGetVerbs(GetVerbsEvent<Verb> args)
-    // {
-    //     if (_player.LocalSession is null || !CanChangeExamine(_player.LocalSession, args.Target))
-    //         return;
-    //
-    //     var target = args.Target;
-    //     args.Verbs.Add(new Verb
-    //     {
-    //         Act = () => OpenUi(target),
-    //         Text = Loc.GetString("custom-examine-verb"),
-    //         Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/pencil.png")),
-    //         ClientExclusive = true,
-    //         DoContactInteraction = false
-    //     });
-    // }
-    /* // Wayfarer: Redundant. Removed.
+    /* Orehum: remove ChangeExamine
+    private void OnGetVerbs(GetVerbsEvent<Verb> args)
+    {
+        if (_player.LocalSession is null || !CanChangeExamine(_player.LocalSession, args.Target))
+            return;
+
+        var target = args.Target;
+        args.Verbs.Add(new Verb
+        {
+            Act = () => OpenUi(target),
+            Text = Loc.GetString("custom-examine-verb"),
+            Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/pencil.png")),
+            ClientExclusive = true,
+            DoContactInteraction = false
+        });
+    }
     private void OnActivateInWorld(ActivateInWorldEvent ev)
     {
         // This one works only if user == target, because otherwise it would conflict with stripping ui
