@@ -201,6 +201,8 @@
     - NFEngineeringArchetypeStatic
     # Coyote Sector
     - CSPlumbingStatic # Showers, sinks, drains
+    # Far Horizons
+    - ReactorPartsBasic
 
   - type: BlueprintReceiver
     whitelist:

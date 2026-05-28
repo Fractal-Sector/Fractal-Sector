@@ -142,6 +142,7 @@
   priority: 7
   children:
   - ShipyardHarbormaster # FrontierShip Resources/Prototypes/_NF/Guidebook/shipyard.yml
+  - ShipyardMoppet
 
 
 #  priorities of which folder if ship is in multiple shipyards
@@ -279,3 +280,8 @@
   id: ShipyardSwan
   name: guide-entry-shipyard-swan
   text: "/ServerInfo/_WF/Guidebook/Shipyard/CivShipyard/Swan.xml"
+
+- type: guideEntry
+  id: ShipyardMoppet
+  name: guide-entry-shipyard-moppet
+  text: "/ServerInfo/_WF/Guidebook/Shipyard/StaffShipyard/Moppet.xml"

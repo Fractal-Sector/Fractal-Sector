@@ -1,6 +1,8 @@
 # Base entries
 guide-entry-wayfarer-rules = Server Rules
 guide-entry-community-goals = Community Goals
+guide-entry-consent = Consent
+guide-entry-contraband = Contraband
 
 # Rules entries
 guide-entry-wayfarer-rule-a0 = Rule A0: Storytelling First
@@ -48,3 +50,4 @@ guide-entry-shipyard-reclaimer = Reclaimer
 guide-entry-shipyard-scryer = Scryer
 guide-entry-shipyard-svalinn = Svalinn
 guide-entry-shipyard-swan = Swan
+guide-entry-shipyard-moppet = Moppet

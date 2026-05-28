@@ -50,9 +50,24 @@ marking-VoxScarEyeLeftSmall = [ Vox ] Small Eye Scar (Left)
 
 marking-VoxTailShort-vox_tail_small = [ Vox ] Tail (Short)
 marking-VoxTailShort = [ Vox ] Tail (Short)
+marking-VoxTailShortAnimated = [ Vox ] Tail (Short) (Animated)
 
 marking-VoxTail-vox_tail = [ Vox ] Tail (Medium)
 marking-VoxTail = [ Vox ] Tail (Medium)
+marking-VoxTailAnimated = [ Vox ] Tail (Medium) (Animated)
 
 marking-VoxTailBig-vox_tail_big = [ Vox ] Tail (Big)
 marking-VoxTailBig = [ Vox ] Tail (Big)
+marking-VoxTailBigAnimated = [ Vox ] Tail (Big) (Animated)
+
+marking-VoxTailSpikes-vox_tail_spikes = [ Vox ] Tail (Spiked)
+marking-VoxTailSpikes = [ Vox ] Tail (Spiked)
+marking-VoxTailSpikesAnimated = [ Vox ] Tail (Spiked) (Animated)
+
+marking-VoxTailDocked-vox_tail_docked = [ Vox ] Tail (Vestigial)
+marking-VoxTailDocked = [ Vox ] Tail (Vestigial)
+marking-VoxTailDockedAnimated = [ Vox ] Tail (Vestigial) (Animated)
+
+marking-VoxTailSplit-vox_tail_split = [ Vox ] Tail (Split)
+marking-VoxTailSplit = [ Vox ] Tail (Split)
+marking-VoxTailSplitAnimated = [ Vox ] Tail (Split) (Animated)

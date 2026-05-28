@@ -1200,17 +1200,15 @@
     - id: ClothingBeltChampion
     - id: PaperMailNTBoxer
 
-# Wayfarer
-# - type: entity
-#   categories: [ HideSpawnMenu ]
-#   parent: BaseMail
-#   id: MailNFIFFBoard
-#   suffix: IFF board
-#   components:
-#   - type: Mail
-#     contents:
-#     - id: ComputerIFFCircuitboard
-# End Wayfarer
+- type: entity
+  categories: [ HideSpawnMenu ]
+  parent: BaseMail
+  id: MailNFIFFBoard
+  suffix: IFF board
+  components:
+  - type: Mail
+    contents:
+    - id: ComputerIFFCircuitboard
 
 - type: entity
   categories: [ HideSpawnMenu ]

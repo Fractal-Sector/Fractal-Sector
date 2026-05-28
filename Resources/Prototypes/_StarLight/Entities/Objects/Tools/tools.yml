@@ -23,6 +23,8 @@
     - MixerGas
     - Radiator
     - RadiatorBend
+    - RadiatorInline # Goobstation
+    - RadiatorInlineBend # Goobstation
     - SignalValve
     - CanisterPort
     - FilterGas
