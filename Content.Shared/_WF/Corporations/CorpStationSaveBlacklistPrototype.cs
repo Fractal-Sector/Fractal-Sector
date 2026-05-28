@@ -8,7 +8,7 @@ namespace Content.Shared._WF.Corporations;
 /// Edit <c>Resources/Prototypes/_WF/corpStationSaveBlacklist.yml</c> to maintain the lists.
 /// </summary>
 [Prototype("corpStationSaveBlacklist")]
-public sealed class CorpStationSaveBlacklistPrototype : IPrototype
+public sealed partial class CorpStationSaveBlacklistPrototype : IPrototype
 {
     [ViewVariables]
     [IdDataField]
