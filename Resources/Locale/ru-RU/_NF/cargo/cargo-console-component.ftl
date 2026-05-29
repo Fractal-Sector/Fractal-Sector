@@ -8,7 +8,7 @@ cargo-console-order-nf-menu-notes-label = Заметки:
 cargo-console-nf-no-bank-account = Банковский счет не найден
 
 cargo-console-nf-paper-print-text = [head=2]Заказ #{$orderNumber}[/head]
-    {"[bold]Item:[/bold]"} {$itemName} ({$orderIndex}/{$orderQuantity})
+    {"[bold]Предмет:[/bold]"} {$itemName} ({$orderIndex}/{$orderQuantity})
     {"[bold]Purchased by:[/bold]"} {$purchaser}
     {"[bold]Notes:[/bold]"} {$notes}
 
