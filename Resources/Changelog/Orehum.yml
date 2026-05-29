@@ -109,3 +109,12 @@ Entries:
   id: 5
   time: '2026-05-29T13:35:15.0000000+00:00'
   url: https://github.com/Orehum-Project/Orehum-Sector/pull/12
+- author: IsNotAcceptable
+  changes:
+    - type: Add
+      message: Ресторан Сытый карп
+    - type: Tweak
+      message: Должности Бармен и Шеф теперь костыльно доступны в ресторане
+  id: 6
+  time: '2026-05-29T16:58:25.0000000+00:00'
+  url: https://github.com/Orehum-Project/Orehum-Sector/pull/14
