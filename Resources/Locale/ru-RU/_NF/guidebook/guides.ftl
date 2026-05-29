@@ -107,5 +107,5 @@ guide-entry-shipyard-spirit = Дух
 guide-entry-shipyard-stasis = Стазис
 guide-entry-shipyard-surveyor = Геодезист
 guide-entry-shipyard-tide = Прилив
-гид-вход-верфь-бродяга = Бродяга
-руководство-вход-верфь-виталис = Виталис
+guide-entry-shipyard-vagabond = Бродяга
+guide-entry-shipyard-vitalis = Виталис
