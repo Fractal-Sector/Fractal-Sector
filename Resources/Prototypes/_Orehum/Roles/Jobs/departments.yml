@@ -1,0 +1,10 @@
+- type: department
+  id: Rest
+  name: department-Rest
+  description: department-Rest-description
+  color: "#3EB524"
+  weight: -89
+  primary: false
+  roles:
+  - Bartender
+  - Chef

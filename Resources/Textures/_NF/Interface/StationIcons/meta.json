@@ -18,6 +18,9 @@
         },
         {
             "name": "nfsd-banner"
+        },
+        {
+            "name": "bartender"
         }
     ]
 }

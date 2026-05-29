@@ -173,7 +173,6 @@
   id: SpawnPointBartender
   parent: SpawnPointJobBase
   name: bartender
-  categories: [ HideSpawnMenu ] # Frontier
   components:
   - type: SpawnPoint
     job_id: Bartender
@@ -186,7 +185,6 @@
   id: SpawnPointChef
   parent: SpawnPointJobBase
   name: chef
-  categories: [ HideSpawnMenu ] # Frontier
   components:
   - type: SpawnPoint
     job_id: Chef

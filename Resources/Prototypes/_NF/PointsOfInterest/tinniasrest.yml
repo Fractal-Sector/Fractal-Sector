@@ -11,10 +11,10 @@
 - type: pointOfInterest
   id: Tinnia
   parent: BasePOI
-  name: "Ресторан Тринньки"
+  name: "Ресторан «Сытый Карп»"
   minimumDistance: 1200
   maximumDistance: 2900
-  spawnGroup: RestStop
+  spawnGroup: Required
   gridPath: /Maps/_NF/POI/tinnia.yml
   addComponents:
   - type: StationTransit
@@ -26,15 +26,24 @@
 
 - type: gameMap
   id: Tinnia
-  mapName: "Ресторан Тринньки"
+  mapName: "Ресторан «Сытый Карп»"
   mapPath: /Maps/_NF/POI/tinnia.yml
   minPlayers: 0
   stations:
     Tinnia:
-      stationProto: DeadDropFrontierOutpost
+      stationProto: RecordsFrontierOutpost
       gridComponents:
       - type: VesselInfo # WF
         description: "Сейчас где-то пять часов."
       components:
         - type: StationNameSetup
-          mapNameTemplate: "Ресторан Тринньки"
+          mapNameTemplate: "Ресторан «Сытый Карп»"
+        - type: ExtraStationInformation
+          icon: /Textures/_NF/Interface/StationIcons/bartender.png
+          stationSubtext: frontier-lobby-bar-subtext
+          stationDescription: frontier-lobby-bar-description
+          lobbySortOrder: 7
+        - type: StationJobs
+          availableJobs:
+            Bartender: [ 2, 2 ]
+            Chef: [ 2, 2 ]
