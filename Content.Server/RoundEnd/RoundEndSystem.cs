@@ -389,7 +389,7 @@ namespace Content.Server.RoundEnd
             {
                 mins = endTimeComp.EndAt;
             }
-            if (mins != 0 && _gameTiming.CurTime - AutoCallStartTime > mins)
+            if (mins.TotalSeconds != 0 && _gameTiming.CurTime - AutoCallStartTime > mins)
             {
                 if (!_shuttle.EmergencyShuttleArrived && ExpectedCountdownEnd is null)
                 {
