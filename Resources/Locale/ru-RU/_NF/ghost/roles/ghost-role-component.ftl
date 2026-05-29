@@ -1,6 +1,7 @@
 ghost-role-information-emotional-support-name = Питомец эмоциональной поддержки
 ghost-role-information-emotional-support-description = Вы — питомец эмоциональной поддержки! Преданный своему хозяину, обязательно подбадривайте его!
-ghost-role-information-emotional-support-rules = Вы — [color={role-type-emotional-support-pet-color}][bold]{role-type-emotional-support-pet-name}[/bold][/color]. Поддерживайте своего хозяина и действуйте в своих интересах.
+ghost-role-information-emotional-support-rules = 
+    Вы — [color={role-type-emotional-support-pet-color}][bold]{role-type-emotional-support-pet-name}[/bold][/color]. Поддерживайте своего хозяина и действуйте в своих интересах.
     Вы не помните ничего из своей прошлой жизни и ничего из того, чему научились, будучи призраком.
     Вам разрешено помнить знания об игре в целом, например, как готовить, как использовать предметы и т. д.
     Вам категорически [color=red]НЕ[/color] разрешено помнить, скажем, имя, внешность и т. д. своего предыдущего персонажа.
@@ -17,10 +18,11 @@ ghost-role-information-clarpy-rules = Ты старый [color={role-type-pirate
 
 ghost-role-information-cult-cat-name = Кот из Культа Крови
 ghost-role-information-cult-cat-description = Основал Культ Крови от скуки.
-ghost-role-information-cult-cat-rules = Вы [color={role-type-free-agent-color}][bold]{role-type-free-agent-name}[/bold][/color] и свободны в выборе своих действий.
+ghost-role-information-cult-cat-rules =
+     Вы [color={role-type-free-agent-color}][bold]{role-type-free-agent-name}[/bold][/color] и свободны в выборе своих действий.
     Обратите внимание, что [color=yellow]все правила сервера по-прежнему действуют.[/color] Дополнительно:
-- [color=red]НЕ[/color] повреждайте шаттлы игроков или их содержимое.
-- [color=red]НЕ[/color] расчленяйте игроков. После их смерти оставьте их в покое.
+    - [color=red]НЕ[/color] повреждайте шаттлы игроков или их содержимое.
+    - [color=red]НЕ[/color] расчленяйте игроков. После их смерти оставьте их в покое.
 
 ghost-role-information-cappy-name = Кэппи
 ghost-role-information-cappy-description = Прекратите сопротивление! Сертифицирован по применению смертельной силы и тактике самообороны.
@@ -79,15 +81,15 @@ ghost-role-information-one-star-unit-dungeon-name = One Star Unit
 ghost-role-information-guardian-unit-dungeon-name = Guardian Unit
 ghost-role-information-one-star-unit-dungeon-description = [11201010111002] Работайте с другими автоматами, чтобы защитить объект и уничтожить всех нарушителей. [1110220001010002220]
 
-ghost-role-information-dungeon-boss-rules = Вы являетесь [color={role-type-team-antagonist-color}][bold]{role-type-team-antagonist-name}[/bold][/color] со всеми мобами подземелья.
-Сражайтесь с игроками внутри подземелья, защищайте своё подземелье.
-Обратите внимание, что [color=yellow]все правила сервера по-прежнему действуют.[/color] Дополнительно:
-
-- [color=red]НЕ[/color] повреждайте шаттлы игроков или их содержимое.
-- [color=red]НЕ[/color] прячьтесь от игроков, чтобы затянуть время экспедиции.
-- [color=red]НЕ[/color] убивайте игроков. После их смерти оставьте их в покое.
-- [color=red]НЕ[/color] уничтожайте или прячьте ценную добычу в подземелье.
-- [color=red]НЕ[/color] покидайте планету.
+ghost-role-information-dungeon-boss-rules = 
+    Вы являетесь [color={role-type-team-antagonist-color}][bold]{role-type-team-antagonist-name}[/bold][/color] со всеми мобами подземелья.
+    Сражайтесь с игроками внутри подземелья, защищайте своё подземелье.
+    Обратите внимание, что [color=yellow]все правила сервера по-прежнему действуют.[/color] Дополнительно:
+    - [color=red]НЕ[/color] повреждайте шаттлы игроков или их содержимое.
+    - [color=red]НЕ[/color] прячьтесь от игроков, чтобы затянуть время экспедиции.
+    - [color=red]НЕ[/color] убивайте игроков. После их смерти оставьте их в покое.
+    - [color=red]НЕ[/color] уничтожайте или прячьте ценную добычу в подземелье.
+    - [color=red]НЕ[/color] покидайте планету.
 
 nf-ghost-role-information-derelict-cyborg-description = Вы — киборг, который годами пролежал на затонувшем корабле, подвергаясь воздействию бесчисленных ионных бурь.
 
