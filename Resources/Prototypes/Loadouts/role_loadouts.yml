@@ -56,15 +56,31 @@
 - type: roleLoadout
   id: JobBartender
   groups:
-  - GroupTankHarness
-  - BartenderHead
-  - BartenderJumpsuit
-  - CommonBackpack
-  - BartenderOuterClothing
-  - Glasses
-  - Survival
-  - Trinkets
-  - GroupSpeciesBreathTool
+  - WFJumpsuit
+  - WFOuterClothing
+  - ContractorForcedOuterClothing
+  - WFBackpack
+  - WFShoes
+  - WFHead
+  - WFEars
+  - WFGloves
+  - WFPDA
+  - WFGlasses
+  - WFFace
+  - WFBelt
+  - WFNeck
+  - WFEncryptionKey
+  - WFBoxSurvival
+  - WFWallet
+  - WFCartridge
+  - WFImplanter
+  - WFBackpackItems
+  - WFHandItems
+  #  - WFBundles # Rework at a later date
+  - NFSpeciesSpecific
+  - WFSidearm
+  - WFLongarm
+  - WFAmmo
 
 - type: roleLoadout
   id: JobServiceWorker
@@ -80,16 +96,31 @@
 - type: roleLoadout
   id: JobChef
   groups:
-  - GroupTankHarness
-  - ChefHead
-  - ChefMask
-  - ChefJumpsuit
-  - CommonBackpack
-  - ChefOuterClothing
-  - Glasses
-  - Survival
-  - Trinkets
-  - GroupSpeciesBreathTool
+  - WFJumpsuit
+  - WFOuterClothing
+  - ContractorForcedOuterClothing
+  - WFBackpack
+  - WFShoes
+  - WFHead
+  - WFEars
+  - WFGloves
+  - WFPDA
+  - WFGlasses
+  - WFFace
+  - WFBelt
+  - WFNeck
+  - WFEncryptionKey
+  - WFBoxSurvival
+  - WFWallet
+  - WFCartridge
+  - WFImplanter
+  - WFBackpackItems
+  - WFHandItems
+  #  - WFBundles # Rework at a later date
+  - NFSpeciesSpecific
+  - WFSidearm
+  - WFLongarm
+  - WFAmmo
 
 - type: roleLoadout
   id: JobLibrarian

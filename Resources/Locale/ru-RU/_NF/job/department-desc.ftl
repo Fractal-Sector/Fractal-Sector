@@ -5,3 +5,5 @@ department-NFCivilian-description = Объединяйтесь с командо
 department-NFCommand-description = Управляйте сектором, поддерживайте его эффективную работу.
 department-NFCentralCommand-description = Возьмите сектор под контроль, держите командование в тонусе.
 department-NFSecurity-description = Поддерживайте мир в секторе.
+# Orehum: ресторан
+department-Rest-description = Кормите, поите оголодавших исследователей

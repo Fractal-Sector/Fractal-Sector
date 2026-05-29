@@ -7,3 +7,5 @@ department-Science = Научный отдел
 department-Specific = На определённых станциях
 department-CentralCommand = Управление Секторальным Флотом
 department-Silicon = Силиконы
+# Orehum: ресторан
+department-Rest = Персонал ресторана
