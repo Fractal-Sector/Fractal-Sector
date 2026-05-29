@@ -1,9 +1,9 @@
 ghost-role-information-emotional-support-name = Питомец эмоциональной поддержки
 ghost-role-information-emotional-support-description = Вы — питомец эмоциональной поддержки! Преданный своему хозяину, обязательно подбадривайте его!
 ghost-role-information-emotional-support-rules = Вы — [color={role-type-emotional-support-pet-color}][bold]{role-type-emotional-support-pet-name}[/bold][/color]. Поддерживайте своего хозяина и действуйте в своих интересах.
-Вы не помните ничего из своей прошлой жизни и ничего из того, чему научились, будучи призраком.
-Вам разрешено помнить знания об игре в целом, например, как готовить, как использовать предметы и т. д.
-Вам категорически [color=red]НЕ[/color] разрешено помнить, скажем, имя, внешность и т. д. своего предыдущего персонажа.
+    Вы не помните ничего из своей прошлой жизни и ничего из того, чему научились, будучи призраком.
+    Вам разрешено помнить знания об игре в целом, например, как готовить, как использовать предметы и т. д.
+    Вам категорически [color=red]НЕ[/color] разрешено помнить, скажем, имя, внешность и т. д. своего предыдущего персонажа.
 
 ghost-role-information-clippy-name = Клиппи
 ghost-role-information-clippy-description = Верный работник представителя станции, пахнет картоном и бумагой.
@@ -18,7 +18,7 @@ ghost-role-information-clarpy-rules = Ты старый [color={role-type-pirate
 ghost-role-information-cult-cat-name = Кот из Культа Крови
 ghost-role-information-cult-cat-description = Основал Культ Крови от скуки.
 ghost-role-information-cult-cat-rules = Вы [color={role-type-free-agent-color}][bold]{role-type-free-agent-name}[/bold][/color] и свободны в выборе своих действий.
-Обратите внимание, что [color=yellow]все правила сервера по-прежнему действуют.[/color] Дополнительно:
+    Обратите внимание, что [color=yellow]все правила сервера по-прежнему действуют.[/color] Дополнительно:
 - [color=red]НЕ[/color] повреждайте шаттлы игроков или их содержимое.
 - [color=red]НЕ[/color] расчленяйте игроков. После их смерти оставьте их в покое.
 
@@ -42,7 +42,10 @@ ghost-role-information-ert-mailcarrier-description = Помощь в доста�
 
 ghost-role-information-baby-dragon-name = Детеныш космического дракона
 ghost-role-information-baby-dragon-description = Вылупитесь из яйца и отправляйтесь в невероятные приключения со своей мамой и ее командой!
-ghost-role-information-baby-dragon-rules = Вы [color={role-type-familiar-color}][bold]{role-type-familiar-name}[/bold][/color]. Служите интересам своей новой мамы, какими бы они ни были. Вы ничего не помните из своей прошлой жизни и ничего не помните из того, чему научились, будучи призраком. Вам разрешено помнить общие сведения об игре, например, как готовить еду, как использовать предметы и т. д. Вам категорически [color=red]НЕ[/color] разрешено помнить, скажем, имя, внешность и т. д. вашего предыдущего персонажа.
+ghost-role-information-baby-dragon-rules = 
+    Вы [color={role-type-familiar-color}][bold]{role-type-familiar-name}[/bold][/color]. Служите интересам своей новой мамы, какими бы они ни были. Вы ничего не помните из своей прошлой жизни и ничего не помните из того, чему научились, будучи призраком. 
+    Вам разрешено помнить общие сведения об игре, например, как готовить еду, как использовать предметы и т. д. 
+    Вам категорически [color=red]НЕ[/color] разрешено помнить, скажем, имя, внешность и т. д. вашего предыдущего персонажа.
 
 ghost-role-information-taxibot-name = Taxibot
 ghost-role-information-taxibot-description = Доставляет пассажиров туда, куда им нужно.
