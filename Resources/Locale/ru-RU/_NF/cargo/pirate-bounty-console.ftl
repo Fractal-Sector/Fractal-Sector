@@ -23,4 +23,4 @@ pirate-bounty-chest-description-start = На ящике выгравирован
 
 pirate-bounty-manifest-name = напоминание о награде пирата ({$id})
 pirate-bounty-manifest-header = [font size=14][bold]Запрос награды чёрного рынка[/bold] ({$id})[/font]
-pirate-bounty-manifest-list-start = Предметы для ограждения:
+pirate-bounty-manifest-list-start = Предметы для сдачи:

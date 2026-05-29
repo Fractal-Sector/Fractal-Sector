@@ -8,6 +8,6 @@ contraband-examine-text-Class3Pirate = [color=crimson]Этот пиратски�
 contraband-examine-text-Class3Syndicate = [color=crimson]Этот предмет Синдиката считается контрабандой 3-го класса, и его владение незаконно.[/color]
 contraband-examine-text-Class3Wizard = [color=crimson]Этот предмет Волшебника считается контрабандой 3-го класса, и его владение незаконно.[/color]
 contraband-examine-text-PirateTarget = [color=yellow]Этот предмет может быть очень ценной целью для пиратов![/color]
-contraband-examine-text-Class3MobHuman = [color=magenta]Этот индивид считается слишком опасным для содержания и относится к 3-му классу [color]Контрабанда, находящаяся в неволе. Содержание их в неволе, живыми или мертвыми, является незаконным.
+contraband-examine-text-Class3MobHuman = [color=magenta]Этот индивид считается слишком опасным для содержания и относится к 3-му классу Контрабанда, находящаяся в неволе. Содержание их в неволе, живыми или мертвыми, является незаконным.[/color]
 contraband-examine-text-Class3MobCreature = [color=magenta]Это существо считается слишком опасным для содержания в неволе и рассматривается как контрабанда 3-го класса в неволе. Содержание его в неволе, живым или мертвым, незаконно.[/color]
 contraband-examine-text-Class3MobConstruct = [color=magenta]Этот разум считается слишком опасным для содержания в неволе и рассматривается как контрабанда 3-го класса в неволе. Содержание его в неволе, живым или мертвым, незаконно.[/color]
