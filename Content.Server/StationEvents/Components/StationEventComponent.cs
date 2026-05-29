@@ -69,6 +69,14 @@ public sealed partial class StationEventComponent : Component
     [DataField]
     public ProtoId<RadioChannelPrototype> EndRadioAnnouncementChannel = "Supply"; // Frontier
 
+    // Orehum start
+    /// <summary>
+    ///     Sender of start/warn/end announcements.
+    /// </summary>
+    [DataField]
+    public LocId? AnnounceSender = null;
+    // Orehum end
+
     /// <summary>
     ///     In minutes, when is the first round time this event can start
     /// </summary>
@@ -144,14 +152,14 @@ public sealed partial class StationEventComponent : Component
     /// </summary>
     [DataField]
     public bool WarningAnnounced;
-	
-	
+
+
     /// <summary>
     ///     Wayfarer: Groups for vault, cache
     /// </summary>
     [DataField]
     public string? WayfareCacheGroup;
-	
+
     /// <summary>
     ///    Wayfarer: CooldownTimer for Unified cache
     /// </summary>

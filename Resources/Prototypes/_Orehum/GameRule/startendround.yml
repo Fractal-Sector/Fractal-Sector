@@ -1,0 +1,41 @@
+- type: entity
+  id: RoundEndRuleHour4
+  parent: BaseGameRule
+  components:
+  - type: RoundEndTimeRule
+    endAt: 14400 # 4 Hour
+
+- type: entity
+  id: RoundEndRuleHour6
+  parent: BaseGameRule
+  components:
+  - type: RoundEndTimeRule
+    endAt: 21600 # 6 Hour
+
+- type: entity
+  id: RoundEndRuleHour12
+  parent: BaseGameRule
+  components:
+  - type: RoundEndTimeRule
+    endAt: 43200 # 12 Hour
+
+- type: entity
+  id: RoundEndRuleHour34
+  parent: BaseGameRule
+  components:
+  - type: RoundEndTimeRule
+    endAt: 122400 # 1.42 Day
+
+- type: entity
+  id: RoundEndRuleHour72
+  parent: BaseGameRule
+  components:
+  - type: RoundEndTimeRule
+    endAt: 259200 # 3 Day
+
+- type: entity
+  id: RoundEndRuleHour120
+  parent: BaseGameRule
+  components:
+  - type: RoundEndTimeRule
+    endAt: 432000 # 5 Day

@@ -22,6 +22,7 @@ using Content.Shared.DeviceNetwork.Components;
 using Content.Shared.Station.Components;
 using Timer = Robust.Shared.Timing.Timer;
 using Content.Server._NF.SectorServices; // Frontier
+using Content.Shared.GameTicking.Components; // Orehum
 
 namespace Content.Server.RoundEnd
 {
@@ -379,20 +380,27 @@ namespace Content.Server.RoundEnd
                 }
             }
 
+            // Orehum start
             // Check if we should auto-call based on round time.
-            int mins = _autoCalledBefore ? _cfg.GetCVar(CCVars.EmergencyShuttleAutoCallExtensionTime)
-                                        : _cfg.GetCVar(CCVars.EmergencyShuttleAutoCallTime);
-            if (mins != 0 && _gameTiming.CurTime - AutoCallStartTime > TimeSpan.FromMinutes(mins))
+            var mins = TimeSpan.FromMinutes(_autoCalledBefore ? _cfg.GetCVar(CCVars.EmergencyShuttleAutoCallExtensionTime)
+                : _cfg.GetCVar(CCVars.EmergencyShuttleAutoCallTime));
+            var query = EntityQueryEnumerator<RoundEndTimeRuleComponent, ActiveGameRuleComponent>();
+            while (query.MoveNext(out _, out var endTimeComp, out _))
+            {
+                mins = endTimeComp.EndAt;
+            }
+            if (mins.TotalSeconds != 0 && _gameTiming.CurTime - AutoCallStartTime > mins)
             {
                 if (!_shuttle.EmergencyShuttleArrived && ExpectedCountdownEnd is null)
                 {
-                    RequestRoundEnd(null, false, "nf-round-end-system-shuttle-auto-called-announcement");// Frontier
+                    RequestRoundEnd(null, false, "round-end-system-shuttle-auto-called-announcement");// Frontier
                     _autoCalledBefore = true;
                 }
 
                 // Always reset auto-call in case of a recall.
                 SetAutoCallTime();
             }
+            // Orehum end
         }
     }
 
