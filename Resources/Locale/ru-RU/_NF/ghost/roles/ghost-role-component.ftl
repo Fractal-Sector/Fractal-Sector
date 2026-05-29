@@ -42,10 +42,7 @@ ghost-role-information-ert-mailcarrier-description = Помощь в доста�
 
 ghost-role-information-baby-dragon-name = Детеныш космического дракона
 ghost-role-information-baby-dragon-description = Вылупитесь из яйца и отправляйтесь в невероятные приключения со своей мамой и ее командой!
-ghost-role-information-baby-dragon-rules = Вы [color={role-type-familiar-color}][bold]{role-type-familiar-name}[/bold][/color]. Служите интересам своей новой мамы, какими бы они ни были.
-Вы ничего не помните из своей прошлой жизни и ничего не помните из того, чему научились, будучи призраком.
-Вам разрешено помнить общие сведения об игре, например, как готовить еду, как использовать предметы и т. д.
-Вам категорически [color=red]НЕ[/color] разрешено помнить, скажем, имя, внешность и т. д. вашего предыдущего персонажа.
+ghost-role-information-baby-dragon-rules = Вы [color={role-type-familiar-color}][bold]{role-type-familiar-name}[/bold][/color]. Служите интересам своей новой мамы, какими бы они ни были. Вы ничего не помните из своей прошлой жизни и ничего не помните из того, чему научились, будучи призраком. Вам разрешено помнить общие сведения об игре, например, как готовить еду, как использовать предметы и т. д. Вам категорически [color=red]НЕ[/color] разрешено помнить, скажем, имя, внешность и т. д. вашего предыдущего персонажа.
 
 ghost-role-information-taxibot-name = Taxibot
 ghost-role-information-taxibot-description = Доставляет пассажиров туда, куда им нужно.
