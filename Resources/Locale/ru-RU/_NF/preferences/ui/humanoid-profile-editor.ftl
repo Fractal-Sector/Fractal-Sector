@@ -1,3 +1,3 @@
 humanoid-profile-editor-preference-messenger = Мессенджер
 
-trait-category-height = Тело
+trait-category-height = Рост

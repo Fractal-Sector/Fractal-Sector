@@ -10,7 +10,7 @@ atmos-alerts-window-enabled-off = Выкл
 
 atmos-alerts-window-docked-label = Пристыкован?
 
-atmos-alerts-window-docked-on = Отстыкован
+atmos-alerts-window-docked-on = Да
 atmos-alerts-window-docked-off = Нет
 
 atmos-alerts-window-gaslock-gases-label = Внутренние газы

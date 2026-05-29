@@ -13,5 +13,5 @@ gas-deposit-scanner-window-deposit-size-medium = Средний
 gas-deposit-scanner-window-deposit-size-large = Большой
 gas-deposit-scanner-window-deposit-size-enormous = Огромный
 
-gas-deposit-scanner-object-out-of-range = Залог вышел за пределы зоны действия.
-gas-deposit-scanner-shutoff = Сканер для проверки залога газа выключается.
+gas-deposit-scanner-object-out-of-range = Депозит вышел за пределы зоны действия.
+gas-deposit-scanner-shutoff = Сканер газовых депозитов выключается.

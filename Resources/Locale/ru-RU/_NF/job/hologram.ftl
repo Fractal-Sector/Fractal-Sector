@@ -12,6 +12,6 @@ interview-hologram-message-cancelled = Вы покинули собеседов�
 interview-hologram-message-dismissed = Вас отстранили от собеседования.
 interview-hologram-message-accepted = Вы получили работу!
 
-interview-hologram-pda-notification = {$applicant} прибыл на собеседование на должность {INDEFINITE($jobTitle)} {$jobTitle}.
+interview-hologram-pda-notification = {$applicant} прибыл на собеседование на {INDEFINITE($jobTitle)} {$jobTitle} должность.
 interview-notification-pda-header = Заявка на работу
 interview-notification-default-job = работа

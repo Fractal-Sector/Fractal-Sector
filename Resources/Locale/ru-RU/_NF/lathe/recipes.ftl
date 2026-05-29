@@ -40,7 +40,7 @@ lathe-recipe-NFSheetPaperFromCardboard-name = бумага (картон)
 # Надувные изделия
 lathe-recipe-NFInflatableFloorStack1-name = надувной пол
 lathe-recipe-NFInflatableWallStack1-name = надувная стена
-lathe-recipe-NFInflatableWindowStack1-name = надувной окно
+lathe-recipe-NFInflatableWindowStack1-name = надувное окно
 lathe-recipe-NFInflatableDoorStack1-name = надувная дверь
 lathe-recipe-NFInflatableDoorWindowStack1-name = надувная дверь
 lathe-recipe-NFInflatableDockStack1-name = надувной причал
