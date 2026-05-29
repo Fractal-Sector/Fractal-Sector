@@ -1,111 +1,111 @@
-# Base entries
-guide-entry-nf14 = Frontier Guide
-guide-entry-bank = Galactic Bank
-guide-entry-shifts-and-persistence = Shifts and Persistence
-guide-entry-safety-deposit-box = Safety Deposit Box System
-guide-entry-piloting = Piloting
-guide-entry-autopilot = Autopilot
-guide-entry-startinggear = Starting Equipment
-guide-entry-hiring = Hiring Crew
-guide-entry-interviews = Interviews
-guide-entry-expeditions = Expeditions
-guide-entry-sector-topology = Sector Topology
-guide-entry-cargo-hauling = Cargo Hauling
-guide-entry-shipyard = Shipyard
-guide-entry-frontier-definitions = Definitions
-guide-entry-preflightchecklist = Preflight Checklist
-# Wayfarer: removed NT from guide-entry-bank
+# Базовые записи
+guide-entry-nf14 = Руководство по Фронтиру
+guide-entry-bank = Галактический банк
+guide-entry-shifts-and-persistence = Сдвиги и сохранение
+guide-entry-safety-deposit-box = Система сейфов
+guide-entry-piloting = Пилотирование
+guide-entry-autopilot = Автопилот
+guide-entry-startinggear = Стартовое оборудование
+guide-entry-hiring = Набор экипажа
+guide-entry-interviews = Собеседования
+guide-entry-expeditions = Экспедиции
+guide-entry-sector-topology = Топология сектора
+guide-entry-cargo-hauling = Грузоперевозки
+guide-entry-shipyard = Верфь
+guide-entry-frontier-definitions = Определения
+guide-entry-preflightchecklist = Предварительная подготовка Контрольный список
+# Странник: удалено NT из банка записей руководства
 
-# Engineering entries
-guide-entry-offshore-gas-mining = Offshore Gas Mining
+# Записи по инженерии
+guide-entry-offshore-gas-mining = Морская добыча газа
 
-# Security entries
-guide-entry-nfsd-smuggling = Smuggling
+# Записи по безопасности
+guide-entry-nfsd-smuggling = Контрабанда
 
-# Medical entries
-guide-entry-medical-bounties = Medical Bounties
-guide-entry-medical-doc = Director of Care
+# Записи по медицине
+guide-entry-medical-bounties = Награды за медицинские услуги
+guide-entry-medical-doc = Директор по уходу
 
-# Reference entries
-guide-entry-medicalrecipes = Medical Recipes
-guide-entry-weapons-ranged-archetypes = Ranged Weapon Archetypes
-guide-entry-weapons-color-codes-ammo = Ammmunition Color Codes
+# Справочные записи
+guide-entry-medicalrecipes = Медицинские рецепты
+guide-entry-weapons-ranged-archetypes = Архетипы дальнобойного оружия
+guide-entry-weapons-color-codes-ammo = Цветовые коды боеприпасов
 
-# Expedition faction entries
-guide-entry-expedition-aberrant-flesh = Aberrant Flesh
-guide-entry-expedition-argocytes = Argocytes
-guide-entry-expedition-blood-cultists = Blood Cultists
-guide-entry-expedition-carps = Carps
-guide-entry-expedition-dinosaurs = Dinosaurs
-guide-entry-expedition-explorers = Explorers
-guide-entry-expedition-mercenaries = Mercenaries
-guide-entry-expedition-gangers = Punks
-guide-entry-expedition-silicons = Rogue Silicons
-guide-entry-expedition-syndicate-naval-forces = Syndicate Naval Forces
-guide-entry-expedition-xenos = Xenos
+# Записи по фракции экспедиции
+guide-entry-expedition-aberrant-flesh = Аберрантная плоть
+guide-entry-expedition-argocytes = Аргоциты
+guide-entry-expedition-blood-cultists = Культисты крови
+guide-entry-expedition-carps = Карпы
+guide-entry-expedition-dinosaurs = Динозавры
+guide-entry-expedition-explorers = Исследователи
+guide-entry-expedition-mercenaries = Наемники
+guide-entry-expedition-gangers = Панки
+guide-entry-expedition-silicons = Силиконы-изгои
+guide-entry-expedition-syndicate-naval-forces = Военно-морские силы синдиката
+guide-entry-expedition-xenos = Ксеносы
 
-# Shipyard entries
-guide-entry-shipyard-adder = Adder
-guide-entry-shipyard-aegis = Aegis
-guide-entry-shipyard-akupara = Akupara
-guide-entry-shipyard-ambition = Ambition
-guide-entry-shipyard-apothecary = Apothecary
-guide-entry-shipyard-barge = Barge
-guide-entry-shipyard-baroness = Baroness
-guide-entry-shipyard-bocadillo = Bocadillo
-guide-entry-shipyard-bodkin = Bodkin
-guide-entry-shipyard-bookworm = Bookworm
-guide-entry-shipyard-brigand = Brigand
-guide-entry-shipyard-bulker = Bulker
-guide-entry-shipyard-caladrius = Caladrius
-guide-entry-shipyard-camper = Camper
-guide-entry-shipyard-ceres = Ceres
-guide-entry-shipyard-charon = Charon
-guide-entry-shipyard-chisel = Chisel
-guide-entry-shipyard-comet = Comet
-guide-entry-shipyard-courier = Courier
-guide-entry-shipyard-construct = Construct
-guide-entry-shipyard-copperhead = Copperhead
-guide-entry-shipyard-crescent = Crescent
-guide-entry-shipyard-crossroads = Crossroads
-guide-entry-shipyard-dragoon = Dragoon
-guide-entry-shipyard-druid = Druid
-guide-entry-shipyard-eagle = Eagle
-guide-entry-shipyard-garden = Garden
-guide-entry-shipyard-gasbender = Gasbender
-guide-entry-shipyard-gaslight = Gaslight
-guide-entry-shipyard-geode = Geode
-guide-entry-shipyard-hammer = Hammer
-guide-entry-shipyard-hauler = Hauler
-guide-entry-shipyard-harbormaster = Harbormaster
-guide-entry-shipyard-honker = Honker
-guide-entry-shipyard-investigator = Investigator
-guide-entry-shipyard-izakaya = Izakaya
-guide-entry-shipyard-kestrel = Kestrel
-guide-entry-shipyard-kilderkin = Kilderkin
-guide-entry-shipyard-lantern = Lantern
-guide-entry-shipyard-stringer = Stringer
-guide-entry-shipyard-stronghold = Stronghold
-guide-entry-shipyard-liquidator = Liquidator
-guide-entry-shipyard-loader = Loader
-guide-entry-shipyard-lyrae = Lyrae
-guide-entry-shipyard-mccargo = McCargo
-guide-entry-shipyard-mcdelivery = McDelivery
-guide-entry-shipyard-nightlight = Nightlight
-guide-entry-shipyard-nook = Nook
-guide-entry-shipyard-pathfinder = Pathfinder
-guide-entry-shipyard-phoenix = Phoenix
-guide-entry-shipyard-pioneer = Pioneer
-guide-entry-shipyard-placebo = Placebo
-guide-entry-shipyard-prospector = Prospector
-guide-entry-shipyard-pulsar = Pulsar
-guide-entry-shipyard-retort = Retort
-guide-entry-shipyard-searchlight = Searchlight
-guide-entry-shipyard-sparrow = Sparrow
-guide-entry-shipyard-skipper = Skipper
-guide-entry-shipyard-spirit = Spirit
-guide-entry-shipyard-stasis = Stasis
-guide-entry-shipyard-surveyor = Surveyor
-guide-entry-shipyard-tide = Tide
-guide-entry-shipyard-vagabond = Vagabond
-guide-entry-shipyard-vitalis = Vitalis
+# Записи о верфях
+guide-entry-shipyard-adder = Аддер
+guide-entry-shipyard-aegis = Эгида
+guide-entry-shipyard-akupara = Акупара
+guide-entry-shipyard-ambition = Амбиция
+guide-entry-shipyard-apothecary = Аптекарь
+guide-entry-shipyard-barge = Баржа
+guide-entry-shipyard-baroness = Баронесса
+guide-entry-shipyard-bocadillo = Бокадильо
+guide-entry-shipyard-bodkin = Бодкин
+guide-entry-shipyard-bookworm = Книжный червь
+guide-entry-shipyard-brigand = Разбойник
+guide-entry-shipyard-bulker = Балкер
+guide-entry-shipyard-caladrius = Каладриус
+guide-entry-shipyard-camper = Кемпер
+guide-entry-shipyard-ceres = Церера
+guide-entry-shipyard-charon = Харон
+guide-entry-shipyard-chisel = Долото
+guide-entry-shipyard-comet = Комета
+guide-entry-shipyard-courier = Курьер
+guide-entry-shipyard-construct = Построить
+guide-entry-shipyard-copperhead = Медноголовый
+guide-entry-shipyard-crescent = Полумесяц
+guide-entry-shipyard-crossroads = Перекресток
+guide-entry-shipyard-dragoon = Драгун
+guide-entry-shipyard-druid = Друид
+guide-entry-shipyard-eagle = Орел
+guide-entry-shipyard-garden = Сад
+guide-entry-shipyard-gasbender = Газовый маг
+guide-entry-shipyard-gaslight = Газовый свет
+guide-entry-shipyard-geode = Геода
+guide-entry-shipyard-hammer = Молот
+guide-entry-shipyard-hauler = Грузовик
+guide-entry-shipyard-harbormaster = Начальник порта
+guide-entry-shipyard-honker = Гудок
+guide-entry-shipyard-investigator = Следователь
+guide-entry-shipyard-izakaya = Изакая
+guide-entry-shipyard-kestrel = Пустельга
+guide-entry-shipyard-kilderkin = Килдеркин
+guide-entry-shipyard-lantern = Фонарь
+guide-entry-shipyard-stringer = Стрингер
+guide-entry-shipyard-stronghold = Крепость
+guide-entry-shipyard-liquidator = Ликвидатор
+guide-entry-shipyard-loader = Погрузчик
+guide-entry-shipyard-lyrae = Лира
+guide-entry-shipyard-mccargo = МакКарго
+guide-entry-shipyard-mcdelivery = МакДоставка
+guide-entry-shipyard-nightlight = Ночной свет
+guide-entry-shipyard-nook = Нук
+guide-entry-shipyard-pathfinder = Следопыт
+guide-entry-shipyard-phoenix = Феникс
+guide-entry-shipyard-pioneer = Пионер
+guide-entry-shipyard-placebo = Плацебо
+guide-entry-shipyard-prospector = Искатель
+guide-entry-shipyard-pulsar = Пульсар
+guide-entry-shipyard-retort = Реторт
+guide-entry-shipyard-searchlight = Прожектор
+guide-entry-shipyard-sparrow = Воробей
+guide-entry-shipyard-skipper = Шкипер
+guide-entry-shipyard-spirit = Дух
+guide-entry-shipyard-stasis = Стазис
+guide-entry-shipyard-surveyor = Геодезист
+guide-entry-shipyard-tide = Прилив
+гид-вход-верфь-бродяга = Бродяга
+руководство-вход-верфь-виталис = Виталис

@@ -1,7 +1,7 @@
-advertisement-vandalizedbountyvend-1 = Get some iron!
-advertisement-vandalizedbountyvend-2 = Iron! Breakdowns! GUNS BONANZA!
-advertisement-vandalizedbountyvend-3 = You packin', choom?
-advertisement-vandalizedbountyvend-4 = Start zeroin' 'ganic gonks left an' right with this iron!
-advertisement-vandalizedbountyvend-5 = Badges don't have to know the detes.
-advertisement-vandalizedbountyvend-6 = Prep your scratch, choom! Only preem guns here!
-advertisement-vandalizedbountyvend-7 = I only barf nova iron!
+advertisement-vandalizedbountyvend-1 = Достаньте немного железа!
+advertisement-vandalizedbountyvend-2 = Железо! Поломки! ОРУЖЕЙНЫЙ БОНАНЗА!
+advertisement-vandalizedbountyvend-3 = Ты вооружен, чувак?
+advertisement-vandalizedbountyvend-4 = Начинай пристреливать органических гонков налево и направо этим железом!
+advertisement-vandalizedbountyvend-5 = Значки не обязаны знать детали.
+advertisement-vandalizedbountyvend-6 = Готовь свои деньги, чувак! Здесь только лучшее оружие!
+advertisement-vandalizedbountyvend-7 = Я блюю только новым железом!

@@ -1,5 +1,5 @@
-alerts-pacified-zone-name = [color=royalblue]Pacified Zone[/color]
-alerts-pacified-zone-desc = You're in a pacified zone, you need to leave before harming living things.
+alerts-pacified-zone-name = [color=royalblue]Умиротворенная зона[/color]
+alerts-pacified-zone-desc = Вы находитесь в умиротворенной зоне, вам нужно покинуть ее, прежде чем причинить вред живым существам.
 
-alerts-moon-boots-name = Moon Boots
-alerts-moon-boots-desc = Gravity? What's that?
+alerts-moon-boots-name = Лунные сапоги
+alerts-moon-boots-desc = Гравитация? Что это?

@@ -1,3 +1,3 @@
-humanoid-profile-editor-preference-messenger = Messenger
+humanoid-profile-editor-preference-messenger = Мессенджер
 
-trait-category-height = Body
+trait-category-height = Тело

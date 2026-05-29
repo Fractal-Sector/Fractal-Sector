@@ -1,12 +1,12 @@
-# Metals
+# Металлы
 materials-bluespace = bluespace
 
-# Ores
-materials-raw-scrap-tech = tech scrap
+# Руды
+materials-raw-scrap-tech = технический лом
 
-# Other
-materials-anomalite = anomalite
-materials-reinforced-uranium-glass = reinforced uranium glass
-materials-uranium-glass = uranium glass
-materials-clockwork-glass = clockwork glass
-materials-brass = brass
+# Прочее
+materials-anomalite = аномалит
+materials-reinforced-uranium-glass = армированное урановое стекло
+materials-uranium-glass = урановое стекло
+materials-clockwork-glass = часовое стекло
+materials-brass = латунь

@@ -1,3 +1,3 @@
-bluespace-dust-no-dust-left = No dust left!
-bluespace-dust-interact-other = {CAPITALIZE(THE($user))} starts sprinkling blue dust on you!
-bluespace-dust-interact-self = You start sprinkling blue dust on yourself!
+bluespace-dust-no-dust-left = Пыли не осталось!
+bluespace-dust-interact-other = {CAPITALIZE(THE($user))} начинает посыпать вас синей пылью!
+bluespace-dust-interact-self = Вы начинаете посыпать себя синей пылью!

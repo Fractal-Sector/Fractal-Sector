@@ -1,2 +1,2 @@
-power-charge-window-power-action = Activate
-power-charge-window-action = Activate:
+power-charge-window-power-action = Активировать
+power-charge-window-action = Активировать:

@@ -4,4 +4,4 @@ device-address-prefix-gaslock = LCK-
 device-address-prefix-portable-gaslock = PLK-
 device-address-prefix-bles = BLS-
 
-device-frequency-prototype-name-transit-shuttle-display = Transit Shuttle Displays
+device-frequency-prototype-name-transit-shuttle-display = Информационные табло для маршрутных автобусов

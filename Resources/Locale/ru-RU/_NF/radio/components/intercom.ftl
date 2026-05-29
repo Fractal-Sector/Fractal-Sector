@@ -1,1 +1,1 @@
-intercom-verb = Open Intercom
+intercom-verb = Открыть Интерком

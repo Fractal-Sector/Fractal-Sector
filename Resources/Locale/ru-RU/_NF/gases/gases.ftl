@@ -1,3 +1,3 @@
-gas-fallback = Gas #{number}
-gases-respiron = Respiron
-gases-helium = Helium
+gas-fallback = Газ #{number}
+gases-respiron = Респирон
+gases-helium = Гелий

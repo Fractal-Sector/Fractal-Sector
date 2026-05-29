@@ -1,2 +1,2 @@
-crawl-under-objects-toggle-on = Now sneaking
-crawl-under-objects-toggle-off = Now standing
+crawl-under-objects-toggle-on = Сейчас крадусь
+crawl-under-objects-toggle-off = Сейчас стою

@@ -1,2 +1,2 @@
-computer-tabletop-board-examine = This board can be used in a tabletop computer.
-computer-wallmount-board-examine = This board can be used in a wallmount computer.
+computer-tabletop-board-examine = Эта плата может использоваться в настольном компьютере.
+computer-wallmount-board-examine = Эта плата может использоваться в компьютере, монтируемом на стену.

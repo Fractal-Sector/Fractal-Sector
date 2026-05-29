@@ -1,8 +1,8 @@
 # Frontier
 reagent-dispenser-component-impure-auto-label = {$reagent} ({$purity}%)
-reagent-dispenser-component-set-auto-label-on-verb = Turn on auto-labeler
-reagent-dispenser-component-set-auto-label-off-verb = Turn off auto-labeler
-reagent-dispenser-component-examine-auto-label-on = The auto-labeler is turned [color=darkgreen]on[/color].
-reagent-dispenser-component-examine-auto-label-off = The auto-labeler is turned [color=red]off[/color].
+reagent-dispenser-component-set-auto-label-on-verb = Включить автоматический маркировщик
+reagent-dispenser-component-set-auto-label-off-verb = Выключить автоматический маркировщик
+reagent-dispenser-component-examine-auto-label-on = Автоматический маркировщик включен [color=darkgreen]в[/color].
+reagent-dispenser-component-examine-auto-label-off = Автоматический маркировщик выключен [color=red][/color].
 
-reagent-dispenser-component-examine-extra-slots = Number of jug slots
+reagent-dispenser-component-examine-extra-slots = Количество слотов для кувшинов

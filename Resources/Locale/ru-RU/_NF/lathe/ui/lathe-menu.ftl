@@ -1,8 +1,8 @@
-blueprint-lathe-menu-title = Blueprint Lithograph
-blueprint-lathe-menu-select-all = Select All
-blueprint-lathe-menu-clear-all = Clear All
-blueprint-lathe-menu-print = Print
-blueprint-lathe-menu-queue-title = Print Queue
+blueprint-lathe-menu-title = Литография чертежа
+blueprint-lathe-menu-select-all = Выбрать все
+blueprint-lathe-menu-clear-all = Очистить все
+blueprint-lathe-menu-print = Печать
+blueprint-lathe-menu-queue-title = Очередь печати
 blueprint-lathe-menu-default-blueprint-name = blueprint
 
-lathe-product-value-modifier = Printed items sell at [color=red]{NATURALFIXED($modifier, 2)}x[/color] market rate.
+lathe-product-value-modifier = Печатные изделия продаются по рыночной цене [color=red]{NATURALFIXED($modifier, 2)}x[/color].

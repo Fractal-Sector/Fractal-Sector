@@ -1,1 +1,1 @@
-goldleaf = Gold Leaf
+goldleaf = Золотая Фольга

@@ -1,1 +1,1 @@
-flatpacker-item-cannot-be-flatpacked = That item cannot be flatpacked!
+flatpacker-item-cannot-be-flatpacked = Этот товар нельзя упаковать в плоскую коробку!

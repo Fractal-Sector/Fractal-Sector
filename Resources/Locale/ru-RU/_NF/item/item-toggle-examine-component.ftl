@@ -1,2 +1,2 @@
-item-toggle-examine-magnet-on = The magnet appears to be [color=darkgreen]on[/color].
-item-toggle-examine-magnet-off = The magnet appears to be [color=darkred]off[/color].
+item-toggle-examine-magnet-on = Магнит, похоже, [color=darkgreen]включен[/color].
+item-toggle-examine-magnet-off = Магнит, похоже, [color=darkred]выключен[/color].

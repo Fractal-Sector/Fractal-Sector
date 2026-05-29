@@ -1,7 +1,5 @@
 mail-large-item-name-addressed = package ({$recipient})
-mail-large-desc-far = A large package.
-mail-large-desc-close = A large package addressed to {CAPITALIZE($name)}, {$job}. Last known location: {$station}.
+mail-large-desc-far = Большая посылка.
+mail-large-desc-close = Большая посылка, адресованная {CAPITALIZE($name)}, {$job}. Последнее известное местоположение: {$station}.
 
-
-
-command-mailto-no-mailservice = Unable to get mail service.
+command-mailto-no-mailservice = Не удалось получить доступ к почтовой службе.

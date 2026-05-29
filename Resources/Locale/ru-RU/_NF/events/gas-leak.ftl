@@ -1,2 +1,2 @@
-﻿station-event-gas-leak-nf-start-announcement = Attention. Gas leaks have been detected on shuttles. Affected crew are advised to avoid affected areas and wear suit internals in the meantime.
-station-event-gas-leak-nf-end-announcement = The source of the gas leaks has been fixed. Please be cautious around areas with gas remaining.
+﻿station-event-gas-leak-nf-start-announcement = Внимание. На шаттлах обнаружены утечки газа. Членам экипажа рекомендуется избегать затронутых зон и временно носить внутреннюю одежду скафандров.
+station-event-gas-leak-nf-end-announcement = Источник утечки газа устранен. Будьте осторожны в местах, где остался газ.
