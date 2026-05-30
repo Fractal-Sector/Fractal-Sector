@@ -2,12 +2,11 @@ salvage-expedition-window-finish = Завершение экспедиции
 salvage-expedition-announcement-early-finish = Экспедиция завершена раньше запланированного срока. Шаттл отправится через {$departTime} секунд.
 salvage-expedition-announcement-destruction = { $count ->
     [1] Уничтожьте {$structure} до окончания экспедиции.
-*[others] Уничтожьте {$count} {MAKEPLURAL($structure)} до окончания экспедиции.
+    *[others] Уничтожьте {$count} {MAKEPLURAL($structure)} до окончания экспедиции.
 }
 salvage-expedition-announcement-elimination = { $count ->
-
-[1] Устранить {$target} до окончания экспедиции.
-*[others] Устранить {$count} {MAKEPLURAL($target)} до окончания экспедиции.
+    [1] Устранить {$target} до окончания экспедиции.
+    *[others] Устранить {$count} {MAKEPLURAL($target)} до окончания экспедиции.
 }
 salvage-expedition-announcement-destruction-entity-fallback = структура
 salvage-expedition-announcement-elimination-entity-fallback = цель
@@ -56,3 +55,17 @@ salvage-expedition-difficulty-NFModerate = Умеренный
 salvage-expedition-difficulty-NFHazardous = Опасный
 salvage-expedition-difficulty-NFExtreme = Экстремальный
 
+salvage-expedition-megafauna-remaining = {$count ->
+    [one] осталось {$count} цель.
+    *[other] осталось {$count} целей.
+}
+
+salvage-expedition-type-Destruction = Уничтожение
+salvage-expedition-type-Elimination = Ликвидация
+
+# Restored the lines, removed from Resources\Locale\en-US\procedural\expeditions.ftl
+salvage-expedition-structure-examine = Это задача на [color=#B02E26]destrucуничтожениеtion[/color] 
+salvage-expedition-structure-remaining = {$count ->
+    [one] осталась {$count} структура.
+    *[other] осталось {$count} структур.
+}
