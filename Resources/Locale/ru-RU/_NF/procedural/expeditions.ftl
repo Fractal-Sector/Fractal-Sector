@@ -12,7 +12,7 @@ salvage-expedition-announcement-destruction-entity-fallback = структура
 salvage-expedition-announcement-elimination-entity-fallback = цель
 
 salvage-expedition-shuttle-not-found = Не удалось найти шаттл.
-salvage-expedition-not-everyone-aboard = Не весь экипаж на борту! {CAPITALIZE(THE($target))} все еще где-то там!
+salvage-expedition-not-everyone-aboard = Не весь экипаж на борту! {CAPITALIZE($target)} все еще где-то там!
 salvage-expedition-failed = Экспедиция провалилась.
 
 # Моды для утилизации
@@ -64,8 +64,8 @@ salvage-expedition-type-Destruction = Уничтожение
 salvage-expedition-type-Elimination = Ликвидация
 
 # Restored the lines, removed from Resources\Locale\en-US\procedural\expeditions.ftl
-salvage-expedition-structure-examine = Это задача на [color=#B02E26]destrucуничтожениеtion[/color] 
-salvage-expedition-structure-remaining = {$count ->
-    [one] осталась {$count} структура.
-    *[other] осталось {$count} структур.
-}
+#salvage-expedition-structure-examine = Это задача на [color=#B02E26]уничтожение[/color] 
+#salvage-expedition-structure-remaining = {$count ->
+#    [one] осталась {$count} структура.
+#    *[other] осталось {$count} структур.
+#}
