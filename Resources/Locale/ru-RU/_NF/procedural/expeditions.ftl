@@ -55,13 +55,13 @@ salvage-expedition-difficulty-NFModerate = Умеренный
 salvage-expedition-difficulty-NFHazardous = Опасный
 salvage-expedition-difficulty-NFExtreme = Экстремальный
 
-salvage-expedition-megafauna-remaining = {$count ->
-    [one] осталось {$count} цель.
-    *[other] осталось {$count} целей.
-}
+#salvage-expedition-megafauna-remaining = {$count ->
+#    [one] осталось {$count} цель.
+#    *[other] осталось {$count} целей.
+#}
 
-salvage-expedition-type-Destruction = Уничтожение
-salvage-expedition-type-Elimination = Ликвидация
+#salvage-expedition-type-Destruction = Уничтожение
+#salvage-expedition-type-Elimination = Ликвидация
 
 # Restored the lines, removed from Resources\Locale\en-US\procedural\expeditions.ftl
 #salvage-expedition-structure-examine = Это задача на [color=#B02E26]уничтожение[/color] 
