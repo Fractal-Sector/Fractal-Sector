@@ -1,4 +1,4 @@
-guidebook-medical-reagents-header = Active Components
-guidebook-medical-damage-header = Healing
+guidebook-medical-reagents-header = Активные компоненты
+guidebook-medical-damage-header = Исцеление
 
 guidebook-medical-damage-group = [color=gold]{$name}[/color]

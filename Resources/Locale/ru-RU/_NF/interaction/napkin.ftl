@@ -1,11 +1,12 @@
-napkin-verb-wipe = Wipe Face
+napkin-verb-wipe = Вытереть лицо
 
-napkin-wipe-self-actor-success = You wiped your face with the napkin.
-napkin-wipe-self-observer-success = {CAPITALIZE(THE($user))} wiped {POSS-ADJ($user)} face with the napkin.
+napkin-wipe-self-actor-success = Вы вытерли лицо салфеткой.
+napkin-wipe-self-observer-success = {CAPITALIZE(THE($user))} вытер лицо {POSS-ADJ($user)} салфеткой.
 
-napkin-wipe-actor-start = You start wiping {THE($target)}'s face.
-napkin-wipe-actor-success = You wiped {THE($target)}'s face.
-napkin-wipe-target-start = {CAPITALIZE(THE($user))} is trying to wipe your face.
-napkin-wipe-target-success = {CAPITALIZE(THE($user))} wiped your face.
-napkin-wipe-observer-start = {CAPITALIZE(THE($user))} starts wiping {THE($target)}'s face.
-napkin-wipe-observer-success = {CAPITALIZE(THE($user))} wiped {THE($target)}'s face.
+napkin-wipe-actor-start = Вы начинаете вытирать лицо {THE($target)}.
+napkin-wipe-actor-success = Вы вытерли лицо {THE($target)}.
+napkin-wipe-target-start = {CAPITALIZE(THE($user))} пытается вытереть ваше лицо.
+napkin-wipe-target-success = {CAPITALIZE(THE($user))} вытер ваше лицо.
+
+napkin-wipe-observer-start = {CAPITALIZE(THE($user))} начинает протирать лицо {THE($target)}.
+napkin-wipe-observer-success = {CAPITALIZE(THE($user))} протер лицо {THE($target)}.

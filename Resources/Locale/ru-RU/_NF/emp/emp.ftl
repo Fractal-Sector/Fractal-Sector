@@ -1,7 +1,7 @@
-emp-examinable-verb-text = EMP
-emp-examinable-verb-message = Examine the EMP values.
+emp-examinable-verb-text = ЭМИ
+emp-examinable-verb-message = Изучите значения ЭМИ.
 
-emp-examine = It causes an EMP with:
-emp-range-value = - [color=yellow]{$value} m[/color] of range.
-emp-energy-value = - [color=yellow]{POWERJOULES($value)}[/color] of energy absorption from any battery in range.
-emp-time-value = - [color=yellow]{$value} s[/color] of device deactivation.
+emp-examine = Это вызывает ЭМИ со следующими параметрами:
+emp-range-value = - [color=yellow]{$value} м[/color] радиуса действия.
+emp-energy-value = - [color=yellow]{POWERJOULES($value)}[/color] поглощения энергии от любой батареи в радиусе действия.
+emp-time-value = - [color=yellow]{$value} с[/color] деактивации устройства.

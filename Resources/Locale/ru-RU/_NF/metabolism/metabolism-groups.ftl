@@ -1,2 +1,2 @@
-metabolism-group-cryogenic = Cryogenic
-metabolism-group-sheleg = Sheleg
+metabolism-group-cryogenic = Криогенный
+metabolism-group-sheleg = Шелег

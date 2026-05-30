@@ -1,5 +1,4 @@
-market-modifier-buy-high = This machine charges [color=red]{$mod}x[/color] market rate.
-market-modifier-buy-low = This machine charges [color=green]{$mod}x[/color] market rate.
-
-market-modifier-sell-high = This machine pays out at [color=green]{$mod}x[/color] market rate.
-market-modifier-sell-low = This machine pays out at [color=red]{$mod}x[/color] market rate.
+market-modifier-buy-high = Этот автомат взимает комиссию в размере [color=red]{$mod}x[/color] рыночной ставки.
+market-modifier-buy-low = Этот автомат взимает комиссию в размере [color=green]{$mod}x[/color] рыночной ставки.
+market-modifier-sell-high = Этот автомат выплачивает комиссию в размере [color=green]{$mod}x[/color] рыночной ставки.
+market-modifier-sell-low = Этот автомат выплачивает комиссию в размере [color=red]{$mod}x[/color] рыночной ставки.

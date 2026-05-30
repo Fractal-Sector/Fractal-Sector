@@ -1,17 +1,17 @@
-hologram-return-to-shuttle = Return to the shuttle.
+hologram-return-to-shuttle = Вернуться к шаттлу.
 
-interview-hologram-approve = Approve
-interview-hologram-rescind = Rescind Approval
-interview-hologram-dismiss = Dismiss
-interview-hologram-dismiss-and-close = Dismiss and Close
-interview-hologram-dismiss-self = Dismiss Yourself
+interview-hologram-approve = Одобрить
+interview-hologram-rescind = Отменить одобрение
+interview-hologram-dismiss = Отклонить
+interview-hologram-dismiss-and-close = Отклонить и закрыть
+interview-hologram-dismiss-self = Отклонить себя
 
-interview-hologram-verb-message-need-deed = You need to have an ID with a deed to this ship to do that.
+interview-hologram-verb-message-need-deed = Для этого вам необходимо удостоверение личности с правом собственности на этот корабль.
 
-interview-hologram-message-cancelled = You have left the interview.
-interview-hologram-message-dismissed = You have been dismissed from the interview.
-interview-hologram-message-accepted = You got the job!
+interview-hologram-message-cancelled = Вы покинули собеседование.
+interview-hologram-message-dismissed = Вас отстранили от собеседования.
+interview-hologram-message-accepted = Вы получили работу!
 
-interview-hologram-pda-notification = {$applicant} has arrived to interview for {INDEFINITE($jobTitle)} {$jobTitle} position.
-interview-notification-pda-header = Job Application
-interview-notification-default-job = job
+interview-hologram-pda-notification = {$applicant} прибыл на собеседование на должность {$jobTitle}.
+interview-notification-pda-header = Заявка на работу
+interview-notification-default-job = работа

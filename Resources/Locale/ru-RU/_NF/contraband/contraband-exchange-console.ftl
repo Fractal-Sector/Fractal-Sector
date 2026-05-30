@@ -1,20 +1,20 @@
 
 # Contraband Exchange Console
-contraband-pallet-console-menu-title = Contraband Exchange
+contraband-pallet-console-menu-title = Обмен контрабанды
 contraband-console-menu-points-amount = {$amount} ZC
-contraband-pallet-menu-no-goods-text = No contraband detected
-contraband-pallet-menu-appraisal-label = Estimated Value:{" "}
-contraband-pallet-menu-count-label = Number of items:{" "}
-contraband-pallet-appraise-button = Appraise
-contraband-pallet-sell-button = Sell
-contraband-pallet-disclaimer = Please place all contraband items directly onto the scanner. Items inside other containers are unable to be scanned properly.
+contraband-pallet-menu-no-goods-text = Контрабанда не обнаружена
+contraband-pallet-menu-appraisal-label = Предполагаемая стоимость:{" "}
+contraband-pallet-menu-count-label = Количество товаров:{" "}
+contraband-pallet-appraise-button = Оценить
+contraband-pallet-sell-button = Продать
+contraband-pallet-disclaimer = Пожалуйста, размещайте все контрабандные товары непосредственно на сканере. Товары внутри других контейнеров не могут быть отсканированы должным образом.
 
 # Black Market Exchange Console (outlaw contraband) # WF
-pirate-contraband-pallet-console-menu-title = Data Exchange
+pirate-contraband-pallet-console-menu-title = Обмен данными
 pirate-contraband-console-menu-points-amount = {$amount} DC
-pirate-contraband-pallet-menu-no-goods-text = Nothing on the pad. Try again.
-pirate-contraband-pallet-menu-appraisal-label = Estimated Value:{" "}
-pirate-contraband-pallet-menu-count-label = Number of items:{" "}
-pirate-contraband-pallet-appraise-button = Appraise
-pirate-contraband-pallet-sell-button = Sell
-pirate-contraband-pallet-disclaimer = Slot your contraband directly onto the scanner pad. No containers, no games.
+pirate-contraband-pallet-menu-no-goods-text = На панели ничего нет. Попробуйте еще раз.
+pirate-contraband-pallet-menu-appraisal-label = Предполагаемая стоимость:{" "}
+pirate-contraband-pallet-menu-count-label = Количество предметов:{" "}
+pirate-contraband-pallet-appraise-button = Оценить
+pirate-contraband-pallet-sell-button = Продать
+pirate-contraband-pallet-disclaimer = Поместите контрабанду прямо на сканирующую панель. Никаких контейнеров, никаких игр.

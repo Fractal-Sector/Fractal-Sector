@@ -1,20 +1,22 @@
--nf-pirate-role-greeting-suffix = smuggle contraband, and fulfill bounties from the black market in exchange for data chits.
+-nf-pirate-role-greeting-suffix = заниматься контрабандой и выполнять поручения на чёрном рынке в обмен на информационные жетоны.
 
-nf-pirate-role-greeting = 
-    You are a outlaw, unnoticed by the GCP. You aren't on their radar yet and maybe its best it stay that way.
-    Team up with other outlaws, {-nf-pirate-role-greeting-suffix} Evade the GCP and make a name for yourself!
+nf-pirate-role-greeting =
+    Вы — преступник, незамеченный GCP. Вы ещё не попали в их поле зрения, и, возможно, лучше так и останется.
+    Объединяйтесь с другими преступниками, {-nf-pirate-role-greeting-suffix} Избегайте GCP и прославьтесь!
 
-nf-piratecaptain-role-greeting = 
-    You are an infamous outlaw, wanted by the CGP. They know you are in the sector and will be looking for you.
-    Team up with other outlaws you can trust, lest they give you up for the reward on your head, {-nf-pirate-role-greeting-suffix}
+nf-piratecaptain-role-greeting =
+    Вы — печально известный преступник, разыскиваемый GCP. Они знают, что вы находитесь в секторе, и будут вас искать.
+    Объединяйтесь с другими пиратами, которым вы доверяете, иначе они вас выдадут за награду за вашу голову.
 
-nf-pirate-role-greeting-equipment = Use the consoles in the lobby to find and redeem bounties and sell loose contraband crates. Purchase a ship and head off on adventure!
+nf-pirate-role-greeting-equipment = 
+    Используйте консоли в лобби, чтобы находить и обменивать награды, а также продавать ящики с контрабандой. 
+    Купите корабль и отправляйтесь в приключение!
 
-objective-issuer-nf-pirate = [color=#821600]Outlaw[/color]
+objective-issuer-nf-pirate = [color=#821600]Преступник[/color]
 
-nf-pirate-round-end-agent-name = outlaw
+nf-pirate-round-end-agent-name = Преступник
 
-roles-antag-nf-pirate-name = Outlaw
-roles-antag-nf-pirate-first-mate-name = Outlaw
-roles-antag-nf-pirate-captain-name = Wanted Outlaw
-roles-antag-nf-pirate-objective = Become famous... or infamous!
+roles-antag-nf-pirate-name = Преступник
+roles-antag-nf-pirate-first-mate-name = Преступник
+roles-antag-nf-pirate-captain-name = Разыскиваемый преступник
+roles-antag-nf-pirate-objective = Станьте знаменитым... или печально известным!

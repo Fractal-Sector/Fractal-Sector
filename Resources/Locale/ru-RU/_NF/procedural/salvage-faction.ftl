@@ -1,14 +1,14 @@
-dungeon-boss-grid-warning = Return to the dungeon.
+dungeon-boss-grid-warning = Вернуться в подземелье.
 
-nf-salvage-faction-zombies = Zombies
-nf-salvage-faction-xenos = Xenos
-nf-salvage-faction-carps = Carp
-nf-salvage-faction-syndicate = Syndicate
-nf-salvage-faction-cultists = Cultists
-nf-salvage-faction-flesh = Flesh
-nf-salvage-faction-argocytes = Argocytes
-nf-salvage-faction-dinosaurs = Dinosaurs
-nf-salvage-faction-mercenaries = Mercenaries
-nf-salvage-faction-explorers = Explorers
-nf-salvage-faction-silicons = Rogue Silicon
-nf-salvage-faction-punks = Punks
+nf-salvage-faction-zombies = Зомби
+nf-salvage-faction-xenos = Ксеносы
+nf-salvage-faction-carps = Карпы
+nf-salvage-faction-syndicate = Синдикат
+nf-salvage-faction-cultists = Культисты
+nf-salvage-faction-flesh = Плоть
+nf-salvage-faction-argocytes = Аргоциты
+nf-salvage-faction-dinosaurs = Динозавры
+nf-salvage-faction-mercenaries = Наёмники
+nf-salvage-faction-explorers = Исследователи
+nf-salvage-faction-silicons = Силиконовые отбросы
+nf-salvage-faction-punks = Панки

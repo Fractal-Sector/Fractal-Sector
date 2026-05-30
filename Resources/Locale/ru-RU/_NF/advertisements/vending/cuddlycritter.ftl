@@ -1,8 +1,8 @@
-advertisement-cuddlycritter-1 = Brighten your day with a fluffy friend!
-advertisement-cuddlycritter-2 = Hug therapy starts here!
-advertisement-cuddlycritter-3 = Give in to the plushie temptation!
-advertisement-cuddlycritter-4 = You won't resist their charm!
-advertisement-cuddlycritter-5 = Warning: Extreme cuteness ahead!
-advertisement-cuddlycritter-6 = Help me I'm trapped in a NanoTrasen factory forced to make Plushies!
-advertisement-cuddlycritter-7 = Softer then asbestos!
-advertisement-cuddlycritter-8 = The best crayon colors in space, proposition 65
+advertisement-cuddlycritter-1 = Скрасьте свой день пушистым другом!
+advertisement-cuddlycritter-2 = Терапия объятиями начинается здесь!
+advertisement-cuddlycritter-3 = Поддайтесь искушению плюшевой игрушки!
+advertisement-cuddlycritter-4 = Вы не сможете устоять перед их очарованием!
+advertisement-cuddlycritter-5 = Внимание: Впереди невероятная милота!
+advertisement-cuddlycritter-6 = Помогите мне, я застрял на фабрике NanoTrasen, где меня заставляют делать плюшевые игрушки!
+advertisement-cuddlycritter-7 = Мягче асбеста!
+advertisement-cuddlycritter-8 = Лучшие цвета карандашей в космосе, предложение 65

@@ -1,3 +1,3 @@
-clothing-neck-sidearm = Sidearm
-clothing-neck-magazine = Magazine
-clothing-neck-dagger = Dagger
+clothing-neck-sidearm = Дополнительное оружие
+clothing-neck-magazine = Магазин
+clothing-neck-dagger = Клинок

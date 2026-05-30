@@ -1,26 +1,26 @@
-## Entity
-microwave-component-range-interact-item-too-big = { CAPITALIZE(THE($item)) } is too big to fit in the oven!
-microwave-component-assembler-interact-item-too-big = { CAPITALIZE(THE($item)) } is too big to fit in the Food-O-Mat!
-microwave-component-medical-assembler-interact-item-too-big = { CAPITALIZE(THE($item)) } is too big to fit in the medical assembler!
+## Сущность
+microwave-component-range-interact-item-too-big = { CAPITALIZE(THE($item)) } слишком велика, чтобы поместиться в духовку!
+microwave-component-assembler-interact-item-too-big = { CAPITALIZE(THE($item)) } слишком велика, чтобы поместиться в Food-O-Mat!
+microwave-component-medical-assembler-interact-item-too-big = { CAPITALIZE(THE($item)) } слишком велика, чтобы поместиться в медицинский сборщик!
 
-microwave-component-assembler-no-valid-recipe = No valid recipe found!
+microwave-component-assembler-no-valid-recipe = Рецепт не найден!
 
-## Bound UI
-assembler-bound-user-interface-insert-ingredients = INSERT MATERIALS
-assembler-bound-user-interface-cook-time-label = TIME LEFT: {$time}
+## Связанный пользовательский интерфейс
+assembler-bound-user-interface-insert-ingredients = ВСТАВИТЬ МАТЕРИАЛЫ
+assembler-bound-user-interface-cook-time-label = ОСТАЛОСЬ ВРЕМЯ: {$time}
 
-## UI
+## Пользовательский интерфейс
 
-microwave-menu-range-title = Electric Range
+microwave-menu-range-title = Электрическая плита
 
-microwave-menu-range-footer-flavor-left = NT is not liable for damages due to kitchen fires.
+microwave-menu-range-footer-flavor-left = NT не несет ответственности за ущерб, причиненный кухонными пожарами.
 
 assembler-menu-title = Food-O-Mat
-assembler-menu-medical-title = Medical Assembler
+assembler-menu-medical-title = Медицинский сборщик
 
-assembler-menu-start-button = Assemble
+assembler-menu-start-button = Собрать
 
-assembler-menu-footer-flavor-left = Remember to store foodstuffs at safe temperatures.
-assembler-menu-medical-footer-flavor-left = Certified 99.99% nano-sterile.
+assembler-menu-footer-flavor-left = Помните о необходимости хранить продукты при безопасной температуре.
+assembler-menu-medical-footer-flavor-left = Сертифицировано на 99,99% наностерильно.
 
 assembler-menu-footer-flavor-right = v0.2.1

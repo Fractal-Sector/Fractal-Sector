@@ -1,2 +1,2 @@
-frontier-loadout-cost = Total Loadout Cost: {$cost}
-frontier-loadout-balance = Available Balance: {$balance}
+frontier-loadout-cost = Общая стоимость погрузки: {$cost}
+frontier-loadout-balance = Доступный баланс: {$balance}

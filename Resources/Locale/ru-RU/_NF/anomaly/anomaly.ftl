@@ -1,9 +1,9 @@
-anomaly-scanner-point-earned = Points earned: [color=gray]{$point}[/color]
-anomaly-scanner-point-earned-unknown = Points earned: [color=red]ERROR[/color]
-anomaly-scanner-anomalite-expected = Expected anomalite: [color=gray]{$count}[/color] crystals
-anomaly-scanner-anomalite-expected-unknown = Expected anomalite: [color=red]ERROR[/color]
+anomaly-scanner-point-earned = Начислено очков: [color=gray]{$point}[/color]
+anomaly-scanner-point-earned-unknown = Начислено очков: [color=red]ОШИБКА[/color]
+anomaly-scanner-anomalite-expected = Ожидаемый аномалит: [color=gray]{$count}[/color] кристаллы
+anomaly-scanner-anomalite-expected-unknown = Ожидаемый аномалит: [color=red]ОШИБКА[/color]
 
-anomaly-vessel-component-off-grid = The anomaly must be on the same body as the vessel!
-anomaly-vessel-component-anomaly-cleared = The vessel hisses as its anomaly link is lost.
+anomaly-vessel-component-off-grid = Аномалия должна находиться на том же теле, что и судно!
+anomaly-vessel-component-anomaly-cleared = Судно шипит, так как связь с аномалией потеряна.
 
-anomaly-generator-refund-message = Anomaly inhibitors detected. Generate in another area.
+anomaly-generator-refund-message = Обнаружены ингибиторы аномалий. Сгенерируйте в другой области.

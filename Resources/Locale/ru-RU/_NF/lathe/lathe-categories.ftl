@@ -1,15 +1,14 @@
-# Generic
-lathe-category-storage-nf = Storage
-lathe-category-kitchen-nf = Kitchen
-lathe-category-clothes-nf = Clothes
-lathe-category-medical-nf = Medical
-lathe-category-magazines-nf = Magazines
-lathe-category-inflatables-nf = Inflatables
-lathe-category-piety-nf = Piety
-lathe-category-candles-nf = Candles
-
+# Общие
+lathe-category-storage-nf = Хранение
+lathe-category-kitchen-nf = Кухня
+lathe-category-clothes-nf = Одежда
+lathe-category-medical-nf = Медицина
+lathe-category-magazines-nf = Журналы
+lathe-category-inflatables-nf = Надувные изделия
+lathe-category-piety-nf = Благочестие
+lathe-category-candles-nf = Свечи
 # Biogen
-lathe-category-nf-animal-cubes = Animal Cubes
-lathe-category-brand = Brand
-lathe-category-seeds = Seeds
-lathe-category-soda = Soda
+lathe-category-nf-animal-cubes = Кубики животных
+lathe-category-brand = Бренд
+lathe-category-seeds = Семена
+lathe-category-soda = Газировка

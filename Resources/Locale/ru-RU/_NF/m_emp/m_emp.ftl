@@ -1,1 +1,1 @@
-emp-generator-window-title = Mobile EMP Generator
+emp-generator-window-title = Мобильный генератор ЭМИ

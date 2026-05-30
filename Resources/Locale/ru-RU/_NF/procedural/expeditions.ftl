@@ -1,35 +1,35 @@
-salvage-expedition-window-finish = Finish expedition
-salvage-expedition-announcement-early-finish = The expedition was completed ahead of schedule. Shuttle will depart in {$departTime} seconds.
+salvage-expedition-window-finish = Завершение экспедиции
+salvage-expedition-announcement-early-finish = Экспедиция завершена раньше запланированного срока. Шаттл отправится через {$departTime} секунд.
 salvage-expedition-announcement-destruction = { $count ->
-    [1] Destroy the {$structure} before the expedition ends.
-    *[others] Destroy {$count} {MAKEPLURAL($structure)} before the expedition ends.
+    [1] Уничтожьте {$structure} до окончания экспедиции.
+    *[others] Уничтожьте {$count} {MAKEPLURAL($structure)} до окончания экспедиции.
 }
 salvage-expedition-announcement-elimination = { $count ->
-    [1] Eliminate the {$target} before the expedition ends.
-    *[others] Eliminate {$count} {MAKEPLURAL($target)} before the expedition ends.
+    [1] Устранить {$target} до окончания экспедиции.
+    *[others] Устранить {$count} {MAKEPLURAL($target)} до окончания экспедиции.
 }
-salvage-expedition-announcement-destruction-entity-fallback = structure
-salvage-expedition-announcement-elimination-entity-fallback = target
+salvage-expedition-announcement-destruction-entity-fallback = структура
+salvage-expedition-announcement-elimination-entity-fallback = цель
 
-salvage-expedition-shuttle-not-found = Cannot locate shuttle.
-salvage-expedition-not-everyone-aboard = Not all crew aboard! {CAPITALIZE(THE($target))} is still out there!
-salvage-expedition-failed = Expedition is failed.
+salvage-expedition-shuttle-not-found = Не удалось найти шаттл.
+salvage-expedition-not-everyone-aboard = Не весь экипаж на борту! {CAPITALIZE($target)} все еще где-то там!
+salvage-expedition-failed = Экспедиция провалилась.
 
-# Salvage mods
-salvage-time-mod-standard-time = Normal Duration
-salvage-time-mod-rush = Rushs
+# Моды для утилизации
+salvage-time-mod-standard-time = Нормальная продолжительность
+salvage-time-mod-rush = Ускорения
 
-salvage-weather-mod-heavy-snowfall = Heavy Snowfall
-salvage-weather-mod-rain = Rain
+salvage-weather-mod-heavy-snowfall = Сильный снегопад
+salvage-weather-mod-rain = Дождь
 
-salvage-biome-mod-shadow = Shadow
+salvage-biome-mod-shadow = Тень
 
-salvage-dungeon-mod-cave-factory = Cave Factory
-salvage-dungeon-mod-med-sci = Medical Science Base
-salvage-dungeon-mod-factory-dorms = Factory Dorms
-salvage-dungeon-mod-lava-mercenary = Lava Mercenary Base
-salvage-dungeon-mod-virology-lab = Virology Lab
-salvage-dungeon-mod-salvage-outpost = Salvage Outpost
+salvage-dungeon-mod-cave-factory = Пещерная фабрика
+salvage-dungeon-mod-med-sci = Медицинская научная база
+salvage-dungeon-mod-factory-dorms = Фабричные общежития
+salvage-dungeon-mod-lava-mercenary = База лавовых наемников
+salvage-dungeon-mod-virology-lab = Вирусологическая лаборатория
+salvage-dungeon-mod-salvage-outpost = Аванпост утилизации
 
 salvage-air-mod-1 = 82 N2, 21 O2
 salvage-air-mod-2 = 72 N2, 21 O2, 10 N2O
@@ -49,9 +49,23 @@ salvage-air-mod-15 = 103 CO2
 salvage-air-mod-16 = 34 CO2, 34 NH3, 34 N2O
 salvage-air-mod-17 = 34 H2O, 34 NH3, 34 N2O
 salvage-air-mod-18 = 34 H2O, 34 N2O, 17 NH3, 17 CO2
-salvage-air-mod-unknown = Unknown atmosphere
+salvage-air-mod-unknown = Неизвестная атмосфера
 
-salvage-expedition-difficulty-NFModerate = Moderate
-salvage-expedition-difficulty-NFHazardous = Hazardous
-salvage-expedition-difficulty-NFExtreme = Extreme
+salvage-expedition-difficulty-NFModerate = Умеренный
+salvage-expedition-difficulty-NFHazardous = Опасный
+salvage-expedition-difficulty-NFExtreme = Экстремальный
 
+#salvage-expedition-megafauna-remaining = {$count ->
+#    [one] осталось {$count} цель.
+#    *[other] осталось {$count} целей.
+#}
+
+#salvage-expedition-type-Destruction = Уничтожение
+#salvage-expedition-type-Elimination = Ликвидация
+
+# Restored the lines, removed from Resources\Locale\en-US\procedural\expeditions.ftl
+#salvage-expedition-structure-examine = Это задача на [color=#B02E26]уничтожение[/color] 
+#salvage-expedition-structure-remaining = {$count ->
+#    [one] осталась {$count} структура.
+#    *[other] осталось {$count} структур.
+#}
