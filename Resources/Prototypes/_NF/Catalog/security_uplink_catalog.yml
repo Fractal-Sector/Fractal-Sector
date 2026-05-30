@@ -435,6 +435,7 @@
           - SecurityUplink
     - !type:BuyerJobCondition
       whitelist:
+        - Bailiff # Wayfarer
         - Sheriff
 
 - type: listing
@@ -503,6 +504,69 @@
       whitelist:
         tags:
           - SecurityUplink
+
+# Wayfarer: Duster
+- type: listing
+  id: ShuttleGunDusterCircuitboardNfsd
+  name: uplink-cgp-duster-name
+  description: uplink-cgp-duster-desc
+  productEntity: ShuttleGunDusterCircuitboardNfsd
+  icon: { sprite: _NF/Objects/Misc/module.rsi, state: nfsd }
+  cost:
+    FrontierUplinkCoin: 15
+  categories:
+  - UplinkSecurityUtility
+  conditions:
+  - !type:StoreWhitelistCondition
+    whitelist:
+      tags:
+      - SecurityUplink
+  - !type:BuyerJobCondition
+      whitelist:
+      - Bailiff
+      - Sheriff
+
+# Wayfarer: Friendship
+- type: listing
+  id: ShuttleGunFriendshipCircuitboardNfsd
+  name: uplink-cgp-friendship-name
+  description: uplink-cgp-duster-desc
+  productEntity: ShuttleGunFriendshipCircuitboardNfsd
+  icon: { sprite: _NF/Objects/Misc/module.rsi, state: nfsd }
+  cost:
+    FrontierUplinkCoin: 15
+  categories:
+  - UplinkSecurityUtility
+  conditions:
+  - !type:StoreWhitelistCondition
+    whitelist:
+      tags:
+      - SecurityUplink
+  - !type:BuyerJobCondition
+      whitelist:
+      - Bailiff
+      - Sheriff
+
+# Wayfarer: Radar
+- type: listing
+  id: AdvancedRadarConsoleCircuitboard
+  name: uplink-cgp-radar-name
+  description: uplink-cgp-radar-desc
+  productEntity: AdvancedRadarConsoleCircuitboard
+  icon: { sprite: _NF/Objects/Misc/module.rsi, state: nfsd }
+  cost:
+    FrontierUplinkCoin: 8
+  categories:
+  - UplinkSecurityUtility
+  conditions:
+  - !type:StoreWhitelistCondition
+    whitelist:
+      tags:
+      - SecurityUplink
+  - !type:BuyerJobCondition
+      whitelist:
+      - Bailiff
+      - Sheriff
 
 #region magazines
 - type: listing
@@ -813,7 +877,7 @@
   productEntity: ClothingMaskGasSheriff
   icon: { sprite: _NF/Clothing/Mask/nfsd_sheriff.rsi, state: icon}
   cost:
-    FrontierUplinkCoin: 3
+    FrontierUplinkCoin: 1 # Wayfarer: 3<1
   categories:
     - UplinkSecurityUtility
   conditions:
