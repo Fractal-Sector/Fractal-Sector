@@ -9,6 +9,6 @@ cargo-console-nf-no-bank-account = Банковский счет не найде
 
 cargo-console-nf-paper-print-text = [head=2]Заказ #{$orderNumber}[/head]
     {"[bold]Предмет:[/bold]"} {$itemName} ({$orderIndex}/{$orderQuantity})
-    {"[bold]Purchased by:[/bold]"} {$purchaser}
-    {"[bold]Notes:[/bold]"} {$notes}
+    {"[bold]Кем куплено:[/bold]"} {$purchaser}
+    {"[bold]Заметки:[/bold]"} {$notes}
 
