@@ -1,12 +1,12 @@
 ﻿- type: vessel
-  id: Reclaimer
+  id: Behir
   parent: BaseVessel
-  name: GE Reclaimer
+  name: DIRE Behir
   description: A somewhat restored cargo vessel, repurposed for planetary and space based asset acquisition.
-  price: 60380
+  price: 85180
   category: Large
   group: Expedition
-  shuttlePath: /Maps/_WF/Shuttles/Expedition/reclaimer.yml
+  shuttlePath: /Maps/_WF/Shuttles/Expedition/behir.yml
   guidebookPage: ShipyardReclaimer
   class:
   - Cargo
@@ -15,16 +15,16 @@
   - Uranium
 
 - type: gameMap
-  id: Reclaimer
-  mapName: 'Reclaimer'
-  mapPath: /Maps/_WF/Shuttles/Expedition/reclaimer.yml
+  id: Behir
+  mapName: 'Behir'
+  mapPath: /Maps/_WF/Shuttles/Expedition/behir.yml
   minPlayers: 0
   stations:
-    Reclaimer:
-      stationProto: StandardFrontierVessel
+    Behir:
+      stationProto: StandardFrontierExpeditionVessel
       components:
       - type: StationNameSetup
-        mapNameTemplate: 'Reclaimer EXP{1}'
+        mapNameTemplate: 'Behir EXP{1}'
         nameGenerator:
           !type:NanotrasenNameGenerator
           prefixCreator: '14'
