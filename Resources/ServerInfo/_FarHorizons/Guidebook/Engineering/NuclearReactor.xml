@@ -19,10 +19,10 @@
 		<GuideEntityEmbed Entity="NuclearFabricator"/>
 	</Box>
 	<Box>
-		<GuideEntityEmbed Entity="CerenkiteReactorFuelRod" Caption="fuel rod"/>
-		<GuideEntityEmbed Entity="BohrumReactorControlRod" Caption="control rod"/>
-		<GuideEntityEmbed Entity="SteelReactorGasChannel" Caption="gas channel"/>
-		<GuideEntityEmbed Entity="SteelReactorHeatExchanger" Caption="heat exchanger"/>
+		<GuideEntityEmbed Entity="CerenkiteReactorFuelRod" Caption="топливный стержень"/>
+		<GuideEntityEmbed Entity="BohrumReactorControlRod" Caption="контролирующий стержень"/>
+		<GuideEntityEmbed Entity="SteelReactorGasChannel" Caption="газовый канал"/>
+		<GuideEntityEmbed Entity="SteelReactorHeatExchanger" Caption="теплообменник"/>
 	</Box>
 
 	Стержни реактора — это компоненты, которые устанавливаются в сетку реактора и обеспечивают его функционирование.
@@ -37,7 +37,7 @@
 
 	Если температура стержня выше 80°C, для работы с ним потребуются перчатки. При 400°C даже перчатки не обеспечат защиту.
 
-	Существует четыре типа стержней, которые можно изготовить из различных [textlink="materials" link="NuclearMaterials"] и поместить в сетку реактора: Топливные Стержни, Управляющие Стержни, Газовые Каналы и Теплообменники.
+	Существует четыре типа стержней, которые можно изготовить из различных [textlink="материалов" link="NuclearMaterials"] и поместить в сетку реактора: Топливные Стержни, Управляющие Стержни, Газовые Каналы и Теплообменники.
 
 	### Топливные стержни
 	Топливные стержни являются основным источником нейтронов и тепла внутри реактора.
@@ -191,7 +191,7 @@
 
 	Нагрузка статора обычно регулируется для обеспечения оптимальных оборотов турбины.
 
-	### Обороты в минуту 
+	### Обороты в минуту
 	Обороты в минуту показывают, как быстро вращается турбина.
 
 	У турбины есть оптимальные обороты, при которых она будет производить больше всего энергии.
@@ -232,8 +232,8 @@
 		<GuideEntityEmbed Entity="NuclearFabricator"/>
 	</Box>
 	<Box>
-		<GuideEntityEmbed Entity="SteelGasTurbineBlade" Caption="turbine blade"/>
-		<GuideEntityEmbed Entity="SteelGasTurbineStator" Caption="stator"/>
+		<GuideEntityEmbed Entity="SteelGasTurbineBlade" Caption="лопасть турбины"/>
+		<GuideEntityEmbed Entity="SteelGasTurbineStator" Caption="статор"/>
 	</Box>
 
 	Детали турбины определяют, насколько хорошо функционирует турбина.
@@ -248,7 +248,7 @@
 	Более высокая целостность означает, что она может выдержать больше повреждений до поломки, что делает её более безопасной.
 
 	Более высокая инерция означает, что потребуется больше энергии для изменения оборотов, что приводит к более плавной работе.
-	
+
 	### Статоры
 	Статоры влияют на эффективность энергопотребления и выходную мощность турбины.
 
