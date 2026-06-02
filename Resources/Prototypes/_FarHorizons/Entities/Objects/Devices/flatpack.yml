@@ -1,8 +1,8 @@
 - type: entity
   parent: [BaseFlatpack]
   id: NuclearReactorFlatpack
-  name: nuclear reactor flatpack
-  description: A flatpack used for constructing a nuclear reactor. Parts sold separately.
+  name: компактный ядерный реактор
+  description: Компактный набор для сборки ядерного реактора. Комплектующие продаются отдельно.
   components:
   - type: Sprite
     layers:
@@ -13,8 +13,8 @@
 - type: entity
   parent: [BaseFlatpack]
   id: GasTurbineFlatpack
-  name: gas turbine flatpack
-  description: A flatpack used for constructing a gas turbine.
+  name: компактный газотурбинный модуль
+  description: Компактный набор для сборки газовой турбины.
   components:
   - type: Sprite
     layers:
@@ -25,8 +25,8 @@
 - type: entity
   parent: [BaseFlatpack]
   id: SmallNuclearReactorFlatpack  # HL
-  name: small nuclear reactor flatpack
-  description: A flatpack used for constructing a small nuclear reactor. Now in Fun Size! Parts still sold separately.
+  name: компактный ядерный реактор
+  description: Компактный набор для сборки малого ядерного реактора. Теперь в уменьшенном размере! Комплектующие по-прежнему продаются отдельно.
   components:
   - type: Sprite
     layers:
@@ -37,8 +37,8 @@
 - type: entity
   parent: [BaseFlatpack]
   id: GasTurbineSmallFlatpack # HL
-  name: small gas turbine flatpack
-  description: A flatpack used for constructing a small gas turbine. Now in Fun Size!
+  name: малый газотурбинный модуль
+  description: Компактный набор для сборки малой газовой турбины. Теперь в уменьшенном размере!
   components:
   - type: Sprite
     layers:

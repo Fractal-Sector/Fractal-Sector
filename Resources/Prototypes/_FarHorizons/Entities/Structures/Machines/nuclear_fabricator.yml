@@ -1,8 +1,8 @@
 - type: entity
   id: NuclearFabricator
   parent: BaseLatheLube
-  name: nuclear fabricator
-  description: It makes nuclear reactor parts.
+  name: ядерный фабрикатор
+  description: Устройство для производства деталей ядерного реактора.
   components:
   - type: Sprite
     sprite: _FarHorizons/Structures/Machines/nuclear_fabricator.rsi
