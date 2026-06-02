@@ -1,7 +1,7 @@
 ### Popups
 reactor-smoke-start = {$owner} начинает дымиться!
 reactor-smoke-stop = {$owner} перестал дымиться.
-reactor-fire-start ={$owner} начинает гореть!
+reactor-fire-start = {$owner} начинает гореть!
 reactor-fire-stop = {$owner} перестал гореть.
 
 reactor-unanchor-melted = Вы не можете отсоединить ядерный реактор, он вплавился в корпус!

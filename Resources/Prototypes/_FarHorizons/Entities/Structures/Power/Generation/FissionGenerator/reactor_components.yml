@@ -82,7 +82,7 @@
 - type: entity
   id: BananiumReactorFuelRod
   parent: BaseReactorFuelRod
-  name: бананиумовый топливный стержнь
+  name: бананиумовый топливный стержень
   description: Хонк-топливный стержень.
   components:
   - type: ReactorPart
@@ -109,7 +109,7 @@
   parent: BaseReactorFuelRod
   suffix: Admeme
   name: мясной топливный стержень
-  description: Топливный стержень дл- постой, оно живое?
+  description: Топливный стержень для- постой, оно живое?
   components:
   - type: ReactorPart
     material: Meaterial
@@ -176,7 +176,7 @@
 - type: entity
   id: SilverReactorControlRod
   parent: BaseReactorControlRod
-  name: серебрянный контроллирующий стержень
+  name: серебряный контроллирующий стержень
   components:
   - type: ReactorPart
     material: Silver

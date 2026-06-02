@@ -1,7 +1,7 @@
 - type: entity
   id: CrateCerenkiteFuelRod
   parent: CrateEngineeringSecure
-  name: Ящик с топливными стержнями
+  name: ящик с топливными стержнями
   description: 3 черенкитовых топливных стержня для заправки ядерного реактора.
   components:
   - type: StorageFill
@@ -12,7 +12,7 @@
 - type: entity
   id: CrateBohrumControlRod
   parent: CrateEngineeringSecure
-  name: Ящик с контроллирующими стерняжми
+  name: ящик с контроллирующими стержнями
   description: 2 бориевых регулирующих стержня для ядерного реактора.
   components:
   - type: StorageFill

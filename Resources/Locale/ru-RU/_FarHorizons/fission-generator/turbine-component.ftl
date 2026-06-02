@@ -6,11 +6,11 @@ gas-turbine-examine-stator = Статор на месте.
 gas-turbine-examine-blade-null = Похоже, отсутствует лопасть турбины.
 gas-turbine-examine-blade = Лопасть турбины на месте.
 
-turbine-spinning-0 = Лопатки не вращаются.
-turbine-spinning-1 = Лопатки медленно вращаются.
-turbine-spinning-2 = Лопатки вращаются.
-turbine-spinning-3 = Лопатки вращаются быстро.
-turbine-spinning-4 = [color=red]Лопатки вращаются с неконтролируемой скоростью![/color]
+turbine-spinning-0 = Лопасти не вращаются.
+turbine-spinning-1 = Лопасти медленно вращаются.
+turbine-spinning-2 = Лопасти вращаются.
+turbine-spinning-3 = Лопасти вращаются быстро.
+turbine-spinning-4 = [color=red]Лопасти вращаются с неконтролируемой скоростью![/color]
 
 turbine-damaged-0 = Похоже, турбина в хорошем состоянии.
 turbine-damaged-1 = Турбина выглядит немного поцарапанной.
@@ -27,17 +27,17 @@ turbine-explode = {$owner} разрывает себя на части!
 
 # Shown when damage occurs
 turbine-spark = {$owner} начинает искрить!
-turbine-spark-stop = {$owner} перестал искрить.
+turbine-spark-stop = {$owner} перестала искрить.
 turbine-smoke = {$owner} начинает дымиться!
-turbine-smoke-stop = {$owner} перестал дымиться.
+turbine-smoke-stop = {$owner} перестала дымиться.
 
 # Shown during repairs
-gas-turbine-repair-fail-blade = Вам необходимо заменить лопатку турбины, прежде чем можно будет произвести ремонт.
+gas-turbine-repair-fail-blade = Вам необходимо заменить лопасть турбины, прежде чем можно будет произвести ремонт.
 gas-turbine-repair-fail-stator = Вам необходимо заменить статор, прежде чем можно будет произвести ремонт.
 turbine-repair-ruined = Вы чините корпус {$target} с помощью {$tool}.
 turbine-repair = Вы устраняете часть повреждений {$target} с помощью {$tool}.
 turbine-no-damage = {$target} не имеет повреждений, которые можно устранить с помощью {$tool}.
-turbine-show-damage = Прочность лопатки: {$health}/{$healthMax}.
+turbine-show-damage = Прочность лопасти: {$health}/{$healthMax}.
 
 # Anchoring warnings
 turbine-unanchor-warning = Вы не можете отсоединить газовую турбину, пока она вращается!
