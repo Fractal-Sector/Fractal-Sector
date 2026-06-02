@@ -48,7 +48,7 @@
                 Шанс отражения
             </Box>
         </ColorBox>
-        
+
         <ColorBox Color="#bfc031">
             <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
                 Бананиум
@@ -66,7 +66,7 @@
         </ColorBox>
         <ColorBox>
             <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-                11.25% 
+                11.25%
             </Box>
         </ColorBox>
         <ColorBox>
@@ -89,7 +89,7 @@
                 20%
             </Box>
         </ColorBox>
-        
+
         <ColorBox Color="#566558">
             <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
                 Борий
@@ -107,7 +107,7 @@
         </ColorBox>
         <ColorBox>
             <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
- 
+
             </Box>
         </ColorBox>
         <ColorBox>
@@ -130,7 +130,7 @@
                 25%
             </Box>
         </ColorBox>
-        
+
         <ColorBox Color="#b18b25">
             <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
                 Латунь
@@ -171,7 +171,7 @@
                 10%
             </Box>
         </ColorBox>
-        
+
         <ColorBox Color="#828aa4">
             <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
                 Черенкит
@@ -189,7 +189,7 @@
         </ColorBox>
         <ColorBox>
             <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
- 
+
             </Box>
         </ColorBox>
         <ColorBox>
@@ -212,7 +212,7 @@
                 10%
             </Box>
         </ColorBox>
-        
+
         <ColorBox Color="#80ffff">
             <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
                 Алмаз
@@ -253,7 +253,7 @@
                 35%
             </Box>
         </ColorBox>
-        
+
         <ColorBox Color="#a8ccd7">
             <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
                 Стекло
@@ -294,7 +294,7 @@
                 15%
             </Box>
         </ColorBox>
-        
+
         <ColorBox Color="#ffd700">
             <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
                 Золото
@@ -335,7 +335,7 @@
                 10%
             </Box>
         </ColorBox>
-        
+
         <ColorBox Color="#7e009e">
             <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
                 Плазма
@@ -376,7 +376,7 @@
                 10%
             </Box>
         </ColorBox>
-        
+
         <ColorBox Color="#b35989">
             <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
                 Стекло из плазмы
@@ -417,7 +417,7 @@
                 35%
             </Box>
         </ColorBox>
-        
+
         <ColorBox Color="#696969">
             <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
                 Пласталь
@@ -458,7 +458,7 @@
                 15%
             </Box>
         </ColorBox>
-        
+
         <ColorBox Color="#404888">
             <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
                 Плутоний
@@ -476,7 +476,7 @@
         </ColorBox>
         <ColorBox>
             <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-                37.5% 
+                37.5%
             </Box>
         </ColorBox>
         <ColorBox>
@@ -499,7 +499,7 @@
                 35%
             </Box>
         </ColorBox>
-        
+
         <ColorBox Color="#c0c0c0">
             <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
                 Серебро
@@ -540,7 +540,7 @@
                 10%
             </Box>
         </ColorBox>
-        
+
         <ColorBox Color="#808080">
             <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
                 Сталь
@@ -581,7 +581,7 @@
                 15%
             </Box>
         </ColorBox>
-        
+
         <ColorBox Color="#32a852">
             <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
                 Уран
@@ -622,7 +622,7 @@
                 25%
             </Box>
         </ColorBox>
-        
+
         <ColorBox Color="#3cab38">
             <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
                 Стекло из урана
@@ -640,7 +640,7 @@
         </ColorBox>
         <ColorBox>
             <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-                11.25% 
+                11.25%
             </Box>
         </ColorBox>
         <ColorBox>
@@ -673,7 +673,7 @@
 
 	# Влияние материалов на детали турбины
 	В этих таблицах перечислены эффекты каждого материала при использовании в конструкции турбины.
-	
+
 	## Лопасти
 	<Table Columns="3">
 		<ColorBox>
@@ -773,7 +773,7 @@
 		</ColorBox>
     </Table>
 
-	## Stators
+	## Статоры
 	<Table Columns="2">
 		<ColorBox>
 			<Box>
@@ -785,7 +785,7 @@
 				КПД
 			</Box>
 		</ColorBox>
-		
+
 		<ColorBox Color="#ffd700">
 			<Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
 				Золото
