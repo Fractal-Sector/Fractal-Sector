@@ -2,8 +2,8 @@
 - type: entity
   id: Turbine
   parent: BaseStructure
-  name: gas turbine
-  description: A large turbine used for generating power using hot gas.
+  name: газовая турбина
+  description: Большая турбина, используемая для создания энергии, используя горячий газ.
   components:
   - type: Sprite
     sprite: _FarHorizons/Structures/Power/Generation/FissionGenerator/turbine.rsi
@@ -126,8 +126,8 @@
 - type: entity
   id: TurbineSmall
   parent: Turbine
-  name: small gas turbine
-  description: A small turbine used for generating power using hot gas.
+  name: малая газовая турбина
+  description: Малая турбина, используемая для создания энергии, используя горячий газ.
   components:
   - type: Sprite
     sprite: _FarHorizons/Structures/Power/Generation/FissionGenerator/small_turbine.rsi
