@@ -132,3 +132,12 @@ Entries:
   id: 8
   time: '2026-06-02T14:22:39.0000000+00:00'
   url: https://github.com/Orehum-Project/Orehum-Sector/pull/17
+- author: Vonelokimes
+  changes:
+    - type: Add
+      message: Произведен респрайт указателей-табличек.
+    - type: Tweak
+      message: Изменены некоторые названия табличек.
+  id: 9
+  time: '2026-06-03T10:21:31.0000000+00:00'
+  url: https://github.com/Orehum-Project/Orehum-Sector/pull/18
