@@ -21,6 +21,17 @@
     - Burst
   - type: NFWeaponDetails
     class: weapon-details-class-machine-pistol
+  # Goobstation edit start
+  - type: EmitSoundOnPickup
+    sound:
+      collection: SMGPickUp
+  - type: EmitSoundOnDrop
+    sound:
+      collection: SMGDrop
+  - type: EmitSoundOnLand
+    sound:
+      collection: SMGDrop
+  # Goobstation edit end
 
 #region manufacturer
 - type: entity
