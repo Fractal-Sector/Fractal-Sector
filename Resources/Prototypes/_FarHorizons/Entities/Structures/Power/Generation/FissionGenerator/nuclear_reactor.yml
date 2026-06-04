@@ -4,8 +4,8 @@
   parent: BaseStructure
   abstract: true
   categories: [ HideSpawnMenu ]
-  name: nuclear reactor
-  description: A nuclear reactor vessel, with slots for fuel rods and other components. Hey wait, didn't one of these explode once?
+  name: ядерный реактор
+  description: Корпус ядерного реактора со слотами для топливных стержней и других компонентов. Эй, погодите, разве один из них не взрывался однажды?
   components:
   - type: Sprite
     sprite: _FarHorizons/Structures/Power/Generation/FissionGenerator/nuclear_reactor.rsi
@@ -194,8 +194,8 @@
   id: NuclearReactorMelted # This is more of a decoration than anything else
   parent: BaseStructure
   suffix: Melted
-  name: nuclear reactor
-  description: A broken nuclear reactor vessel. It glows with heat and radiation.
+  name: ядерный реактор
+  description: Сломанный корпус ядерного реактора. Он светится от жара и радиации.
   components:
   - type: Sprite
     sprite: _FarHorizons/Structures/Power/Generation/FissionGenerator/nuclear_reactor.rsi
@@ -227,7 +227,7 @@
 - type: entity
   id: NuclearReactorSmall
   parent: NuclearReactorCrew
-  name: small nuclear reactor
+  name: малый ядерный реактор
   components:
   - type: Sprite
     sprite: _FarHorizons/Structures/Power/Generation/FissionGenerator/small_nuclear_reactor.rsi
@@ -291,8 +291,8 @@
   id: NuclearReactorSmallMelted
   parent: NuclearReactorMelted
   suffix: Melted
-  name: small nuclear reactor
-  description: A broken nuclear reactor vessel. It glows with heat and radiation.
+  name: малый ядерный реактор
+  description: Сломанный корпус ядерного реактора. Он светится от жара и радиации.
   components:
   - type: Sprite
     sprite: _FarHorizons/Structures/Power/Generation/FissionGenerator/small_nuclear_reactor.rsi
@@ -345,7 +345,7 @@
   id: NuclearReactorMeltedSalvage
   parent: NuclearReactorMelted
   suffix: "Melted, Salvage"
-  description: A nuclear reactor vessel, long since melted down. It still glows with residual heat and radiation.
+  description: Корпус ядерного реактора, давно расплавившийся. Он до сих пор светится от остаточного тепла и радиации.
   components:
   - type: RadiationSource
     intensity: 2 # Wayfarer: 3.5 to 2
@@ -357,7 +357,7 @@
   id: NuclearReactorSmallSalvage
   parent: NuclearReactorSalvage
   suffix: Salvage
-  name: small nuclear reactor
+  name: малый ядерный реактор
   components:
   - type: Sprite
     sprite: _FarHorizons/Structures/Power/Generation/FissionGenerator/small_nuclear_reactor.rsi
@@ -397,7 +397,7 @@
   id: NuclearReactorSmallMeltedSalvage
   parent: NuclearReactorSmallMelted
   suffix: "Melted, Salvage"
-  description: A nuclear reactor vessel, long since melted down. It still glows with residual heat and radiation.
+  description: Корпус ядерного реактора, давно расплавившийся. Он до сих пор светится от остаточного тепла и радиации.
   components:
   - type: RadiationSource
     intensity: 1 # Wayfarer: 2.5 to 1
@@ -408,8 +408,8 @@
 - type: entity
   id: NuclearDebrisChunk
   parent: BaseItem
-  name: nuclear debris
-  description: You do not see the graphite on the floor. You're in shock. Report to medical.
+  name: ядерные обломки
+  description: Вы не видите графита на полу. Вы в шоке. Доложите в медицинский отсек.
   categories: [ HideSpawnMenu ]
   components:
   - type: Sprite

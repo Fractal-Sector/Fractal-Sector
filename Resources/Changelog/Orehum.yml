@@ -118,3 +118,26 @@ Entries:
   id: 6
   time: '2026-05-29T16:58:25.0000000+00:00'
   url: https://github.com/Orehum-Project/Orehum-Sector/pull/14
+- author: Vonelokimes
+  changes:
+    - type: Add
+      message: Русификация ядерной энергетики, теперь можно взорвать бар!)
+  id: 7
+  time: '2026-06-02T10:56:49.0000000+00:00'
+  url: https://github.com/Orehum-Project/Orehum-Sector/pull/16
+- author: Vonelokimes
+  changes:
+    - type: Fix
+      message: Исправлено название статоров в гайдбуке
+  id: 8
+  time: '2026-06-02T14:22:39.0000000+00:00'
+  url: https://github.com/Orehum-Project/Orehum-Sector/pull/17
+- author: Vonelokimes
+  changes:
+    - type: Add
+      message: Произведен респрайт указателей-табличек.
+    - type: Tweak
+      message: Изменены некоторые названия табличек.
+  id: 9
+  time: '2026-06-03T10:21:31.0000000+00:00'
+  url: https://github.com/Orehum-Project/Orehum-Sector/pull/18
