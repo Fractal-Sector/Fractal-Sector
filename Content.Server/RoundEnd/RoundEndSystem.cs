@@ -379,28 +379,6 @@ namespace Content.Server.RoundEnd
                     _shiftEndAutoCalledBefore = true;
                 }
             }
-
-            // Orehum start
-            // Check if we should auto-call based on round time.
-            var mins = TimeSpan.FromMinutes(_autoCalledBefore ? _cfg.GetCVar(CCVars.EmergencyShuttleAutoCallExtensionTime)
-                : _cfg.GetCVar(CCVars.EmergencyShuttleAutoCallTime));
-            var query = EntityQueryEnumerator<RoundEndTimeRuleComponent, ActiveGameRuleComponent>();
-            while (query.MoveNext(out _, out var endTimeComp, out _))
-            {
-                mins = endTimeComp.EndAt;
-            }
-            if (mins.TotalSeconds != 0 && _gameTiming.CurTime - AutoCallStartTime > mins)
-            {
-                if (!_shuttle.EmergencyShuttleArrived && ExpectedCountdownEnd is null)
-                {
-                    RequestRoundEnd(null, false, "round-end-system-shuttle-auto-called-announcement");// Frontier
-                    _autoCalledBefore = true;
-                }
-
-                // Always reset auto-call in case of a recall.
-                SetAutoCallTime();
-            }
-            // Orehum end
         }
     }
 
