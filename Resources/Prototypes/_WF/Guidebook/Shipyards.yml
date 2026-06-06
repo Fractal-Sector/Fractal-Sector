@@ -122,6 +122,7 @@
   children:
   - ShipyardDagger
   - ShipyardLooter
+  - ShipyardBocaskreeo
 
 - type: guideEntry
   id: ScrapShipyard
@@ -226,6 +227,11 @@
   id: ShipyardLooter
   name: guide-entry-shipyard-looter
   text: "/ServerInfo/_WF/Guidebook/Shipyard/OutlawShipyard/Looter.xml"
+
+- type: guideEntry
+  id: ShipyardBocaskreeo
+  name: guide-entry-shipyard-bocaskreeo
+  text: "/ServerInfo/_WF/Guidebook/Shipyard/OutlawShipyard/Bocaskreeo.xml"
 
 - type: guideEntry
   id: ShipyardMedivac
