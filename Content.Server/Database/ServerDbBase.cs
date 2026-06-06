@@ -325,9 +325,7 @@ namespace Content.Server.Database
                 (PreferenceUnavailableMode) profile.PreferenceUnavailable,
                 antags.ToHashSet(),
                 traits.ToHashSet(),
-                loadouts,
-                profile.HideFromPlayerlist // Wayfarer
-            )
+                loadouts)
             .WithHeight(profile.Height) // Wayfarer
             .WithWidth(profile.Width);  // Wayfarer
         }
@@ -358,7 +356,6 @@ namespace Content.Server.Database
             profile.EyeColor = appearance.EyeColor.ToHex();
             profile.SkinColor = appearance.SkinColor.ToHex();
             profile.SpawnPriority = (int) humanoid.SpawnPriority;
-            profile.HideFromPlayerlist = humanoid.HideFromPlayerlist; // Wayfarer
             profile.Height = humanoid.Height; // Wayfarer
             profile.Width = humanoid.Width;   // Wayfarer
             profile.Markings = markings;

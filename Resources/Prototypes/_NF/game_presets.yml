@@ -32,7 +32,6 @@
     - SmugglingEventScheduler
     - NFRoundstartVariation
     - AutoShipsEventScheduler # Wayfarer
-    - RoundEndRuleHour72 # Orehum
 
 # Test preset: intended to be close enough to upstream stuff but should be
 #              quicker to setup and teardown than adventure/pirate

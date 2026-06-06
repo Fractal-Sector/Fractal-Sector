@@ -1,14 +1,14 @@
 ## UI
-ghost-respawn-rules-window-title = Ghost Respawn Rules
-ghost-respawn-rules-window-confirm-button = I understand, respawn me
-ghost-gui-respawn-button-denied = Respawn ({$time}s)
-ghost-gui-respawn-button-allowed = Respawn
-ghost-respawn-rules-window-rules = Respawning follows a strict New Life Rule:
-    No matter which character you decide to return as,
-    you DO NOT remember anything after falling unconcious,
-    and there is a strict 15 minute non-aggression period.
-    Review the rules for more info.	
+ghost-respawn-rules-window-title = Правила возрождения призрака
+ghost-respawn-rules-window-confirm-button = Я понимаю, возродить меня
+ghost-gui-respawn-button-denied = Возрождение ({$time}с)
+ghost-gui-respawn-button-allowed = Возродиться
+ghost-respawn-rules-window-rules = Возрождение подчиняется строгому Правилу Новой Жизни (NLR):
+    Независимо от того, какого персонажа вы выберете для возвращения,
+    вы НЕ помните ничего из того, что произошло после потери сознания,
+    а также действует строгое 15-минутное правило неагрессии.
+    Ознакомьтесь с правилами игры для получения дополнительной информации.
 ## COMMMANDS
-ghost-respawn-command-desc = Respawns you if you're an eligible ghost.
-ghost-respawn-not-a-ghost = You're not currently ghosted.
-ghost-respawn-ineligible = You're not currently eligible
+ghost-respawn-command-desc = Возрождает вас, если вы являетесь подходящим призраком.
+ghost-respawn-not-a-ghost = В данный момент вы не являетесь призраком.
+ghost-respawn-ineligible = В данный момент вы не подходите для возрождения.

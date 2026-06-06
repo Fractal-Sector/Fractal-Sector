@@ -113,14 +113,6 @@ namespace Content.Shared.Preferences
         [DataField]
         public SpawnPriorityPreference SpawnPriority { get; private set; } = SpawnPriorityPreference.None;
 
-        // Wayfarer: hide from web playerlist
-        /// <summary>
-        /// Whether to hide this character from the web playerlist.
-        /// </summary>
-        [DataField]
-        public bool HideFromPlayerlist { get; private set; } = false;
-        // End Wayfarer
-
         // Wayfarer: character height/width scale
         /// <summary>
         /// The base height scale for this character (1.0 = species default).
@@ -174,8 +166,7 @@ namespace Content.Shared.Preferences
             PreferenceUnavailableMode preferenceUnavailable,
             HashSet<ProtoId<AntagPrototype>> antagPreferences,
             HashSet<ProtoId<TraitPrototype>> traitPreferences,
-            Dictionary<string, RoleLoadout> loadouts,
-            bool hideFromPlayerlist = false) // Wayfarer
+            Dictionary<string, RoleLoadout> loadouts)
         {
             Name = name;
             FlavorText = flavortext;
@@ -187,7 +178,6 @@ namespace Content.Shared.Preferences
             BankBalance = bankBalance;
             Appearance = appearance;
             SpawnPriority = spawnPriority;
-            HideFromPlayerlist = hideFromPlayerlist; // Wayfarer
             _jobPriorities = jobPriorities;
             PreferenceUnavailable = preferenceUnavailable;
             _antagPreferences = antagPreferences;
@@ -223,8 +213,7 @@ namespace Content.Shared.Preferences
                 other.PreferenceUnavailable,
                 new HashSet<ProtoId<AntagPrototype>>(other.AntagPreferences),
                 new HashSet<ProtoId<TraitPrototype>>(other.TraitPreferences),
-                new Dictionary<string, RoleLoadout>(other.Loadouts),
-                other.HideFromPlayerlist) // Wayfarer
+                new Dictionary<string, RoleLoadout>(other.Loadouts))
         {
             // Wayfarer: preserve height/width in copy
             Height = other.Height;
@@ -363,11 +352,6 @@ namespace Content.Shared.Preferences
         }
 
         // Wayfarer
-        public HumanoidCharacterProfile WithHideFromPlayerlist(bool hideFromPlayerlist)
-        {
-            return new(this) { HideFromPlayerlist = hideFromPlayerlist };
-        }
-
         public HumanoidCharacterProfile WithHeight(float height)
         {
             return new(this) { Height = height };
@@ -544,7 +528,6 @@ namespace Content.Shared.Preferences
             if (BankBalance != other.BankBalance) return false; // Frontier
             if (PreferenceUnavailable != other.PreferenceUnavailable) return false;
             if (SpawnPriority != other.SpawnPriority) return false;
-            if (HideFromPlayerlist != other.HideFromPlayerlist) return false; // Wayfarer
             if (Math.Abs(Height - other.Height) > 0.001f) return false; // Wayfarer
             if (Math.Abs(Width - other.Width) > 0.001f) return false; // Wayfarer
             if (!_jobPriorities.SequenceEqual(other._jobPriorities)) return false;

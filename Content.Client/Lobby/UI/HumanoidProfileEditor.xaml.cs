@@ -378,17 +378,6 @@ namespace Content.Client.Lobby.UI
 
             #endregion SpawnPriority
 
-            // Wayfarer: hide from playerlist checkbox
-            #region HideFromPlayerlist
-
-            HideFromPlayerlistCheckbox.OnToggled += args =>
-            {
-                SetHideFromPlayerlist(args.Pressed);
-            };
-
-            #endregion HideFromPlayerlist
-            // End Wayfarer
-
             #region Eyes
 
             EyeColorPicker.OnEyeColorPicked += newColor =>
@@ -796,7 +785,6 @@ namespace Content.Client.Lobby.UI
             UpdateGenderControls();
             UpdateSkinColor();
             UpdateSpawnPriorityControls();
-            UpdateHideFromPlayerlistCheckbox(); // Wayfarer
             UpdateHeightWidthSliders(); // Wayfarer
             UpdateAgeEdit();
             UpdateCustomSpecieNameEdit();
@@ -1324,14 +1312,6 @@ namespace Content.Client.Lobby.UI
             SetDirty();
         }
 
-        // Wayfarer
-        private void SetHideFromPlayerlist(bool hideFromPlayerlist)
-        {
-            Profile = Profile?.WithHideFromPlayerlist(hideFromPlayerlist);
-            SetDirty();
-        }
-        // End Wayfarer
-
         public bool IsDirty
         {
             get => _isDirty;
@@ -1553,16 +1533,6 @@ namespace Content.Client.Lobby.UI
         }
 
         // Wayfarer
-        private void UpdateHideFromPlayerlistCheckbox()
-        {
-            if (Profile == null)
-            {
-                return;
-            }
-
-            HideFromPlayerlistCheckbox.Pressed = Profile.HideFromPlayerlist;
-        }
-
         private void UpdateHeightWidthSliders()
         {
             if (Profile == null || !_prototypeManager.TryIndex<SpeciesPrototype>(Profile.Species, out var species))

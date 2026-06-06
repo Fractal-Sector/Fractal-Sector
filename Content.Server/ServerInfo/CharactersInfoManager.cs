@@ -51,17 +51,6 @@ public sealed class CharactersInfoManager
 
         foreach (var session in _playerManager.Sessions)
         {
-            // Check if player has preferences and wants to hide from playerlist
-            if (_prefsManager.TryGetCachedPreferences(session.UserId, out var prefs))
-            {
-                if (prefs.SelectedCharacter is HumanoidCharacterProfile profile && profile.HideFromPlayerlist)
-                {
-                    // Skip this character - they don't want to appear on the web playerlist
-                    hiddenCount++;
-                    continue;
-                }
-            }
-
             var character = new JsonObject
             {
                 ["username"] = session.Name
@@ -79,11 +68,6 @@ public sealed class CharactersInfoManager
 
             // Add profile ID from the database
             int? profileId = null;
-            if (prefs != null)
-            {
-                var selectedSlot = prefs.SelectedCharacterIndex;
-                profileId = await _db.GetProfileIdAsync(session.UserId, selectedSlot);
-            }
             character["profileId"] = profileId;
 
             characters.Add(character);
