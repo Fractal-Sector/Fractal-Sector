@@ -1,6 +1,6 @@
 - type: entity
   name: shipyard RPD
-  parent: RPD
+  parent: [ RPD, BaseNotContraband ] # Wayfarer: Add BaseNotContraband
   id: ShipyardRPD
   description: A device used to rapidly pipe things. It has a slot to swipe ID cards.
   components:

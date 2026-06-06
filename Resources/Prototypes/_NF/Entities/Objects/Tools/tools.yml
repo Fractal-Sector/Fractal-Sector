@@ -1,6 +1,6 @@
 - type: entity
   name: shipyard RCD
-  parent: RCD
+  parent: [ RCD, BaseNotContraband ] # Wayfarer: Add BaseNotContraband
   id: ShipyardRCD
   description: An advanced construction device which can place/remove walls, floors, and airlocks quickly. It has a slot to swipe ID cards.
   components:
