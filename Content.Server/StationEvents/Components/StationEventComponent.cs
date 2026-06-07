@@ -69,13 +69,13 @@ public sealed partial class StationEventComponent : Component
     [DataField]
     public ProtoId<RadioChannelPrototype> EndRadioAnnouncementChannel = "Supply"; // Frontier
 
-    // Orehum start
+    // FS start
     /// <summary>
     ///     Sender of start/warn/end announcements.
     /// </summary>
     [DataField]
     public LocId? AnnounceSender = null;
-    // Orehum end
+    // FS end
 
     /// <summary>
     ///     In minutes, when is the first round time this event can start

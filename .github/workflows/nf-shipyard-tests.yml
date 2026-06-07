@@ -12,7 +12,7 @@ on:
 
 jobs:
   build:
-    if: github.event.pull_request.draft == false && github.actor != 'web-flow' # Orehum: FontierATC<web-flow
+    if: github.event.pull_request.draft == false && github.actor != 'web-flow' # FS: FontierATC<web-flow
     strategy:
       matrix:
         os: [ubuntu-latest]

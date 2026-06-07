@@ -22,7 +22,7 @@ public sealed partial class MainMenuControl : Control
         LayoutContainer.SetMarginTop(VBox, 30);
         LayoutContainer.SetGrowHorizontal(VBox, LayoutContainer.GrowDirection.Begin);
 
-        var logoTexture = resCache.GetResource<TextureResource>("/Textures/_Orehum/Logo/logo.png"); // Orehum: logo
+        var logoTexture = resCache.GetResource<TextureResource>("/Textures/_FS/Logo/logo.png");
         Logo.Texture = logoTexture;
 
         var currentUserName = configMan.GetCVar(CVars.PlayerName);

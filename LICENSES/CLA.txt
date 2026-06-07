@@ -23,7 +23,7 @@ By submitting code or other content ("Contribution") to this Project, you ("Cont
 
 1. DEFINITIONS
 
-1.1. "Project" means the software project maintained at https://github.com/Orehum-Project/Orehum-Sector.
+1.1. "Project" means the software project maintained at https://github.com/Fractal-Sector/Fractal-Sector.
 1.2. "Project Maintainers" means the individuals or entities that manage the Project.
 1.3. "Contribution" means any original work of authorship, including modifications or additions to existing work, that is intentionally submitted by Contributor for inclusion in the Project.
 1.4. "Current Project License" means the license under which new Contributions

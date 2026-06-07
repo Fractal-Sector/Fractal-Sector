@@ -25,7 +25,7 @@ public sealed class CustomExamineSystem : SharedCustomExamineSystem
         SubscribeLocalEvent<CustomExamineComponent, AfterAutoHandleStateEvent>(OnStateUpdate);
     }
 
-    /* Orehum: remove ChangeExamine
+    /* FS: remove ChangeExamine
     private void OnGetVerbs(GetVerbsEvent<Verb> args)
     {
         if (_player.LocalSession is null || !CanChangeExamine(_player.LocalSession, args.Target))

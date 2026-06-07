@@ -87,10 +87,10 @@ public sealed class MaterialReclaimerMagnetPickupSystem : EntitySystem
 
         while (query.MoveNext(out var uid, out var comp, out var storage, out var xform))
         {
-            if (comp.NextScan > currentTime) // Orehum: Reversed
+            if (comp.NextScan > currentTime) // FS: Reversed
                 continue;
 
-            comp.NextScan = currentTime + ScanDelay; // Orehum: no need to rerun if built late in-round
+            comp.NextScan = currentTime + ScanDelay; // FS: no need to rerun if built late in-round
 
             // Frontier - magnet disabled
             if (!comp.MagnetEnabled)
