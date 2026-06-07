@@ -1,5 +1,5 @@
 <div class="header" align="center">
-<img alt="Wayfarer Station" height="300" src="Resources/Textures/_FS/Logo/logo.png?raw=true" />
+<img alt="FS" height="300" src="Resources/Textures/_FS/Logo/logo.png?raw=true" />
 </div>
 
 **Fractal Sector** это репозиторий англоязычного фронтира [Frontier Station](https://github.com/new-frontiers-14/frontier-station-14) и оригинального билда [Space Station 14](https://github.com/space-wizards/space-station-14), которые работают на движке [Robust Toolbox](https://github.com/space-wizards/RobustToolbox) от Space Wizards написанном на C#.

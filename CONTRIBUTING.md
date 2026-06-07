@@ -7,7 +7,7 @@
 
 "Upstream" относится к репозиторию [new-frontiers-14/frontier-station-14](https://github.com/new-frontiers-14/frontier-station-14/), из которого был создан этот форк.
 
-# Уникальный контент Fracral Sector
+# Уникальный контент Fractal Sector
 
 В целом, всё, что вы создаёте с нуля (в отличие от модификации уже существующего кода из исходного репозитория), следует размещать в подпапке, предназначенной для Fractal Sector, — `_FS`.
 
@@ -22,7 +22,7 @@ Examples:
 # Изменения в файлах апстрима
 
 Если вы вносите изменения в существующий апстрим-файл C# или YAML, вы обязаны добавить комментарии над или рядом с измененными строками.
-Эти комментарии необходимы, чтобы упростить разрешение конфликтов (conflict resolution), когда этот же файл обновится в апстриме. При изменении числовых или строковых значений для единообразия оставляйте комментарий в формате ```Orehum: СТАРОЕ<НОВОЕ```.
+Эти комментарии необходимы, чтобы упростить разрешение конфликтов (conflict resolution), когда этот же файл обновится в апстриме. При изменении числовых или строковых значений для единообразия оставляйте комментарий в формате ```FS: СТАРОЕ<НОВОЕ```.
 
 В частности, в формате YAML, если вы добавляете компонент или список смежных полей, используйте блочные комментарии, но если вы вносите ограниченные изменения в поля компонента, комментируйте поля по отдельности.
 
@@ -39,13 +39,13 @@ Examples:
 - type: entity
   id: TorsoHarpy
   name: "harpy torso"
-  parent: [PartHarpy, BaseTorso] # Orehum: add BaseTorso
+  parent: [PartHarpy, BaseTorso] # FS: add BaseTorso
 ```
 
 Изменение конкретного значения (формат: `СТАРОЕ<НОВОЕ`)
 ```yml
   - type: Gun
-    fireRate: 4 # Orehum: 3<4
+    fireRate: 4 # FS: 3<4
     availableModes:
     - SemiAuto
 ```
@@ -53,13 +53,13 @@ Examples:
 Добавление и комментирование модулей киборга (строчный комментарий, закомментированное старое поле и выделенный блоком новый компонент):
 ```yml
   - type: ItemBorgModule
-    moduleId: Gardening # Orehum
+    moduleId: Gardening # FS
     items:
     - HydroponicsToolMiniHoe
     - HydroponicsToolSpade
     - HydroponicsToolClippers
-    # - Bucket # Orehum
-  # Orehum: droppable borg items
+    # - Bucket # FS
+  # FS: droppable borg items
   - type: DroppableBorgModule
     moduleId: Gardening
     items:
@@ -67,12 +67,12 @@ Examples:
       whitelist:
         tags:
         - Bucket
-  # End Orehum
+  # End FS
 ```
 
 Комментарий к новому импортированному пространству имен в C#:
 ```cs
-using Content.Client._WF.Emp.Overlays; // Orehum
+using Content.Client._WF.Emp.Overlays; // FS
 ```
 Выделение добавленного блока кода в файле C#:
 ```cs
@@ -80,17 +80,17 @@ component.Capacity = state.Capacity;
 
 component.UIUpdateNeeded = true;
 
-// Orehum: ensure signature colour is consistent
+// FS: ensure signature colour is consistent
 if (TryComp<StampComponent>(uid, out var stamp))
 {
     stamp.StampedColor = state.Color;
 }
-// End Orehum
+// End FS
 ```
 
 Правка файла локализации Fluent (комментарий строго на строке выше):
 ```fluent
-# Orehum: "Job Whitelists"<"Role Whitelists"
+# FS: "Job Whitelists"<"Role Whitelists"
 player-panel-job-whitelists = Role Whitelists
 ```
 
@@ -100,7 +100,7 @@ player-panel-job-whitelists = Role Whitelists
 
 Общие правила:
 
-Orehum Sector использует специальные прототипы для POI и карт шаттлов (например, для хранения информации о появлении, данных о появлении станций или цен и категорий шаттл). Для шаттл эти данные хранятся в VesselPrototype (Resources/Prototypes/_FS/Shipyard) или PointOfInterestPrototype (Resources/Prototypes/_FS/PointsOfInterest). При создании нового шаттла или POI используйте существующие прототипы.
+Fractal Sector использует специальные прототипы для POI и карт шаттлов (например, для хранения информации о появлении, данных о появлении станций или цен и категорий шаттл). Для шаттл эти данные хранятся в VesselPrototype (Resources/Prototypes/_FS/Shipyard) или PointOfInterestPrototype (Resources/Prototypes/_FS/PointsOfInterest). При создании нового шаттла или POI используйте существующие прототипы.
 
 Если вы вносите изменения в карту, свяжитесь с её администратором (или, если его нет, с автором) и избегайте одновременного открытия нескольких объектов с изменениями на одной и той же карте.
 
@@ -110,11 +110,11 @@ Orehum Sector использует специальные прототипы д�
 
 Внимательно проверьте свой diff на GitHub перед финальной отправкой: убедитесь, что туда не попали лишние коммиты, случайные пробелы или изменения кодировки строк.
 
-Если ваш PR долго висел открытым и в списке измененных файлов вы заметили `RobustToolbox`, этот движковый компонент необходимо откатить. Используйте команду: `git checkout upstream/master RobustToolbox` (заменив `upstream` на имя вашего удаленного репозитория Orehum Sector).
+Если ваш PR долго висел открытым и в списке измененных файлов вы заметили `RobustToolbox`, этот движковый компонент необходимо откатить. Используйте команду: `git checkout upstream/master RobustToolbox` (заменив `upstream` на имя вашего удаленного репозитория Fractal Sector).
 
 # Ченжлоги
 
-На данный момент все ченжлоги пишутся напрямую в общий список изменений Orehum. Префикс ADMIN: на текущий момент не имеет технического функционала и игнорируется.
+На данный момент все ченжлоги пишутся напрямую в общий список изменений Fractal. Префикс ADMIN: на текущий момент не имеет технического функционала и игнорируется.
 
 # Дополнительные ресурсы
 
