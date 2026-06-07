@@ -22,7 +22,7 @@ using Content.Shared.DeviceNetwork.Components;
 using Content.Shared.Station.Components;
 using Timer = Robust.Shared.Timing.Timer;
 using Content.Server._NF.SectorServices; // Frontier
-using Content.Shared.GameTicking.Components; // Orehum
+using Content.Shared.GameTicking.Components; // FS
 
 namespace Content.Server.RoundEnd
 {

@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   auto-assign:
-    if: github.repository == 'Orehum-Project/Orehum-Sector'
+    if: github.repository == 'Fractal-Sector/Fractal-Sector'
     runs-on: ubuntu-latest
 
     steps:

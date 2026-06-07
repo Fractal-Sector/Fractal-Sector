@@ -6,7 +6,7 @@ on:
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  CHANGELOG_DIR: Resources/Changelog/Orehum.yml # Orehum: Changelog.yml<Orehum.yml
+  CHANGELOG_DIR: Resources/Changelog/Fractal.yml # FS: Changelog.yml<Fractal.yml
   PR_NUMBER: ${{ github.event.number }}
 
 jobs:

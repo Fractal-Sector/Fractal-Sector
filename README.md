@@ -1,20 +1,20 @@
 <div class="header" align="center">
-<img alt="Wayfarer Station" height="300" src="Resources/Textures/_Orehum/Logo/logo.png?raw=true" />
+<img alt="Wayfarer Station" height="300" src="Resources/Textures/_FS/Logo/logo.png?raw=true" />
 </div>
 
-**Orehum Sector** это репозиторий англоязычного фронтира [Frontier Station](https://github.com/new-frontiers-14/frontier-station-14) и оригинального билда [Space Station 14](https://github.com/space-wizards/space-station-14), которые работают на движке [Robust Toolbox](https://github.com/space-wizards/RobustToolbox) от Space Wizards написанном на C#.
+**Fractal Sector** это репозиторий англоязычного фронтира [Frontier Station](https://github.com/new-frontiers-14/frontier-station-14) и оригинального билда [Space Station 14](https://github.com/space-wizards/space-station-14), которые работают на движке [Robust Toolbox](https://github.com/space-wizards/RobustToolbox) от Space Wizards написанном на C#.
 
 
-Это основной репозиторий проекта Orehum Sector
+Это основной репозиторий проекта Fractal Sector
 
-Если вы хотите создавать или размещать контент для Orehum Sector, вам нужен именно этот репозиторий. Он содержит как RobustToolbox, так и набор контента для разработки нового контента.
+Если вы хотите создавать или размещать контент для Fractal Sector, вам нужен именно этот репозиторий. Он содержит как RobustToolbox, так и набор контента для разработки нового контента.
 
 ## Ссылки
 
-#### Orehum Sector
+#### Fractal Sector
 <div class="header" align="center">
 
-[Github](https://github.com/Orehum-Project/Orehum-Sector/) | [Discord](https://discord.gg/ZC94VrbFNY)
+[Github](https://github.com/Fractal-Sector/Fractal-Sector) | [Discord](https://discord.gg/ZC94VrbFNY)
 </div>
 
 
@@ -35,7 +35,7 @@
 ## Вклад
 
 Мы рады любой помощи и вкладу в проект от каждого желающего. Если вы хотите помочь, заходите в наш [Discord-сервер](https://discord.gg/ZC94VrbFNY).
-Хотя соблюдение [правил контрибьюта Space Station 14](https://docs.spacestation14.com/en/general-development/codebase-info/pull-request-guidelines.html) не является строго обязательным для Orehum Sector, мы рекомендуем ознакомиться с ними, чтобы придерживаться лучших практик разработки.
+Хотя соблюдение [правил контрибьюта Space Station 14](https://docs.spacestation14.com/en/general-development/codebase-info/pull-request-guidelines.html) не является строго обязательным для Fractal Sector, мы рекомендуем ознакомиться с ними, чтобы придерживаться лучших практик разработки.
 
 ## Сборка
 

@@ -1,23 +1,23 @@
-# Contributing to Orehum Sector
+# Contributing to Fractal Sector
 
-Если вы рассматриваете возможность внесения вклада в Orehum Sector, [руководство по запросам на слияние от Wizard's Den](https://docs.spacestation14.com/en/general-development/codebase-info/pull-request-guidelines.html) станет хорошей отправной точкой для обеспечения качества кода и соблюдения правил отслеживания версий. Обратите внимание, что у нас нет разделения на ветки master и stable.
+Если вы рассматриваете возможность внесения вклада в Fractal Sector, [руководство по запросам на слияние от Wizard's Den](https://docs.spacestation14.com/en/general-development/codebase-info/pull-request-guidelines.html) станет хорошей отправной точкой для обеспечения качества кода и соблюдения правил отслеживания версий. Обратите внимание, что у нас нет разделения на ветки master и stable.
 
 Важно: не вносите изменения в веб-страницу. Из текста выше:
 > Не используйте веб-редактор GitHub для создания запросов на слияние (PR). Запросы на слияние, отправленные через веб-редактор, могут быть закрыты без проверки.
 
 "Upstream" относится к репозиторию [new-frontiers-14/frontier-station-14](https://github.com/new-frontiers-14/frontier-station-14/), из которого был создан этот форк.
 
-# Уникальный контент Orehum Sector
+# Уникальный контент Fracral Sector
 
-В целом, всё, что вы создаёте с нуля (в отличие от модификации уже существующего кода из исходного репозитория), следует размещать в подпапке, предназначенной для Orehum Sector, — `_Orehum`.
+В целом, всё, что вы создаёте с нуля (в отличие от модификации уже существующего кода из исходного репозитория), следует размещать в подпапке, предназначенной для Fractal Sector, — `_FS`.
 
 Examples:
-- `Content.Server/_Orehum/Shipyard/Systems/ShipyardSystem.cs`
-- `Resources/Prototypes/_Orehum/Loadouts/role_loadouts.yml`
-- `Resources/Audio/_Orehum/Voice/Goblin/goblin-scream-03.ogg`
-- `Resources/Textures/_Orehum/Tips/clippy.rsi/left.png`
-- `Resources/Locale/ru-RU/_Orehum/devices/pda.ftl`
-- `Resources/ServerInfo/_Orehum/Guidebook/Medical/Doc.xml`
+- `Content.Server/_FS/Shipyard/Systems/ShipyardSystem.cs`
+- `Resources/Prototypes/_FS/Loadouts/role_loadouts.yml`
+- `Resources/Audio/_FS/Voice/Goblin/goblin-scream-03.ogg`
+- `Resources/Textures/_FS/Tips/clippy.rsi/left.png`
+- `Resources/Locale/ru-RU/_FS/devices/pda.ftl`
+- `Resources/ServerInfo/_FS/Guidebook/Medical/Doc.xml`
 
 # Изменения в файлах апстрима
 
@@ -100,7 +100,7 @@ player-panel-job-whitelists = Role Whitelists
 
 Общие правила:
 
-Orehum Sector использует специальные прототипы для POI и карт шаттлов (например, для хранения информации о появлении, данных о появлении станций или цен и категорий шаттл). Для шаттл эти данные хранятся в VesselPrototype (Resources/Prototypes/_Orehum/Shipyard) или PointOfInterestPrototype (Resources/Prototypes/_Orehum/PointsOfInterest). При создании нового шаттла или POI используйте существующие прототипы.
+Orehum Sector использует специальные прототипы для POI и карт шаттлов (например, для хранения информации о появлении, данных о появлении станций или цен и категорий шаттл). Для шаттл эти данные хранятся в VesselPrototype (Resources/Prototypes/_FS/Shipyard) или PointOfInterestPrototype (Resources/Prototypes/_FS/PointsOfInterest). При создании нового шаттла или POI используйте существующие прототипы.
 
 Если вы вносите изменения в карту, свяжитесь с её администратором (или, если его нет, с автором) и избегайте одновременного открытия нескольких объектов с изменениями на одной и той же карте.
 
