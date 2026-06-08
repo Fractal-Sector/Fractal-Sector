@@ -132,6 +132,17 @@ namespace Content.Server.Database
                 .Where(b => BanMatcher.BanMatches(b!, playerInfo))!;
         }
 
+        // FS start
+        public override async Task<ServerBanDef?> GetLastServerBanAsync()
+        {
+            await using var db = await GetDbImpl();
+
+            var lastServerBan = db.SqliteDbContext.Ban.OrderByDescending(x => x.Id).FirstOrDefault();
+
+            return ConvertBan(lastServerBan);
+        }
+        // FS end
+
         private static async Task<List<ServerBan>> GetAllBans(
             SqliteServerDbContext db,
             bool includeUnbanned,
@@ -224,6 +235,17 @@ namespace Content.Server.Database
                 .Select(ConvertRoleBan)
                 .ToList()!;
         }
+
+        // FS start
+        public override async Task<ServerRoleBanDef?> GetLastServerRoleBanAsync()
+        {
+            await using var db = await GetDbImpl();
+
+            var lastServerRoleBan = db.SqliteDbContext.RoleBan.OrderByDescending(x => x.Id).FirstOrDefault();
+
+            return ConvertRoleBan(lastServerRoleBan);
+        }
+        // FS end
 
         private static async Task<List<ServerRoleBan>> GetAllRoleBans(
             SqliteServerDbContext db,
