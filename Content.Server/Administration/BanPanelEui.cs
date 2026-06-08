@@ -1,5 +1,11 @@
 using System.Net;
 using System.Net.Sockets;
+using System.Linq;
+using System.Text;
+using Content.Server._FS.Discord;
+using Content.Server._FS.Discord.Bans;
+using Content.Server._FS.Discord.Bans.PayloadGenerators;
+using Content.Server.Database;
 using Content.Server.Administration.Managers;
 using Content.Server.Administration.Systems;
 using Content.Server.Chat.Managers;
@@ -22,7 +28,8 @@ public sealed class BanPanelEui : BaseEui
     [Dependency] private readonly IChatManager _chat = default!;
     [Dependency] private readonly IAdminManager _admins = default!;
     [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-
+    [Dependency] private readonly IServerDbManager _dbManager = default!;
+    [Dependency] private readonly IDiscordBanInfoSender _discordBanInfoSender = default!;
     private readonly ISawmill _sawmill;
 
     private NetUserId? PlayerId { get; set; }
@@ -122,17 +129,37 @@ public sealed class BanPanelEui : BaseEui
         if (roles?.Count > 0)
         {
             var now = DateTimeOffset.UtcNow;
+
+            // FS start
+            var lastRoleBan = await _dbManager.GetLastServerRoleBanAsync();
+            var startRoleBanId = lastRoleBan is not null ? lastRoleBan.Id + 1 : 1;
+            var currentRoleBanId = startRoleBanId;
+            var rolesData = new List<string>();
             foreach (var role in roles)
             {
                 if (_prototypeManager.HasIndex<JobPrototype>(role))
                 {
-                    _banManager.CreateRoleBan(targetUid, target, Player.UserId, addressRange, targetHWid, role, minutes, severity, reason, now);
+                    rolesData.Add(string.Format("{0}:{1}", role, currentRoleBanId++));
+                    await _banManager.CreateRoleBan(targetUid, target, Player.UserId, addressRange, targetHWid, role, minutes, severity, reason, now);
                 }
                 else
                 {
                     _sawmill.Warning($"{Player.Name} ({Player.UserId}) tried to issue a job ban with an invalid job: {role}");
                 }
             }
+            var roleBanInfo = new BanInfo
+            {
+                BanId = string.Empty,
+                Target = target!,
+                Player = Player,
+                Minutes = minutes,
+                Reason = reason,
+                Expires = DateTimeOffset.Now + TimeSpan.FromMinutes(minutes),
+                AdditionalInfo = new() { { "roles", string.Join(", ", rolesData) } }
+            };
+
+            await _discordBanInfoSender.SendBanInfoAsync<PanelBanPayloadGenerator>(roleBanInfo);
+            // FS end
 
             Close();
             return;
@@ -151,6 +178,21 @@ public sealed class BanPanelEui : BaseEui
                 _sawmill.Error($"Error while erasing banned player:\n{e}");
             }
         }
+
+        // FS start
+        var lastServerBan = await _dbManager.GetLastServerBanAsync();
+        var newServerBanId = lastServerBan is not null ? lastServerBan.Id + 1 : 1;
+        var banInfo = new BanInfo
+        {
+            BanId = newServerBanId.ToString()!,
+            Target = target!,
+            Player = Player,
+            Minutes = minutes,
+            Reason = reason,
+            Expires = DateTimeOffset.Now + TimeSpan.FromMinutes(minutes)
+        };
+        await _discordBanInfoSender.SendBanInfoAsync<PanelBanPayloadGenerator>(banInfo);
+        // FS end
 
         _banManager.CreateServerBan(targetUid, target, Player.UserId, addressRange, targetHWid, minutes, severity, reason);
 

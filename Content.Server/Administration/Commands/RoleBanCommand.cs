@@ -4,6 +4,10 @@ using Content.Server.Administration.Managers;
 using Content.Shared.Administration;
 using Content.Shared.CCVar;
 using Content.Shared.Database;
+using Content.Server._FS.Discord;
+using Content.Server._FS.Discord.Bans;
+using Content.Server._FS.Discord.Bans.PayloadGenerators;
+using Content.Server.Database;
 using Content.Shared.Roles;
 using Robust.Shared.Configuration;
 using Robust.Shared.Console;
@@ -19,7 +23,8 @@ public sealed class RoleBanCommand : IConsoleCommand
     [Dependency] private readonly IConfigurationManager _cfg = default!;
     [Dependency] private readonly ILogManager _log = default!;
     [Dependency] private readonly IPrototypeManager _proto = default!;
-
+    [Dependency] private readonly IServerDbManager _dbManager = default!;
+    [Dependency] private readonly IDiscordBanInfoSender _discordBanInfoSender = default!;
     private ISawmill? _sawmill;
 
     public string Command => "roleban";
@@ -98,6 +103,23 @@ public sealed class RoleBanCommand : IConsoleCommand
 
         var targetUid = located.UserId;
         var targetHWid = located.LastHWId;
+
+        // FS start
+        var lastRoleBan = await _dbManager.GetLastServerRoleBanAsync();
+        var newRoleBanId = lastRoleBan is not null ? lastRoleBan.Id + 1 : 1;
+        var banInfo = new BanInfo
+        {
+            BanId = newRoleBanId is not null ? newRoleBanId.ToString()! : string.Empty,
+            Target = target,
+            Player = shell.Player,
+            Minutes = minutes,
+            Reason = reason,
+            Expires = DateTimeOffset.Now + TimeSpan.FromMinutes(minutes),
+            AdditionalInfo = new() { { "role", job } }
+        };
+
+        await _discordBanInfoSender.SendBanInfoAsync<RoleBanPayloadGenerator>(banInfo);
+        // FS end
 
         _bans.CreateRoleBan(targetUid, located.Username, shell.Player?.UserId, null, targetHWid, job, minutes, severity, reason, DateTimeOffset.UtcNow);
     }
