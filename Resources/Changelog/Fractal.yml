@@ -168,3 +168,10 @@ Entries:
   id: 10
   time: '2026-06-04T13:08:12.0000000+00:00'
   url: https://github.com/Orehum-Project/Orehum-Sector/pull/19
+- author: IsNotAcceptable
+  changes:
+    - type: Add
+      message: 'Отображение банов в #🦑┆наказания '
+  id: 11
+  time: '2026-06-08T15:34:58.0000000+00:00'
+  url: https://github.com/Fractal-Sector/Fractal-Sector/pull/22
