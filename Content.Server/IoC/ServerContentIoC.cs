@@ -12,6 +12,7 @@ using Content.Server.Database;
 using Content.Server.Discord;
 using Content.Server.Discord.DiscordLink;
 using Content.Server.Discord.WebhookMessages;
+using Content.Server._FS.Discord.Bans;
 using Content.Server.EUI;
 using Content.Server.GhostKick;
 using Content.Server.Info;
@@ -90,6 +91,10 @@ namespace Content.Server.IoC
             // Harmony Queue Start
             IoCManager.Register<IJoinQueueManager, JoinQueueManager>();
             // Harmony Queue End
+
+            // FS start
+            IoCManager.Register<IDiscordBanInfoSender, DiscordBanInfoSender>();
+            // FS end
         }
     }
 }
