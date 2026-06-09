@@ -256,6 +256,7 @@
   description: Powered by experimental bluespace technology.
   id: BluespaceBeaker
   components:
+  - type: BluespaceQuirkMessages
   - type: Spillable
     solution: beaker
   - type: Sprite
