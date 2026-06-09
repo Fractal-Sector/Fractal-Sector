@@ -7,7 +7,7 @@
 - type: pointOfInterest
   id: arraystation
   parent: BasePOI
-  name: "RAEWS Array"
+  name: "Антенный комплекс СРРОУ"
   minimumDistance: 350
   maximumDistance: 600
   gridPath: /Maps/_WF/POI/array.yml
@@ -18,7 +18,7 @@
 
 - type: gameMap
   id: arraystation
-  mapName: "RAEWS Array"
+  mapName: "Антенный комплекс СРРОУ"
   mapPath: /Maps/_WF/POI/array.yml
   minPlayers: 0
   stations:
@@ -26,7 +26,7 @@
       stationProto: DeadDropFrontierOutpost
       gridComponents:
       - type: VesselInfo # WF
-        description: "News and forecast directly from the RAEWS Array."
+        description: "Новости и прогноз погоды прямиком с комплекса СРРОУ."
       components:
         - type: StationNameSetup
-          mapNameTemplate: "RAEWS Array"
+          mapNameTemplate: "Антенный комплекс СРРОУ"

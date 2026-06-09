@@ -1,8 +1,8 @@
 - type: entity
   parent: [BaseMachinePowered, ConstructibleMachine]
   id: RAEWSdish
-  name: raews dish
-  description: The Radar Assisted Early Warning System advanced radar dish is capable of deep space doppler for both threat detection and astrological meteorology readouts.
+  name: радарная тарелка СРРОУ
+  description: Высокотехнологичная радарная тарелка Системы раннего радиолокационного обнаружения угроз (СРРОУ), способная проводить доплеровское сканирование глубокого космоса как для выявления опасностей, так и для получения астрометеорологических сводок.
   placement:
     mode: AlignTileAny
   components:
