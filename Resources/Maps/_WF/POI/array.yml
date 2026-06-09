@@ -1,11 +1,11 @@
 meta:
   format: 7
   category: Grid
-  engineVersion: 267.3.0
+  engineVersion: 271.2.0
   forkId: ""
   forkVersion: ""
-  time: 06/05/2026 23:55:53
-  entityCount: 3429
+  time: 06/09/2026 08:47:17
+  entityCount: 3426
 maps: []
 grids:
 - 1
@@ -12043,26 +12043,6 @@ entities:
       parent: 1
 - proto: FoodBreakfastAmerican
   entities:
-  - uid: 1901
-    components:
-    - type: Transform
-      pos: 15.410346,37.438335
-      parent: 1
-  - uid: 1902
-    components:
-    - type: Transform
-      pos: 0.48060524,37.505
-      parent: 1
-  - uid: 1903
-    components:
-    - type: Transform
-      pos: 0.44935524,57.61744
-      parent: 1
-  - uid: 1904
-    components:
-    - type: Transform
-      pos: -19.441183,47.559647
-      parent: 1
   - uid: 1905
     components:
     - type: Transform
@@ -12073,35 +12053,10 @@ entities:
     - type: Transform
       pos: 0.51185524,27.459324
       parent: 1
-  - uid: 1907
-    components:
-    - type: Transform
-      pos: -14.587443,37.53852
-      parent: 1
-  - uid: 1908
-    components:
-    - type: Transform
-      pos: 20.551651,47.52152
-      parent: 1
-  - uid: 1909
-    components:
-    - type: Transform
-      pos: 0.40248024,47.514553
-      parent: 1
   - uid: 1910
     components:
     - type: Transform
       pos: 10.452363,27.510553
-      parent: 1
-  - uid: 1911
-    components:
-    - type: Transform
-      pos: 25.407442,57.440052
-      parent: 1
-  - uid: 1912
-    components:
-    - type: Transform
-      pos: -24.425558,57.48305
       parent: 1
 - proto: GasMixerOnFlipped
   entities:
@@ -17985,6 +17940,20 @@ entities:
     - type: Transform
       pos: 14.5,9.5
       parent: 1
+- proto: MachineFrame3x3
+  entities:
+  - uid: 1903
+    components:
+    - type: Transform
+      pos: -20.5,48.5
+      parent: 1
+- proto: MachineFrameDestroyed3x3
+  entities:
+  - uid: 1907
+    components:
+    - type: Transform
+      pos: 24.5,58.5
+      parent: 1
 - proto: MaterialReclaimer
   entities:
   - uid: 2703
@@ -18521,6 +18490,28 @@ entities:
     components:
     - type: Transform
       pos: -2.5,7.5
+      parent: 1
+- proto: RAEWSdish
+  entities:
+  - uid: 1901
+    components:
+    - type: Transform
+      pos: 0.5,37.5
+      parent: 1
+  - uid: 1902
+    components:
+    - type: Transform
+      pos: 0.5,57.5
+      parent: 1
+  - uid: 1904
+    components:
+    - type: Transform
+      pos: 0.5,47.5
+      parent: 1
+  - uid: 1908
+    components:
+    - type: Transform
+      pos: -24.5,57.5
       parent: 1
 - proto: Railing
   entities:
