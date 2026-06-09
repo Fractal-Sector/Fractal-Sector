@@ -36,7 +36,7 @@
       stationProto: StandardFrontierVessel
       components:
         - type: StationNameSetup
-          mapNameTemplate: 'Takeaway CIV{1}'
+          mapNameTemplate: 'Takeaway {1}'
           nameGenerator:
             !type:NanotrasenNameGenerator
             prefixCreator: '14'
