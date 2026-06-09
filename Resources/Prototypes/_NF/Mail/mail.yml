@@ -1111,7 +1111,7 @@
     contents:
     - id: ClothingHeadHatPwig
     - id: NFWeaponRifleMusket
-    - id: CartridgeAntiMateriel
+    - id: NFCartridgeRifle60 # Wayfarer
       amount: 2
     - id: PaperMailNTMusket
 

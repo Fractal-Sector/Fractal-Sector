@@ -37,6 +37,8 @@
     RLeg: MobOviniaRLeg
     LFoot: MobOviniaLFoot
     RFoot: MobOviniaRFoot
+    RArmExtension: MobHumanoidAnyMarking # Wayfarer: Adds Wing Slot
+
 - type: markingPoints
   id: MobOviniaMarkingLimits
   points:

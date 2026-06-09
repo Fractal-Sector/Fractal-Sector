@@ -37,6 +37,7 @@
   id: VialBluespace
   description: A vial device created with bluespace technology.
   components:
+  - type: BluespaceQuirkMessages
   - type: Tag
     tags:
     - CentrifugeCompatible

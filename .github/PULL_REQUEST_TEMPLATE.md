@@ -15,11 +15,11 @@
 
 ## Требования
 <!-- Подтвердите следующее, поставив X в скобках [X]: -->
-- [ ] Я прочитал(а) [CONTRIBUTING.md](../CONTRIBUTING.md) и следую [Рекомендациям по оформлению Pull Request и Changelog](https://docs.spacestation14.com/en/general-development/codebase-info/pull-request-guidelines.html).
+- [ ] Я прочитал(а) [CONTRIBUTING.md](https://github.com/Fractal-Sector/Fractal-Sector/blob/new/CONTRIBUTING.md) и следую [Рекомендациям по оформлению Pull Request и Changelog](https://docs.spacestation14.com/en/general-development/codebase-info/pull-request-guidelines.html).
 - [ ] Я добавил(а) медиафайлы к этому PR или он не требует демонстрации в игре.
-- [ ] Я ознакомился(ась) с [правилами подачи заявок на шаттлы](../docs/SHIP_SUBMISSION_REQUIREMENTS.md), если это применимо.
-- [ ] Я подтверждаю, что мои изменения находятся под лицензией [Orehum CLA](../LICENSES/CLA.txt) и соглашаюсь с её условиями.
-- [ ] Если мой код использует ИИ, я прочитал(а) и согласен(а) с [AI_POLICY.md](../docs/AI_POLICY.md)
+- [ ] Я ознакомился(ась) с [правилами подачи заявок на шаттлы](https://github.com/Fractal-Sector/Fractal-Sector/blob/new/docs/SHIP_SUBMISSION_REQUIREMENTS.md), если это применимо.
+- [ ] Я подтверждаю, что мои изменения находятся под лицензией [Fractal CLA](https://github.com/Fractal-Sector/Fractal-Sector/blob/new/LICENSES/CLA.txt) и соглашаюсь с её условиями.
+- [ ] Если мой код использует ИИ, я прочитал(а) и согласен(а) с [AI_POLICY.md](https://github.com/Fractal-Sector/Fractal-Sector/blob/new/docs/AI_POLICY.md)
 <!-- Вы должны понимать, что несоблюдение вышеуказанного может привести к закрытию вашего PR по усмотрению сопровождающего -->
 
 **Список изменений**

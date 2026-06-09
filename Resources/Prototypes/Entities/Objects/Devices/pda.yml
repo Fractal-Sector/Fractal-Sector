@@ -721,6 +721,7 @@
   - type: BlipCartridge
     defaultPreset: BlipPresetCommand
 
+# Start Wayfarer
 #- type: entity
 #  parent: BasePDA
 #  id: HoPPDA
@@ -747,6 +748,7 @@
 #    state: pda-hop
 #  - type: BlipCartridge
 #    defaultPreset: BlipPresetCommand
+# Wayfarer End
 
 - type: entity
   parent: BasePDA
@@ -1367,6 +1369,7 @@
   - type: Icon
     state: pda-boxer
 
+# Start Wayfarer
 #- type: entity
 #  parent: BaseSecurityPDA
 #  id: DetectivePDA
@@ -1423,6 +1426,7 @@
 #    - WantedListCartridge
 #    - MedTekCartridge
 #    - NanoChatCartridge # DeltaV
+# Wayfarer End
 
 - type: entity
   parent: ClownPDA

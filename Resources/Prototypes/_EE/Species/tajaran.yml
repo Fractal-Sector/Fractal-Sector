@@ -42,6 +42,7 @@
     Tail: MobHumanoidAnyMarking
     LFoot: MobTajaranLFoot
     RFoot: MobTajaranRFoot
+    RArmExtension: MobHumanoidAnyMarking # Wayfarer: Adds Wing Slot
 
 - type: humanoidBaseSprite
   id: MobTajaranEyes

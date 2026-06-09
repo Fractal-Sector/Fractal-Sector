@@ -36,7 +36,7 @@
         - type: StationNameSetup
           mapNameTemplate: 'Caladrius {1}'
           nameGenerator:
-            !type:NanotrasenNameGenerator
+            !type:MedicalNameGenerator # FS: NanotrasenNameGenerator<MedicalNameGenerator
             prefixCreator: '14'
         - type: StationJobs
           availableJobs:
