@@ -34,14 +34,6 @@
                                      Value="0.5">
                         </ProgressBar>
                     </BoxContainer>
-                    <GridContainer>
-                        <!--Charging Status-->
-                        <Label Text="{Loc 'apc-menu-external-label'}" StyleClasses="StatusFieldTitle" MinWidth="120" />
-                        <Label Name="ExternalPowerStateLabel" Text="{Loc 'apc-menu-power-state-good'}" />
-                        <!--Battery Power-->
-                        <Label Text="{Loc 'apc-menu-power-label'}" StyleClasses="StatusFieldTitle" MinWidth="120" />
-                        <Label Name="PowerLabel"/>
-                    </GridContainer>
                 </BoxContainer>
             </Control>
 
