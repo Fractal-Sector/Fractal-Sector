@@ -3,18 +3,17 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls">
     <BoxContainer Name="VBox" Orientation="Vertical">
-        <controls:NanoHeading Name="Header" Text="{Loc 'lobby-character-preview-panel-header'}">
+        <Label Name="Header" Text="{Loc 'lobby-character-preview-panel-header'}" Visible="False" StyleClasses="MenuLabel15"/>
 
-        </controls:NanoHeading>
         <BoxContainer Name="Loaded" Orientation="Vertical"
                       Visible="False">
-            <Label Name="Summary" HorizontalAlignment="Center" Margin="3 3"/>
-            <!-- Frontier -->
-            <Label Name="BankBalance" HorizontalAlignment="Center" Margin="3 3"/>
-            <!-- End Frontier -->
-            <BoxContainer Name="ViewBox" Orientation="Horizontal" HorizontalAlignment="Center">
 
-            </BoxContainer>
+            <BoxContainer Name="ViewBox" Orientation="Horizontal" HorizontalAlignment="Right"/>
+
+            <!-- Frontier -->
+            <Label Name="BankBalance" HorizontalAlignment="Center" Margin="3 3" StyleClasses="MenuLabel15" />
+            <!-- End Frontier -->
+            <Label StyleClasses="MenuLabel15" Name="Summary" HorizontalAlignment="Center" Margin="3 3"/>
             <controls:VSpacer/>
             <Button Name="CharacterSetup" Text="{Loc 'lobby-character-preview-panel-character-setup-button'}"
                     HorizontalAlignment="Center"
