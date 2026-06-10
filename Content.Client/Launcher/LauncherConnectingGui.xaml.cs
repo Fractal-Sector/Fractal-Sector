@@ -49,8 +49,6 @@ namespace Content.Client.Launcher
             RetryButton.OnPressed += ReconnectButtonPressed;
             ReconnectButton.OnPressed += ReconnectButtonPressed;
 
-            CopyButton.OnPressed += CopyButtonPressed;
-            CopyButtonDisconnected.OnPressed += CopyButtonDisconnectedPressed;
             ExitButton.OnPressed += _ => _state.Exit();
 
             var addr = state.Address;

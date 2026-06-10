@@ -1,6 +1,7 @@
 #nullable enable
 using System.Linq;
 using System.Reflection;
+using Content.Client.Stylesheets;
 using Content.IntegrationTests.Pair;
 using Content.Shared.CCVar;
 using Robust.UnitTesting;
@@ -101,8 +102,15 @@ public sealed class ContentPoolManager : PoolManager<TestPair>
                 .Append(typeof(PoolManager).Assembly)
                 .ToArray();
 
-        Startup([typeof(Client.Entry.EntryPoint).Assembly],
-            [typeof(Server.Entry.EntryPoint).Assembly],
+        Startup(
+            [
+                typeof(Client.Entry.EntryPoint).Assembly,
+                typeof(Content.StyleSheetify.Client.EntryPoint).Assembly
+            ],
+            [
+                typeof(Server.Entry.EntryPoint).Assembly,
+                typeof(Content.StyleSheetify.Server.EntryPoint).Assembly
+            ],
             shared);
     }
 }
