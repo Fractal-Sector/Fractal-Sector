@@ -6,6 +6,7 @@ using Robust.Shared.Configuration;
 using Robust.Shared.ContentPack;
 using Robust.Shared.IoC;
 using Robust.Shared.Log;
+using Robust.Shared.Prototypes;
 using Robust.UnitTesting;
 
 namespace Content.IntegrationTests.Tests.Utility;
@@ -47,6 +48,9 @@ public sealed class SandboxTest
                         .OnValueChanged(RTCVars.FailureLogLevel, value => logHandler.FailureLevel = value, true);
                 }
             });
+            var prototypes = IoCManager.Resolve<IPrototypeManager>();
+            prototypes.RegisterIgnore("styleSheet");
+            prototypes.RegisterIgnore("dynamicValue");
         };
 
         using var client = new RobustIntegrationTest.ClientIntegrationInstance(options);
