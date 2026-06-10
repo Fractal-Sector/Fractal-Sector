@@ -40,7 +40,7 @@ namespace Content.Client.Lobby.UI
             var back = new StyleBoxTexture
             {
                 Texture = panelTex,
-                Modulate = new Color(37, 37, 42)
+                Modulate = new Color(15, 15, 15)
             };
             back.SetPatchMargin(StyleBox.Margin.All, 10);
 
@@ -57,6 +57,9 @@ namespace Content.Client.Lobby.UI
                 ReloadCharacterPickers();
                 args.Event.Handle();
             };
+
+            profileEditor.HorizontalExpand = true;
+            profileEditor.HorizontalAlignment = HAlignment.Stretch;
 
             CharEditor.AddChild(profileEditor);
             RulesButton.OnPressed += _ => new RulesAndInfoWindow().Open();
