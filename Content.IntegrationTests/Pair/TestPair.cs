@@ -13,6 +13,7 @@ using Robust.Shared.GameObjects;
 using Robust.Shared.IoC;
 using Robust.Shared.Log;
 using Robust.Shared.Network;
+using Robust.Shared.Prototypes;
 using Robust.UnitTesting;
 
 namespace Content.IntegrationTests.Pair;
@@ -104,6 +105,10 @@ public sealed partial class TestPair : RobustIntegrationTest.TestPair
                     IoCManager.Register<IStylesheetManager, DummyStylesheetManager>(true);
                 }
             });
+
+            var prototypes = IoCManager.Resolve<IPrototypeManager>();
+            prototypes.RegisterIgnore("styleSheet");
+            prototypes.RegisterIgnore("dynamicValue");
         };
         return opts;
     }
