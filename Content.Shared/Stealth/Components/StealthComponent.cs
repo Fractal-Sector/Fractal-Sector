@@ -11,6 +11,7 @@ namespace Content.Shared.Stealth.Components;
 /// </summary>
 [RegisterComponent, NetworkedComponent]
 [Access(typeof(SharedStealthSystem))]
+[AutoGenerateComponentState] // Goobstation
 public sealed partial class StealthComponent : Component
 {
     /// <summary>
@@ -24,6 +25,12 @@ public sealed partial class StealthComponent : Component
     /// </summary>
     [DataField("enabledOnDeath")]
     public bool EnabledOnDeath = true;
+
+    /// <summary>
+    /// The creature will continue invisible at Crit.
+    /// </summary>
+    [DataField("enabledOnCrit")]
+    public bool EnabledOnCrit = true; // Goobstation - Stealth change
 
     /// <summary>
     /// Whether or not the entity previously had an interaction outline prior to cloaking.
@@ -45,6 +52,7 @@ public sealed partial class StealthComponent : Component
     /// </summary>
     [DataField("lastVisibility")]
     [Access(typeof(SharedStealthSystem), Other = AccessPermissions.None)]
+    [AutoNetworkedField] // Goobstation
     public float LastVisibility = 1;
 
 
@@ -53,18 +61,21 @@ public sealed partial class StealthComponent : Component
     /// accumulating any visibility change.
     /// </summary>
     [DataField("lastUpdate", customTypeSerializer:typeof(TimeOffsetSerializer))]
+    [AutoNetworkedField] // Goobstation
     public TimeSpan? LastUpdated;
 
     /// <summary>
     /// Minimum visibility. Note that the visual effect caps out at -1, but this value is allowed to be larger or smaller.
     /// </summary>
     [DataField("minVisibility")]
-    public float MinVisibility = -1f;
+    [AutoNetworkedField] // Goobstation
+    public float MinVisibility = -1.5f;
 
     /// <summary>
     /// Maximum visibility. Note that the visual effect caps out at +1, but this value is allowed to be larger or smaller.
     /// </summary>
     [DataField("maxVisibility")]
+    [AutoNetworkedField] // Goobstation
     public float MaxVisibility = 1.5f;
 
     /// <summary>
@@ -72,19 +83,4 @@ public sealed partial class StealthComponent : Component
     /// </summary>
     [DataField("examinedDesc")]
     public string ExaminedDesc = "stealth-visual-effect";
-}
-
-[Serializable, NetSerializable]
-public sealed class StealthComponentState : ComponentState
-{
-    public readonly float Visibility;
-    public readonly TimeSpan? LastUpdated;
-    public readonly bool Enabled;
-
-    public StealthComponentState(float stealthLevel, TimeSpan? lastUpdated, bool enabled)
-    {
-        Visibility = stealthLevel;
-        LastUpdated = lastUpdated;
-        Enabled = enabled;
-    }
 }
