@@ -19,6 +19,20 @@
   maleFirstNames: NamesGoblinFirstMale
   femaleFirstNames: NamesGoblinFirstFemale
   lastNames: NamesGoblinLast
+  # FS: species window
+  category: Unusual
+  description: "/ServerInfo/_NF/Guidebook/Mobs/Goblin.xml"
+  pros:
+  - Из-за необычного рациона получают на 25% меньше урона от токсинов.
+  - Без оружия их когти наносят режущий урон вместо тупого.
+  - Меньше людей по размеру, из-за чего по ним сложнее попасть.
+  special:
+  - Способны рыться в мусоропроводах, чтобы выкапывать хлам.
+  cons:
+  - Из-за маленького размера получают на 20% больше физического урона.
+  - Всегда активируют мышеловки, даже если носят обувь.
+  - Терпеть не могут, когда их опрыскивают водой или космическим очистителем.
+  # FS end
 
 - type: speciesBaseSprites
   id: MobGoblinSprites

@@ -11,6 +11,23 @@
   maleFirstNames: NamesChitinidFirstMale
   femaleFirstNames: NamesChitinidFirstFemale
   naming: First
+  # FS: species window
+  category: Unusual
+  description: "/ServerInfo/Guidebook/Mobs/_DV/Chitinid.xml"
+  pros:
+  - Получают на 80% меньше урона радиацией.
+  - Получают на 10% меньше режущего, тупого и колющего урона.
+  - Могут самостоятельно излечиваться от радиации в организме.
+  - Могут излучать биолюминесцентный свет от своего тела.
+  special:
+  - Вырабатывают слабо-радиоактивные камни, при достижении достаточного количества радиации.
+  - Обладают кровью жука.
+  cons:
+  - Получают на 25% больше холодного урона.
+  - Получают на 15% больше шокового урона.
+  - Обычные шприцы не могут пробить хитин.
+  - Голодают на 33% быстрее.
+  # FS end
 
 - type: speciesBaseSprites
   id: MobChitinidSprites

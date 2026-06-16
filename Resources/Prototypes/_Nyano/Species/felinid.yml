@@ -7,6 +7,20 @@
   markingLimits: MobFelinidMarkingLimits
   dollPrototype: MobFelinidDummy
   skinColoration: Hues # Wayfarer: HumanToned<Hues
+  # FS: species window
+  category: Unusual
+  description: "/ServerInfo/Guidebook/Mobs/_DV/Felinid.xml"
+  pros:
+  - Они меньше людей, из-за чего по ним сложнее попасть.
+  - Могут есть мышей и крыс, просто подобрав их. Это восстанавливает способность отрыгивать шерсть и насыщает персонажа.
+  - Могут помещаться в вещмешки.
+  special:
+  - Не издают звуков ходьбы, если не носят обуви.
+  - Отхаркивают комок шерсти.
+  cons:
+  - Получают на 15% больше тупого, режущего и колющего урона.
+  - Они слабее и с трудом переносят или тащат вещи из-за своего малого роста. Неспособны тащить Они.
+  # FS end
 
 - type: markingPoints
   id: MobFelinidMarkingLimits

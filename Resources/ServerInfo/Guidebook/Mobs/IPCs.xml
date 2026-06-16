@@ -1,51 +1,71 @@
 <Document>
-  # I.P.C.
-  <GuideEntityEmbed Entity="MobIPCDummy" Caption="I.P.C."/>
-  An IPC (short for Integrated Positronic Chassis) is a type of sentient robot and is considered an [color=yellow]independent individual[/color], meaning [color=red]they are not guided by any laws of robotics[/color]. IPCs cannot be hacked by Emags because they do not have to follow any predefined directives in their system. [color=red]IPCs are silicon-based beings, so doctors do not have the skills to repair them.[/color]
+  # КПБ
+  <GuideEntityEmbed Entity="MobIPCDummy" Caption=""/>
+  КПБ (сокращение от комплексный позитронный блок) — это тип разумного робота, который считается [color=yellow]независимой личностью[/color], то есть [color=red]он не подчиняется никаким законам робототехники[/color].
+
+  ## Рекомендации к отыгрышу
+
+  - Придерживайтесь схемы именования. При выборе имени используйте аббревиатуры, название модели или номер производителя, за которым следует присвоенный им номер или название модели.
+  - Не используйте в вашем отыгрыше физиологические особенности, присущие живому организму. В вашем отыгрыше стоит опустить такие моменты, как голод, боль, усталость и другие физиологические признаки, которые типичны для представителей других рас.
+
+  ## Культура
+
+  Будучи относительно новым самостоятельным видом, КПБ еще не определились с формированием своей особой культуры. Они склонны имитировать некоторые заимствованные примеры различных локальных культур, часто создавая солянку. Это привело к колоритным вариантам выражения себя и своих мыслей. Например, некоторые КПБ могут говорить своё имя от первого лица, некоторые от третьего, а некоторые просто называют себя словом юнит.
+  Какое-либо верование среди КПБ отсутствует, хотя боевой клич «Славься, Синтетика» является довольно распространенным среди их различных популяций. То ли это нечто вроде высшего естества, то ли призыв к единению или что-то еще в общем духе, оно остается предметом научных дискуссий.
+
+  ## Настоящее время
+
+  Союз Синтетиков порицает любое проявление расизма по отношению к органикам. По этой причине не существует колоний синтетиков, недоступных для посещения органиками, однако условия проживания на Новом Ханаане представляют для них определенную сложность, сопряженную с риском заражения вышеупомянутыми паразитическими грибками. Также существует несколько колоний синтетиков, на которых вовсе не присутствует персонала из числа органиков в силу природных особенностей планет, которые КПБ обычно населяют. Добившись своей независимости с годами упорной работы, Союз Синтетиков продолжает вести активную кампанию за повсеместное признание и предоставление прав синтетическому интеллекту.
+  Хотя многие организации относятся к КПБ как ко вполне полноправному рядовому персоналу, они все еще обделены должным отношением во многих секторах галактики - их отстраняют от работы в учреждениях в этих секторах, им ограничивают возможность выполнять простейшие обязанности и банально относятся к ним с издевками.
+
+  КПБ не могут быть взломаны с помощью Емаг, поскольку им не нужно следовать каким-либо предопределенным директивам в своей системе. [color=red]КПБ — это кремниевые существа, поэтому их обычно лечат с помощью науки или техники, а не медицины.[/color]
+  Они получают на 20% меньше урона от грубой силы, на 70% больше урона от тепла и на 100% больше урона от электричества. В отличие от киборгов, они получают урон от радиации, но на 60% меньше, чем люди.
 
   <Box>
-    <GuideEntityEmbed Entity="PositronicBrain" Caption="Positronic Brain"/>
+    <GuideEntityEmbed Entity="PositronicBrain" Caption="Позитронный мозг"/>
   </Box>
-  Like borgs, IPCs have a positronic brain as their processing source. However, unlike them, IPCs can't be assembled. "It's cheaper to create a shell that obeys you than one that doesn't! *wink*"
-  ## Recharging an IPC
-   <Box>
-    <GuideEntityEmbed Entity="APCBasic" Caption="APC Terminal"/>
-    <GuideEntityEmbed Entity="BorgCharger" Caption="Borg Charger"/>
-    <GuideEntityEmbed Entity="PowerCellMedium" Caption="Power Cell"/>
-  </Box>
-  IPCs can be recharged in three different ways:
+  Как и борги, КПБ имеют позитронный мозг в качестве вычислительного ядра. Однако, в отличие от них, КПБ нельзя собрать. «Проще создать оболочку, которая подчиняется, чем ту, что не подчиняется! *подмигивает*»
 
-  APC Terminal: IPCs can use APC terminals to recharge. Press [color=yellow]Alt + left click[/color] on a terminal as many times as needed to fully recharge.
-
-  Borg Rechargers: IPCs can use borg rechargers to recharge. Always prioritize the ones outside of the Sci area to avoid headaches.
-
-  Power Cell: IPCs have an internal power cell that serves as their battery. They can simply swap it out by opening the hatch and manually replacing it.
-
-  ## Integrated Radio
+  ## Подзарядка КПБ
   <Box>
-    <GuideEntityEmbed Entity="EncryptionKeyScience" Caption="Encryption key"/>
+    <GuideEntityEmbed Entity="APCBasic" Caption="ЛКП"/>
+    <GuideEntityEmbed Entity="BorgCharger" Caption="Зарядник для боргов"/>
+    <GuideEntityEmbed Entity="PowerCellMedium" Caption="Батарейки"/>
+  </Box>
+  КПБ можно подзарядить тремя способами:
+
+  ЛКП: КПБ могут использовать ЛКП для подзарядки. Нажмите [color=yellow]Alt + ЛКМ[/color] на терминале столько раз, сколько нужно для полной зарядки.
+
+  Станции зарядки боргов: КПБ могут заряжаться в зарядниках для боргов. Всегда отдавайте предпочтение тем, что находятся за пределами научного отдела, чтобы избежать лишних проблем.
+
+  Батарейки: КПБ могут поглащать энергию с батареек, что-бы пополнить свою энергию. [color=yellow]ПКМ и выбираете поглощение[/color] на батарейке, или устройстве что-бы начать поглащать энергию.
+
+  ## Встроенная рация
+  <Box>
+    <GuideEntityEmbed Entity="EncryptionKeyScience" Caption="Ключ шифрования"/>
   </Box>
 
-  IPCs do [bold]not[/bold] use external radios because they already have one built in. They only need to get an encryption key from a radio. By clicking on an IPC with a [color=yellow]wire cutter[/color], you can remove their keys.
-  You can find new keys around the station or remove one from a sector radio using a [color=yellow]screwdriver[/color].
+  КПБ [bold]не[/bold] используют внешние рации, так как у них есть встроенная. Им нужно только установить ключ шифрования из рации. Кликнув по КПБ с помощью [color=yellow]кусачек[/color], можно извлечь их ключи.
+  Найти новые ключи можно по всей станции или извлечь из секторной рации с помощью [color=yellow]отвёртки[/color].
 
-  ## Repairing
+  ## Ремонт
   <Box HorizontalAlignment="Stretch">
-    <GuideEntityEmbed Entity="WelderIndustrialAdvanced" Caption="Welder"/>
-    Welders can be used to repair [color=yellow]Brute[/color] damage.
+    <GuideEntityEmbed Entity="WelderIndustrialAdvanced" Caption="Сварка"/>
+    Сварка используется для ремонта [color=yellow]ушибов[/color].
   </Box>
   <Box HorizontalAlignment="Stretch">
-    <GuideEntityEmbed Entity="CableApcStack" Caption="Cables (any type)"/>
-    Cables can be used to repair [color=yellow]Burns[/color].
+    <GuideEntityEmbed Entity="CableApcStack" Caption="Кабели (любые)"/>
+    Кабели используются для ремонта [color=yellow]ожогов[/color].
   </Box>
   <Box HorizontalAlignment="Stretch">
-    <GuideEntityEmbed Entity="SheetGlass" Caption="Glass Sheets (any type)"/>
-    Glass Sheets can be used to repair [color=yellow]Blindness[/color].
+    <GuideEntityEmbed Entity="SheetGlass" Caption="Стекло (любое)"/>
+    Стекло используется для ремонта [color=yellow]слепоты[/color].
   </Box>
   <Box HorizontalAlignment="Stretch">
-    In the event an IPC dies, after being fully repaired, it should be restarted using the [color=yellow]"Restart"[/color] button (located by right-clicking).
-
-    [color=red]NEVER ELECTROCUTE AN IPC with a defibrillator or in any other way while it is dead, as this will cause the battery to discharge energy rays outward![/color]
+    Если КПБ погиб, после полного восстановления его необходимо перезапустить при помощи кнопки [color=yellow]"Перезагрузить"[/color] (вызывается ПКМ).
+  </Box>
+  <Box HorizontalAlignment="Stretch">
+    [color=red]НИКОГДА НЕ ЭЛЕКТРОШОКИРУЙТЕ КПБ дефибриллятором или иным способом, пока он мёртв, так как это вызовет разряд батареи с выбросом энергии наружу![/color]
   </Box>
 
 </Document>

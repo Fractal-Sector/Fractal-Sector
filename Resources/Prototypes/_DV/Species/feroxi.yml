@@ -11,6 +11,22 @@
   maleFirstNames: NamesVulpkaninMale
   femaleFirstNames: NamesVulpkaninFemale
   lastNames: NamesVulpkaninLast
+  # FS: species window
+  category: Unusual
+  description: "/ServerInfo/Guidebook/Mobs/_DV/Feroxi.xml"
+  pros:
+  - Наносят 7 колющего урона своими укусами.
+  - Получают на 10% меньше урона от ушибов.
+  - Устойчивее к холоду на 10%.
+  special:
+  - Могут дышать водяным паром.
+  - Когда состояние жажды доходит до критического состояния, начинают задыхаться.
+  - Употребление соли высасывает влагу.
+  - Лёгкие невозможно отделить от туловища.
+  cons:
+  - Получают на 10% больше режущего урона.
+  - Испытывают жажду на 100% быстрее.
+  # FS end
 
 - type: speciesBaseSprites
   id: MobFeroxiSprites

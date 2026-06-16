@@ -7,6 +7,21 @@
   markingLimits: MobHumanMarkingLimits #MobHarpyMarkingLimits WF
   dollPrototype: MobHarpyDummy
   skinColoration: Hues # Wayfarer: HumanToned<Hues
+  # FS: species window
+  category: Unusual
+  description: "/ServerInfo/Guidebook/Mobs/_DV/Harpy.xml"
+  pros:
+  - Используют свои когти для нанесения колющего урона.
+  - Могут имитировать около 70% библиотеки звуков игры через огромный список голосовых эмоций.
+  - Обладают ультрафиолетовым зрением.
+  special:
+  - Дышат в 3 раза чаще, чем человек.
+  cons:
+  - Не могут носить комбинезоны.
+  - Получают на 15% больше тупого, режущего и колющего урона.
+  - Дышат в два раза чаще людей. Кислородные баллоны расходуются в два раза быстрее, а сами гарпии гораздо сильнее подвержены влиянию плохого воздуха.
+  - Если гарпия подвергается воздействию хотя бы 0.2 моль углекислого газа и/или миазмов в сумме, она начинает испытывать проблемы с усвоением кислорода.
+  # FS end
 
 - type: speciesBaseSprites
   id: MobHarpySprites

@@ -16,6 +16,20 @@
   maleFirstNames: names_tajaran_first
   femaleFirstNames: names_tajaran_first
   lastNames: names_tajaran_last
+  # FS: species window
+  category: Classic
+  description: "/ServerInfo/Guidebook/Mobs/Tajaran.xml"
+  pros:
+  - Получают на 20% меньше холодного урона.
+  - Нейтрализуют 99% урона от падения, или удара об что-то.
+  special:
+  - Не издают звуков ходьбы, если не носят обуви.
+  - Могут поместится в вещмешок.
+  cons:
+  - Получают на 15% больше дробящего урона.
+  - Получают на 20% больше огненного урона.
+  - Стамина меньше на 25%, чем у человека.
+  # FS end
 
 - type: speciesBaseSprites
   id: MobTajaranSprites
