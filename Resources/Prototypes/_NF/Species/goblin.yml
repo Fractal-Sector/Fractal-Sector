@@ -21,7 +21,7 @@
   lastNames: NamesGoblinLast
   # FS: species window
   category: Unusual
-  description: "/ServerInfo/_NF/Guidebook/Mobs/Goblin.xml"
+  description: "/ServerInfo/_FS/Guidebook/Mobs/Goblin.xml"
   pros:
   - Из-за необычного рациона получают на 25% меньше урона от токсинов.
   - Без оружия их когти наносят режущий урон вместо тупого.

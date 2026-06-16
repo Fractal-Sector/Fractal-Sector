@@ -11,6 +11,19 @@
   femaleFirstNames: NamesOniFemale
   lastNames: NamesOniLocation
   naming: LastNoFirst
+  # FS: species window
+  category: Unusual
+  description: "/ServerInfo/_FS/Guidebook/Mobs/Oni.xml"
+  pros:
+  - Получают на 15% меньше тупого, колющего и режущего урона.
+  - Наносят на 25% больше тупого, режущего, колющего, стамины, и структурного урона в ближнем бою.
+  - Могут с лёгкостью тянуть другие расы и предметы, по сравнению с человеком.
+  special:
+  - Они больше чем люди, из-за чего по ним легче попасть.
+  - Могут есть многие продукты даже сырыми.
+  cons:
+  - Они не способны метко стрелять ни из какого оружия.
+  # FS end
 
 - type: markingPoints
   id: MobOniMarkingLimits

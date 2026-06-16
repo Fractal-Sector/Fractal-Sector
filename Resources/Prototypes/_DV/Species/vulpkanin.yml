@@ -13,7 +13,7 @@
   lastNames: NamesVulpkaninLast
   # FS: species window
   category: Classic
-  description: "/ServerInfo/Guidebook/Mobs/_DV/Vulpkanin.xml"
+  description: "/ServerInfo/_FS/Guidebook/Mobs/Vulpkanin.xml"
   pros:
   - Наносят урон тупым и режущим уроном.
   special:

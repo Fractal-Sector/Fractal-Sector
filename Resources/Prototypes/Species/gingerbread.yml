@@ -8,6 +8,10 @@
   dollPrototype: MobGingerbreadDummy
   skinColoration: HumanToned
   defaultSkinTone: "#9a7c5a"
+  # FS: species window
+  category: Special
+  description: "/ServerInfo/Guidebook/Mobs/Gingerbread.xml"
+  # FS end
 
 - type: speciesBaseSprites
   id: MobGingerbreadSprites

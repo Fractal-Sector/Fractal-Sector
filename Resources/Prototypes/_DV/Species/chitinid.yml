@@ -13,7 +13,7 @@
   naming: First
   # FS: species window
   category: Unusual
-  description: "/ServerInfo/Guidebook/Mobs/_DV/Chitinid.xml"
+  description: "/ServerInfo/_FS/Guidebook/Mobs/Chitinid.xml"
   pros:
   - Получают на 80% меньше урона радиацией.
   - Получают на 10% меньше режущего, тупого и колющего урона.

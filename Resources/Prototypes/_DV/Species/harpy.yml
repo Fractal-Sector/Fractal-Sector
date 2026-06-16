@@ -9,7 +9,7 @@
   skinColoration: Hues # Wayfarer: HumanToned<Hues
   # FS: species window
   category: Unusual
-  description: "/ServerInfo/Guidebook/Mobs/_DV/Harpy.xml"
+  description: "/ServerInfo/_FS/Guidebook/Mobs/Harpy.xml"
   pros:
   - Используют свои когти для нанесения колющего урона.
   - Могут имитировать около 70% библиотеки звуков игры через огромный список голосовых эмоций.

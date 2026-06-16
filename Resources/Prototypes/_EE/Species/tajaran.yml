@@ -18,7 +18,7 @@
   lastNames: names_tajaran_last
   # FS: species window
   category: Classic
-  description: "/ServerInfo/Guidebook/Mobs/Tajaran.xml"
+  description: "/ServerInfo/_FS/Guidebook/Mobs/Tajaran.xml"
   pros:
   - Получают на 20% меньше холодного урона.
   - Нейтрализуют 99% урона от падения, или удара об что-то.

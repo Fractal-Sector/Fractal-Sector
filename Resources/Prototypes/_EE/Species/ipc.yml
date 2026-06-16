@@ -23,7 +23,7 @@
   - BasicRobot
   # FS: species window
   category: Unusual
-  description: "/ServerInfo/Guidebook/Mobs/IPCs.xml"
+  description: "/ServerInfo/_FS/Guidebook/Mobs/IPCs.xml"
   pros:
   - Имеют встроенный радио-модуль, позволяющий использовать ключи вне гарнитуры.
   - Могут воспроизводить MIDI музыку своими динамиками.
