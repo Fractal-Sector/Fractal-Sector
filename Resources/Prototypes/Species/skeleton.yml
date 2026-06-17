@@ -10,6 +10,9 @@
   femaleFirstNames: NamesSkeletonFirst
   dollPrototype: MobSkeletonPersonDummy
   skinColoration: TintedHues
+  # FS: species window
+  category: Special
+  # FS end
 
 - type: speciesBaseSprites
   id: MobSkeletonSprites

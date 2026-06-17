@@ -1,26 +1,26 @@
 <Document>
-  # Goblins
+  # Гоблины
 
   <Box>
     <GuideEntityEmbed Entity="MobGoblin" Caption=""/>
   </Box>
 
-  Goblins are a race of humanoid beings. They tend to be small, very loud and fragile.
+  Гоблины — раса человекоподобных существ. Они, как правило, маленькие, очень шумные и хрупкие.
 
-  ## Benefits
+  ## Преимущества
 
-  - Due to their unusual dietary choices goblins take [color=lime]25% less Toxin damage[/color],
-  - When unarmed, their claws deal [color=red]Slash[/color] damage instead of Blunt.
-  - Smaller than humans.
-  - Can fit in duffelbags.
+  - Из-за необычного рациона питания гоблины получают на 25% меньше урона от токсинов.
+  - В безоружном бою их когти наносят рубящий урон вместо дробящего.
+  - Меньше людей.
+  - Могут поместиться в вещевые мешки.
 
-  ## Special
+  ## Особенности
 
-  - Can rummage in disposal chutes to dig up trash.
-  - Can dive into toilets and mailing units because of their small size.
-  - Unique chants.
-  - Inherently speak in Goblin Cant.
-  - Able to craft devices of varied complexity from trash.
+  - Могут рыться в мусоропроводах, чтобы выкапывать мусор.
+  - Могут нырять в туалеты и почтовые ящики из-за своего небольшого размера.
+  - Уникальные заклинания.
+  - По своей природе говорят на гоблинском жаргоне.
+  - Способны создавать устройства различной сложности из мусора.
 
   <Box>
     <GuideEntityEmbed Entity="NFGoblinMadeMultitool" Caption=""/>
@@ -29,10 +29,9 @@
     <GuideEntityEmbed Entity="NFGoblinMadeRemoteSignaller" Caption=""/>
   </Box>
 
-  ## Drawbacks
+  ## Недостатки
 
-  - Because of their small size they take [color=#ffa500]20% more Brute (Blunt/Slash/Piercing) damage[/color].
-  - Always triggers mousetraps, even when wearing shoes.
-  - They don't like to be sprayed with water or space cleaner.
+  - Из-за своего небольшого размера они получают на 20% больше урона от грубой силы (тупой/рубящий/колющий урон)[/color].
+  - Всегда срабатывают мышеловки, даже если на них надеты ботинки.
 
 </Document>

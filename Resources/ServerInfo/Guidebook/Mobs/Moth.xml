@@ -1,19 +1,21 @@
 <Document>
-  # Moth People
+  # Мотылёк
 
   <Box>
     <GuideEntityEmbed Entity="MobMoth" Caption=""/>
   </Box>
 
-  <!-- Frontier: moth diet
-  They can eat cotton, fabrics and clothing, but virtually none of the food that others would consider "edible". They prefer a somewhat lower temperature range than humans.
+  <!-- Frontier: рацион мотыльков
+  Они могут есть хлопок, ткани и одежду, но практически не едят продукты, которые другие считают «съедобными». Они предпочитают несколько более низкий температурный диапазон, чем люди.
+
   -->
-  Moths can eat cotton and get nutrition from plant fibers that other species find indigestible.  They prefer a somewhat cooler climate than humans.
-  <!-- End Frontier: moth diet -->
-  Their Insect Blood can't be metabolised from Iron like normal blood.
+  Мотыльки могут есть хлопок и получать питательные вещества из растительных волокон, которые другие виды считают неперевариваемыми. Они предпочитают несколько более прохладный климат, чем люди.
 
-  Their wings give them better acceleration if there is no gravity on the station, but they still can't move without equipment when floating out in space.
+  <!-- End Frontier: рацион мотыльков -->
+  Их кровь насекомых не может метаболизироваться из железа, как обычная кровь.
 
-  They take [color=#1e90ff]30% less Cold damage[/color] but [color=#ffa500]30% more Heat damage, and catch on fire more easily[/color].
+  Их крылья обеспечивают им лучшее ускорение, если на станции нет гравитации, но они все равно не могут двигаться без оборудования, когда находятся в открытом космосе.
+
+  Они получают на 30% меньше урона от холода, но на 30% больше урона от тепла и легче загораются.
 
 </Document>
