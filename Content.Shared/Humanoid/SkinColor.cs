@@ -403,6 +403,7 @@ public enum HumanoidSkinColor : byte
     Hues,
     VoxFeathers, // Vox feathers are limited to a specific color range
     TintedHues, //This gives a color tint to a humanoid's skin (10% saturation with full hue range).
+    NoColor, // Goob #1161
     ShelegToned, // Frontier: Like human toned, but with a different color range for blue
     AnimalFur, // Einstein Engines - limits coloration to more or less what earthen animals might have
 }

@@ -11,6 +11,16 @@
   maleFirstNames: NamesVulpkaninMale
   femaleFirstNames: NamesVulpkaninFemale
   lastNames: NamesVulpkaninLast
+  # FS: species window
+  category: Classic
+  description: "/ServerInfo/_FS/Guidebook/Mobs/Vulpkanin.xml"
+  pros:
+  - Наносят урон тупым и режущим уроном.
+  special:
+  - Видят мир в красных и зеленых цветах.
+  cons:
+  - Получают на 15% больше теплового урона.
+  # FS end
 
 - type: speciesBaseSprites
   id: MobVulpkaninSprites

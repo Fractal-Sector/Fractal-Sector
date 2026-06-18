@@ -7,6 +7,10 @@
   markingLimits: MobHumanMarkingLimits
   dollPrototype: MobHumanDummy
   skinColoration: Hues # Wayfarer: HumanToned<Hues
+  # FS: species window
+  category: Classic
+  description: "/ServerInfo/_FS/Guidebook/Mobs/Human.xml"
+  # FS end
 
 # The lack of a layer means that
 # this person cannot have round-start anything

@@ -1,0 +1,170 @@
+- type: species
+  id: Ovinia
+  name: species-name-ovinia
+  roundStart: true
+  prototype: MobOvinia
+  sprites: MobOviniaSprites
+  defaultSkinTone: "#ffffff"
+  markingLimits: MobOviniaMarkingLimits
+  dollPrototype: MobOviniaDummy
+  skinColoration: Hues
+  maleFirstNames: NamesFirstMale
+  femaleFirstNames: NamesFirstFemale
+  lastNames: NamesLast
+  minHeight: 0.6 # Wayfarer: 0.8<0.6
+  maxHeight: 1.1 # Wayfarer: 1.05<1.1
+  # FS: species window
+  category: Unusual
+  description: "/ServerInfo/_FS/Guidebook/Mobs/Ovinia.xml"
+  pros:
+  - Получают на 25% меньше урона от тепла и тупых ударов, а также на 25% менее воспламеняемы.
+  - Полностью защищены от порезов осколками стекла и других острых опасностей на полу.
+  - Благодаря мирному нраву и любви к природе большинство животных дружелюбны к ним.
+  special:
+  - Процесс пищеварения замедлен, из-за чего голод и жажда наступают на 25% медленнее.
+  cons:
+  - Получают на 15% больше рубящего и колющего урона.
+  - Теобромин (шоколад, чай, кофе) и аллицин (лук, чеснок) являются для них опасным ядом.
+  - Из-за привычки жевать жвачку поглощают еду и напитки на 25% медленнее остальных рас.
+  # FS end
+
+- type: speciesBaseSprites
+  id: MobOviniaSprites
+  sprites:
+    Head: MobOviniaHead
+    FacialHair: MobHumanoidAnyMarking
+    Snout: MobHumanoidAnyMarking
+    UndergarmentBottom: MobHumanoidAnyMarking
+    UndergarmentTop: MobHumanoidAnyMarking
+    Chest: MobOviniaTorso
+    NeckFluff: MobHumanoidAnyMarking
+    Hair: MobHumanoidAnyMarking
+    HeadSide: MobHumanoidAnyMarking
+    HeadTop: MobHumanoidAnyMarking
+    Tail: MobHumanoidAnyMarking
+    Eyes: MobHumanoidEyes
+    LArm: MobOviniaLArm
+    RArm: MobOviniaRArm
+    LHand: MobOviniaLHand
+    RHand: MobOviniaRHand
+    LLeg: MobOviniaLLeg
+    RLeg: MobOviniaRLeg
+    LFoot: MobOviniaLFoot
+    RFoot: MobOviniaRFoot
+    RArmExtension: MobHumanoidAnyMarking # Wayfarer: Adds Wing Slot
+
+- type: markingPoints
+  id: MobOviniaMarkingLimits
+  points:
+    Hair:
+      points: 4 # Wayfarer: 1<4
+      required: false
+    FacialHair:
+      points: 4 # Wayfarer: 1<4
+      required: false
+    Tail:
+      points: 4 # Wayfarer: 1<4
+      required: false
+    NeckFluff:
+      points: 1
+      required: false
+    HeadTop:
+      points: 32 # Wayfarer: 2<32
+      required: true
+      defaultMarkings: [ OviniaEars ]
+    Snout:
+      points: 32 # Wayfarer: 4<32
+      required: false
+    Chest:
+      points: 32 # Wayfarer: 4<32
+      required: false
+    Legs:
+      points: 32 # Wayfarer: 4<32
+      required: false
+    Arms:
+      points: 32 # Wayfarer: 4<32
+      required: false
+
+- type: humanoidBaseSprite
+  id: MobOviniaHead
+  baseSprite:
+    sprite: _DEN/Mobs/Species/Ovinia/parts.rsi
+    state: head_m
+
+- type: humanoidBaseSprite
+  id: MobOviniaHeadMale
+  baseSprite:
+    sprite: _DEN/Mobs/Species/Ovinia/parts.rsi
+    state: head_m
+
+- type: humanoidBaseSprite
+  id: MobOviniaHeadFemale
+  baseSprite:
+    sprite: _DEN/Mobs/Species/Ovinia/parts.rsi
+    state: head_f
+
+- type: humanoidBaseSprite
+  id: MobOviniaTorso
+  baseSprite:
+    sprite: _DEN/Mobs/Species/Ovinia/parts.rsi
+    state: torso_m
+
+- type: humanoidBaseSprite
+  id: MobOviniaTorsoMale
+  baseSprite:
+    sprite: _DEN/Mobs/Species/Ovinia/parts.rsi
+    state: torso_m
+
+- type: humanoidBaseSprite
+  id: MobOviniaTorsoFemale
+  baseSprite:
+    sprite: _DEN/Mobs/Species/Ovinia/parts.rsi
+    state: torso_f
+
+- type: humanoidBaseSprite
+  id: MobOviniaLLeg
+  baseSprite:
+    sprite: _DEN/Mobs/Species/Ovinia/parts.rsi
+    state: l_leg
+
+- type: humanoidBaseSprite
+  id: MobOviniaLHand
+  baseSprite:
+    sprite: _DEN/Mobs/Species/Ovinia/parts.rsi
+    state: l_hand
+
+- type: humanoidBaseSprite
+  id: MobOviniaLArm
+  baseSprite:
+    sprite: _DEN/Mobs/Species/Ovinia/parts.rsi
+    state: l_arm
+
+- type: humanoidBaseSprite
+  id: MobOviniaLFoot
+  baseSprite:
+    sprite: _DEN/Mobs/Species/Ovinia/parts.rsi
+    state: l_foot
+
+- type: humanoidBaseSprite
+  id: MobOviniaRLeg
+  baseSprite:
+    sprite: _DEN/Mobs/Species/Ovinia/parts.rsi
+    state: r_leg
+
+- type: humanoidBaseSprite
+  id: MobOviniaRHand
+  baseSprite:
+    sprite: _DEN/Mobs/Species/Ovinia/parts.rsi
+    state: r_hand
+
+- type: humanoidBaseSprite
+  id: MobOviniaRArm
+  baseSprite:
+    sprite: _DEN/Mobs/Species/Ovinia/parts.rsi
+    state: r_arm
+
+- type: humanoidBaseSprite
+  id: MobOviniaRFoot
+  baseSprite:
+    sprite: _DEN/Mobs/Species/Ovinia/parts.rsi
+    state: r_foot

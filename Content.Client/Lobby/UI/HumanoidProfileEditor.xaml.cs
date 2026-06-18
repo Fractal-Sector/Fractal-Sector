@@ -1,7 +1,10 @@
 using System.IO;
 using System.Linq;
 using System.Numerics;
+using System.Text;
 using Content.Client.Humanoid;
+using Content.Client._FS.Lobby.UI;
+using Content.Client.Guidebook;
 using Content.Client.Lobby.UI.Loadouts;
 using Content.Client.Lobby.UI.Roles;
 using Content.Client.Message;
@@ -41,6 +44,7 @@ namespace Content.Client.Lobby.UI
     [GenerateTypedNameReferences]
     public sealed partial class HumanoidProfileEditor : BoxContainer
     {
+        [Dependency] private readonly DocumentParsingManager _parsingMan = default!; // FS: species window
         private readonly IClientPreferencesManager _preferencesManager;
         private readonly IConfigurationManager _cfgManager;
         private readonly IEntityManager _entManager;
@@ -109,6 +113,8 @@ namespace Content.Client.Lobby.UI
 
         private ISawmill _sawmill;
 
+        private SpeciesWindow? _speciesWindow; // FS: species window
+
         public HumanoidProfileEditor(
             IClientPreferencesManager preferencesManager,
             IConfigurationManager configurationManager,
@@ -122,6 +128,7 @@ namespace Content.Client.Lobby.UI
             MarkingManager markings)
         {
             RobustXamlLoader.Load(this);
+            IoCManager.InjectDependencies(this);
             _sawmill = logManager.GetSawmill("profile.editor");
             _cfgManager = configurationManager;
             _entManager = entManager;
@@ -229,6 +236,52 @@ namespace Content.Client.Lobby.UI
 
             #endregion HeightWidth
             // End Wayfarer
+
+            // FS: species window
+            #region SpeciesWindow
+            NewSpeciesButton.OnToggled += args =>
+            {
+                if (Profile == null)
+                    return;
+
+                _speciesWindow?.Dispose();
+
+                if (!args.Pressed)
+                {
+                    _speciesWindow = null;
+                }
+                else
+                {
+                    _speciesWindow = new(
+                        Profile,
+                        prototypeManager,
+                        entManager,
+                        _controller,
+                        _resManager,
+                        _parsingMan);
+
+                    _speciesWindow.OpenCenteredLeft();
+                    var oldProfile = Profile.Clone();
+                    _speciesWindow.ChooseAction += args =>
+                    {
+                        SetSpecies(args);
+                        OnSkinColorOnValueChangedKeepColor(oldProfile);
+                        UpdateHairPickers();
+                        _speciesWindow?.Dispose();
+                        _speciesWindow = null;
+                        var name1 = _prototypeManager.Index(Profile?.Species ?? "Human").Name;
+                        NewSpeciesButton.Text = Loc.GetString(name1);
+                        NewSpeciesButton.Pressed = false;
+                    };
+                    _speciesWindow.OnClose += () =>
+                    {
+                        NewSpeciesButton.Pressed = false;
+                        _speciesWindow = null;
+                    };
+                }
+            };
+            #endregion
+            // FS end
 
             RefreshSpecies();
 
@@ -637,6 +690,12 @@ namespace Content.Client.Lobby.UI
                 if (Profile?.Species.Equals(_species[i].ID) == true)
                 {
                     SpeciesButton.SelectId(i);
+
+                    // FS start
+                    NewSpeciesButton.Text = name;
+                    NewSpeciesButton.Pressed = false;
+                    _speciesWindow?.Dispose();
+                    // FS end
                 }
             }
 
@@ -1176,6 +1235,22 @@ namespace Content.Client.Lobby.UI
 
                     var color = SkinColor.ClosestVoxColor(_rgbSkinColorSelector.Color);
 
+                    // Goob start
+                    Markings.CurrentSkinColor = color;
+                    Profile = Profile.WithCharacterAppearance(Profile.Appearance.WithSkinColor(color));
+                    break;
+                }
+                case HumanoidSkinColor.NoColor:
+                {
+                    if (!RgbSkinColorContainer.Visible)
+                    {
+                        Skin.Visible = false;
+                        RgbSkinColorContainer.Visible = true;
+                    }
+
+                    var color = Color.FromName("White");
+                    // Goob end
+
                     Markings.CurrentSkinColor = color;
                     Profile = Profile.WithCharacterAppearance(Profile.Appearance.WithSkinColor(color));
                     break;
@@ -1448,6 +1523,18 @@ namespace Content.Client.Lobby.UI
                     }
 
                     _rgbSkinColorSelector.Color = SkinColor.ClosestVoxColor(Profile.Appearance.SkinColor);
+
+                    break;
+                }
+                case HumanoidSkinColor.NoColor: // Goob - NoColor
+                {
+                    if (!RgbSkinColorContainer.Visible)
+                    {
+                        Skin.Visible = false;
+                        RgbSkinColorContainer.Visible = true;
+                    }
+
+                    _rgbSkinColorSelector.Color = Color.FromName("White");
 
                     break;
                 }
@@ -1830,5 +1917,52 @@ namespace Content.Client.Lobby.UI
             ImportButton.Disabled = false;
             ExportButton.Disabled = false;
         }
+
+        // FS start
+        private void OnSkinColorOnValueChangedKeepColor(HumanoidCharacterProfile previous)
+        {
+            if (Profile is null) return;
+
+            var skin = _prototypeManager.Index<SpeciesPrototype>(Profile.Species).SkinColoration;
+            var color = previous.Appearance.SkinColor;
+
+            switch (skin)
+            {
+                case HumanoidSkinColor.HumanToned:
+                    var tone = SkinColor.HumanSkinToneFromColor(previous.Appearance.SkinColor);
+                    color = SkinColor.HumanSkinTone((int)tone);
+                    Skin.Value = tone;
+
+                    Profile = Profile.WithCharacterAppearance(Profile.Appearance.WithSkinColor(color));//
+                    break;
+                case HumanoidSkinColor.Hues:
+                    break;
+                case HumanoidSkinColor.TintedHues:
+                    color = SkinColor.TintedHues(previous.Appearance.SkinColor);
+
+                    Profile = Profile.WithCharacterAppearance(Profile.Appearance.WithSkinColor(color));
+                    break;
+                case HumanoidSkinColor.VoxFeathers:
+                    color = SkinColor.ClosestVoxColor(previous.Appearance.SkinColor);
+
+                    Profile = Profile.WithCharacterAppearance(Profile.Appearance.WithSkinColor(color));
+                    break;
+                case HumanoidSkinColor.NoColor:
+                    color = Color.White;
+
+                    Profile = Profile.WithCharacterAppearance(Profile.Appearance.WithSkinColor(color));
+                    break;
+                case HumanoidSkinColor.AnimalFur:
+                    color = SkinColor.ClosestAnimalFurColor(previous.Appearance.SkinColor);
+
+                    Profile = Profile.WithCharacterAppearance(Profile.Appearance.WithSkinColor(color));
+                    break;
+            }
+
+            _rgbSkinColorSelector.Color = color;
+
+            ReloadProfilePreview();
+        }
+        // FS end
     }
 }

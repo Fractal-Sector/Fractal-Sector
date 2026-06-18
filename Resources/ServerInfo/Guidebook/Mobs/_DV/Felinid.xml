@@ -1,31 +1,23 @@
 <Document>
-  # Felinids
+  # Фелинид
 
   <Box>
     <GuideEntityEmbed Entity="MobFelinidDummy" Caption=""/>
   </Box>
 
-  Small and mischievous cat-eared people. Being small in itself has lots of upsides and downsides. They can hide inside duffelbags.
+  Фелиниды — это мутированные люди, отличающиеся фирменными ушами и хвостом из ваших любимых японских мультфильмов.
+  У них развитое шестое чувство при приземлении, и они [color=#1e90ff]получают на 80% меньше урона от падений или ударов на высокой скорости.[/color]
+  При ранении их скорость также снижается меньше.
 
-  ## Diet
+  Вместо ударов кулаками они наносят удары когтями, причиняя [color=#ec3a3a]режущий[/color] и [color=#ec3a3a]колющий[/color] урон.
 
-  - Can eat raw meat.
+  ## Фу, комки шерсти
+  <Box>
+    <GuideEntityEmbed Entity="Hairball" Caption=""/>
+    <GuideEntityEmbed Entity="MobMouse" Caption=""/>
+  </Box>
 
-  ## Benefits
-
-  - They are smaller than Humans, making them harder to hit.
-  - Can fit in duffelbags.
-  - Have the ability to throw up a hairball to get rid of some of the chemicals from their bloodstream.
-  - Able to eat mice and rats after picking them up. This has the benefit of regenerating the hairball ability and feeding them.
-  - Uses their claws to do Slashing damage and Piercing damage.
-  - Can walk completely silently, but only while barefooted.
-  - Immunity to the OwOnavirus disease.
-
-  ## Drawbacks
-
-  - Takes 15% more Blunt, Slash and Piercing damage.
-  - Are easily shoved, pushed and carried around by every other morphotypes due to their small size.
-  - They are weaker and struggle to carry and pull things due to their small size. They are unable to carry an Oni.
-  - They have slightly less stamina than Humans.
+  Они также могут есть живых крыс, что позволит им откашлять отвратительный комок шерсти.
+  Будьте осторожны при прикосновении к ним, так как они могут [color=#ffa500]царапать вас если их держать.[/color]
 
 </Document>

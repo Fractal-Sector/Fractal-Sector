@@ -11,6 +11,18 @@
   maleFirstNames: NamesReptilianMale
   femaleFirstNames: NamesReptilianFemale
   naming: FirstDashFirst
+  # FS: species window
+  category: Classic
+  description: "/ServerInfo/_FS/Guidebook/Mobs/Reptilian.xml"
+  pros:
+  - Имеют большую толерантность к боли.
+  - Могут таскать предметы хвостом.
+  special:
+  - Имеют отличимый от других рас порог температуры. При низкой температуре получают 0.1 холода в секунду. При высокой температуре получают 1.5 ожогов в секунду.
+  - Имеет животный желудок.
+  cons:
+  - На 30% чувствительнее к холоду, чем человек.
+  # FS end
 
 - type: speciesBaseSprites
   id: MobReptilianSprites

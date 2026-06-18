@@ -2,6 +2,7 @@ using Content.Shared.Dataset;
 using Content.Shared.Humanoid.Markings;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
+using Robust.Shared.Utility;
 
 namespace Content.Shared.Humanoid.Prototypes;
 
@@ -195,6 +196,19 @@ public sealed partial class SpeciesPrototype : IPrototype
     /// </summary>
     [DataField]
     public float AverageWidth = 40f;
+
+    // FS start
+    [DataField]
+    public SpeciesCategory Category { get; private set; } = SpeciesCategory.Classic;
+    [DataField]
+    public ResPath? Description { get; private set; }
+    [DataField]
+    public List<string> Pros { get; private set; } = new();
+    [DataField]
+    public List<string> Cons { get; private set; } = new();
+    [DataField]
+    public List<string> Special { get; private set; } = new();
+    // FS end
 }
 
 public enum SpeciesNaming : byte
@@ -207,3 +221,13 @@ public enum SpeciesNaming : byte
     LastFirst, // DeltaV
     FirstDashLast, // Goobstation
 }
+
+// FS start
+public enum SpeciesCategory : byte
+{
+    Classic,
+    Unusual,
+    Special,
+    Sponsor
+}
+// FS end

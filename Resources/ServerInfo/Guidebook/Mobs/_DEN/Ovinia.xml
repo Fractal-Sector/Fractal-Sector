@@ -1,26 +1,27 @@
 <Document>
-  # Ovinia
+  # Овиния
 
 
   <Box>
     <GuideEntityEmbed Entity="MobOviniaDummy" Caption=""/>
   </Box>
 
-  ## Benefits
-  - They take 25% less heat and blunt damage due to their insulating wool, and are 25% less flammable
-  - They digest food at a slower rate, becoming hungry and thirsty 25% slower
-  - Their hooved feet protect them from shards of glass and sharp floor hazards
-  - Their docile attitudes and aptitude for nature have led most animals to be friendly towards them
+  ## Преимущества
+  - Благодаря своей теплоизолирующей шерсти они получают на 25% меньше урона от тепла и тупых предметов, а также на 25% менее воспламеняемы.
+  - Они переваривают пищу медленнее, поэтому испытывают голод и жажду на 25% медленнее.
+  - Их копыта защищают их от осколков стекла и острых предметов на полу.
+  - Их покладистый нрав и близость к природе привели к тому, что большинство животных относятся к ним дружелюбно.
 
-  ## Downsides
-  - They take 15% increased slash and pierce damage.
-  - Will get poisoned by Theobromine (Chocolate, Tea, Coffee) and Allicin (Onion, Garlic)
-  - Their aptitude for grazing and chewing cud has led to them consuming food and drink 25% slower than most species
+  ## Недостатки
+  - Они получают на 15% больше урона от рубящих и колющих ударов.
+  - Они могут быть отравлены теобромином (шоколад, чай, кофе) и аллицином (лук, чеснок).
+  - Их способность пастись и пережевывать жвачку привела к тому, что они потребляют пищу и напитки на 25% медленнее, чем большинство видов.
 
-  ## A Brief Introduction
-  The Ovinia, the Galaxy's Herders, are a species of ruminant-like humanoids native to the pasture world of Runia located in the binary Lanei system. This world of flowing green pastures crossed by pristine rivers and almost alpine ranges of mountain was home to a tribal civilization at the time of their first contact with the outside galaxy.
+  ## Краткое введение
+  Овиния, пастухи Галактики, — это вид человекоподобных жвачных животных, обитающих на пастбищном мире Руния, расположенном в двойной системе Ланей. Этот мир, где раскинулись зеленые пастбища, пересеченные чистыми реками и почти альпийскими горными хребтами, был домом для племенной цивилизации во время их первого контакта с внешней галактикой.
 
-  Ovinia are densely built ruminant-like humanoids that usually all possess a coat of fluffy wool that is prized among their species. An Ovinia's wool is their pride and joy, and the act of sharing their wool or gifting their wool is one of incredible significance. Ovinia are a relatively naturalistic species, often forgoing clothing in favour of their natural coats. Though with influences from the outside galaxy, some Ovinia have taken to fashion quite warmly.
-  (lore written under this section is provided by sheepmera on Discord or juniwoofs on GitHub)
+  Овинии — это тучные, похожие на жвачных животных гуманоиды, обычно все они обладают пушистой шерстью, которая высоко ценится среди их вида. Шерсть Овинии — их гордость и радость, и акт обмена или дарения шерсти имеет невероятное значение. Овинии — относительно натуралистичный вид, часто отказывающийся от одежды в пользу своей естественной шерсти. Хотя под влиянием внешней галактики некоторые Овинии довольно тепло одеваются.
+
+  (Информация, написанная в этом разделе, предоставлена sheepmera в Discord или juniwoofs на GitHub)
 
 </Document>

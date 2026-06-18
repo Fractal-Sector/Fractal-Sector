@@ -1,37 +1,37 @@
 <Document>
-  # Aurelian Vox
+  # Аврелианские Воксы
 
   <Box>
     <GuideEntityEmbed Entity="MobAurelianVox" Caption=""/>
   </Box>
 
- [color=#ff0000]Warning![/color] [color=#ffa500]This species is not recommended for new players due to their fatal allergy to[/color] [color=#c4f5ff]Oxygen![/color]
+  [color=#ff0000]Внимание![/color] [color=#ffa500]Эта раса не рекомендуется для новых игроков из-за смертельной аллергии на[/color] [color=#c4f5ff]Кислород![/color]
 
-  Like regular Vox, the Aurelian variant also breathes nitrogen, and [color=#c4f5ff]Oxygen[/color] is [color=#6730ff]toxic[/color] to them.
-  Unfortunately, space stations as well as space vessels tend to be full of oxygen.
-  Due to this Vox must use an internal nitrogen supply at almost all times as well as possibly retrofit their vessels to help avoid fatal exposure.
+  Как и обычные Воксы, аврелианский вариант также дышит азотом, и [color=#c4f5ff]Кислород[/color] для них [color=#6730ff]токсичен[/color].
+  К сожалению, космические станции, как и космические корабли, обычно полны кислорода.
+  Из-за этого Воксам приходится почти постоянно использовать внутренний запас азота, а также, возможно, модернизировать свои корабли, чтобы избежать смертельного отравления.
 
-  Aurelian Vox always spawn wearing working nitrogen internals equipment.
-  A spare breathing mask and an emergency nitrogen canister is provided in their survival box.
+  Аврелианские Воксы всегда появляются в исправном оборудовании с азотной системой.
+  В их ящике для выживания есть запасная дыхательная маска и аварийный баллон с азотом.
 
-  In addition to regular foods, Aurelian Vox can also eat various snack packaging, banana peels, eggshells, and raw meat without any ill effects. They also like to drink welding fuel.
+  В дополнение к обычной пище, аврелианские Воксы также могут есть различные упаковки от закусок, банановую кожуру, яичную скорлупу и сырое мясо без каких-либо негативных последствий. Они также любят пить сварочное топливо.
 
-  Aurelian Vox slowly recover from low levels of [color=#6730ff]poison[/color] on their own,
-  so long as they are careful not to exceed 20 damage total.
-  This allows them to endure breathing station air for up to thirty seconds at a time without lasting damage,
-  letting them quickly eat, drink, take oral medication, and so on.
-  A thirty second oxygen exposure takes them two minutes to recover from.
-  If their health does not seem to improve within a minute of oxygen exposure, they should seek medical attention.
+  Аврелианские Воксы медленно восстанавливаются после низкого уровня [color=#6730ff]яда[/color] самостоятельно,
+  если они будут осторожны и не превысят 20 единиц урона в сумме.
 
-[color=#0041a8]Dexalin[/color] as well as [color=#4da0bd]Dexalin Plus[/color] are [color=#c4f5ff]Oxygen[/color] based, making these chemicals extremely [color=#6730ff]toxic[/color] to Aurelian Vox.
+  Это позволяет им дышать воздухом станции до тридцати секунд подряд без необратимых последствий,
+  позволяя им быстро есть, пить, принимать лекарства и так далее.
+  После тридцатисекундного воздействия кислорода им требуется две минуты на восстановление.
+  Если их состояние здоровья не улучшается в течение минуты после воздействия кислорода, им следует обратиться за медицинской помощью.
 
-[color=#a1e1ff]Nitrogen[/color] as well as [color=#5d2fde]Dylovene[/color] have an added benefit of restoring [color=#a1e1ff]Asphyxiation[/color] and [color=#6b0007]Bloodloss[/color] in Aurelian Vox.
+  [color=#0041a8]Дексалин[/color], а также [color=#4da0bd]Дексалин Плюс[/color] содержат [color=#c4f5ff]кислород[/color], что делает эти химические вещества чрезвычайно [color=#6730ff]токсичными[/color] для Аврелианского Вокса.
 
+  Азот, а также диловен обладают дополнительным преимуществом, восстанавливая здоровье Аврелианского Вокса при удушье и кровопотере.
 
-  The jagged claws of an Aurelian Vox make their unarmed attacks deal [color=#6b0007]Slash[/color] damage, continued attacks also tend to cause excessive [color=#6b0007]bleeding[/color] buildup.
+  Зазубренные когти Аврелианского Вокса наносят безоружным атакам рубящий урон, а продолжительные атаки также приводят к чрезмерному кровотечению.
 
-  The bodies of Aurelian Vox are covered in rigid [color=#ffff33]non-conductive[/color] plates, making them more durable than regular Vox, helping them handle pressure changes as well as tolerate slightly more punishment before collapsing. The stress of either of these situations slows them immensely, and in the event one is taken down, they succumb to their wounds much faster than most other species.
+  Тела Аврелианского Вокса покрыты жесткими непроводящими пластинами, что делает их более прочными, чем обычные Воксы, помогает им справляться с перепадами давления и выдерживать несколько большие повреждения, прежде чем они рухнут. Стресс в любой из этих ситуаций значительно замедляет их, и в случае поражения они погибают от ран гораздо быстрее, чем большинство других видов.
 
-  Their bodies are typically designed for quick, sudden actions, leaving them vulnerable to ambient heat buildup as well as being [color=#4da0bd]stunned[/color] through exhaustion; this flaw makes non-lethal methods one of the more effective ways to handle an Aurelian, or fire.
+  Их тела, как правило, приспособлены к быстрым, внезапным действиям, что делает их уязвимыми к накоплению тепла в окружающей среде, а также к оглушению от истощения; этот недостаток делает нелетальные методы одним из наиболее эффективных способов борьбы с аврелианцем, или огонь.
 
 </Document>

@@ -32,6 +32,12 @@ public sealed class GuideEntryPrototypeTests
         var oldLevel = uiLog.Level;
         uiLog.Level = LogLevel.Error;
 
+        // FS start
+        var guideLog = logMan.GetSawmill("Guidebook");
+        var oldGuideLevel = guideLog.Level;
+        guideLog.Level = LogLevel.Fatal;
+        // FS end
+
         try
         {
             var protoMan = client.ResolveDependency<IPrototypeManager>();
@@ -48,7 +54,7 @@ public sealed class GuideEntryPrototypeTests
                     using var reader = resMan.ContentFileReadText(proto.Text);
                     var text = reader.ReadToEnd();
                     Assert.That(parser.TryAddMarkup(new Document(), text),
-                        $"Failed to parse guidebook entry: {proto.Id}");
+                        $"Failed to parse guidebook entry: {proto.Id} | File: {proto.Text}");
                 });
 
                 // Give the UI a tick to process any pending updates
@@ -57,8 +63,8 @@ public sealed class GuideEntryPrototypeTests
         }
         finally
         {
-            // Restore original log level
             uiLog.Level = oldLevel;
+            guideLog.Level = oldGuideLevel; // FS: fix guide test
             await pair.CleanReturnAsync();
         }
         // End Coyote

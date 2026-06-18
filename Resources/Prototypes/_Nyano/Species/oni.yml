@@ -1,0 +1,60 @@
+- type: species
+  id: Oni
+  name: species-name-oni
+  roundStart: true
+  prototype: MobOni
+  dollPrototype: MobOniDummy
+  markingLimits: MobOniMarkingLimits
+  sprites: MobHumanSprites
+  skinColoration: Hues
+  maleFirstNames: NamesOniMale
+  femaleFirstNames: NamesOniFemale
+  lastNames: NamesOniLocation
+  naming: LastNoFirst
+  # FS: species window
+  category: Unusual
+  description: "/ServerInfo/_FS/Guidebook/Mobs/Oni.xml"
+  pros:
+  - Получают на 15% меньше тупого, колющего и режущего урона.
+  - Наносят на 25% больше тупого, режущего, колющего, стамины, и структурного урона в ближнем бою.
+  - Могут с лёгкостью тянуть другие расы и предметы, по сравнению с человеком.
+  special:
+  - Они больше чем люди, из-за чего по ним легче попасть.
+  - Могут есть многие продукты даже сырыми.
+  cons:
+  - Они не способны метко стрелять ни из какого оружия.
+  # FS end
+
+- type: markingPoints
+  id: MobOniMarkingLimits
+  points:
+    Hair:
+      points: 1
+      required: false
+    FacialHair:
+      points: 1
+      required: false
+    HeadTop:
+      points: 1
+      required: true
+      defaultMarkings: [ OniHornSingleCurved ]
+    Tail: # Frontier
+      points: 1 # Frontier
+      required: false # Frontier
+    Chest:
+      points: 4 # Frontier 1<4
+      required: false
+    Legs:
+      points: 8 # Frontier 2<8
+      required: false
+    Arms:
+      points: 8 # Frontier 2<8
+      required: false
+    # Frontier: apparently these don't exist on Delta
+    UndergarmentTop:
+      points: 3
+      required: false
+    UndergarmentBottom:
+      points: 3
+      required: false
+    # End Frontier

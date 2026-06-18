@@ -24,6 +24,20 @@
   maxWidth: 1.15
   # End Coyote
   # Wayfarer: Can't use customeName
+  # FS: species window
+  category: Unusual
+  description: "/ServerInfo/_FS/Guidebook/Mobs/Avali.xml"
+  pros:
+  - Получают на 40% меньше урона от холода и выдерживают температуру до -50°C.
+  - Наносят 6.25 единиц режущего урона в ближнем бою.
+  special:
+  - Восстанавливают потерю воздуха от аммиака и амокслы.
+  cons:
+  - Получают на 40% больше урона от пламени.
+  - Физраствор наносит ожоги, а дексалин и дексалин+ смертельны.
+  - Переходят в критическое состояние при 90 единицах урона, погибают при 180.
+  - Физиологически являются исключительно хищниками.
+  # FS end
 
 - type: speciesBaseSprites
   id: MobAvaliSprites
