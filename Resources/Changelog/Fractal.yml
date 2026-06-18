@@ -234,3 +234,12 @@ Entries:
   id: 14
   time: '2026-06-18T06:38:27.0000000+00:00'
   url: https://github.com/Fractal-Sector/Fractal-Sector/pull/26
+- author: IsNotAcceptable
+  changes:
+    - type: Add
+      message: Индикатор боевого режима
+    - type: Add
+      message: 'Настройка для включения/выключения отображения боевого режима '
+  id: 15
+  time: '2026-06-18T07:25:15.0000000+00:00'
+  url: https://github.com/Fractal-Sector/Fractal-Sector/pull/27
