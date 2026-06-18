@@ -36,6 +36,11 @@ public sealed partial class HumanoidAppearanceComponent : Component
     [DataField, AutoNetworkedField]
     public string CustomSpecieName = "";
 
+    // FS/impstation - allow markings to support shaders
+    [DataField("shader")]
+    public string? Shader { get; private set; } = null;
+    // FS/impstation edit
+
     /// <summary>
     ///     Any custom base layers this humanoid might have. See:
     ///     limb transplants (potentially), robotic arms, etc.

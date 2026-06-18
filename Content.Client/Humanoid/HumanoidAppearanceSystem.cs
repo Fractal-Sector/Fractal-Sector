@@ -489,6 +489,13 @@ public sealed class HumanoidAppearanceSystem : SharedHumanoidAppearanceSystem
                 sprite.LayerSetShader(layerId, markingPrototype.Shader);
             }
             // impstation edit end
+            // FS: ghost person
+            if (humanoid.Shader != null)
+            {
+                // use spriteComponent's layersetshader function to set the layer's shader to that which is specified.
+                sprite.LayerSetShader(layerId, humanoid.Shader);
+            }
+            // FS end
 
             _sprite.LayerSetVisible((entity.Owner, sprite), layerId, visible);
 

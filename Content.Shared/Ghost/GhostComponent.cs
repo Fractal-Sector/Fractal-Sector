@@ -101,6 +101,11 @@ public sealed partial class GhostComponent : Component
     [DataField, AutoNetworkedField]
     public bool CanReturnFromCryo;
     // End Frontier: cryo functions
+
+    // FS: ghost person
+    [DataField("ableClothingMarkings")]
+    public List<string>? AbleClothingMarkings { get; private set; }
+    // FS end
 }
 
 public sealed partial class ToggleFoVActionEvent : InstantActionEvent { }

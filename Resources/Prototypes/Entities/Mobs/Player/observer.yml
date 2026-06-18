@@ -42,9 +42,33 @@
   - type: Sprite
     sprite: Mobs/Ghosts/ghost_human.rsi
     color: "#fff8"
+    # FS: ghost person
     layers:
-    - state: animated
+    - map: [ "enum.HumanoidVisualLayers.Chest" ]
       shader: unshaded
+    - map: [ "enum.HumanoidVisualLayers.Head" ]
+      shader: unshaded
+    - map: [ "enum.HumanoidVisualLayers.Snout" ]
+      shader: unshaded
+    - map: [ "enum.HumanoidVisualLayers.Eyes" ]
+      shader: unshaded
+    - map: [ "enum.HumanoidVisualLayers.RArm" ]
+      shader: unshaded
+    - map: [ "enum.HumanoidVisualLayers.LArm" ]
+      shader: unshaded
+    - map: [ "enum.HumanoidVisualLayers.RLeg" ]
+      shader: unshaded
+    - map: [ "enum.HumanoidVisualLayers.LLeg" ]
+      shader: unshaded
+    - map: [ "enum.HumanoidVisualLayers.LFoot" ]
+      shader: unshaded
+    - map: [ "enum.HumanoidVisualLayers.RFoot" ]
+      shader: unshaded
+    - map: [ "enum.HumanoidVisualLayers.LHand" ]
+      shader: unshaded
+    - map: [ "enum.HumanoidVisualLayers.RHand" ]
+      shader: unshaded
+    # FS end
   - type: ContentEye
     maxZoom: 1.44,1.44
   - type: Eye
@@ -53,7 +77,27 @@
     context: "ghost"
   - type: Examiner
     skipChecks: true
+  # FS: ghost person
   - type: Ghost
+    ableClothingMarkings:
+    - ClothingJumpsuitPhysician
+    - ClothingJumpsuitResearcher
+    - ClothingJumpsuitWeb
+    - ClothingJumpsuitSecurity
+    - ClothingJumpsuitBartender
+    - ClothingJumpsuitBartenderPurple
+    - ClothingJumpsuitChef
+    - ClothingJumpsuitChemistry
+    - ClothingJumpsuitDetective
+    - ClothingJumpsuitHawai
+    - ClothingJumpsuitHos
+    - ClothingJumpsuitJanitor
+    - ClothingJumpsuitKimono
+    - ClothingJumpsuitMime
+    - ClothingJumpsuitMonatic
+    - ClothingJumpsuitParamedic
+    - ClothingJumpsuitPirate
+  # FS end
   - type: GhostHearing
   - type: ShowElectrocutionHUD
   - type: IntrinsicRadioReceiver
@@ -85,6 +129,11 @@
   - type: ShipyardSellCondition # Teleport to shipyard console on sale
     preserveOnSale: true
   # End Frontier
+  # FS start
+  - type: HumanoidAppearance
+    species: GhostSpecies
+    shader: unshaded
+  # FS end
 
 # proto for player ghosts specifically
 - type: entity
