@@ -1,40 +1,40 @@
-# Frontier Station Code of Conduct
+# Code of Conduct
 
-Frontier Station's staff and community is made up volunteers from all over the world, working on every aspect of the project - including development, teaching, and hosting integral tools.
+Сотрудники и сообщество Fractal Sector состоят из волонтеров, работающих над всеми аспектами проекта, включая разработку, обучение и размещение важных инструментов.
 
-Diversity is one of our huge strengths, but it can also lead to communication issues and unhappiness. To that end, we have a few ground rules that we ask people to adhere to. This code applies equally to all levels of the project, from commenters to contributors to staff.
+Разнообразие — одна из наших главных сильных сторон, но оно также может приводить к проблемам в общении и недовольству. Поэтому мы предлагаем несколько основных правил, которых просим придерживаться. Этот кодекс в равной степени применим ко всем уровням проекта, от комментаторов и участников до сотрудников.
 
-This isn’t an exhaustive list of things that you can’t do. Rather, take it in the spirit in which it’s intended - a guide to make it easier to enrich all of us and the technical communities in which we participate.
+Это не исчерпывающий список того, что нельзя делать. Скорее, воспринимайте его в том духе, в котором он задуман — как руководство, призванное облегчить наше общее развитие и развитие технических сообществ, в которых мы участвуем.
 
-This code of conduct applies specifically to the Github repositories, discord community, and other spaces managed by the Frontier Station project or Frontier Station Staff. Some spaces, such as the Frontier Station Discord or the official Frontier Station game servers, have additional rules but are in spirit equal to what may be found in here.
+Этот кодекс поведения применяется конкретно к репозиториям Github, сообществу Discord и другим пространствам, управляемым проектом Fractal Sector или сотрудниками Fractal Sector. В некоторых пространствах, таких как Discord или официальные игровые серверы Fractal Sector, действуют дополнительные правила, но по духу они аналогичны тем, что можно найти здесь.
 
-If you believe someone is violating the code of conduct, we ask that you report it by contacting a Maintainer or staff member through [Discord](https://discord.gg/frontier), or emailing [zuus87@gmail.com](mailto:zuus87@gmail.com).
+Если вы считаете, что кто-то нарушает кодекс поведения, просим вас сообщить об этом, связавшись с администратором или сотрудником через [Discord](https://discord.gg/ZC94VrbFNY).
 
-- **Be friendly and patient.**
-- **Be welcoming.** We strive to be a community that welcomes and supports people of all backgrounds and identities. This includes, but is not limited to members of any race, ethnicity, culture, national origin, colour, immigration status, social and economic class, educational level, sex, sexual orientation, gender identity and expression, age, size, family status, political belief, religion, and mental and physical ability.
-- **Be considerate.** Your work will be used by other people, and you in turn will depend on the work of others. Any decision you take will affect users and contributors, and you should take those consequences into account when making decisions. Remember that we're a world-wide community, so you might not be communicating in someone else's primary language. We have contributors of all skill levels, some even making their first foray into a new field with this project, so keep that in mind when discussing someone's work.
-- **Be respectful.** Not all of us will agree all the time, but disagreement is no excuse for poor behavior and poor manners. We might all experience some frustration now and then, but we cannot allow that frustration to turn into a personal attack. It’s important to remember that a community where people feel uncomfortable or threatened is not a productive one. Members of the Frontier Station community should be respectful when dealing with other members as well as with people outside the Frontier Station community. Assume contributions to the project, even those that do not end up being included, are made in good faith.
-- **Be careful in the words that you choose.** We are a community of professionals, and we conduct ourselves professionally. Be kind to others. Do not insult or put down other participants. Harassment and other exclusionary behavior aren't acceptable. This includes, but is not limited to:
-  - Violent threats or language directed against another person.
-  - Discriminatory jokes and language.
-  - Posting sexually explicit or violent material.
-  - Posting (or threatening to post) other people's personally identifying information ("doxing").
-  - Personal insults, especially those using racist or sexist terms.
-  - Unwelcome sexual attention.
-  - Advocating for, or encouraging, any of the above behavior.
-  - Repeated harassment of others. In general, if someone asks you to stop, then stop.
-- **When we disagree, try to understand why.** Disagreements, both social and technical, happen all the time and Frontier Station is no exception. It is important that we resolve disagreements and differing views constructively. Remember that we’re different. The strength of Frontier Station comes from its varied community, people from a wide range of backgrounds. Different people have different perspectives on issues. Being unable to understand why someone holds a viewpoint doesn’t mean that they’re wrong. Don’t forget that it is human to make mistakes and blaming each other doesn’t get us anywhere. Instead, focus on helping to resolve issues and learning from mistakes.
+  - **Будьте дружелюбны и терпеливы.**
+  - **Будьте приветливы.** Мы стремимся быть сообществом, которое приветствует и поддерживает людей всех национальностей и взглядов. Это включает, помимо прочего, членов любой расы, этнической принадлежности, культуры, национального происхождения, цвета кожи, иммиграционного статуса, социального и экономического класса, уровня образования, пола, сексуальной ориентации, гендерной идентичности и самовыражения, возраста, телосложения, семейного положения, политических убеждений, религии, а также умственных и физических способностей.
+  - **Будьте внимательны.** Ваша работа будет использоваться другими людьми, и вы, в свою очередь, будете зависеть от работы других. Любое ваше решение повлияет на пользователей и участников, и вы должны учитывать эти последствия при принятии решений. Помните, что мы — всемирное сообщество, поэтому вы можете общаться не на родном языке другого человека. У нас есть участники всех уровней квалификации, некоторые даже впервые пробуют себя в новой области в рамках этого проекта, поэтому учитывайте это при обсуждении чьей-либо работы.
+  - **Будьте уважительны.** Не все из нас будут соглашаться друг с другом всегда, но несогласие не является оправданием для плохого поведения и плохих манер. Мы все можем время от времени испытывать разочарование, но мы не можем позволить этому разочарованию перерасти в личную атаку. Важно помнить, что сообщество, где люди чувствуют себя некомфортно или находятся под угрозой, не является продуктивным. Члены сообщества Frontier Station должны проявлять уважение при общении с другими участниками, а также с людьми за пределами сообщества Frontier Station. Предполагайте, что вклад в проект, даже тот, который в итоге не будет включен, сделан добросовестно.
+  - **Будьте осторожны в выборе слов.** Мы — сообщество профессионалов, и мы ведем себя профессионально. Будьте добры к другим. Не оскорбляйте и не унижайте других участников. Преследования и другие формы дискриминационного поведения недопустимы. Это включает, помимо прочего:
+  - Жестокие угрозы или высказывания в адрес другого человека.
+  - Дискриминационные шутки и высказывания.
+  - Размещение материалов сексуального характера или сцен насилия.
+  - Размещение (или угроза размещения) личной информации других людей («доксинг»).
+  - Личные оскорбления, особенно с использованием расистских или сексистских выражений.
+  - Нежелательное сексуальное внимание.
+  - Пропаганда или поощрение любого из вышеперечисленных видов поведения.
+  - Повторные преследования других. В целом, если вас просят остановиться, остановитесь.
+  - **Когда мы не согласны, постарайтесь понять причину.** Разногласия, как социальные, так и технические, случаются постоянно, и Frontier Station не является исключением. Важно, чтобы мы конструктивно разрешали разногласия и различные точки зрения. Помните, что мы разные. Сила Frontier Station заключается в разнообразии нашего сообщества, людей из самых разных слоев общества. У разных людей разные взгляды на проблемы. Непонимание того, почему кто-то придерживается той или иной точки зрения, не означает, что он неправ. Не забывайте, что люди совершают ошибки, и взаимные обвинения ни к чему не приведут. Вместо этого сосредоточьтесь на решении проблем и извлечении уроков из ошибок.
 
-Original text courtesy of the [Speak Up! project](http://web.archive.org/web/20141109123859/http://speakup.io/coc.html).
+Оригинальный текст предоставлен проектом [Speak Up!](http://web.archive.org/web/20141109123859/http://speakup.io/coc.html).
 
-## On Community Moderation
+## О модерации сообщества
 
-Deviating from the Code of Conduct on the Github repository may result in moderative actions taken by project Maintainers. This can involve your content being edited or deleted, and may result in a temporary or permanent block from the repository.
+Нарушение Кодекса поведения в репозитории Github может привести к модерационным действиям со стороны сопровождающих проекта. Это может включать редактирование или удаление вашего контента, а также временную или постоянную блокировку доступа к репозиторию.
 
-This is to ensure Frontier Station is a healthy community in which contributors feel encouraged and empowered to contribute, and to give you as a member of this community a chance to reflect on how you are interacting with it. While outright offensive and bigoted content will *always* be unacceptable on the repository, Maintainers are at liberty to take moderative actions against more ambiguous content that fail to provide constructive criticism, or that provides constructive criticism in a non-constructive manner. Examples of this include using hyperbole, bringing up PRs/changes unrelated to the discussion at hand, hostile tone, off-topic comments, creating PRs/Issues for the sole purpose of causing discussions, skirting the line of acceptable behavior, etc. Disagreeing with content or each other is fine and appreciated, but only as long as it's done with respect and in a constructive manner.
+Это делается для того, чтобы Fractal Sector представлял собой здоровое сообщество, в котором участники чувствуют себя воодушевленными и способными вносить свой вклад, а также для того, чтобы дать вам, как члену этого сообщества, возможность обдумать, как вы взаимодействуете с ним. Хотя откровенно оскорбительный и фанатичный контент *всегда* будет неприемлем в репозитории, сопровождающие проекта имеют право принимать модерационные меры в отношении более неоднозначного контента, который не содержит конструктивной критики или содержит конструктивную критику в неконструктивной форме. Примерами такого поведения являются использование гиперболы, упоминание запросов на слияние/изменений, не имеющих отношения к обсуждаемой теме, враждебный тон, комментарии не по теме, создание запросов на слияние/проблем исключительно с целью разжигания дискуссий, обход граней допустимого поведения и т. д. Несогласие с содержанием или друг с другом допустимо и приветствуется, но только если оно выражается с уважением и конструктивно.
 
-Maintainers are expected to adhere to the guidelines as listed in the [Github Moderation Guidelines](https://docs.spacestation14.com/en/general-development/github-moderation-guidelines.html), though may deviate should they feel it's in the best interest of the community. If you believe you had an action incorrectly applied against you, you are encouraged to contact staff via [Discord](https://discord.gg/frontier).
+От сопровождающих проекта ожидается соблюдение правил, изложенных в [Руководстве по модерации Github](https://docs.spacestation14.com/en/general-development/github-moderation-guidelines.html), хотя они могут отступать от них, если сочтут это наилучшим образом отвечающим интересам сообщества. Если вы считаете, что к вам были применены неправомерные меры, вам рекомендуется связаться с администрацией через [Discord](https://discord.gg/ZC94VrbFNY).
 
-## Attribution
+## Авторство
 
-This Code of Conduct is an edited version of the [Space Station 14 Code of Conduct](https://github.com/space-wizards/space-station-14/blob/master/CODE_OF_CONDUCT.md), which is an edited version of the [Django Code of Conduct](https://www.djangoproject.com/conduct/), licensed under CC BY 3.0, for the Frontier Station Github repository.
+Настоящий Кодекс поведения является отредактированной версией [Кодекса поведения new Frontier 14](https://github.com/new-frontiers-14/frontier-station-14//blob/master/CODE_OF_CONDUCT.md), который, в свою очередь, является отредактированной версией [Кодекса поведения Django](https://www.djangoproject.com/conduct/), распространяемого по лицензии CC BY 3.0, для репозитория Fractal Sector на Github.
