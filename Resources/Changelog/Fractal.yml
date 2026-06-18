@@ -243,3 +243,12 @@ Entries:
   id: 15
   time: '2026-06-18T07:25:15.0000000+00:00'
   url: https://github.com/Fractal-Sector/Fractal-Sector/pull/27
+- author: IsNotAcceptable
+  changes:
+    - type: Remove
+      message: Обычный дизайн призрака
+    - type: Tweak
+      message: Призраки стали подобны персонажу при жизни
+  id: 16
+  time: '2026-06-18T08:08:24.0000000+00:00'
+  url: https://github.com/Fractal-Sector/Fractal-Sector/pull/28
