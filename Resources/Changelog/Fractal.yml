@@ -252,3 +252,10 @@ Entries:
   id: 16
   time: '2026-06-18T08:08:24.0000000+00:00'
   url: https://github.com/Fractal-Sector/Fractal-Sector/pull/28
+- author: IsNotAcceptable
+  changes:
+    - type: Tweak
+      message: Изменена погодка
+  id: 17
+  time: '2026-06-18T15:54:51.0000000+00:00'
+  url: https://github.com/Fractal-Sector/Fractal-Sector/pull/31
