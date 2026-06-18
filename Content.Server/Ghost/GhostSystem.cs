@@ -40,6 +40,9 @@ using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
+using Content.Shared.Humanoid;
+using Content.Server.Humanoid;
+using Robust.Shared.Random;
 
 namespace Content.Server.Ghost
 {
@@ -72,6 +75,7 @@ namespace Content.Server.Ghost
         [Dependency] private readonly NameModifierSystem _nameMod = default!;
         [Dependency] private readonly IAdminManager _admin = default!; // Frontier
         [Dependency] private readonly CryoSleepSystem _cryo = default!; // Frontier
+        [Dependency] private readonly HumanoidAppearanceSystem _humanoidSystem = default!; // FS: ghost person
 
         private EntityQuery<GhostComponent> _ghostQuery;
         private EntityQuery<PhysicsComponent> _physicsQuery;
@@ -112,6 +116,7 @@ namespace Content.Server.Ghost
             SubscribeLocalEvent<ToggleGhostVisibilityToAllEvent>(OnToggleGhostVisibilityToAll);
 
             SubscribeLocalEvent<GhostComponent, GetVisMaskEvent>(OnGhostVis);
+            SubscribeLocalEvent<GhostComponent, PlayerAttachedEvent>(OnPlayerAttached); // FS: ghost person
         }
 
         private void OnGhostVis(Entity<GhostComponent> ent, ref GetVisMaskEvent args)
@@ -122,6 +127,30 @@ namespace Content.Server.Ghost
                 args.VisibilityMask |= (int)VisibilityFlags.Ghost;
             }
         }
+
+        // FS: ghost person
+        private void OnPlayerAttached(EntityUid uid, GhostComponent component, PlayerAttachedEvent args)
+        {
+            if (!TryComp(uid, out HumanoidAppearanceComponent? humanoid) || !string.IsNullOrEmpty(humanoid.Initial))
+            {
+                return;
+            }
+            if (!TryComp(uid, out ActorComponent? actor))
+            {
+                return;
+            }
+            var profile = _gameTicker.GetPlayerProfile(actor.PlayerSession);
+            if (profile == null)
+                return;
+            _humanoidSystem.LoadProfile(uid, profile);
+
+            if (component.AbleClothingMarkings != null)
+            {
+                var clothing = _random.Pick(component.AbleClothingMarkings);
+                _humanoidSystem.AddMarking(uid, clothing);
+            }
+        }
+        // FS end
 
         private void OnGhostHearingAction(EntityUid uid, GhostComponent component, ToggleGhostHearingActionEvent args)
         {
