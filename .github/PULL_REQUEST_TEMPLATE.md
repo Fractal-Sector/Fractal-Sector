@@ -15,7 +15,7 @@
 
 ## Требования
 <!-- Подтвердите следующее, поставив X в скобках [X]: -->
-- [ ] Я прочитал(а) [CONTRIBUTING.md](https://github.com/Fractal-Sector/Fractal-Sector/blob/new/CONTRIBUTING.md) и следую [Рекомендациям по оформлению Pull Request и Changelog](https://docs.spacestation14.com/en/general-development/codebase-info/pull-request-guidelines.html).
+- [ ] Я прочитал(а) [CONTRIBUTING.md](https://github.com/Fractal-Sector/Fractal-Sector/blob/new/.github/CONTRIBUTING.md) и следую [Рекомендациям по оформлению Pull Request и Changelog](https://docs.spacestation14.com/en/general-development/codebase-info/pull-request-guidelines.html).
 - [ ] Я добавил(а) медиафайлы к этому PR или он не требует демонстрации в игре.
 - [ ] Я ознакомился(ась) с [правилами подачи заявок на шаттлы](https://github.com/Fractal-Sector/Fractal-Sector/blob/new/docs/SHIP_SUBMISSION_REQUIREMENTS.md), если это применимо.
 - [ ] Я подтверждаю, что мои изменения находятся под лицензией [Fractal CLA](https://github.com/Fractal-Sector/Fractal-Sector/blob/new/LICENSES/CLA.txt) и соглашаюсь с её условиями.
