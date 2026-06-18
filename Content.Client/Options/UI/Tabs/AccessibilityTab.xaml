@@ -6,6 +6,9 @@
             <BoxContainer Orientation="Vertical" Margin="8">
                 <Label Text="{Loc 'ui-options-accessability-header-visuals'}"
                        StyleClasses="LabelKeyText"/>
+                <!-- FS: combat indicator -->
+                <CheckBox Name="CombatIndicatorCheckBox" Text="{Loc 'ui-options-combat-indicator'}" />
+                <!-- FS end -->
                 <CheckBox Name="ReducedMotionCheckBox" Text="{Loc 'ui-options-reduced-motion'}" />
                 <CheckBox Name="DisableVisualSmoothingEffectCheckBox" Text="{Loc 'ui-options-disable-visual-smoothing-effect'}" />
                 <CheckBox Name="EnableColorNameCheckBox" Text="{Loc 'ui-options-enable-color-name'}" />

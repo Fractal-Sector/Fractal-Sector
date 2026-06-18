@@ -1,5 +1,8 @@
 using Content.Shared.Actions;
+using Content.Shared.Bed.Sleep;
 using Content.Shared.Mind;
+using Content.Shared.Mobs;
+using Content.Shared.Mobs.Systems;
 using Content.Shared.MouseRotator;
 using Content.Shared.Movement.Components;
 using Content.Shared.Popups;
@@ -14,6 +17,7 @@ public abstract class SharedCombatModeSystem : EntitySystem
     [Dependency] private   readonly SharedActionsSystem _actionsSystem = default!;
     [Dependency] private   readonly SharedPopupSystem _popup = default!;
     [Dependency] private   readonly SharedMindSystem  _mind = default!;
+    [Dependency] private   readonly MobStateSystem _mobState = default!; // FS: combat indicator
 
     public override void Initialize()
     {
@@ -45,8 +49,10 @@ public abstract class SharedCombatModeSystem : EntitySystem
         args.Handled = true;
         SetInCombatMode(uid, !component.IsInCombatMode, component);
 
+        /* FS: combat indicator
         var msg = component.IsInCombatMode ? "action-popup-combat-enabled" : "action-popup-combat-disabled";
         _popup.PopupClient(Loc.GetString(msg), args.Performer, args.Performer);
+        */
     }
 
     public void SetCanDisarm(EntityUid entity, bool canDisarm, CombatModeComponent? component = null)
@@ -69,6 +75,14 @@ public abstract class SharedCombatModeSystem : EntitySystem
 
         if (component.IsInCombatMode == value)
             return;
+
+        // FS: combat indicator
+        if (_mobState.IsDead(entity) || _mobState.IsCritical(entity) || HasComp<SleepingComponent>(entity))
+        {
+            if (value)
+                return;
+        }
+        // FS end
 
         component.IsInCombatMode = value;
         Dirty(entity, component);
