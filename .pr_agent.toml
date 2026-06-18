@@ -1,6 +1,4 @@
 [config]
-model = "gemini/gemini-3.1-pro-preview"
-fallback_models = ["gemini/gemini-3.1-pro-preview"]
 ignore_extensions = [
     ".png", ".rsi", ".ogg", ".wav", ".mp3", "webp",
     ".blend", ".fbx", ".obj", ".ttf", ".woff", ".woff2"
