@@ -191,15 +191,34 @@
   description: It's so glowing, it looks dangerous.
   categories: [ HideSpawnMenu ] # Frontier
   components:
-  - type: Sprite
-    drawdepth: Mobs
-    sprite: Mobs/Animals/spacespider.rsi
-    layers:
-    - map: [ "enum.DamageStateVisualLayers.Base" ]
-      state: spacespider
-    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
-      state: glow
-      shader: unshaded
+  # FS start
+  - type: OptionsVisualizer
+    visuals:
+      "enum.DamageStateVisualLayers.Base":
+      - options: Default
+        data:
+          drawdepth: Mobs
+          sprite: Mobs/Animals/spacespider.rsi
+          state: spacespider
+      - options: Arachnophobia
+        data:
+          drawdepth: Mobs
+          sprite: _FS/Mobs/Animals/Spiders/Arachnophobia/spacespider.rsi
+          state: spacespider
+      "enum.DamageStateVisualLayers.BaseUnshaded":
+      - options: Default
+        data:
+          drawdepth: Mobs
+          sprite: Mobs/Animals/spacespider.rsi
+          state: glow
+          shader: unshaded
+      - options: Arachnophobia
+        data:
+          drawdepth: Mobs
+          sprite: _FS/Mobs/Animals/Spiders/Arachnophobia/spacespider.rsi
+          state: glow
+          shader: unshaded
+  # FS end
   - type: MobThresholds
     thresholds:
       0: Alive

@@ -15,7 +15,10 @@ public sealed partial class AccessibilityTab : Control
         Control.AddOptionCheckBox(CCVars.ChatEnableColorName, EnableColorNameCheckBox);
         Control.AddOptionCheckBox(CCVars.ChatEnableBodyColor, EnableBodyColorCheckBox);
         Control.AddOptionCheckBox(CCVars.AccessibilityColorblindFriendly, ColorblindFriendlyCheckBox);
-        Control.AddOptionCheckBox(CCVars.CombatIndicator, CombatIndicatorCheckBox); // FS: combat indicator
+        // FS start
+        Control.AddOptionCheckBox(CCVars.CombatIndicator, CombatIndicatorCheckBox);
+        Control.AddOptionCheckBox(CCVars.AccessibilityArachnophobia, ArachnophobiaCheckBox);
+        // FS end
         Control.AddOptionCheckBox(CCVars.ReducedMotion, ReducedMotionCheckBox);
         Control.AddOptionCheckBox(CCVars.DisableVisualSmoothingEffect, DisableVisualSmoothingEffectCheckBox);
         Control.AddOptionPercentSlider(CCVars.ScreenShakeIntensity, ScreenShakeIntensitySlider);

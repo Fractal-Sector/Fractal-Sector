@@ -1,4 +1,5 @@
 using System.Numerics;
+using Content.Client.Options;
 using Content.Client.Anomaly.Ui;
 using Content.Client.Overlays;
 using Content.Shared.IconSmoothing;
@@ -20,6 +21,7 @@ namespace Content.Client.IconSmoothing
     {
         [Dependency] private readonly SharedMapSystem _mapSystem = default!;
         [Dependency] private readonly SpriteSystem _sprite = default!;
+        [Dependency] private readonly OptionsVisualizerSystem _optionsVisualizer = default!;
 
         private readonly Queue<EntityUid> _dirtyEntities = new();
         private readonly Queue<EntityUid> _anchorChangedEntities = new();
@@ -104,6 +106,9 @@ namespace Content.Client.IconSmoothing
             // _sprite.LayerMapSet(sprite, CornerLayers.SW, _sprite.AddRsiLayer(sprite, state0));
             // _sprite.LayerSetDirOffset(sprite, CornerLayers.SW, DirectionOffset.Clockwise);
             // End Frontier: Allow overlays on entities using CornerLayers smoothing - don't remove layers, adjust existing ones or create new ones.
+
+            if (TryComp(sprite.Owner, out OptionsVisualizerComponent? visComp) && sprite.Comp != null)
+                _optionsVisualizer.UpdateComponent(sprite.Owner, visComp, sprite.Comp);
         }
 
         // Frontier: set layer function to remove redundancy
