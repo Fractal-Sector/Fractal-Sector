@@ -17,6 +17,8 @@ jobs:
         fetch-depth: 0
 
     - uses: truongnh1992/gemini-ai-code-reviewer@main
+      env:
+          GITHUB_EVENT_NAME: issue_comment
       with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GEMINI_API_KEY: ${{ secrets.GEMINI_KEY }}
