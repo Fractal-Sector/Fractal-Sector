@@ -277,3 +277,10 @@ Entries:
   id: 19
   time: '2026-06-21T14:13:58.0000000+00:00'
   url: https://github.com/Fractal-Sector/Fractal-Sector/pull/33
+- author: IsNotAcceptable
+  changes:
+    - type: Fix
+      message: Пилотирование шаттла возможен (че за ебанутый ломающий апстрим?)
+  id: 20
+  time: '2026-06-21T17:59:59.0000000+00:00'
+  url: https://github.com/Fractal-Sector/Fractal-Sector/pull/34
