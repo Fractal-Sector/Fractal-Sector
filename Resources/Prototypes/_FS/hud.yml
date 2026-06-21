@@ -1,0 +1,17 @@
+- type: hudTheme
+  id: SS14ErisTheme
+  name: ui-options-hud-theme-eris
+  path: /Textures/_FS/Interface/Eris/
+  order: 7
+
+- type: hudTheme
+  id: SS14CosmicCultTheme
+  name: ui-options-hud-theme-coscult
+  path: /Textures/_FS/Interface/CosmicCult/
+  order: 8
+
+- type: hudTheme
+  id: SS14OperativeTheme
+  name: ui-options-hud-theme-operative
+  path: /Textures/_FS/Interface/Operative/
+  order: 9
