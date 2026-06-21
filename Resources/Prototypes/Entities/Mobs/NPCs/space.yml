@@ -194,32 +194,28 @@
   # FS start
   - type: OptionsVisualizer
     visuals:
-      base:
+      "enum.DamageStateVisualLayers.Base":
       - options: Default
         data:
           drawdepth: Mobs
           sprite: Mobs/Animals/spacespider.rsi
-          map: [ "enum.DamageStateVisualLayers.Base" ]
           state: spacespider
       - options: Arachnophobia
         data:
           drawdepth: Mobs
           sprite: _FS/Mobs/Animals/Spiders/Arachnophobia/spacespider.rsi
-          map: [ "enum.DamageStateVisualLayers.Base" ]
           state: spacespider
-      baseUnshaded:
+      "enum.DamageStateVisualLayers.BaseUnshaded":
       - options: Default
         data:
           drawdepth: Mobs
           sprite: Mobs/Animals/spacespider.rsi
-          map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
           state: glow
           shader: unshaded
       - options: Arachnophobia
         data:
           drawdepth: Mobs
           sprite: _FS/Mobs/Animals/Spiders/Arachnophobia/spacespider.rsi
-          map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
           state: glow
           shader: unshaded
   # FS end
