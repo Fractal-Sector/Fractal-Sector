@@ -266,3 +266,14 @@ Entries:
   id: 18
   time: '2026-06-21T04:58:10.0000000+00:00'
   url: https://github.com/Fractal-Sector/Fractal-Sector/pull/32
+- author: IsNotAcceptable
+  changes:
+    - type: Add
+      message: Тема Эрис
+    - type: Add
+      message: Тема Космический культ
+    - type: Add
+      message: Тема Оперативник
+  id: 19
+  time: '2026-06-21T14:13:58.0000000+00:00'
+  url: https://github.com/Fractal-Sector/Fractal-Sector/pull/33
