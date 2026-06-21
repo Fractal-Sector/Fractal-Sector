@@ -3,20 +3,51 @@ name: Gemini AI Code Reviewer
 on:
   pull_request:
     types: [opened, synchronize]
+  issue_comment:
+    types: [created]
 
 permissions: write-all
 
 jobs:
+  auto-trigger-comment:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+    - name: Post trigger comment
+      uses: actions/github-script@v6
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: '/gemini-review'
+          })
+
   gemini-code-review:
     runs-on: ubuntu-latest
+    if: |
+      github.event_name == 'issue_comment' &&
+      github.event.issue.pull_request &&
+      contains(github.event.comment.body, '/gemini-review')
     steps:
+    - name: Get PR Details
+      id: pr
+      run: |
+        PR_JSON=$(gh api repos/${{ github.repository }}/pulls/${{ github.event.issue.number }})
+        echo "head_sha=$(echo $PR_JSON | jq -r .head.sha)" >> $GITHUB_OUTPUT
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
     - name: Checkout Repo
       uses: actions/checkout@v4
       with:
-        ref: ${{ github.event.pull_request.head.sha }}
+        ref: ${{ steps.pr.outputs.head_sha }}
         fetch-depth: 0
 
-    - uses: truongnh1992/gemini-ai-code-reviewer@main
+    - name: Run Gemini Reviewer
+      uses: truongnh1992/gemini-ai-code-reviewer@main
       with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GEMINI_API_KEY: ${{ secrets.GEMINI_KEY }}
