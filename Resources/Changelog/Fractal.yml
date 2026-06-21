@@ -259,3 +259,10 @@ Entries:
   id: 17
   time: '2026-06-18T15:54:51.0000000+00:00'
   url: https://github.com/Fractal-Sector/Fractal-Sector/pull/31
+- author: IsNotAcceptable
+  changes:
+    - type: Add
+      message: Переключаемый в настройках режим арахнофобии
+  id: 18
+  time: '2026-06-21T04:58:10.0000000+00:00'
+  url: https://github.com/Fractal-Sector/Fractal-Sector/pull/32
