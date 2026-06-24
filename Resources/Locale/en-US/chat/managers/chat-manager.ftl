@@ -60,6 +60,8 @@ chat-manager-rate-limit-admin-announcement = Rate limit warning: { $player }
 
 chat-manager-entity-say-ensmallened = [font size=10]{$text}[/font]
 
+chat-manager-follow-button = (F)
+
 ## Speech verbs for chat
 
 chat-speech-verb-suffix-exclamation = !

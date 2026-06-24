@@ -54,6 +54,7 @@ ui-options-chat-window-opacity-percent = { TOSTRING($opacity, "P0") }
 ui-options-fancy-speech = Показывать имена в облачках с текстом
 ui-options-screen-shake-percent = { TOSTRING($intensity, "P0") }
 ui-options-fancy-name-background = Добавить фон облачкам с текстом
+ui-options-chat-follow-button = В режиме призрака показывать кнопку «Следовать» рядом с сообщениями в чате
 ui-options-vsync = Вертикальная синхронизация
 ui-options-fullscreen = Полный экран
 ui-options-lighting-label = Качество освещения:

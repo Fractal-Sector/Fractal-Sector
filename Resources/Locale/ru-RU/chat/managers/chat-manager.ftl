@@ -39,6 +39,8 @@ chat-manager-admin-channel-name = АДМИН
 chat-manager-rate-limited = Вы отправляете сообщения слишком быстро!
 chat-manager-rate-limit-admin-announcement = Игрок { $player } превысил ограничение на частоту сообщений в чате. Присмотрите за ним если это происходит регулярно.
 
+chat-manager-follow-button = (С)
+
 ## Speech verbs for chat
 
 chat-speech-verb-suffix-exclamation = !

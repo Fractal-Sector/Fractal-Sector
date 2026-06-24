@@ -83,6 +83,7 @@ public sealed partial class MiscTab : Control
         Control.AddOptionCheckBox(MonoCVars.RadioNoiseEnabled, RadioNoiseCheckBox); // Mono
         Control.AddOptionCheckBox(MonoCVars.AreaEchoEnabled, AreaEchoCheckBox); // Mono
         Control.AddOptionCheckBox(MonoCVars.AreaEchoHighResolution, AreaEchoHighResolutionCheckBox); // Mono
+        Control.AddOptionCheckBox(CCVars.InterfaceChatFollowButton, ChatFollowButton);
 
         Control.Initialize();
     }
