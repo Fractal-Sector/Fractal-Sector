@@ -11,7 +11,7 @@ namespace Content.Client.UserInterface.Systems.Ghost.Controls
     [GenerateTypedNameReferences]
     public sealed partial class GhostTargetWindow : DefaultWindow
     {
-        private List<(string, NetEntity)> _warps = new();
+        private List<(string, NetEntity, int)> _warps = new();
         private string _searchText = string.Empty;
 
         public event Action<NetEntity>? WarpClicked;
@@ -28,47 +28,104 @@ namespace Content.Client.UserInterface.Systems.Ghost.Controls
         public void UpdateWarps(IEnumerable<GhostWarp> warps)
         {
             // Server COULD send these sorted but how about we just use the client to do it instead
-            _warps = warps
-                .OrderBy(w => w.IsWarpPoint)
-                .ThenBy(w => w.DisplayName, Comparer<string>.Create(
-                    (x, y) => string.Compare(x, y, StringComparison.Ordinal)))
-                .Select(w =>
+            _warps = [];
+            foreach (GhostWarp warp in warps)
+            {
+                var name = "";
+                var type = 0; // Magic numbers my beloved
+                if (warp.Mob)
                 {
-                    var name = w.IsWarpPoint
-                        ? Loc.GetString("ghost-target-window-current-button", ("name", w.DisplayName))
-                        : w.DisplayName;
-
-                    return (name, w.Entity);
-                })
-                .ToList();
+                    name = warp.DisplayName + (warp.Followers > 0 ? " f: " + warp.Followers : "");
+                    if (warp.IsGhost)
+                    {
+                        type = 4;
+                    }
+                    else if (warp.IsDead)
+                    {
+                        type = 3;
+                    }
+                    else if (warp.Antagonist)
+                    {
+                        type = 2;
+                    }
+                    else
+                    {
+                        type = 1;
+                    }
+                }
+                else
+                {
+                    name = Loc.GetString("ghost-target-window-current-button", ("name", warp.DisplayName));
+                }
+                _warps.Add((name, warp.Entity, type));
+            }
         }
 
         public void Populate()
         {
-            ButtonContainer.DisposeAllChildren();
+            AntagonistContainer.DisposeAllChildren();
+            LivingContainer.DisposeAllChildren();
+            DeadContainer.DisposeAllChildren();
+            GhostContainer.DisposeAllChildren();
+            MiscContainer.DisposeAllChildren();
             AddButtons();
         }
 
         private void AddButtons()
         {
-            foreach (var (name, warpTarget) in _warps)
+            int totalAntagonistLength = 0;
+            int totalLivingLength = 0;
+            int totalDeadLength = 0;
+            int totalGhostLength = 0;
+            int totalMiscLength = 0;
+            foreach (var (name, warpTarget, type) in _warps)
             {
-                var currentButtonRef = new Button
+                Button currentButtonRef = new Button
                 {
                     Text = name,
                     TextAlign = Label.AlignMode.Right,
-                    HorizontalAlignment = HAlignment.Center,
-                    VerticalAlignment = VAlignment.Center,
+                    HorizontalAlignment = HAlignment.Left,
+                    VerticalAlignment = VAlignment.Top,
                     SizeFlagsStretchRatio = 1,
-                    MinSize = new Vector2(340, 20),
-                    ClipText = true,
+                    MinSize = new Vector2(20, 20),
                 };
 
                 currentButtonRef.OnPressed += _ => WarpClicked?.Invoke(warpTarget);
                 currentButtonRef.Visible = ButtonIsVisible(currentButtonRef);
 
-                ButtonContainer.AddChild(currentButtonRef);
+                switch (type)
+                {
+                    case 0:
+                        totalMiscLength++;
+                        MiscContainer.AddChild(currentButtonRef);
+                        continue;
+                    case 1:
+                        totalLivingLength++;
+                        LivingContainer.AddChild(currentButtonRef);
+                        continue;
+                    case 2:
+                        totalAntagonistLength++;
+                        AntagonistContainer.AddChild(currentButtonRef);
+                        continue;
+                    case 3:
+                        totalDeadLength++;
+                        DeadContainer.AddChild(currentButtonRef);
+                        continue;
+                    case 4:
+                        totalGhostLength++;
+                        GhostContainer.AddChild(currentButtonRef);
+                        continue;
+                }
             }
+
+            AntagonistHeading.Title = "Antagonists - (" + totalAntagonistLength + ")";
+            LivingHeading.Title = "Alive - (" + totalLivingLength + ")";
+            DeadHeading.Title = "Dead - (" + totalDeadLength + ")";
+            GhostHeading.Title = "Ghosts - (" + totalGhostLength + ")";
+            MiscHeading.Title = "Misc - (" + totalMiscLength + ")";
+            // Only check these ones for visibility, since the others will preety much always be valid
+            AntagBox.Visible = totalAntagonistLength > 0;
+            DeadBox.Visible = totalDeadLength > 0;
         }
 
         private bool ButtonIsVisible(Button button)
@@ -78,7 +135,22 @@ namespace Content.Client.UserInterface.Systems.Ghost.Controls
 
         private void UpdateVisibleButtons()
         {
-            foreach (var child in ButtonContainer.Children)
+            foreach (var child in AntagonistContainer.Children)
+            {
+                if (child is Button button)
+                    button.Visible = ButtonIsVisible(button);
+            }
+            foreach (var child in LivingContainer.Children)
+            {
+                if (child is Button button)
+                    button.Visible = ButtonIsVisible(button);
+            }
+            foreach (var child in GhostContainer.Children)
+            {
+                if (child is Button button)
+                    button.Visible = ButtonIsVisible(button);
+            }
+            foreach (var child in MiscContainer.Children)
             {
                 if (child is Button button)
                     button.Visible = ButtonIsVisible(button);
