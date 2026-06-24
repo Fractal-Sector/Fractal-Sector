@@ -9,6 +9,9 @@
   id: BaseMobSpecies
   abstract: true
   components:
+  - type: WarpPoint
+    follow: true
+    mob: true
   - type: Carriable # Wayfarer, makes all mobs carriable. Weight still applies.
   - type: Sprite
     layers:
