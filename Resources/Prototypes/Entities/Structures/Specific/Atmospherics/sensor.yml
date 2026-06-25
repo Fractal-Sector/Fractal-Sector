@@ -27,6 +27,7 @@
       Frezon: danger
       Respiron: ignore # Frontier
       Helium: stationHe # Frontier
+      Petroleum: stationPetroleum # FS
   - type: Tag
     tags:
       - AirSensor

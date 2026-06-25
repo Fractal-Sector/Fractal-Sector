@@ -1,0 +1,160 @@
+- type: reagent
+  id: CrudeOil
+  name: "Неочищенная нефть"
+  desc: "Сырая, густая нефть прямо из скважины. Требует термической обработки."
+  physicalDesc: "вязкая темная жидкость"
+  color: "#1c1813"
+  flammable: true
+  viscosity: 3.0
+  recognizable: true
+  boilingPoint: 350.0
+  meltingPoint: -10.0
+  metabolisms:
+    Poison:
+      effects:
+      - !type:HealthChange
+        scaleByQuantity: true
+        damage:
+          types:
+            Poison: 3
+    Gas:
+      effects:
+      - !type:HealthChange
+        scaleByQuantity: true
+        damage:
+          types:
+            Asphyxiation: 1
+
+- type: reagent
+  id: HotCrudeOil
+  name: "Горячая неочищенная нефть"
+  desc: "Разогретая в бойлере нефть. Крайне пожароопасна и готова к фракционированию."
+  physicalDesc: "дымящаяся черная жидкость"
+  color: "#2b1105"
+  flammable: true
+  viscosity: 1.5
+  recognizable: true
+  boilingPoint: 450.0
+  meltingPoint: 50.0
+  metabolisms:
+    Poison:
+      effects:
+      - !type:HealthChange
+        scaleByQuantity: true
+        damage:
+          types:
+            Heat: 3
+            Poison: 2
+    Gas:
+      effects:
+      - !type:HealthChange
+        scaleByQuantity: true
+        damage:
+          types:
+            Heat: 2
+            Asphyxiation: 2
+
+- type: reagent
+  id: Petroleum
+  name: "Попутный нефтяной газ"
+  desc: "Сжиженная под давлением фракция легких углеводородов."
+  physicalDesc: "бесцветный резкий газ"
+  color: "#6b757d"
+  flammable: true
+  flavor: bitter
+  boilingPoint: -42.0
+  meltingPoint: -187.0
+  metabolisms:
+    Poison:
+      effects:
+      - !type:HealthChange
+        scaleByQuantity: true
+        ignoreResistances: true
+        damage:
+          types:
+            Poison: 5
+    Gas:
+      effects:
+      - !type:ModifyLungGas
+        conditions:
+        - !type:OrganType
+          type: Human
+        ratios:
+          CarbonDioxide: 0.5
+          Oxygen: -1.0
+      - !type:HealthChange
+        conditions:
+        - !type:OrganType
+          type: Vox
+          shouldHave: false
+        scaleByQuantity: true
+        ignoreResistances: true
+        damage:
+          types:
+            Asphyxiation: 4
+            Poison: 2
+      - !type:AdjustAlert
+        alertType: Toxins
+        conditions:
+        - !type:ReagentThreshold
+          min: 0.2
+        clear: true
+        time: 4
+
+- type: reagent
+  id: LightOil
+  name: "Легкая нефть"
+  desc: "Маловязкая фракция нефти. Отличное сырье для высококачественного топлива."
+  physicalDesc: "прозрачно-желтоватая жидкость"
+  color: "#d4af37"
+  flammable: true
+  recognizable: true
+  boilingPoint: 150.0
+  meltingPoint: -40.0
+  metabolisms:
+    Poison:
+      effects:
+      - !type:HealthChange
+        scaleByQuantity: true
+        damage:
+          types:
+            Poison: 3
+
+- type: reagent
+  id: Naphtha
+  name: "Нафта"
+  desc: "Лигроин. Тяжелый бензин, незаменимый в нефтехимии для производства пластиков."
+  physicalDesc: "резко пахнущая прозрачная жидкость"
+  color: "#a3b899"
+  flammable: true
+  recognizable: true
+  boilingPoint: 180.0
+  meltingPoint: -30.0
+  metabolisms:
+    Poison:
+      effects:
+      - !type:HealthChange
+        scaleByQuantity: true
+        damage:
+          types:
+            Poison: 4
+
+- type: reagent
+  id: HeavyOil
+  name: "Тяжелая нефть"
+  desc: "Плотный остаток перегонки. Подходит для мазутов, смазок и тяжелых полимеров."
+  physicalDesc: "очень вязкая черная масса"
+  color: "#050505"
+  flammable: true
+  viscosity: 5.0
+  recognizable: true
+  boilingPoint: 500.0
+  meltingPoint: 20.0
+  metabolisms:
+    Poison:
+      effects:
+      - !type:HealthChange
+        scaleByQuantity: true
+        damage:
+          types:
+            Poison: 2

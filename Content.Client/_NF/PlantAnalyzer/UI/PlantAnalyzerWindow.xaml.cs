@@ -199,6 +199,11 @@ public sealed partial class PlantAnalyzerWindow : FancyWindow
             output.Append(IndentedNewline);
             output.Append(Loc.GetString("gases-frezon"));
         }
+        if (flags.HasFlag(GasFlags.Petroleum))
+        {
+            output.Append(IndentedNewline);
+            output.Append(Loc.GetString("gases-petroleum"));
+        }
         return output;
     }
 }

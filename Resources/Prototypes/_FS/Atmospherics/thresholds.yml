@@ -1,0 +1,6 @@
+- type: alarmThreshold
+  id: stationPetroleum
+  upperBound: !type:AlarmThresholdSetting
+    threshold: 0.005
+  upperWarnAround: !type:AlarmThresholdSetting
+    threshold: 0.002
