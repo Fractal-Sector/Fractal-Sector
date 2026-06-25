@@ -1,0 +1,12 @@
+reagent-name-crudeoil = Неочищенная нефть
+reagent-desc-crudeoil = Сырая, густая нефть прямо из скважины. Требует термической обработки.
+reagent-name-hotcrudeoil = Горячая неочищенная нефть
+reagent-desc-hotcrudeoil = Разогретая в бойлере нефть. Крайне пожароопасна и готова к фракционированию.
+reagent-name-petroleum = Попутный нефтяной газ
+reagent-desc-petroleum = Сжиженная под давлением фракция легких углеводородов.
+reagent-name-lightoil = Легкая нефть
+reagent-desc-lightoil = Маловязкая фракция нефти. Отличное сырье для высококачественного топлива.
+reagent-name-naphtha = Нафта
+reagent-desc-naphtha = Лигроин. Тяжелый бензин, незаменимый в нефтехимии для производства пластиков.
+reagent-name-heavyoil = Тяжелая нефть
+reagent-desc-heavyoil = Плотный остаток перегонки. Подходит для мазутов, смазок и тяжелых полимеров.

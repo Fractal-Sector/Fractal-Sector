@@ -1,10 +1,10 @@
 - type: reagent
+  parent: BasePyrotechnic
   id: CrudeOil
-  name: "Неочищенная нефть"
-  desc: "Сырая, густая нефть прямо из скважины. Требует термической обработки."
-  physicalDesc: "вязкая темная жидкость"
+  name: reagent-name-crudeoil
+  desc: reagent-desc-crudeoil
+  physicalDesc: reagent-physical-desc-viscous
   color: "#1c1813"
-  flammable: true
   viscosity: 3.0
   recognizable: true
   boilingPoint: 350.0
@@ -26,12 +26,12 @@
             Asphyxiation: 1
 
 - type: reagent
+  parent: BasePyrotechnic
   id: HotCrudeOil
-  name: "Горячая неочищенная нефть"
-  desc: "Разогретая в бойлере нефть. Крайне пожароопасна и готова к фракционированию."
-  physicalDesc: "дымящаяся черная жидкость"
+  name: reagent-name-hotcrudeoil
+  desc: reagent-desc-hotcrudeoil
+  physicalDesc: reagent-physical-desc-burning
   color: "#2b1105"
-  flammable: true
   viscosity: 1.5
   recognizable: true
   boilingPoint: 450.0
@@ -55,12 +55,12 @@
             Asphyxiation: 2
 
 - type: reagent
+  parent: BasePyrotechnic
   id: Petroleum
-  name: "Попутный нефтяной газ"
-  desc: "Сжиженная под давлением фракция легких углеводородов."
-  physicalDesc: "бесцветный резкий газ"
+  name: reagent-name-petroleum
+  desc: reagent-desc-petroleum
+  physicalDesc: reagent-physical-desc-gaseous
   color: "#6b757d"
-  flammable: true
   flavor: bitter
   boilingPoint: -42.0
   meltingPoint: -187.0
@@ -102,12 +102,12 @@
         time: 4
 
 - type: reagent
+  parent: BasePyrotechnic
   id: LightOil
-  name: "Легкая нефть"
-  desc: "Маловязкая фракция нефти. Отличное сырье для высококачественного топлива."
-  physicalDesc: "прозрачно-желтоватая жидкость"
+  name: reagent-name-lightoil
+  desc: reagent-desc-lightoil
+  physicalDesc: reagent-physical-desc-oily
   color: "#d4af37"
-  flammable: true
   recognizable: true
   boilingPoint: 150.0
   meltingPoint: -40.0
@@ -121,10 +121,11 @@
             Poison: 3
 
 - type: reagent
+  parent: BasePyrotechnic
   id: Naphtha
-  name: "Нафта"
-  desc: "Лигроин. Тяжелый бензин, незаменимый в нефтехимии для производства пластиков."
-  physicalDesc: "резко пахнущая прозрачная жидкость"
+  name: reagent-name-naphtha
+  desc: reagent-desc-naphtha
+  physicalDesc: reagent-physical-desc-strong-smelling
   color: "#a3b899"
   flammable: true
   recognizable: true
@@ -141,11 +142,10 @@
 
 - type: reagent
   id: HeavyOil
-  name: "Тяжелая нефть"
-  desc: "Плотный остаток перегонки. Подходит для мазутов, смазок и тяжелых полимеров."
-  physicalDesc: "очень вязкая черная масса"
+  name: reagent-name-heavyoil
+  desc: reagent-desc-heavyoil
+  physicalDesc: reagent-physical-desc-gloopy
   color: "#050505"
-  flammable: true
   viscosity: 5.0
   recognizable: true
   boilingPoint: 500.0
