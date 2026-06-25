@@ -127,7 +127,6 @@
   desc: reagent-desc-naphtha
   physicalDesc: reagent-physical-desc-strong-smelling
   color: "#a3b899"
-  flammable: true
   recognizable: true
   boilingPoint: 180.0
   meltingPoint: -30.0
