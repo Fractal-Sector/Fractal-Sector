@@ -48,10 +48,6 @@
   recognizable: true
   boilingPoint: 360.0
   meltingPoint: 15.0
-  reactiveEffects:
-    OnFire:
-    - !type:ExtinguishTileReagent
-      extinguishValue: -5.0
   metabolisms:
     Poison:
       effects:
