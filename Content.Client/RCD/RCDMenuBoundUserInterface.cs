@@ -35,6 +35,10 @@ public sealed class RCDMenuBoundUserInterface : BoundUserInterface
             ["PlatingTiles"] = ("rcd-component-plating", new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/Radial/RCD/plating.png"))),
             ["LatticeTiles"] = ("rcd-component-lattice", new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/Radial/RCD/lattice.png"))),
             // End Wayfarer
+            // Starlight: RPLD
+            ["PlumbingDucts"] = ("rpld-component-ducts", new SpriteSpecifier.Texture(new ResPath("/Textures/_Starlight/Interface/Radial/RPLD/category_ducts.png"))),
+            ["PlumbingMachines"] = ("rpld-component-machines", new SpriteSpecifier.Texture(new ResPath("/Textures/_Starlight/Interface/Radial/RPLD/category_machines.png"))),
+            // Starlight End: RPLD
         };
 
     private bool IsRpd => EntMan.TryGetComponent<RCDComponent>(Owner, out var rcd) && rcd.IsRpd; // Starlight: RPD

@@ -21,6 +21,7 @@ using Content.Shared.Verbs; // Frontier
 using Content.Shared.Examine; // Frontier
 using Content.Server.Construction; // Frontier
 using Content.Shared.Labels.EntitySystems; // Frontier
+using Content.Shared._Starlight.Plumbing.Components;
 
 namespace Content.Server.Chemistry.EntitySystems
 {
@@ -62,6 +63,7 @@ namespace Content.Server.Chemistry.EntitySystems
             SubscribeLocalEvent<ReagentDispenserComponent, ReagentDispenserClearContainerSolutionMessage>(OnClearContainerSolutionMessage);
 
             SubscribeLocalEvent<ReagentDispenserComponent, MapInitEvent>(OnMapInit, before: new[] { typeof(ItemSlotsSystem) });
+            SubscribeLocalEvent<ReagentDispenserComponent, ReagentDispenserToggleValveMessage>(OnToggleValveMessage);
         }
 
         private void SubscribeUpdateUiState<T>(Entity<ReagentDispenserComponent> ent, ref T ev)
@@ -133,8 +135,8 @@ namespace Content.Server.Chemistry.EntitySystems
             var outputContainerInfo = BuildOutputContainerInfo(outputContainer);
 
             var inventory = GetInventory(reagentDispenser);
-
-            var state = new ReagentDispenserBoundUserInterfaceState(outputContainerInfo, GetNetEntity(outputContainer), inventory, reagentDispenser.Comp.DispenseAmount);
+            var valveOpen = TryComp<PlumbingOutletComponent>(reagentDispenser.Owner, out var plumbingOutlet) && plumbingOutlet.Enabled; // Starlight-edit: Plumbing valve
+            var state = new ReagentDispenserBoundUserInterfaceState(outputContainerInfo, GetNetEntity(outputContainer), inventory, reagentDispenser.Comp.DispenseAmount, valveOpen);
             _userInterfaceSystem.SetUiState(reagentDispenser.Owner, ReagentDispenserUiKey.Key, state);
         }
 
@@ -250,6 +252,19 @@ namespace Content.Server.Chemistry.EntitySystems
             UpdateUiState(reagentDispenser);
             ClickSound(reagentDispenser);
         }
+
+        // Starlight-start: Plumbing valve toggle
+        private void OnToggleValveMessage(Entity<ReagentDispenserComponent> reagentDispenser, ref ReagentDispenserToggleValveMessage message)
+        {
+            if (!TryComp<PlumbingOutletComponent>(reagentDispenser.Owner, out var plumbingOutlet))
+                return;
+
+            plumbingOutlet.Enabled = !plumbingOutlet.Enabled;
+            Dirty(reagentDispenser.Owner, plumbingOutlet);
+            UpdateUiState(reagentDispenser);
+            ClickSound(reagentDispenser);
+        }
+        // Starlight-end
 
         private void ClickSound(Entity<ReagentDispenserComponent> reagentDispenser)
         {

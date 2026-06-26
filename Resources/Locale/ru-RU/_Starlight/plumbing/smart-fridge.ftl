@@ -1,0 +1,10 @@
+plumbing-smart-fridge-window-title = Умный холодильник
+plumbing-smart-fridge-header = Хранение химикатов
+plumbing-smart-fridge-reagent-entry = {$reagent}: {$amount}u
+plumbing-smart-fridge-empty = Реагенты не хранятся.
+plumbing-smart-fridge-total = Всего {$count} реагентов — {$total}u
+plumbing-smart-fridge-no-label = Контейнер не имеет этикетки.
+plumbing-smart-fridge-no-match = Не удалось сопоставить метку ни с одним известным реагентом.
+plumbing-smart-fridge-not-in-stock = {$reagent} отсутствует на складе.
+plumbing-smart-fridge-jug-full = Контейнер уже полон.
+plumbing-smart-fridge-filled = Заполнено {$amount}u {$reagent}.
