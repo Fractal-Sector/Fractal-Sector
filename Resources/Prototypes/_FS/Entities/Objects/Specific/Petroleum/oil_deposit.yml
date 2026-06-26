@@ -19,4 +19,4 @@
   - type: LiquidDeposit
     reagentId: CrudeOil
     amount: 15000
-    maxAmound: 25000
+    maxAmount: 25000
