@@ -106,7 +106,7 @@
     falloff: 30
 
 - type: entity
-  id: PirateUplinkSpriteKiara # Its her favorite color and she requested it for gcp. I think its funny to call it a pirate uplink
+  id: PirateUplinkSpriteOrange
   abstract: true
   components:
   - type: Sprite
@@ -114,7 +114,7 @@
     layers:
     - state: icon
       scale: 0.7, 0.7
-    - state: icon-overlay-kiara
+    - state: icon-overlay-orange
       scale: 0.7, 0.7
       shader: unshaded
   - type: PointLight
@@ -243,9 +243,9 @@
   suffix: Red, DEBUG
 
 - type: entity
-  parent: [PirateUplinkSpriteKiara, PirateUplinkAmountDebug, BasePirateUplink]
-  id: PirateUplinkKiaraDebug
-  suffix: Kiara, DEBUG
+  parent: [PirateUplinkSpriteOrange, PirateUplinkAmountDebug, BasePirateUplink]
+  id: PirateUplinkOrangeDebug
+  suffix: Orange, DEBUG
 
 - type: entity
   parent: [PirateUplinkSpriteGreen, PirateUplinkAmountDebug, BasePirateUplink]
@@ -279,9 +279,9 @@
   categories: [ HideSpawnMenu ]
 
 - type: entity
-  parent: [PirateUplinkSpriteKiara, PirateUplinkAmount50, BasePirateUplink]
-  id: PirateUplinkKiara50
-  suffix: Kiara, 50 DC
+  parent: [PirateUplinkSpriteOrange, PirateUplinkAmount50, BasePirateUplink]
+  id: PirateUplinkOrange50
+  suffix: Orange, 50 DC
   categories: [ HideSpawnMenu ]
 
 - type: entity
@@ -321,9 +321,9 @@
   categories: [ HideSpawnMenu ]
 
 - type: entity
-  parent: [PirateUplinkSpriteKiara, PirateUplinkAmount20, BasePirateUplink]
-  id: PirateUplinkKiara20
-  suffix: Kiara, 20 DC
+  parent: [PirateUplinkSpriteOrange, PirateUplinkAmount20, BasePirateUplink]
+  id: PirateUplinkOrange20
+  suffix: Orange, 20 DC
   categories: [ HideSpawnMenu ]
 
 - type: entity
