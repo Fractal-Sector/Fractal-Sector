@@ -27,35 +27,6 @@
 
 - type: reagent
   parent: BasePyrotechnic
-  id: HotCrudeOil
-  name: reagent-name-hotcrudeoil
-  desc: reagent-desc-hotcrudeoil
-  physicalDesc: reagent-physical-desc-burning
-  color: "#2b1105"
-  viscosity: 1.5
-  recognizable: true
-  boilingPoint: 450.0
-  meltingPoint: 50.0
-  metabolisms:
-    Poison:
-      effects:
-      - !type:HealthChange
-        scaleByQuantity: true
-        damage:
-          types:
-            Heat: 3
-            Poison: 2
-    Gas:
-      effects:
-      - !type:HealthChange
-        scaleByQuantity: true
-        damage:
-          types:
-            Heat: 2
-            Asphyxiation: 2
-
-- type: reagent
-  parent: BasePyrotechnic
   id: Petroleum
   name: reagent-name-petroleum
   desc: reagent-desc-petroleum

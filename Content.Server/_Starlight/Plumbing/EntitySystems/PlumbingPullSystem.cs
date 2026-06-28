@@ -191,7 +191,20 @@ public sealed class PlumbingPullSystem : EntitySystem
                 var actualPulled = _solutionSystem.RemoveReagent(sourceSoln, new ReagentId(reagentId, null), toPull);
                 if (actualPulled > 0)
                 {
+                    // FS: temperature patch
+                    float sourceTemp = sourceSoln.Comp.Solution.Temperature;
+
+                    if (destination.Comp.Solution.Volume <= 0)
+                    {
+                        _solutionSystem.SetTemperature(destination, sourceTemp);
+                        destSolution.Temperature = sourceTemp;
+                    }
+
                     _solutionSystem.TryAddReagent(destination, new ReagentId(reagentId, null), actualPulled, out var actuallyAdded);
+
+                    _solutionSystem.SetTemperature(destination, sourceTemp);
+                    destSolution.Temperature = sourceTemp;
+                    // FS end
 
                     // Return any excess to source to prevent loss
                     var excess = actualPulled - actuallyAdded;
@@ -273,7 +286,20 @@ public sealed class PlumbingPullSystem : EntitySystem
             var pulled = _solutionSystem.RemoveReagent(sourceSoln, reagent, toPull);
             if (pulled > 0)
             {
+                // FS: temperature patch
+                float sourceTemp = sourceSolution.Temperature;
+
+                if (destination.Comp.Solution.Volume <= 0)
+                {
+                    _solutionSystem.SetTemperature(destination, sourceTemp);
+                    destination.Comp.Solution.Temperature = sourceTemp;
+                }
+
                 _solutionSystem.TryAddReagent(destination, reagent, pulled, out var actuallyAdded);
+
+                _solutionSystem.SetTemperature(destination, sourceTemp);
+                destination.Comp.Solution.Temperature = sourceTemp;
+                // FS end
 
                 // Return any excess to source to prevent loss
                 var excess = pulled - actuallyAdded;

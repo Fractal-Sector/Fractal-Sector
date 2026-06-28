@@ -50,6 +50,7 @@ public sealed class PlumbingInputSystem : EntitySystem
         }
 
         var split = _solutionSystem.SplitSolution(drainableSolutionEnt.Value, toTransfer);
+        split.Temperature = drainableSolution.Temperature; // FS: temperature patch
         _solutionSystem.TryAddSolution(inputSolutionEnt.Value, split);
 
         _popup.PopupEntity(Loc.GetString("plumbing-input-poured", ("amount", toTransfer)), ent.Owner, args.User);
