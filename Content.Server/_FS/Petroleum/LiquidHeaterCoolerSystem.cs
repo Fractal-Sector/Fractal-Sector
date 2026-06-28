@@ -94,7 +94,7 @@ public sealed class LiquidHeaterCoolerSystem : EntitySystem
                 {
                     isProcessing = true;
 
-                    float temperatureChange = 50f * frameTime;
+                    var temperatureChange = machine.ProcessRate * frameTime;
 
                     Entity<SolutionComponent> validHolder = (solutionHolder.Value.Owner, solutionHolder.Value.Comp);
 
