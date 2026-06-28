@@ -94,7 +94,7 @@
       types:
         Blunt: 1
   - type: StaminaDamageOnCollide
-    damage: 8 # 13 to stun in line with higher RPS WF reduction stamina rebalance
+    damage: 13 # ~8 hits to stun sounds reasonable
 
 #region .45 pistol
 - type: entity
@@ -191,4 +191,4 @@
       types:
         Blunt: 2.5 #Wayfarer 2 -> 2.5
   - type: StaminaDamageOnCollide
-    damage: 16.5 # ~7 hits to stun sounds reasonable WF reduction stamina rebalance
+    damage: 18 # ~6 hits to stun sounds reasonable

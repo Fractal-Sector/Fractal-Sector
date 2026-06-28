@@ -197,7 +197,7 @@
       types:
         Blunt: 9 #Wayfarer 10 -> 9
   - type: StaminaDamageOnCollide
-    damage: 25 # 5 hits to stun WF reduction stamina rebalance ##Wayfarer 24 -> 25
+    damage: 30 # 4 hits to stun
 
 - type: entity
   categories: [ HideSpawnMenu ]

@@ -33,7 +33,7 @@
       types:
         Piercing: 1
   - type: StaminaDamageOnCollide
-    damage: 10 # 10 hits to stun WF reduction stamina rebalance
+    damage: 10.5 # ~10 hits to stun sounds reasonable, less effective than pistol because rifle round is smaller in size
 
 #region .20 rifle
 - type: entity
@@ -246,7 +246,7 @@
       types:
         Piercing: 2
   - type: StaminaDamageOnCollide
-    damage: 15 # ~8 hits to stun sounds reasonable ##Wayfarer 13 -> 15
+    damage: 13 # ~8 hits to stun sounds reasonable
 
 #region .60 rifle
 - type: entity
