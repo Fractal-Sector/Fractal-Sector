@@ -216,6 +216,17 @@
     layers:
     - state: default
     - state: idcontractor
+  # Wayfarer Start
+  - type: AgentIDCard
+  - type: ActivatableUI
+    key: enum.AgentIDCardUiKey.Key
+    inHandsOnly: true
+    verbText: job-select-card-open-ui-verb
+  - type: UserInterface
+    interfaces:
+      enum.AgentIDCardUiKey.Key:
+        type: JobSelectBoundUserInterface
+  # Wayfarer End
 
 - type: entity
   parent: PirateIDCard

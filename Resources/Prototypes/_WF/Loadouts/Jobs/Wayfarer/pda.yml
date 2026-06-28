@@ -8,7 +8,7 @@
   id: WFClearNFPDA
   price: 0
   equipment:
-    id: ClearPDA
+    id: ClearNFPDA
 
 - type: loadout
   id: WFSalvagePDA
