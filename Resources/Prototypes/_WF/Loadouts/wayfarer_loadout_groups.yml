@@ -1663,6 +1663,7 @@
   - WFCriticalImplantTrackerCartridge
   - WFNetProbeCartridge
   - WFLogProbeCartridge
+  - WFCorporationCartridge
 
 # == IMPLANTERS
 - type: loadoutGroup
