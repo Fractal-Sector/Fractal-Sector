@@ -180,6 +180,84 @@
     count: 30
 
 - type: entity
+  abstract: true
+  parent: BaseItem
+  id: NFBaseTreasureTrophyBag
+  description: A plastic bag with preserved body part. Morbid.
+  components:
+  - type: Sprite
+    sprite: _NF/Structures/Wallmounts/trophies.rsi
+  - type: Item
+    size: Large
+  - type: PhysicalComposition
+    materialComposition:
+      Biomass: 200
+  - type: Damageable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 80
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: StaticPrice
+    price: 5000
+  - type: NFTreasure
+
+- type: entity
+  parent: BaseItem
+  id: NFTreasureOrganicSamples
+  name: organic samples
+  description: A living, intact sample of organic culture. It can be sold on the market or processed into biomass.
+  components:
+  - type: Sprite
+    sprite: _NF/Objects/Misc/valuables_organic.rsi
+    layers:
+    - state: membrane
+      color: "#c8594c"
+      map: ["base"]
+  - type: RandomSprite
+    available:
+    - base:
+        alveolar-sacs: FleshColors
+        capillary: FleshColors
+        cube: FleshColors
+        membrane: FleshColors
+        membrane-top: FleshColors
+        organoid-1: FleshColors
+        organoid-2: FleshColors
+        organoid-3: FleshColors
+        symbiont: FleshColors
+        tubules: FleshColors
+  - type: PhysicalComposition
+    materialComposition:
+      Biomass: 50
+    chemicalComposition:
+      Blood: 20
+  - type: Butcherable
+    spawned:
+    - id: MaterialBiomassRandomReduced # 6 to 24
+  - type: Damageable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 40
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: Tag
+    tags:
+    - Trash
+  - type: SpaceGarbage
+  - type: StaticPrice
+    price: 150
+  - type: NFTreasure
+
+- type: entity
   parent: NFTreasureOrganicSamples
   id: NFTreasureOrganicSamplesXeno
   name: xenoid organic samples
