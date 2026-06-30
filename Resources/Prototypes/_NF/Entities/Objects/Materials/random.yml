@@ -262,6 +262,10 @@
   parent: [BaseStackRandomReduced, ArtifactFragment]
   id: ArtifactFragmentRandomReduced
 
+- type: entity
+  parent: [BaseStackRandomReduced, MaterialBiomass1]
+  id: MaterialBiomassRandomReduced
+
 #region Low
 - type: entity
   parent: [BaseStackRandomLow, PartRodMetal1]
