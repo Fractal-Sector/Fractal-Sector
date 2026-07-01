@@ -33,5 +33,5 @@ public sealed class WFCCVars
     /// Whether player corporations are allowed to purchase stations.
     /// </summary>
     public static readonly CVarDef<bool> CorporationStationPurchaseEnabled =
-        CVarDef.Create("wf.corporation.station_purchase_enabled", false, CVar.SERVER);
+        CVarDef.Create("wf.corporation.station_purchase_enabled", true, CVar.SERVER);
 }
