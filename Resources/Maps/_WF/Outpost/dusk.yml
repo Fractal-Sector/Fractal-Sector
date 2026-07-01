@@ -1,11 +1,11 @@
 meta:
   format: 7
   category: Map
-  engineVersion: 267.3.0
+  engineVersion: 271.2.0
   forkId: ""
   forkVersion: ""
-  time: 05/10/2026 10:14:01
-  entityCount: 20455
+  time: 06/30/2026 20:17:08
+  entityCount: 20454
 maps:
 - 1
 grids:
@@ -62386,17 +62386,6 @@ entities:
     - type: Transform
       pos: 44.5,-51.5
       parent: 2
-  - uid: 8789
-    components:
-    - type: Transform
-      pos: 42.5,-51.5
-      parent: 2
-  - uid: 8790
-    components:
-    - type: Transform
-      rot: 3.141592653589793 rad
-      pos: -33.5,-51.5
-      parent: 2
   - uid: 8791
     components:
     - type: Transform
@@ -64187,6 +64176,18 @@ entities:
     - type: Transform
       rot: 3.141592653589793 rad
       pos: -12.5,-155.5
+      parent: 2
+- proto: CorporationATM
+  entities:
+  - uid: 8789
+    components:
+    - type: Transform
+      pos: 42.5,-51.5
+      parent: 2
+  - uid: 8790
+    components:
+    - type: Transform
+      pos: -33.5,-51.5
       parent: 2
 - proto: CounterMetalFrame
   entities:

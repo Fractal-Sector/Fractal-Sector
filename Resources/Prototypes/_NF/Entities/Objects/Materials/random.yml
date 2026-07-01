@@ -141,6 +141,10 @@
   parent: [BaseStackRandom, CableApcStack1]
   id: CableApcStackRandom
 
+- type: entity
+  parent: [BaseStackRandom, NFMaterialChitinXeno1]
+  id: NFMaterialChitinXenoRandom
+
 #region Reduced
 - type: entity
   parent: [BaseStackRandomReduced, PartRodMetal1]
@@ -257,6 +261,10 @@
 - type: entity
   parent: [BaseStackRandomReduced, ArtifactFragment]
   id: ArtifactFragmentRandomReduced
+
+- type: entity
+  parent: [BaseStackRandomReduced, MaterialBiomass1]
+  id: MaterialBiomassRandomReduced
 
 #region Low
 - type: entity

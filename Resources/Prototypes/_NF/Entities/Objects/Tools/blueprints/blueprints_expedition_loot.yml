@@ -41,3 +41,33 @@
   - type: Blueprint
     providedRecipes:
     - NFEnergyPickaxe
+
+- type: entity
+  parent: NFBaseBlueprintExpeditionSyndicate
+  id: NFBlueprintAmmoIncendiarySyndicate
+  categories: [ HideSpawnMenu ]
+  name: incendiary ammo blueprint
+  description: A blueprint with a schematic of incendiary ammo. It can be inserted into a protolathe or techfab.
+  components:
+  - type: Blueprint
+    providedRecipes:
+    - NFAmmunitionBoxPistol35Incendiary
+    - NFAmmunitionBoxPistol45Incendiary
+    - NFAmmunitionBoxRifle20Incendiary
+    - NFAmmunitionBoxRifle30Incendiary
+    - NFAmmunitionBoxShellShotgunIncendiary
+
+- type: entity
+  parent: NFBaseBlueprintExpeditionSyndicate
+  id: NFBlueprintAmmoUraniumSyndicate
+  categories: [ HideSpawnMenu ]
+  name: uranium ammo blueprint
+  description: A blueprint with a schematic of uranium ammo. It can be inserted into a protolathe or techfab.
+  components:
+  - type: Blueprint
+    providedRecipes:
+    - NFAmmunitionBoxPistol35Uranium
+    - NFAmmunitionBoxPistol45Uranium
+    - NFAmmunitionBoxRifle20Uranium
+    - NFAmmunitionBoxRifle30Uranium
+    - NFAmmunitionBoxShellShotgunUranium

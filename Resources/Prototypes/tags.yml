@@ -1593,3 +1593,21 @@
 - type: Tag
   id: XenoborgModuleStealth
 # ALPHABETICAL
+
+- type: Tag
+  id: NFTreasureTrophyXenoBurrower
+
+- type: Tag
+  id: NFTreasureTrophyXenoDrone
+
+- type: Tag
+  id: NFTreasureTrophyXenoPraetorian
+
+- type: Tag
+  id: NFTreasureTrophyXenoQueen
+
+- type: Tag
+  id: NFTreasureTrophyXenoRavager
+
+- type: Tag
+  id: NFTreasureTrophyXenoSpitter

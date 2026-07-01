@@ -32,6 +32,7 @@
   - ShipyardChisel # FrontierShip Resources/Prototypes/_NF/Guidebook/shipyard.yml
   - ShipyardComet # FrontierShip Resources/Prototypes/_NF/Guidebook/shipyard.yml
   - ShipyardCopperhead # FrontierShip Resources/Prototypes/_NF/Guidebook/shipyard.yml
+  - ShipyardCopperskree
   - ShipyardCourier # FrontierShip Resources/Prototypes/_NF/Guidebook/shipyard.yml
   - ShipyardCrescent # FrontierShip Resources/Prototypes/_NF/Guidebook/shipyard.yml
   - ShipyardCrossroads # FrontierShip Resources/Prototypes/_NF/Guidebook/shipyard.yml
@@ -232,6 +233,11 @@
   id: ShipyardBocaskreeo
   name: guide-entry-shipyard-bocaskreeo
   text: "/ServerInfo/_WF/Guidebook/Shipyard/OutlawShipyard/Bocaskreeo.xml"
+
+- type: guideEntry
+  id: ShipyardCopperskree
+  name: guide-entry-shipyard-copperskree
+  text: "/ServerInfo/_WF/Guidebook/Shipyard/CivShipyard/Copperskree.xml"
 
 - type: guideEntry
   id: ShipyardMedivac

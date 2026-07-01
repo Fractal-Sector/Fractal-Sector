@@ -40,6 +40,7 @@ guide-entry-shipyard-icarus = Icarus
 guide-entry-shipyard-kite = Kite
 guide-entry-shipyard-looter = Looter
 guide-entry-shipyard-bocaskreeo = Bocaskreeo
+guide-entry-shipyard-copperskree = Copperskree
 guide-entry-shipyard-medivac = Medivac
 guide-entry-shipyard-mjolnir = Mjolnir
 guide-entry-shipyard-parma = Parma
