@@ -1,75 +1,128 @@
+using Content.Shared.Atmos;
 using Robust.Shared.GameStates;
 using Robust.Shared.Maths;
 
 namespace Content.Shared._FS.Petroleum;
 
+public enum OilRefineryPartType : byte
+{
+    Input   = 0,
+    Naphtha = 1,
+    Light   = 2,
+    Heavy   = 3,
+    Gas     = 4,
+}
+
 /// <summary>
-/// Master/control tile of the 2x2 oil refinery. Holds the actual processing logic
-/// and references to its three linked part entities. References are established
-/// once (deterministically, by grid offset) instead of every tick via range lookups.
+/// Мастер-блок НПЗ. Сам он не подключён ни к каким трубам - только обрабатывает
+/// нефть и раздаёт продукты в буферы соседних модулей. Ссылки на модули
+/// кэшируются один раз при анкоринге и никогда не ищутся по радиусу в рантайме.
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 public sealed partial class OilRefineryComponent : Component
 {
-    [DataField("minProcessTemp")]
-    public float MinProcessTemp = 400f;
+    /// <summary>
+    /// Минимальная температура нефти для начала переработки (К). Нефть должна быть горячей!
+    /// </summary>
+    [DataField]
+    public float MinProcessTemp = 500f;
 
-    [DataField("processRate")]
+    /// <summary>
+    /// Максимальная скорость переработки (единиц в секунду).
+    /// </summary>
+    [DataField]
     public float ProcessRate = 10f;
 
-    [DataField("sulfurGunk"), AutoNetworkedField]
+    [DataField, AutoNetworkedField]
     public float SulfurGunk = 0f;
 
-    [DataField("maxSulfurGunk")]
+    [DataField]
     public float MaxSulfurGunk = 100f;
 
-    [DataField("inputSolutionId")]
-    public string InputSolutionId = "buffer";
+    /// <summary>
+    /// Молей атмосферного газа на единицу переработанной нефти.
+    /// </summary>
+    [DataField]
+    public float GasMolesPerUnit = 0.5f;
+
 
     /// <summary>
-    /// Offsets (in tiles, relative to the master, in the refinery's *local* facing)
-    /// at which each required part must be anchored. Linking only ever checks these
-    /// exact tiles - never a fuzzy radius lookup.
+    /// Смещения тайлов от мастера к каждому модулю
     /// </summary>
-    [DataField("northOffset")]
-    public Vector2i NorthOffset = new(0, 1);
+    [DataField]
+    public Vector2i InputOffset = new( 0,  1);
 
-    [DataField("eastOffset")]
-    public Vector2i EastOffset = new(1, 0);
+    [DataField]
+    public Vector2i NaphthaOffset = new( 0, -1);
 
-    [DataField("gasOffset")]
-    public Vector2i GasOffset = new(1, 1);
+    [DataField]
+    public Vector2i LightOffset = new( 1,  0);
 
-    [DataField("northPart")]
-    public EntityUid? NorthPart;
+    [DataField]
+    public Vector2i HeavyOffset = new(-1,  0);
 
-    [DataField("eastPart")]
-    public EntityUid? EastPart;
-
-    [DataField("gasPart")]
-    public EntityUid? GasPart;
+    [DataField]
+    public Vector2i GasOffset = new( 1,  1);
 
     /// <summary>
-    /// True once all three parts have been found and linked. The refinery refuses to
-    /// run while this is false, and the appearance layer shows a "needs assembly"
-    /// state so a missing/misplaced part is obvious to the player instead of silently
-    /// not working.
+    /// Кэшированные ссылки на модули
     /// </summary>
-    [DataField("isAssembled"), AutoNetworkedField]
-    public bool IsAssembled;
+    [ViewVariables] public EntityUid? InputPart;
+    [ViewVariables] public EntityUid? NaphthaPart;
+    [ViewVariables] public EntityUid? LightPart;
+    [ViewVariables] public EntityUid? HeavyPart;
+    [ViewVariables] public EntityUid? GasPart;
 }
 
 /// <summary>
-/// A satellite tile of the refinery (north intake, east light-oil outlet, gas outlet).
-/// Links back to its master so verbs/UI on the part can defer to the master, and so
-/// the part can detect being orphaned (master destroyed/unanchored) without a lookup.
+/// Спутниковый модуль НПЗ. Знает свой тип и хранит обратную ссылку на мастер,
+/// чтобы вербы на любом тайле завода работали через мастера.
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 public sealed partial class OilRefineryPartComponent : Component
 {
-    [DataField("partType")]
-    public string PartType = "north";
+    [DataField(required: true)]
+    public OilRefineryPartType PartType;
 
-    [DataField("master"), AutoNetworkedField]
+    /// <summary>
+    /// Ссылка на мастер-блок. null если модуль ещё не привязан.
+    /// </summary>
+    [ViewVariables, AutoNetworkedField]
     public EntityUid? Master;
+}
+
+/// <summary>
+/// Ставится на газовый тайл вместе с OilRefineryPartComponent.
+/// Накапливает моли газа, которые мастер записывает в PendingMoles,
+/// и сбрасывает их в атмос-трубу при AtmosDeviceUpdateEvent.
+///
+/// На этом тайле НЕТ SolutionContainerManager и PlumbingOutlet -
+/// попутный газ это настоящая атмосфера, а не химический реагент.
+/// </summary>
+[RegisterComponent]
+public sealed partial class OilRefineryGasOutletComponent : Component
+{
+    /// <summary>
+    /// Имя PipeNode в NodeContainer этого энтити.
+    /// </summary>
+    [DataField]
+    public string PipeNodeName = "pipe";
+
+    /// <summary>
+    /// Какой атмосферный газ выходит.
+    /// </summary>
+    [DataField]
+    public Gas GasType = Gas.Petroleum;
+
+    /// <summary>
+    /// Температура газа при выходе в трубу (К).
+    /// </summary>
+    [DataField]
+    public float GasReleaseTemp = 400f;
+
+    /// <summary>
+    /// Моли, накопленные с последнего тика атмосферы.
+    /// </summary>
+    [ViewVariables]
+    public float PendingMoles;
 }
