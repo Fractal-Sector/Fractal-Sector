@@ -325,3 +325,10 @@ Entries:
   id: 21
   time: '2026-07-01T07:14:08.0000000+00:00'
   url: https://github.com/Fractal-Sector/Fractal-Sector/pull/37
+- author: IsNotAcceptable
+  changes:
+    - type: Tweak
+      message: Увеличен радиус обзора в консоли управления шаттла
+  id: 22
+  time: '2026-07-02T08:35:36.0000000+00:00'
+  url: https://github.com/Fractal-Sector/Fractal-Sector/pull/38
