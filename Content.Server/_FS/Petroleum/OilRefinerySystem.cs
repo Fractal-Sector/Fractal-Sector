@@ -216,14 +216,13 @@ public sealed class OilRefinerySystem : EntitySystem
         args.Verbs.Add(new AlternativeVerb
         {
             Text = $"Очистить серные фильтры ({gunk}/{(int) comp.MaxSulfurGunk})",
-            Disabled = comp.SulfurGunk < 20f,
             Act = () =>
             {
                 var stacks = (int) MathF.Floor(comp.SulfurGunk / 20f);
                 var coords = _transform.GetMoverCoordinates(masterUid);
 
                 for (var i = 0; i < stacks; i++)
-                    Spawn("SheetSulfur10", coords);
+                    Spawn("SheetSulfur1", coords);
 
                 comp.SulfurGunk = 0f;
                 Dirty(masterUid, comp);

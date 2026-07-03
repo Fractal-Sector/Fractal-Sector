@@ -30,7 +30,7 @@ public sealed class LiquidHeaterCoolerSystem : EntitySystem
     {
         if (!args.CanAccess || !args.CanInteract) return;
 
-        VerbCategory modeCategory = new("Режим работы", "/Textures/Interface/VerbIcons/gear.png");
+        VerbCategory modeCategory = new("Режим работы", "/Textures/Interface/VerbIcons/group.svg.192dpi.png");
 
         AlternativeVerb turnOff = new()
         {

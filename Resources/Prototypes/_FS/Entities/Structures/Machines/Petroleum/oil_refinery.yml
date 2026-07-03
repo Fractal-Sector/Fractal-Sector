@@ -27,10 +27,10 @@
   parent: BaseMachinePowered
   id: OilRefineryMaster
   name: "НПЗ - Блок управления"
-  description: "
+  description: >
     Центральный модуль нефтеперерабатывающего завода. Принимает горячую сырую нефть
     от входного модуля и разделяет её на фракции. Требует питания.
-    Серные фильтры необходимо периодически очищать вручную. "
+    Серные фильтры необходимо периодически очищать вручную.
   components:
   - type: Sprite
     sprite: Structures/Machines/jukebox.rsi
@@ -211,7 +211,6 @@
 # =============================================================================
 # 6. ГАЗОВЫЙ МОДУЛЬ (Gas, смещение +1,+1 от мастера)
 #
-# Это НЕ plumbing - попутный газ это настоящая атмосфера!
 # Модуль накапливает моли (PendingMoles), которые мастер пишет при переработке,
 # и сбрасывает их в атмос-трубу при AtmosDeviceUpdateEvent.
 #
@@ -234,8 +233,7 @@
     partType: Gas
   - type: OilRefineryGasOutlet
     pipeNodeName: pipe
-    gasType: Petroleum
-    gasReleaseTemp: 400   # Газ выходит горячим (400К), что логично для нефтепереработки.
+    gasReleaseTemp: 400
   - type: AtmosDevice
   - type: NodeContainer
     nodes:
@@ -243,4 +241,4 @@
         !type:PipeNode
         nodeGroupID: Pipe
         pipeDirection: East
-        volume: 20        # небольшой буферный объём трубного узла
+        volume: 20

@@ -25,7 +25,7 @@ public sealed partial class OilRefineryComponent : Component
     /// Минимальная температура нефти для начала переработки (К). Нефть должна быть горячей!
     /// </summary>
     [DataField]
-    public float MinProcessTemp = 500f;
+    public float MinProcessTemp = 389f;
 
     /// <summary>
     /// Максимальная скорость переработки (единиц в секунду).
@@ -45,28 +45,12 @@ public sealed partial class OilRefineryComponent : Component
     [DataField]
     public float GasMolesPerUnit = 0.5f;
 
+    [DataField] public Vector2i InputOffset = new( 0,  1);
+    [DataField] public Vector2i NaphthaOffset = new( 0, -1);
+    [DataField] public Vector2i LightOffset = new( 1,  0);
+    [DataField] public Vector2i HeavyOffset = new(-1,  0);
+    [DataField] public Vector2i GasOffset = new( 1,  1);
 
-    /// <summary>
-    /// Смещения тайлов от мастера к каждому модулю
-    /// </summary>
-    [DataField]
-    public Vector2i InputOffset = new( 0,  1);
-
-    [DataField]
-    public Vector2i NaphthaOffset = new( 0, -1);
-
-    [DataField]
-    public Vector2i LightOffset = new( 1,  0);
-
-    [DataField]
-    public Vector2i HeavyOffset = new(-1,  0);
-
-    [DataField]
-    public Vector2i GasOffset = new( 1,  1);
-
-    /// <summary>
-    /// Кэшированные ссылки на модули
-    /// </summary>
     [ViewVariables] public EntityUid? InputPart;
     [ViewVariables] public EntityUid? NaphthaPart;
     [ViewVariables] public EntityUid? LightPart;
