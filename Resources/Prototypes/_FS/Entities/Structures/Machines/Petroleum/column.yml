@@ -1,0 +1,114 @@
+- type: entity
+  parent: BaseMachinePowered
+  id: ReactiveColumnMaster
+  name: "Ректификационная колонна"
+  description: >
+    Разделяет нефтяные фракции на дистилляты. Первый продукт выходит на Юг,
+    второй — через порт на Востоке. Требует питания и нагретого сырья.
+  components:
+  - type: Sprite
+    sprite: Structures/Machines/diagnoser.rsi
+    layers:
+    - state: icon
+      map: [ "enum.PowerDeviceVisualLayers.Powered" ]
+  - type: GenericVisualizer
+    visuals:
+      enum.PowerDeviceVisualLayers.Powered:
+        enum.PowerDeviceVisualLayers.Powered:
+          True:  { state: running }
+          False: { state: icon }
+  - type: Appearance
+  - type: PlumbingConnectorAppearance
+  - type: AtmosPipeColor
+  - type: ReactiveColumn
+    processRate: 5
+    inputSolution: input
+    output1Solution: output1
+    portOffset: "1, 0"
+    recipes:
+    - input: Naphtha
+      output1: Diesel
+      output1Fraction: 0.6
+      output2: Mazut
+      output2Fraction: 0.4
+      minTemp: 309
+    - input: LightOil
+      output1: Kerosene
+      output1Fraction: 0.6
+      output2: Diesel
+      output2Fraction: 0.4
+      minTemp: 309
+    - input: HeavyOil
+      output1: IndustrialOil
+      output1Fraction: 0.6
+      output2: Bitumen
+      output2Fraction: 0.4
+      minTemp: 369
+    - input: IndustrialOil
+      output1: MachineLubricant
+      output1Fraction: 0.7
+      output2: Mazut
+      output2Fraction: 0.3
+      minTemp: 325
+  - type: ApcPowerReceiver
+    powerLoad: 1500
+  - type: PlumbingDevice
+    updateInterval: 2
+  - type: PlumbingInlet
+    solutionName: input
+    inletNames: [ inlet ]
+  - type: PlumbingOutlet
+    solutionName: output1
+  - type: SolutionContainerManager
+    solutions:
+      input:
+        maxVol: 200
+        canReact: false
+      output1:
+        maxVol: 200
+        canReact: false
+  - type: ExaminableSolution
+    solution: input
+  - type: NodeContainer
+    nodes:
+      inlet:
+        !type:PlumbingNode
+        nodeGroupID: Plumbing
+        pipeDirection: North
+      outlet1:
+        !type:PlumbingNode
+        nodeGroupID: Plumbing
+        pipeDirection: South
+
+- type: entity
+  parent: PlumbingMachineBase
+  id: ReactiveColumnPort
+  name: "Ректификационная колонна - Вторичный выход"
+  description: "Выдаёт второй продукт ректификации на Восток. Ставится вплотную к колонне."
+  components:
+  - type: Sprite
+    sprite: Structures/Machines/cloning.rsi
+    layers:
+    - state: pod_0
+  - type: Appearance
+  - type: PlumbingConnectorAppearance
+  - type: AtmosPipeColor
+  - type: ReactiveColumnPort
+    output2Solution: output2
+  - type: PlumbingDevice
+    updateInterval: 2
+  - type: PlumbingOutlet
+    solutionName: output2
+  - type: SolutionContainerManager
+    solutions:
+      output2:
+        maxVol: 200
+        canReact: false
+  - type: ExaminableSolution
+    solution: output2
+  - type: NodeContainer
+    nodes:
+      outlet2:
+        !type:PlumbingNode
+        nodeGroupID: Plumbing
+        pipeDirection: East
