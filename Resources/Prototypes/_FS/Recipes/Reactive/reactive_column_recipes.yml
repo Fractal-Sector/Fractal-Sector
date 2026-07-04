@@ -1,0 +1,35 @@
+- type: ReactiveColumnRecipe
+  id: Naphtha
+  input: Naphtha
+  output1: Diesel
+  output1Fraction: 0.6
+  output2: Mazut
+  output2Fraction: 0.4
+  minTemp: 320
+
+- type: ReactiveColumnRecipe
+  id: LightOil
+  input: LightOil
+  output1: Kerosene
+  output1Fraction: 0.6
+  output2: Diesel
+  output2Fraction: 0.4
+  minTemp: 320
+
+- type: ReactiveColumnRecipe
+  id: HeavyOil
+  input: HeavyOil
+  output1: IndustrialOil
+  output1Fraction: 0.6
+  output2: Bitumen
+  output2Fraction: 0.4
+  minTemp: 380
+
+- type: ReactiveColumnRecipe
+  id: IndustrialOil
+  input: IndustrialOil
+  output1: MachineLubricant
+  output1Fraction: 0.7
+  output2: Mazut
+  output2Fraction: 0.3
+  minTemp: 350
