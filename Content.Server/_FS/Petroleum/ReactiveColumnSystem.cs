@@ -18,14 +18,27 @@ public sealed class ReactiveColumnSystem : EntitySystem
     [Dependency] private readonly IPrototypeManager _protoManager = default!;
 
     private readonly Dictionary<string, ReactiveColumnRecipePrototype> _recipeIndex = new();
+    private Action<PrototypesReloadedEventArgs>? _onPrototypesReloaded;
 
     public override void Initialize()
     {
         base.Initialize();
 
-        RebuildCache();
+        _onPrototypesReloaded = _ => RebuildCache();
+        _protoManager.PrototypesReloaded += _onPrototypesReloaded;
 
-        _protoManager.PrototypesReloaded += _ => RebuildCache();
+        RebuildCache();
+    }
+
+    public override void Shutdown()
+    {
+        if (_onPrototypesReloaded != null)
+        {
+            _protoManager.PrototypesReloaded -= _onPrototypesReloaded;
+            _onPrototypesReloaded = null;
+        }
+
+        base.Shutdown();
     }
 
     private void RebuildCache()
@@ -33,6 +46,14 @@ public sealed class ReactiveColumnSystem : EntitySystem
         _recipeIndex.Clear();
         foreach (var recipe in _protoManager.EnumeratePrototypes<ReactiveColumnRecipePrototype>())
         {
+            var sum = recipe.Output1Fraction + recipe.Output2Fraction;
+            if (sum > 1.0f + 0.001f)
+            {
+                Log.Warning($"ReactiveColumnRecipe '{recipe.ID}': " +
+                            $"Output1Fraction ({recipe.Output1Fraction}) + Output2Fraction ({recipe.Output2Fraction}) = {sum} > 1.0 — ");
+                continue;
+            }
+
             _recipeIndex[recipe.Input] = recipe;
         }
     }
@@ -49,7 +70,6 @@ public sealed class ReactiveColumnSystem : EntitySystem
                 SetRunning(uid, false);
                 continue;
             }
-
             SetRunning(uid, TryProcess(uid, comp, frameTime));
         }
     }
@@ -59,10 +79,7 @@ public sealed class ReactiveColumnSystem : EntitySystem
 
     private bool TryProcess(EntityUid uid, ReactiveColumnComponent comp, float frameTime)
     {
-        if (!_solution.TryGetSolution(uid,
-                comp.InputSolution,
-                out var inputHolder,
-                out var inputSol))
+        if (!_solution.TryGetSolution(uid, comp.InputSolution, out var inputHolder, out var inputSol))
             return false;
 
         if (inputSol.Volume <= FixedPoint2.Zero)
@@ -89,15 +106,12 @@ public sealed class ReactiveColumnSystem : EntitySystem
         if (available <= 0f)
             return false;
 
-        if (!_solution.TryGetSolution(uid,
-                comp.OutputSolution,
-                out var outputHolder,
-                out var outputSol))
+        if (!_solution.TryGetSolution(uid, comp.OutputSolution, out var outputHolder, out var outputSol))
             return false;
 
         var toProcess = MathF.Min(comp.ProcessRate * frameTime, available);
-        var amt1 = toProcess * recipe.Output1Fraction;
-        var amt2 = toProcess * recipe.Output2Fraction;
+        var amt1      = toProcess * recipe.Output1Fraction;
+        var amt2      = toProcess * recipe.Output2Fraction;
 
         var totalOut = amt1 + amt2;
         var scale = FitScale(outputSol.AvailableVolume, totalOut);
@@ -109,9 +123,23 @@ public sealed class ReactiveColumnSystem : EntitySystem
         amt1 *= scale;
         amt2 *= scale;
 
+        var canAddOut1 = outputSol.AvailableVolume >= FixedPoint2.New(amt1);
+        var canAddOut2 = outputSol.AvailableVolume - FixedPoint2.New(amt1) >= FixedPoint2.New(amt2);
+
+        if (!canAddOut1 || !canAddOut2)
+        {
+            Log.Warning($"ReactiveColumn {ToPrettyString(uid)}: output buffer check failed " +
+                        $"(avail={outputSol.AvailableVolume}, need={amt1 + amt2}), skipping tick.");
+            return false;
+        }
+
         _solution.RemoveReagent(inputHolder.Value, inputReagent, FixedPoint2.New(toProcess));
-        _solution.TryAddReagent(outputHolder.Value, recipe.Output1, FixedPoint2.New(amt1), out _, null, null);
-        _solution.TryAddReagent(outputHolder.Value, recipe.Output2, FixedPoint2.New(amt2), out _, null, null);
+
+        if (!_solution.TryAddReagent(outputHolder.Value, recipe.Output1, FixedPoint2.New(amt1), out _, null, null))
+            Log.Error($"ReactiveColumn {ToPrettyString(uid)}: failed to add {recipe.Output1} after pre-check — possible mass loss.");
+
+        if (!_solution.TryAddReagent(outputHolder.Value, recipe.Output2, FixedPoint2.New(amt2), out _, null, null))
+            Log.Error($"ReactiveColumn {ToPrettyString(uid)}: failed to add {recipe.Output2} after pre-check — possible mass loss.");
 
         return true;
     }

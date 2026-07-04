@@ -7,7 +7,7 @@ namespace Content.Shared._FS.Petroleum;
 /// Рецепты загружаются из прототипов ReactiveColumnRecipe.
 /// Оба продукта выходят смешанными в один выходной буфер=.
 /// </summary>
-[RegisterComponent, NetworkedComponent]
+[RegisterComponent]
 public sealed partial class ReactiveColumnComponent : Component
 {
     /// <summary>

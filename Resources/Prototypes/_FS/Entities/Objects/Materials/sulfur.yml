@@ -5,9 +5,6 @@
   suffix: Full
   components:
   - type: Material
-  - type: PhysicalComposition
-    materialComposition:
-      Sulfur: 100
   - type: Stack
     stackType: Sulfur
     baseLayer: base

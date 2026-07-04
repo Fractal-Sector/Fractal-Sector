@@ -1,6 +1,6 @@
 - type: stack
   id: Sulfur
-  name: сера
+  name: stack-sulfur
   icon: { sprite: /Textures/Objects/Materials/Sheets/other.rsi, state: sulfur }
-  spawn: SheetPlasma1
+  spawn: SheetSulfur1
   maxCount: 100
