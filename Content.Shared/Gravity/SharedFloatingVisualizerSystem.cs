@@ -9,7 +9,7 @@ namespace Content.Shared.Gravity;
 /// </summary>
 public abstract partial class SharedFloatingVisualizerSystem : EntitySystem // DeltaV - Made Partial for Harpy Flying
 {
-    [Dependency] private readonly SharedGravitySystem _gravity = default!;
+    [Dependency] private SharedGravitySystem _gravity = default!;
 
     public override void Initialize()
     {

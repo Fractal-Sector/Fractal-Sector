@@ -9,6 +9,7 @@ using Content.Shared.Maps;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.Movement.Components;
 using Content.Shared.Movement.Events;
+using Content.Shared.Shuttles.Components;
 using Content.Shared.Tag;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
@@ -19,6 +20,7 @@ using Robust.Shared.Map.Components;
 using Robust.Shared.Physics;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Controllers;
+using Robust.Shared.Physics.Systems;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
@@ -33,22 +35,25 @@ namespace Content.Shared.Movement.Systems;
 /// </summary>
 public abstract partial class SharedMoverController : VirtualController
 {
-    [Dependency] private   readonly IConfigurationManager _configManager = default!;
-    [Dependency] protected readonly IGameTiming Timing = default!;
-    [Dependency] private   readonly ITileDefinitionManager _tileDefinitionManager = default!;
-    [Dependency] private   readonly ActionBlockerSystem _blocker = default!;
-    [Dependency] private   readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private   readonly InventorySystem _inventory = default!;
-    [Dependency] private   readonly MobStateSystem _mobState = default!;
-    [Dependency] private   readonly SharedAudioSystem _audio = default!;
-    [Dependency] private   readonly SharedContainerSystem _container = default!;
-    [Dependency] private   readonly SharedMapSystem _mapSystem = default!;
-    [Dependency] private   readonly SharedGravitySystem _gravity = default!;
-    [Dependency] private   readonly SharedTransformSystem _transform = default!;
-    [Dependency] private   readonly TagSystem _tags = default!;
+    [Dependency] private   IConfigurationManager _configManager = default!;
+    [Dependency] protected IGameTiming Timing = default!;
+    [Dependency] private   IMapManager _mapManager = default!;
+    [Dependency] private   ITileDefinitionManager _tileDefinitionManager = default!;
+    [Dependency] private   ActionBlockerSystem _blocker = default!;
+    [Dependency] private   EntityLookupSystem _lookup = default!;
+    [Dependency] private   InventorySystem _inventory = default!;
+    [Dependency] private   MobStateSystem _mobState = default!;
+    [Dependency] private   SharedAudioSystem _audio = default!;
+    [Dependency] private   SharedContainerSystem _container = default!;
+    [Dependency] private   SharedMapSystem _mapSystem = default!;
+    [Dependency] private   SharedGravitySystem _gravity = default!;
+    [Dependency] private   SharedTransformSystem _transform = default!;
+    [Dependency] private   TagSystem _tags = default!;
+    [Dependency] private   IEntityManager _entities = default!; // Delta V-NoShoesSilentFootstepsComponent
 
     protected EntityQuery<CanMoveInAirComponent> CanMoveInAirQuery;
     protected EntityQuery<FootstepModifierComponent> FootstepModifierQuery;
+    protected EntityQuery<FTLComponent> FTLQuery;
     protected EntityQuery<InputMoverComponent> MoverQuery;
     protected EntityQuery<MapComponent> MapQuery;
     protected EntityQuery<MapGridComponent> MapGridQuery;
@@ -57,6 +62,8 @@ public abstract partial class SharedMoverController : VirtualController
     protected EntityQuery<MovementSpeedModifierComponent> ModifierQuery;
     protected EntityQuery<NoRotateOnMoveComponent> NoRotateQuery;
     protected EntityQuery<PhysicsComponent> PhysicsQuery;
+    protected EntityQuery<PilotComponent> PilotQuery;
+    protected EntityQuery<PreventPilotComponent> PreventPilotQuery;
     protected EntityQuery<RelayInputMoverComponent> RelayQuery;
     protected EntityQuery<PullableComponent> PullableQuery;
     protected EntityQuery<TransformComponent> XformQuery;
@@ -94,9 +101,13 @@ public abstract partial class SharedMoverController : VirtualController
         FootstepModifierQuery = GetEntityQuery<FootstepModifierComponent>();
         MapGridQuery = GetEntityQuery<MapGridComponent>();
         MapQuery = GetEntityQuery<MapComponent>();
+        FTLQuery = GetEntityQuery<FTLComponent>();
+        PilotQuery = GetEntityQuery<PilotComponent>();
+        PreventPilotQuery = GetEntityQuery<PreventPilotComponent>();
         NoShoesSilentQuery = GetEntityQuery<NoShoesSilentFootstepsComponent>(); // DeltaV - NoShoesSilentFootstepsComponent
 
         SubscribeLocalEvent<MovementSpeedModifierComponent, TileFrictionEvent>(OnTileFriction);
+        SubscribeLocalEvent<InputMoverComponent, ComponentStartup>(OnMoverStartup);
 
         InitializeInput();
         InitializeRelay();
@@ -104,6 +115,12 @@ public abstract partial class SharedMoverController : VirtualController
         Subs.CVar(_configManager, CCVars.MinFriction, value => _minDamping = value, true);
         Subs.CVar(_configManager, CCVars.AirFriction, value => _airDamping = value, true);
         Subs.CVar(_configManager, CCVars.OffgridFriction, value => _offGridDamping = value, true);
+        UpdatesBefore.Add(typeof(TileFrictionController));
+    }
+
+    protected virtual void OnMoverStartup(Entity<InputMoverComponent> ent, ref ComponentStartup args)
+    {
+       _blocker.UpdateCanMove(ent, ent.Comp);
     }
 
     public override void Shutdown()
@@ -198,6 +215,7 @@ public abstract partial class SharedMoverController : VirtualController
         }
 
         // If the body is in air but isn't weightless then it can't move
+        // TODO: MAKE ISWEIGHTLESS EVENT BASED (done lol)
         var weightless = _gravity.IsWeightless(uid);
         var inAirHelpless = false;
 
@@ -334,7 +352,8 @@ public abstract partial class SharedMoverController : VirtualController
             if (!weightless && MobMoverQuery.TryGetComponent(uid, out var mobMover) &&
                 TryGetSound(weightless, uid, mover, mobMover, xform, out var sound, tileDef: tileDef))
             {
-                var soundModifier = mover.Sprinting ? 3.5f : 1.5f;
+                var soundModifier = mover.Sprinting ? InputMoverComponent.SprintingSoundModifier
+                    : InputMoverComponent.WalkingSoundModifier;
 
                 var audioParams = sound.Params
                     .WithVolume(sound.Params.Volume + soundModifier)
@@ -471,9 +490,9 @@ public abstract partial class SharedMoverController : VirtualController
             // Only allow pushing off of anchored things that have collision.
             if (otherCollider.BodyType != BodyType.Static ||
                 !otherCollider.CanCollide ||
-                ((collider.CollisionMask & otherCollider.CollisionLayer) == 0 &&
-                (otherCollider.CollisionMask & collider.CollisionLayer) == 0) ||
-                (TryComp(otherEntity, out PullableComponent? pullable) && pullable.BeingPulled))
+                (collider.CollisionMask & otherCollider.CollisionLayer) == 0 &&
+                (otherCollider.CollisionMask & collider.CollisionLayer) == 0 ||
+                PullableQuery.TryComp(otherEntity, out var pullable) && pullable.BeingPulled)
             {
                 continue;
             }
@@ -612,6 +631,23 @@ public abstract partial class SharedMoverController : VirtualController
             }
         }
 
+        // Frontier
+        if (_inventory.TryGetSlotEntity(uid, "outerClothing", out var outerClothing) &&
+            TryComp<FootstepModifierComponent>(outerClothing, out var outerModifier))
+        {
+            sound = outerModifier.FootstepSoundCollection;
+            return sound != null;
+        }
+        // End Frontier
+
+        // Delta V
+        if (_entities.TryGetComponent(uid, out NoShoesSilentFootstepsComponent? _) &&
+            !_inventory.TryGetSlotEntity(uid, "shoes", out var _))
+        {
+            return false;
+        }
+        // End Delta V NoShoesSilentFootsteps
+
         // Walking on a tile.
         // Tile def might have been passed in already from previous methods, so use that
         // if we have it
@@ -643,10 +679,11 @@ public abstract partial class SharedMoverController : VirtualController
 
     private void OnTileFriction(Entity<MovementSpeedModifierComponent> ent, ref TileFrictionEvent args)
     {
-        if (!TryComp<PhysicsComponent>(ent, out var physicsComponent) || !XformQuery.TryComp(ent, out var xform))
+        if (!PhysicsQuery.TryComp(ent, out var physicsComponent))
             return;
 
-        if (physicsComponent.BodyStatus != BodyStatus.OnGround || _gravity.IsWeightless(ent.Owner))
+        // TODO: Make IsWeightless event based!!!
+        if (physicsComponent.BodyStatus != BodyStatus.OnGround || _gravity.IsWeightless(ent, physicsComponent, Transform(ent)))
             args.Modifier *= ent.Comp.BaseWeightlessFriction;
         else
             args.Modifier *= ent.Comp.BaseFriction;

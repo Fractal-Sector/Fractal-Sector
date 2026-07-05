@@ -17,4 +17,10 @@ public sealed partial class MagbootsComponent : Component
     /// </summary>
     [DataField]
     public bool RequiresGrid = true;
+
+    /// <summary>
+    /// Goobstation - EquippedPrefix for enabled state
+    /// </summary>
+    [DataField]
+    public string? EnabledPrefix = "on";
 }
