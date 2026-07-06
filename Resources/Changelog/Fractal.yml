@@ -339,3 +339,10 @@ Entries:
   id: 23
   time: '2026-07-06T03:11:30.0000000+00:00'
   url: https://github.com/Fractal-Sector/Fractal-Sector/pull/39
+- author: IsNotAcceptable
+  changes:
+    - type: Tweak
+      message: Автобусные доки не ограждены
+  id: 24
+  time: '2026-07-06T03:56:11.0000000+00:00'
+  url: https://github.com/Fractal-Sector/Fractal-Sector/pull/40
