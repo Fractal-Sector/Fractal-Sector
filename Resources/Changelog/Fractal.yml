@@ -332,3 +332,10 @@ Entries:
   id: 22
   time: '2026-07-02T08:35:36.0000000+00:00'
   url: https://github.com/Fractal-Sector/Fractal-Sector/pull/38
+- author: IsNotAcceptable
+  changes:
+    - type: Fix
+      message: Аналитическая консоль теперь открывает окна
+  id: 23
+  time: '2026-07-06T03:11:30.0000000+00:00'
+  url: https://github.com/Fractal-Sector/Fractal-Sector/pull/39
