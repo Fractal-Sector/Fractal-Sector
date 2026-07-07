@@ -1,0 +1,69 @@
+using System.Net.Http;
+using System.Threading;
+using System.Threading.Tasks;
+using Robust.Shared;
+using Robust.Shared.Configuration;
+
+namespace Content.Server._FS.Administration;
+
+/// <summary>
+/// Upon every server startup, the standard ServerUpdateManager
+/// (Content.Server/ServerUpdates/ServerUpdateManager.cs) issues a notification
+/// that an "update is available." The ServerUpdateManager itself waits for
+/// the current round to end (or the server to empty) and shuts down the process gracefully.
+/// </summary>
+public sealed class AutoRestartSystem : EntitySystem
+{
+    [Dependency] private readonly IConfigurationManager _cfg = default!;
+
+    private static readonly TimeSpan RequestTimeout = TimeSpan.FromSeconds(5);
+
+    public override void Initialize()
+    {
+        base.Initialize();
+
+        // Called unconditionally, not just when an update is actually available—
+        // this is intentional, not an oversight. The actual check for a new
+        // commit is performed by the watchdog itself (UpdateProviderGit)
+        // whenever the instance restarts: if there are no changes, it simply
+        // launches the existing binary without rebuilding, so this extra
+        // call does not cause noticeable load or downtime.
+        // Fire-and-forget: exceptions are handled within the method.
+        _ = RequestRestartAfterThisRound();
+    }
+
+    private async Task RequestRestartAfterThisRound()
+    {
+        try
+        {
+            var port = _cfg.GetCVar(CVars.NetPort);
+            var token = _cfg.GetCVar(CVars.WatchdogToken);
+
+            if (string.IsNullOrEmpty(token))
+            {
+                Log.Warning("[AutoUpdate] watchdog.token empty");
+                return;
+            }
+
+            using var http = new HttpClient();
+            var request = new HttpRequestMessage(HttpMethod.Post, $"http://127.0.0.1:{port}/update");
+            request.Headers.Add("WatchdogToken", token);
+
+            using var cts = new CancellationTokenSource(RequestTimeout);
+            var response = await http.SendAsync(request, cts.Token);
+
+            if (response.IsSuccessStatusCode)
+                Log.Info("[AutoUpdate] A restart is scheduled after the end of the current round.");
+            else
+                Log.Error($"[AutoUpdate] Request rejected, status: {response.StatusCode}");
+        }
+        catch (OperationCanceledException)
+        {
+            Log.Error($"[AutoUpdate] The request to the local API timed out ({RequestTimeout.TotalSeconds} sec).");
+        }
+        catch (Exception e)
+        {
+            Log.Error($"[AutoUpdate] Failed: {e}");
+        }
+    }
+}
