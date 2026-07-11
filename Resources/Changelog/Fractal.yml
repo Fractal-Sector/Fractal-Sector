@@ -355,3 +355,12 @@ Entries:
   id: 25
   time: '2026-07-08T03:24:02.0000000+00:00'
   url: https://github.com/Fractal-Sector/Fractal-Sector/pull/42
+- author: IsNotAcceptable
+  changes:
+    - type: Add
+      message: >-
+        Аномалит можно добыть из руды, шанс появление руды на 1/100 больше чем у
+        алмазной руды
+  id: 26
+  time: '2026-07-11T07:35:59.0000000+00:00'
+  url: https://github.com/Fractal-Sector/Fractal-Sector/pull/43
