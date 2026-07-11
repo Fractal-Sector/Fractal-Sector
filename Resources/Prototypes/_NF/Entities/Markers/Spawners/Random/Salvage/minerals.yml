@@ -28,6 +28,8 @@
       weight: 0.01
     - id: WallRockDiamond
       weight: 0.002
+    - id: WallRockAnomalite # FS: Anomalite ore
+      weight: 0.003
     - id: NFWallRockBluespace
       weight: 0.003
     - id: NFRockElementalSpawner
@@ -164,6 +166,8 @@
       weight: 0.04
     - id: WallRockSnowDiamond
       weight: 0.002
+    - id: WallRockSnowAnomalite # FS: Anomalite ore
+      weight: 0.003
     - id: NFWallRockSnowBluespace
       weight: 0.01
     - id: NFSnowElementalSpawner
@@ -440,6 +444,8 @@
       weight: 0.01
     - id: WallRockBasaltDiamond
       weight: 0.005
+    - id: WallRockBasaltAnomalite # FS: Anomalite ore
+      weight: 0.006
     - id: NFWallRockBasaltBluespace
       weight: 0.005
     - id: NFBasaltElementalSpawner
@@ -578,6 +584,8 @@
       weight: 0.01
     - id: WallRockSandDiamond
       weight: 0.002
+    - id: WallRockSandAnomalite # FS: anomalite ore
+      weight: 0.003
     - id: NFWallRockSandBluespace
       weight: 0.002
     - id: NFSandElementalSpawner
@@ -716,6 +724,8 @@
       weight: 0.01
     - id: WallRockChromiteDiamond
       weight: 0.005
+    - id: WallRockChromiteAnomalite # FS: anomalite ore
+      weight: 0.006
     - id: NFWallRockChromiteBluespace
       weight: 0.0025
     - id: NFChromiteElementalSpawner
@@ -856,6 +866,8 @@
       weight: 0.002
     - id: AsteroidRockDiamond
       weight: 0.01
+    - id: AsteroidRockAnomalite # FS: Anomalite ore
+      weight: 0.02
     - id: NFAsteroidRockElementalSpawner
       weight: 0.08
 

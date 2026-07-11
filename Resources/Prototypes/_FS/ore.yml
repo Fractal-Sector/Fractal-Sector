@@ -1,0 +1,5 @@
+- type: ore
+  id: OreAnomalite
+  oreEntity: MaterialAnomalite1
+  minOreYield: 1
+  maxOreYield: 3
