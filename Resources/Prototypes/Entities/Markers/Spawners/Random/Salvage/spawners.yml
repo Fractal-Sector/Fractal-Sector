@@ -452,9 +452,26 @@
       children:
       - !type:AllSelector
         children:
-        - id: NFMobShark # Frontier MobSharkSalvage<NFMobShark
-        - id: NFMobCarp # Frontier MobCarpSalvage<NFMobCarp
-          amount: 2
+        # begin starcup: expanded carp and sharkminnows
+        - !type:GroupSelector
+          children:
+          - id: NFMobShark # Frontier MobSharkSalvage<NFMobShark
+          - id: MobSharkSalvageBlue
+          - id: MobSharkSalvageBrown
+          - id: MobSharkSalvageGreen
+          - id: MobSharkSalvageShelled
+          - id: MobSharkSalvageShelledBlue
+          - id: MobSharkSalvageShelledBrown
+          - id: MobSharkSalvageShelledGreen
+        - !type:GroupSelector
+          children:
+          - id: NFMobCarp # Frontier MobCarpSalvage<NFMobCarp
+          - id: MobCarpSalvageSplitfin
+          - id: MobCarpSalvageVampire
+          - id: MobCarpSalvageQueen
+          rolls: !type:RangeNumberSelector
+            range: 1, 3
+        # end starcup: expanded carp and sharkminnows
         - !type:NestedSelector
           rolls: 1, 3
           tableId: SalvageTreasureSpawnerValuable
@@ -549,9 +566,28 @@
   - type: EntityTableSpawner
     table: !type:AllSelector
       children:
-      - id: NFMobShark # Frontier MobSharkSalvage<NFMobShark
-      - id: NFMobCarp # Frontier MobCarpSalvage<NFMobCarp
-        amount: 3
+      # begin starcup: expanded carp and sharkminnows
+      - !type:GroupSelector
+        children:
+        - id: NFMobShark # Frontier MobSharkSalvage<NFMobShark
+        - id: MobSharkSalvageBlue
+        - id: MobSharkSalvageBrown
+        - id: MobSharkSalvageGreen
+        - id: MobSharkSalvageShelled
+        - id: MobSharkSalvageShelledBlue
+        - id: MobSharkSalvageShelledBrown
+        - id: MobSharkSalvageShelledGreen
+        - id: MobSharkSalvageAbyssal
+        - id: MobSharkSalvageVampire
+      - !type:GroupSelector
+        children:
+        - id: NFMobCarp # Frontier MobCarpSalvage<NFMobCarp
+        - id: MobCarpSalvageSplitfin
+        - id: MobCarpSalvageVampire
+        - id: MobCarpSalvageQueen
+        rolls: !type:RangeNumberSelector
+          range: 3, 4
+      # end starcup: expanded carp and sharkminnows
 
 - type: entity
   parent: MarkerBase

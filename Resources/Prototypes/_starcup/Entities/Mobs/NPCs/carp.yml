@@ -1,0 +1,357 @@
+- type: entity
+  suffix: splitfin
+  parent: MobCarp
+  id: MobCarpSplitfin
+  components:
+  - type: Sprite
+    sprite: _starcup/Mobs/Aliens/Carps/splitfin.rsi
+
+- type: entity
+  name: пиратский карп
+  parent: MobCarp
+  id: MobCarpPirate
+  description: Карп, которому жестоко приучили к послушанию.
+  components:
+  - type: NpcFactionMember
+    factions:
+    - Syndicate
+  - type: Sprite
+    sprite: _starcup/Mobs/Aliens/Carps/pirate.rsi
+  - type: Butcherable
+    spawned:
+    - id: FoodMeatBadFish
+      amount: 2
+    - id: MaterialToothSpaceCarp1
+      amount: 1
+      maxAmount: 4
+
+- type: entity
+  name: вампирский карп
+  parent: MobCarp
+  id: MobCarpVampire
+  description: Прожорливая космическая рыба с длинными клыками и жаждой крови.
+  components:
+  - type: Sprite
+    sprite: _starcup/Mobs/Aliens/Carps/vampire.rsi
+  - type: MeleeWeapon
+    damage:
+      types:
+        Slash: 5
+        Bloodloss: 2
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      40: Dead
+
+- type: entity
+  name: королевский карп
+  parent: MobCarp
+  id: MobCarpQueen
+  description: Карпы, хорошо питающихся грязным мусором, иногда называют 'королями' из-за их тучного вида.
+  components:
+  - type: Sprite
+    sprite: _starcup/Mobs/Aliens/Carps/queen.rsi
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      65: Dead
+  - type: Butcherable
+    spawned:
+    - id: FoodMeatFish
+      amount: 5
+
+- type: entity
+  suffix: blue
+  parent: MobShark
+  id: MobSharkBlue
+  components:
+  - type: Sprite
+    sprite: _starcup/Mobs/Aliens/Carps/Sharkminnows/sharkminnowblue.rsi
+
+- type: entity
+  suffix: brown
+  parent: MobShark
+  id: MobSharkBrown
+  components:
+  - type: Sprite
+    sprite: _starcup/Mobs/Aliens/Carps/Sharkminnows/sharkminnowbrown.rsi
+
+- type: entity
+  suffix: green
+  parent: MobShark
+  id: MobSharkGreen
+  components:
+  - type: Sprite
+    sprite: _starcup/Mobs/Aliens/Carps/Sharkminnows/sharkminnowgreen.rsi
+
+- type: entity
+  name: шеллминноу
+  parent: MobShark
+  id: MobSharkShelled
+  description: Опасная акула из кромешной тьмы бескрайнего космоса, защищенная толстыми костными пластинами.
+  components:
+  - type: Sprite
+    sprite: _starcup/Mobs/Aliens/Carps/Sharkminnows/sharkminnowshelled.rsi
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      185: Dead
+  - type: Butcherable
+    spawned:
+    - id: FoodMeatFish
+      amount: 6
+    - id: MaterialToothSharkminnow1
+      amount: 3
+
+- type: entity
+  name: шеллминноу
+  suffix: blue
+  parent: MobSharkShelled
+  id: MobSharkShelledBlue
+  components:
+  - type: Sprite
+    sprite: _starcup/Mobs/Aliens/Carps/Sharkminnows/sharkminnowshelledblue.rsi
+
+- type: entity
+  name: шеллминноу
+  suffix: brown
+  parent: MobSharkShelled
+  id: MobSharkShelledBrown
+  components:
+  - type: Sprite
+    sprite: _starcup/Mobs/Aliens/Carps/Sharkminnows/sharkminnowshelledbrown.rsi
+
+- type: entity
+  name: шеллминноу
+  suffix: green
+  parent: MobSharkShelled
+  id: MobSharkShelledGreen
+  components:
+  - type: Sprite
+    sprite: _starcup/Mobs/Aliens/Carps/Sharkminnows/sharkminnowshelledgreen.rsi
+
+- type: entity
+  name: наеденный шаркминноу
+  suffix: green
+  parent: MobSharkShelled
+  id: MobSharkFat
+  description: Опасная акула из кромешной тьмы бескрайнего космоса, питающаяся останками несчастных космонавтов.
+  components:
+  - type: Sprite
+    sprite: _starcup/Mobs/Aliens/Carps/Sharkminnows/sharkminnowfat.rsi
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      175: Dead
+
+- type: entity
+  name: вампирский шаркминноу
+  parent: MobShark
+  id: MobSharkVampire
+  description: Ужасающая акула из кромешной тьмы бескрайнего космоса, с невероятно длинными клыками.
+  components:
+  - type: Sprite
+    sprite: _starcup/Mobs/Aliens/Carps/Sharkminnows/sharkminnowvampire.rsi
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      115: Dead
+  - type: MeleeWeapon
+    damage:
+      types:
+        Slash: 10
+        Bloodloss: 7
+  - type: Butcherable
+    spawned:
+    - id: FoodMeatAbyssalFish
+      amount: 3
+    - id: MaterialToothSharkminnow1
+      amount: 5
+
+- type: entity
+  name: абиссальный шаркминноу
+  parent: MobShark
+  id: MobSharkAbyssal
+  description: Чрезвычайно опасная акула из кромешной тьмы бескрайнего космоса, более свирепая и выносливая.
+  components:
+  - type: Sprite
+    sprite: _starcup/Mobs/Aliens/Carps/Sharkminnows/sharkminnowabyssal.rsi
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      250: Dead
+  - type: MeleeWeapon
+    damage:
+      types:
+        Slash: 12
+        Bloodloss: 5
+  - type: Butcherable
+    spawned:
+    - id: FoodMeatAbyssalFish
+      amount: 6
+    - id: MaterialToothSharkminnow1
+      amount: 5
+
+- type: entity
+  name: лазерный шаркминноу
+  parent: MobShark
+  id: MobSharkLaser
+  description: Излюбленный способ расправы для изощренного космического злодея.
+  components:
+  - type: NpcFactionMember
+    factions:
+    - Syndicate
+  - type: Sprite
+    sprite: _starcup/Mobs/Aliens/Carps/Sharkminnows/sharkminnowlaser.rsi
+  - type: HitscanBatteryAmmoProvider
+    proto: RedLightLaser
+    fireCost: 50
+  - type: BatterySelfRecharger
+    autoRecharge: true
+    autoRechargeRate: 50
+  - type: Battery
+    maxCharge: 1000
+    startingCharge: 1000
+  - type: Gun
+    fireRate: 1
+    useKey: false
+    selectedMode: SemiAuto
+    availableModes:
+    - SemiAuto
+    soundGunshot: /Audio/Weapons/Guns/Gunshots/laser_cannon.ogg
+  - type: HTN
+    rootTask:
+      task: SimpleRangedHostileCompound
+
+- type: entity
+  name: ужасный шаркминноу
+  parent: MobShark
+  id: MobSharkDire
+  description: Ужасающая акула из кромешной тьмы бескрайнего космоса, с невероятно длинными клыками.
+  components:
+  - type: Sprite
+    sprite: _starcup/Mobs/Aliens/Carps/Sharkminnows/sharkminnowdire.rsi
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      200: Dead
+  - type: MeleeWeapon
+    damage:
+      types:
+        Slash: 10
+        Bloodloss: 7
+  - type: Butcherable
+    spawned:
+    - id: FoodMeatFish
+      amount: 6
+    - id: MaterialToothSharkminnow1
+      amount: 6
+
+- type: entity
+  name: тибурон
+  suffix: "sharkminnow boss"
+  parent: MobSharkDire
+  id: MobSharkTiburadon
+  description: Древняя порода шаркминноу из самых дальних уголков космоса.
+  components:
+  - type: Sprite
+    sprite: _starcup/Mobs/Aliens/Carps/Sharkminnows/tiburadon.rsi
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      250: Dead
+  - type: MeleeWeapon
+    damage:
+      types:
+        Slash: 12
+        Bloodloss: 7
+  - type: Butcherable
+    spawned:
+    - id: FoodMeatAbyssalFish
+      amount: 12
+    - id: MaterialToothSharkminnow1
+      amount: 12
+
+- type: entity
+  parent: MobCarpSplitfin
+  id: MobCarpSalvageSplitfin
+  suffix: "splitfin, Salvage Ruleset"
+  components:
+  - type: SalvageMobRestrictions
+
+- type: entity
+  parent: MobCarpVampire
+  id: MobCarpSalvageVampire
+  suffix: "Salvage Ruleset"
+  components:
+  - type: SalvageMobRestrictions
+
+- type: entity
+  parent: MobCarpQueen
+  id: MobCarpSalvageQueen
+  suffix: "Salvage Ruleset"
+  components:
+  - type: SalvageMobRestrictions
+
+- type: entity
+  id: MobSharkSalvageBlue
+  parent: MobSharkBlue
+  suffix: "blue, Salvage Ruleset"
+  components:
+  - type: SalvageMobRestrictions
+
+- type: entity
+  id: MobSharkSalvageBrown
+  parent: MobSharkBrown
+  suffix: "brown, Salvage Ruleset"
+  components:
+  - type: SalvageMobRestrictions
+
+- type: entity
+  id: MobSharkSalvageGreen
+  parent: MobSharkGreen
+  suffix: "green, Salvage Ruleset"
+  components:
+  - type: SalvageMobRestrictions
+
+- type: entity
+  id: MobSharkSalvageShelled
+  parent: MobSharkShelled
+  suffix: "Salvage Ruleset"
+  components:
+  - type: SalvageMobRestrictions
+
+- type: entity
+  id: MobSharkSalvageShelledBlue
+  parent: MobSharkShelledBlue
+  suffix: "blue, Salvage Ruleset"
+  components:
+  - type: SalvageMobRestrictions
+
+- type: entity
+  id: MobSharkSalvageShelledBrown
+  parent: MobSharkShelledBrown
+  suffix: "brown, Salvage Ruleset"
+  components:
+  - type: SalvageMobRestrictions
+
+- type: entity
+  id: MobSharkSalvageShelledGreen
+  parent: MobSharkShelledGreen
+  suffix: "green, Salvage Ruleset"
+  components:
+  - type: SalvageMobRestrictions
+
+- type: entity
+  id: MobSharkSalvageAbyssal
+  parent: MobSharkAbyssal
+  suffix: "Salvage Ruleset"
+  components:
+  - type: SalvageMobRestrictions
+
+- type: entity
+  id: MobSharkSalvageVampire
+  parent: MobSharkVampire
+  suffix: "Salvage Ruleset"
+  components:
+  - type: SalvageMobRestrictions
