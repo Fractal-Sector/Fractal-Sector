@@ -276,82 +276,58 @@
   parent: MobCarpSplitfin
   id: MobCarpSalvageSplitfin
   suffix: "splitfin, Salvage Ruleset"
-  components:
-  - type: SalvageMobRestrictions
 
 - type: entity
   parent: MobCarpVampire
   id: MobCarpSalvageVampire
   suffix: "Salvage Ruleset"
-  components:
-  - type: SalvageMobRestrictions
 
 - type: entity
   parent: MobCarpQueen
   id: MobCarpSalvageQueen
   suffix: "Salvage Ruleset"
-  components:
-  - type: SalvageMobRestrictions
 
 - type: entity
   id: MobSharkSalvageBlue
   parent: MobSharkBlue
   suffix: "blue, Salvage Ruleset"
-  components:
-  - type: SalvageMobRestrictions
 
 - type: entity
   id: MobSharkSalvageBrown
   parent: MobSharkBrown
   suffix: "brown, Salvage Ruleset"
-  components:
-  - type: SalvageMobRestrictions
 
 - type: entity
   id: MobSharkSalvageGreen
   parent: MobSharkGreen
   suffix: "green, Salvage Ruleset"
-  components:
-  - type: SalvageMobRestrictions
 
 - type: entity
   id: MobSharkSalvageShelled
   parent: MobSharkShelled
   suffix: "Salvage Ruleset"
-  components:
-  - type: SalvageMobRestrictions
 
 - type: entity
   id: MobSharkSalvageShelledBlue
   parent: MobSharkShelledBlue
   suffix: "blue, Salvage Ruleset"
-  components:
-  - type: SalvageMobRestrictions
 
 - type: entity
   id: MobSharkSalvageShelledBrown
   parent: MobSharkShelledBrown
   suffix: "brown, Salvage Ruleset"
-  components:
-  - type: SalvageMobRestrictions
 
 - type: entity
   id: MobSharkSalvageShelledGreen
   parent: MobSharkShelledGreen
   suffix: "green, Salvage Ruleset"
-  components:
-  - type: SalvageMobRestrictions
 
 - type: entity
   id: MobSharkSalvageAbyssal
   parent: MobSharkAbyssal
   suffix: "Salvage Ruleset"
-  components:
-  - type: SalvageMobRestrictions
 
 - type: entity
   id: MobSharkSalvageVampire
   parent: MobSharkVampire
   suffix: "Salvage Ruleset"
-  components:
-  - type: SalvageMobRestrictions
