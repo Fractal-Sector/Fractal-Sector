@@ -364,3 +364,10 @@ Entries:
   id: 26
   time: '2026-07-11T07:35:59.0000000+00:00'
   url: https://github.com/Fractal-Sector/Fractal-Sector/pull/43
+- author: IsNotAcceptable
+  changes:
+    - type: Add
+      message: В секторе произошла эволюция карпов и акул
+  id: 27
+  time: '2026-07-13T04:22:17.0000000+00:00'
+  url: https://github.com/Fractal-Sector/Fractal-Sector/pull/44
