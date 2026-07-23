@@ -352,8 +352,7 @@ public abstract partial class SharedMoverController : VirtualController
             if (!weightless && MobMoverQuery.TryGetComponent(uid, out var mobMover) &&
                 TryGetSound(weightless, uid, mover, mobMover, xform, out var sound, tileDef: tileDef))
             {
-                var soundModifier = mover.Sprinting ? InputMoverComponent.SprintingSoundModifier
-                    : InputMoverComponent.WalkingSoundModifier;
+                var soundModifier = mover.Sprinting ? 3.5f : 1.5f;
 
                 var audioParams = sound.Params
                     .WithVolume(sound.Params.Volume + soundModifier)
@@ -679,11 +678,10 @@ public abstract partial class SharedMoverController : VirtualController
 
     private void OnTileFriction(Entity<MovementSpeedModifierComponent> ent, ref TileFrictionEvent args)
     {
-        if (!PhysicsQuery.TryComp(ent, out var physicsComponent))
+        if (!TryComp<PhysicsComponent>(ent, out var physicsComponent) || !XformQuery.TryComp(ent, out var xform))
             return;
 
-        // TODO: Make IsWeightless event based!!!
-        if (physicsComponent.BodyStatus != BodyStatus.OnGround || _gravity.IsWeightless(ent, physicsComponent, Transform(ent)))
+        if (physicsComponent.BodyStatus != BodyStatus.OnGround || _gravity.IsWeightless(ent.Owner))
             args.Modifier *= ent.Comp.BaseWeightlessFriction;
         else
             args.Modifier *= ent.Comp.BaseFriction;
