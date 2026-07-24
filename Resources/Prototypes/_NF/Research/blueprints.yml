@@ -4,18 +4,16 @@
   blueprint: NFBlueprintGeneral
   packs:
   - NFBlueprintsCommon
-  # Wayfarer: Omni BP Removal, leaves common though.
-  #- NFBlueprintsEngineering
-  #- NFBlueprintsEngineeringScience
-  #- NFBlueprintsMedical
-  #- NFBlueprintsMercenary
-  #- NFBlueprintsMercenaryNfsd
-  #- NFBlueprintsNfsd
-  #- NFBlueprintsSalvage
-  #- NFBlueprintsScience
-  #- NFBlueprintsService
+  - NFBlueprintsEngineering
+  - NFBlueprintsEngineeringScience
+  - NFBlueprintsMedical
+  - NFBlueprintsMercenary
+  - NFBlueprintsMercenaryNfsd
+  - NFBlueprintsNfsd
+  - NFBlueprintsSalvage
+  - NFBlueprintsScience
+  - NFBlueprintsService
   - WFBlueprintsCommon
-  # Wayfarer End
 
 - type: blueprint
   id: NFEngineering
