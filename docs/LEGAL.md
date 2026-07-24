@@ -31,34 +31,40 @@ Assets have distinct licenses in attributions.yml and meta.json files which must
 
 The table below lists all Namespaces (along with the Nyanotrasen subdirectory) in the repository, includes a link to the source repository, and the original license that code was taken under.
 
-| Subdirectory       | Fork Name        | Source Repository | Original License |
-|--------------------|------------------|-------------------|------------------|
-| `_FS`              | Fractal Sector   | https://github.com/Fractal-Sector/Fractal-Sector | AGPL 3.0 |
-| `_WF`              | Wayfarer         | https://github.com/drraccoony/wayfarer-14 | AGPL 3.0 |
-| `_NF`              | Frontier Station | https://github.com/new-frontiers-14/frontier-station-14 | AGPL 3.0 |
-| `_CD`              | Cosmatic Drift   | https://github.com/cosmatic-drift-14/cosmatic-drift | MIT |
-| `_Corvax`          | Corvax           | https://github.com/space-syndicate/space-station-14 | MIT |
-| `_Corvax`          | Corvax Frontier  | https://github.com/Corvax-Frontier/Frontier | AGPL 3.0 |
-| `_COYOTE`          | Coyote Sector    | https://github.com/ARF-SS13/coyote-frontier | AGPL 3.0 |
-| `_CS`              | Coyote Sector    | https://github.com/ARF-SS13/coyote-frontier | AGPL 3.0 |
-| `_DdeltaV`         | Delta-V          | https://github.com/DeltaV-Station/Delta-v | AGPL 3.0 |
-| `_DV`              | Delta-V          | https://github.com/DeltaV-Station/Delta-v | AGPL 3.0 |
-| `_EE`              | Einstein Engines | https://github.com/Simple-Station/Einstein-Engines | AGPL 3.0 |
-| `_EinsteinEngines` | Einstein Engines | https://github.com/Simple-Station/Einstein-Engines | AGPL 3.0 |
-| `_Emberfall`       | Emberfall        | https://github.com/emberfall-14/emberfall | [MIT (with permission)](https://github.com/new-frontiers-14/frontier-station-14/pull/3607) |
-| `_EstacaoPirata`   | Estacao Pirata   | https://github.com/estacao-pirata/estacao-pirata | AGPL 3.0 |
-| `_Goobstation`     | Goob Station     | https://github.com/Goob-Station/Goob-Station | AGPL 3.0 |
-| `_Harmony_`        | Harmony          | https://github.com/ss14-harmony/ss14-harmony | AGPL 3.0 |
-| `_HL`              | HardLight        | https://github.com/HardLightSector/HardLight/ | AGPL 3.0 |
-| `_Impstation`      | Impstation       | https://github.com/impstation/imp-station-14 | AGPL 3.0 |
-| `_Misfits`         | Nuclear 14       | https://github.com/Misfit-Sanctuary/nuclear-14 | AGPL 3.0 |
-| `_Mono`            | Monolith         | https://github.com/Monolith-Station/Monolith/tree/main | AGPL 3.0 |
-| `_NC14`            | Nuclear 14       | https://github.com/Vault-Overseers/nuclear-14 | AGPL 3.0 |
-| `_TheDen`          | TheDen           | https://github.com/TheDenSS14/TheDen | AGPL 3.0 |
-| `DeltaV`           | Delta-V          | https://github.com/DeltaV-Station/Delta-v | AGPL 3.0 |
-| `Floof`            | Floof Station    | https://github.com/Floof-Station/Floof-Station | AGPL 3.0 |
-| `Goobstation`      | Goob Station     | https://github.com/Goob-Station/Goob-Station | AGPL 3.0 |
-| `Nyanotrasen`      | Nyanotrasen      | https://github.com/Nyanotrasen/Nyanotrasen | MIT |
+| Subdirectory    | Fork Name        | Source Repository | Original License |
+|-----------------|------------------|-------------------|------------------|
+| `_AS`           | Aurora Song 14   | https://github.com/AuroraSong14/Aurora-Song-14 | AGPL 3.0 |
+| `_CD`           | Cosmatic Drift   | https://github.com/cosmatic-drift-14/cosmatic-drift | MIT |
+| `_Corvax`       | Corvax           | https://github.com/space-syndicate/space-station-14 | MIT |
+| `_Corvax`       | Corvax Frontier  | https://github.com/Corvax-Frontier/Frontier | AGPL 3.0 |
+| `_Crescent`     | Hullrot          | https://github.com/Sector-Crescent/Hullrot  | AGPL 3.0 |
+| `_CS`           | Coyote Sector    | https://github.com/ARF-SS13/coyote-frontier | AGPL 3.0 |
+| `_Den`          | TheDen           | https://github.com/TheDenSS14/TheDen | AGPL 3.0 |
+| `_DV`           | Delta-V          | https://github.com/DeltaV-Station/Delta-v | AGPL 3.0 |
+| `_EE`           | Einstein-Engines | https://github.com/Simple-Station/Einstein-Engines | AGPL 3.0 |
+| `_Emberfall`    | Emberfall        | https://github.com/emberfall-14/emberfall | MPL |
+| `_EstacaoPirata`| Estacao Pirata   | https://github.com/estacao-pirata/estacao-pirata | AGPL 3.0 |
+| `_FarHorizons`  | Far Horizons     | https://github.com/Far-Horizons-SS14/Far-Horizons-SS14 | MIT |
+| `_Floof`        | Floof Station    | https://github.com/Floof-Station/Floof-Station | AGPL 3.0 |
+| `_FS`           | Fractal Sector   | https://github.com/Fractal-Sector/Fractal-Sector | AGPL 3.0 |
+| `_Funkystation` | Fanky Station    | https://github.com/funky-station/funky-station | AGPL 3.0 |
+| `_Goobstation`  | Goob Station     | https://github.com/Goob-Station/Goob-Station | AGPL 3.0 |
+| `_Harmony`      | Harmony          | https://github.com/ss14-harmony/ss14-harmony | AGPL 3.0 |
+| `_HL`           | HardLight        | https://github.com/HardLightSector/HardLight/ | AGPL 3.0 |
+| `_Impstation`   | Impstation       | https://github.com/impstation/imp-station-14 | AGPL 3.0 |
+| `_Misfits`      | Nuclear 14       | https://github.com/Misfit-Sanctuary/nuclear-14 | AGPL 3.0 |
+| `_Mono`         | Monolith         | https://github.com/Monolith-Station/Monolith/tree/main | AGPL 3.0 |
+| `_NF`           | Frontier Station | https://github.com/new-frontiers-14/frontier-station-14 | AGPL 3.0 |
+| `_Nuclear14`    | Nuclear 14       | https://github.com/Vault-Overseers/nuclear-14 | AGPL 3.0 |
+| `_Nyano`        | Nyanotrasen      | https://github.com/Nyanotrasen/Nyanotrasen | MIT |
+| `_RMC14`        | RMC-14           | https://github.com/RMC-14/RMC-14 | MIT |
+| `_starcup`      | Starcup          | https://github.com/teamstarcup/starcup | AGPL 3.0 |
+| `_Starlight`    | Starlight        | https://github.com/ss14Starlight/space-station-14 | Starlight |
+| `_TG`           | TGstation        | https://github.com/tgstation/tgstation | AGPL 3.0 |
+| `_WF`           | Wayfarer         | https://github.com/drraccoony/wayfarer-14 | AGPL 3.0 |
+| `_White`        | White Dream      | https://github.com/WWhiteDreamProject/wwdpublic | AGPL 3.0 |
+| `Floof`         | Floof Station    | https://github.com/Floof-Station/Floof-Station | AGPL 3.0 |
+| `Goobstation`   | Goob Station     | https://github.com/Goob-Station/Goob-Station | AGPL 3.0 |
 
 Additional repositories with ported code without Namespaces (denoted by comments) are listed below.
 
