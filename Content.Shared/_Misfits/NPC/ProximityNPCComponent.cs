@@ -18,7 +18,7 @@ public sealed partial class ProximityNPCComponent : Component
     /// per-tick CPU cost when many NPCs are spread across the map.
     /// </summary>
     [DataField]
-    public float WakeRange = 64f;
+    public float WakeRange = 30f; // FS: 64<30
 
     /// <summary>
     /// Distance (tiles) at which the NPC sleeps if no players remain nearby.
@@ -27,7 +27,7 @@ public sealed partial class ProximityNPCComponent : Component
     /// Reduced from 60f to 45f to match the tighter wake range.
     /// </summary>
     [DataField]
-    public float SleepRange = 96f;
+    public float SleepRange = 45f; // FS: 96<45
 
     /// <summary>
     /// If true, overrides the default HTN behaviour of waking on map init and instead
