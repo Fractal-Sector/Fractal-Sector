@@ -1,11 +1,11 @@
-nf-research-discipline-all = All Available
-nf-research-discipline-engineering = Engineering
-nf-research-discipline-medical = Medical
-nf-research-discipline-arsenal-mercenary = Mercenary
-nf-research-discipline-arsenal-nfsd = CGP
-nf-research-discipline-salvage = Salvage
-nf-research-discipline-science = Science
-nf-research-discipline-service = Service
+nf-research-discipline-all = Все доступные
+nf-research-discipline-engineering = Инженерные
+nf-research-discipline-medical = Медицинские
+nf-research-discipline-arsenal-mercenary = Экпедиционные
+nf-research-discipline-arsenal-nfsd = ГМК
+nf-research-discipline-salvage = Утилизационные
+nf-research-discipline-science = Научные
+nf-research-discipline-service = Сервисные
 
 # Keep these alphabetical by key.
 nf-research-technology-abnormal-artifact-manipulation = Artifact Recycling

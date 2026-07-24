@@ -68,30 +68,30 @@
                                VerticalExpand="True"
                                HorizontalAlignment="Center"/>
                     </controls1:StripeBack>
-                    <controls:BoxContainer Orientation="Horizontal"
-                                  HorizontalAlignment="Stretch"
-                                  HorizontalExpand="True">
+                    <controls:GridContainer
+                            Columns="2"
+                            HorizontalAlignment="Stretch"
+                            HorizontalExpand="True"
+                            VerticalAlignment="Top"
+                            Margin="3">
                         <controls:Button Name="IFFToggle"
                                 Text="{controls:Loc 'shuttle-console-iff-toggle'}"
                                 TextAlign="Center"
-                                StyleClasses="OpenRight"
                                 ToggleMode="True"
                                 HorizontalExpand="True"/>
                         <!-- Frontier: hide player shuttles -->
                         <controls:Button Name="IFFShuttleToggle"
                                  Text="{controls:Loc 'shuttle-console-iffshuttles-toggle'}"
                                  TextAlign="Center"
-                                 StyleClasses="OpenBoth"
                                  ToggleMode="True"
                                  HorizontalExpand="True"/>
                         <!-- End Frontier: hide player shuttles -->
                         <controls:Button Name="DockToggle"
                                 Text="{controls:Loc 'shuttle-console-dock-toggle'}"
                                 TextAlign="Center"
-                                StyleClasses="OpenLeft"
                                 ToggleMode="True"
                                 HorizontalExpand="True"/>
-                    </controls:BoxContainer>
+                    </controls:GridContainer>
 
                     <!-- Wayfarer - Radar Settings -->
                     <controls:Button Name="NavRadarSettingsButton"

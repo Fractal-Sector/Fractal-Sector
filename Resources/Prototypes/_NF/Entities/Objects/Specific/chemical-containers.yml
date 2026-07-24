@@ -224,7 +224,7 @@
   id: FuelPlasma
   name: fuel-grade plasma
   description: A rod made of desaturated plasma, suitable for fuel.
-  suffix: 20
+  suffix: 30
   components:
   - type: Material
   - type: PhysicalComposition
@@ -241,7 +241,7 @@
     vendPrice: 1200
   - type: Stack
     stackType: FuelPlasma
-    count: 20
+    count: 30
   - type: NFFuel # Frontier
 
 - type: entity
@@ -259,7 +259,7 @@
   id: FuelUranium
   name: fuel-grade uranium
   description: A rod made of semi-processed uranium, suitable for fuel.
-  suffix: 20
+  suffix: 30
   components:
   - type: Material
   - type: PhysicalComposition
@@ -276,7 +276,7 @@
     vendPrice: 2500
   - type: Stack
     stackType: FuelUranium
-    count: 20
+    count: 30
   - type: NFFuel # Frontier
 
 - type: entity
@@ -294,7 +294,7 @@
   id: FuelBananium
   name: fuel-grade bananium
   description: A rod made from pressed bananium peels, suitable for fuel.
-  suffix: 20
+  suffix: 30
   components:
   - type: Material
   - type: PhysicalComposition
@@ -311,7 +311,7 @@
     vendPrice: 5000
   - type: Stack
     stackType: FuelBananium
-    count: 20
+    count: 30
   - type: NFFuel # Frontier
 
 - type: entity

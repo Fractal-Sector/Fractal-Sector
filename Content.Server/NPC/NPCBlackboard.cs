@@ -18,25 +18,25 @@ public sealed partial class NPCBlackboard : IEnumerable<KeyValuePair<string, obj
     /// </summary>
     private static readonly Dictionary<string, object> BlackboardDefaults = new()
     {
-        {"BufferRange", 10f},
+        {"BufferRange", 7f}, // FS: 10<7
         {"FollowCloseRange", 3f},
-        {"FollowRange", 7f},
-        {"IdleRange", 7f},
+        {"FollowRange", 6f}, // FS: 7<6
+        {"IdleRange", 6f}, // FS: 7<6
         {"InteractRange", SharedInteractionSystem.InteractionRange},
         {"LightbotRange", 32f}, // Wayfarer
         {"MaximumIdleTime", 7f},
         {MedibotInjectRange, 4f},
         {MeleeMissChance, 0.3f},
         {"MeleeRange", 1f},
-        {"MinimumIdleTime", 2f},
+        {"MinimumIdleTime", 3f}, // FS: 2<3
         {"MovementRangeClose", 0.2f},
         {"MovementRange", 1.5f},
-        {"RangedRange", 10f},
+        {"RangedRange", 7f}, // FS: 10<7
         {"RotateSpeed", float.MaxValue},
         // #Misfits Change — slightly widen default detection bands so hostiles start reacting a bit earlier at player view edges.
-        {"VisionRadius", 14f},
-        {"AggroVisionRadius", 14f},
-        {"TurretRange", 20f}, // Wayfarer
+        {"VisionRadius", 7f}, // FS: 14<7
+        {"AggroVisionRadius", 7f}, // FS: 14<7
+        {"TurretRange", 14f}, // Wayfarer // FS: 20<14
     };
 
     /// <summary>
