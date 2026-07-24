@@ -371,3 +371,14 @@ Entries:
   id: 27
   time: '2026-07-13T04:22:17.0000000+00:00'
   url: https://github.com/Fractal-Sector/Fractal-Sector/pull/44
+- author: IsNotAcceptable
+  changes:
+    - type: Tweak
+      message: ИИ у Мобов был ухудшен, предположительно радиус атаки уменьшен в двое
+    - type: Fix
+      message: Пункт с переключением IFF на консоле управления шаттла стал понятным
+    - type: Tweak
+      message: Топливо подается в 30 единицах вместо 20
+  id: 28
+  time: '2026-07-24T15:41:30.0000000+00:00'
+  url: https://github.com/Fractal-Sector/Fractal-Sector/pull/46
