@@ -32,7 +32,7 @@ public sealed class AutoRestartSystem : EntitySystem
         _ = RequestRestartAfterThisRound();
     }
 
-    private async Task RequestRestartAfterThisRound()
+    public async Task RequestRestartAfterThisRound()
     {
         try
         {
