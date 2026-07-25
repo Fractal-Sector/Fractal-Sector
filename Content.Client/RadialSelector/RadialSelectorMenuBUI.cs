@@ -1,4 +1,5 @@
 using System.Numerics;
+using Content.Client.Construction;
 using Content.Client.UserInterface.Controls;
 using Content.Shared.Construction.Prototypes;
 using Content.Shared.RadialSelector;
@@ -22,6 +23,7 @@ public sealed class RadialSelectorMenuBUI : BoundUserInterface
     [Dependency] private readonly IEntityManager _entManager = default!;
     [Dependency] private readonly IPrototypeManager _protoManager = default!;
 
+    private readonly ConstructionSystem _constructionSystem;
     private readonly SpriteSystem _spriteSystem;
 
     private readonly RadialMenu _menu;
@@ -34,6 +36,7 @@ public sealed class RadialSelectorMenuBUI : BoundUserInterface
     public RadialSelectorMenuBUI(EntityUid owner, Enum uiKey) : base(owner, uiKey)
     {
         _spriteSystem = _entManager.System<SpriteSystem>();
+        _constructionSystem = _entManager.System<ConstructionSystem>();
         _menu = new RadialMenu
         {
             HorizontalExpand = true,
@@ -77,7 +80,7 @@ public sealed class RadialSelectorMenuBUI : BoundUserInterface
         var container = new RadialContainer
         {
             Name = !string.IsNullOrEmpty(parentCategory) ? parentCategory : "Main",
-            Radius = 48f + 24f * MathF.Log(entries.Count),
+            InitialRadius = 48f + 24f * MathF.Log(entries.Count),
         };
 
         _menu.AddChild(container);
@@ -88,7 +91,7 @@ public sealed class RadialSelectorMenuBUI : BoundUserInterface
             if (entry.Category != null)
             {
                 var button = CreateButton(entry.Category.Name, _spriteSystem.Frame0(entry.Category.Icon));
-                button.TargetLayer = entry.Category.Name;
+                button.TargetLayerControlName = entry.Category.Name;
                 CreateMenu(entry.Category.Entries, entry.Category.Name);
                 container.AddChild(button);
             }
@@ -116,7 +119,7 @@ public sealed class RadialSelectorMenuBUI : BoundUserInterface
         if (_protoManager.TryIndex(proto, out var prototype))
             return prototype.Name;
         if (_protoManager.TryIndex(proto, out ConstructionPrototype? constructionPrototype))
-            return constructionPrototype.Name;
+            return constructionPrototype.Name ?? proto;
         return proto;
     }
 
@@ -125,13 +128,13 @@ public sealed class RadialSelectorMenuBUI : BoundUserInterface
         if (_protoManager.TryIndex(entry.Prototype!, out var prototype))
             return _spriteSystem.Frame0(prototype);
 
-        if (_protoManager.TryIndex(entry.Prototype!, out ConstructionPrototype? constructionProto))
-            return _spriteSystem.Frame0(constructionProto.Icon);
+        if (_constructionSystem.TryGetRecipePrototype(entry.Prototype!, out var targetProtoId)
+            && _protoManager.TryIndex(targetProtoId, out EntityPrototype? targetProto))
+            return _spriteSystem.Frame0(targetProto);
 
         if (entry.Icon is not null)
             return _spriteSystem.Frame0(entry.Icon);
 
-        // No icons provided and no icons found in prototypes. There's nothing we can do.
         return null;
     }
 
