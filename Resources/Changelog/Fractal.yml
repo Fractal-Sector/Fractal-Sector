@@ -382,3 +382,12 @@ Entries:
   id: 28
   time: '2026-07-24T15:41:30.0000000+00:00'
   url: https://github.com/Fractal-Sector/Fractal-Sector/pull/46
+- author: IsNotAcceptable
+  changes:
+    - type: Add
+      message: >-
+        При взаимодействии с некоторыми материалами открывается радиальное меню,
+        содержащее наиболее часто используемые рецепты для этого материала.
+  id: 29
+  time: '2026-07-25T11:36:11.0000000+00:00'
+  url: https://github.com/Fractal-Sector/Fractal-Sector/pull/48
