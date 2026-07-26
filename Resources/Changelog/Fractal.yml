@@ -391,3 +391,10 @@ Entries:
   id: 29
   time: '2026-07-25T11:36:11.0000000+00:00'
   url: https://github.com/Fractal-Sector/Fractal-Sector/pull/48
+- author: IsNotAcceptable
+  changes:
+    - type: Tweak
+      message: Система биомов/чанков разбита на более мелкие системы и оптимизирована.
+  id: 30
+  time: '2026-07-26T16:17:45.0000000+00:00'
+  url: https://github.com/Fractal-Sector/Fractal-Sector/pull/49
