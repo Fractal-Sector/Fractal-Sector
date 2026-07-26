@@ -1,16 +1,20 @@
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using Content.Server.GameTicking;
 using Robust.Shared;
 using Robust.Shared.Configuration;
 
 namespace Content.Server._FS.Administration;
 
 /// <summary>
-/// Upon every server startup, the standard ServerUpdateManager
-/// (Content.Server/ServerUpdates/ServerUpdateManager.cs) issues a notification
-/// that an "update is available." The ServerUpdateManager itself waits for
-/// the current round to end (or the server to empty) and shuts down the process gracefully.
+/// Upon round end, notifies the server's own Status API /update
+/// endpoint, triggering the existing ServerUpdateManager shutdown-after-round flow.
+/// We deliberately do NOT call this at server Initialize() anymore: if we did,
+/// ServerUpdateManager would restart as soon as the server goes empty (its "or
+/// the server to empty" fallback), even if that happens between rounds in the
+/// lobby. By waiting for GameRunLevel.PostRound, the round is already over by
+/// the time we notify, so the restart only ever happens right after a round ends.
 /// </summary>
 public sealed class AutoRestartSystem : EntitySystem
 {
@@ -23,14 +27,14 @@ public sealed class AutoRestartSystem : EntitySystem
     public override void Initialize()
     {
         base.Initialize();
+        SubscribeLocalEvent<GameRunLevelChangedEvent>(OnRunLevelChanged);
+    }
 
-        // Called unconditionally, not just when an update is actually available—
-        // this is intentional, not an oversight. The actual check for a new
-        // commit is performed by the watchdog itself (UpdateProviderGit)
-        // whenever the instance restarts: if there are no changes, it simply
-        // launches the existing binary without rebuilding, so this extra
-        // call does not cause noticeable load or downtime.
-        // Fire-and-forget: exceptions are handled within the method.
+    private void OnRunLevelChanged(GameRunLevelChangedEvent args)
+    {
+        if (args.New != GameRunLevel.PostRound)
+            return;
+
         _ = RequestRestartAfterThisRound();
     }
 
