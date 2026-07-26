@@ -267,12 +267,22 @@ public sealed partial class BiomeSystem
     {
         var active = _activeChunks[component];
         List<(Vector2i, Tile)>? tiles = null;
+        List<Vector2i>? toUnload = null;
 
         foreach (var chunk in component.LoadedChunks)
         {
-            if (active.Contains(chunk) || !component.LoadedChunks.Remove(chunk))
+            if (active.Contains(chunk))
                 continue;
 
+            toUnload ??= new List<Vector2i>();
+            toUnload.Add(chunk);
+        }
+
+        if (toUnload == null)
+            return;
+
+        foreach (var chunk in toUnload)
+        {
             tiles ??= new List<(Vector2i, Tile)>(ChunkSize * ChunkSize);
             UnloadChunk(component, gridUid, grid, chunk, seed, tiles);
         }
