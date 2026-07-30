@@ -54,8 +54,8 @@
   - ProtolatheHyperConvectionMachineCircuitboard
   - CircuitImprinterHyperConvectionMachineCircuitboard
   technologyPrerequisites:
-  - NFAdvancedParts
-  position: 1, 2
+  - NFRapidPartExchange
+  position: 2, 2
 
 - type: technology
   id: NFAdvancedBeltTechnology
@@ -127,8 +127,8 @@
   recipeUnlocks:
   - RPED
   technologyPrerequisites:
-  - NFIndustrialEngineering
-  position: 2, 2
+  - NFAdvancedParts
+  position: 1, 2
 
 - type: technology
   id: NFMiscellaneousItemsOrganization
