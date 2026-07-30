@@ -398,3 +398,12 @@ Entries:
   id: 30
   time: '2026-07-26T16:17:45.0000000+00:00'
   url: https://github.com/Fractal-Sector/Fractal-Sector/pull/49
+- author: IsNotAcceptable
+  changes:
+    - type: Tweak
+      message: изменения мест компонентов в исследований РНД
+    - type: Add
+      message: в казино теперь есть слот-машины
+  id: 31
+  time: '2026-07-30T14:44:58.0000000+00:00'
+  url: https://github.com/Fractal-Sector/Fractal-Sector/pull/50
