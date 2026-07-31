@@ -407,3 +407,12 @@ Entries:
   id: 31
   time: '2026-07-30T14:44:58.0000000+00:00'
   url: https://github.com/Fractal-Sector/Fractal-Sector/pull/50
+- author: IsNotAcceptable
+  changes:
+    - type: Tweak
+      message: >-
+        Обновление движка с 271.2.0 до 271.2.2 - Обновление Lidgren.Network для
+        уменьшение потребление ОЗУ
+  id: 32
+  time: '2026-07-31T07:09:44.0000000+00:00'
+  url: https://github.com/Fractal-Sector/Fractal-Sector/pull/51
