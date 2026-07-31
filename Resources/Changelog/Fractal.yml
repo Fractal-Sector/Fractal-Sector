@@ -416,3 +416,10 @@ Entries:
   id: 32
   time: '2026-07-31T07:09:44.0000000+00:00'
   url: https://github.com/Fractal-Sector/Fractal-Sector/pull/51
+- author: IsNotAcceptable
+  changes:
+    - type: Remove
+      message: парестезия упразднена
+  id: 33
+  time: '2026-07-31T08:58:04.0000000+00:00'
+  url: https://github.com/Fractal-Sector/Fractal-Sector/pull/52
