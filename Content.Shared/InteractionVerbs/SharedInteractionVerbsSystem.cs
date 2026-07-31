@@ -61,19 +61,6 @@ public abstract class SharedInteractionVerbsSystem : EntitySystem
         var target = args.Target;
         var hasHands = args.Hands != null;
 
-        // Only handle global verbs for entities without InteractionVerbsComponent
-        foreach (var proto in PrototypeManager.EnumeratePrototypes<InteractionVerbPrototype>())
-        {
-            if (!proto.Global)
-                continue;
-
-            if (!IsVerbApplicable(proto, user, target, hasHands, args.CanAccess, args.CanInteract))
-                continue;
-
-            var verb = CreateVerb(proto, user, target, hasHands, args.CanAccess, args.CanInteract);
-            if (verb != null)
-                args.Verbs.Add(verb);
-        }
     }
 
     private void OnGetInteractionVerbs(EntityUid uid, InteractionVerbsComponent component, GetVerbsEvent<InteractionVerb> args)
@@ -86,37 +73,6 @@ public abstract class SharedInteractionVerbsSystem : EntitySystem
         var target = uid;
         var hasHands = args.Hands != null;
 
-        // Get all applicable interaction verb prototypes
-        foreach (var verbProtoId in component.AllowedVerbs)
-        {
-            if (!PrototypeManager.TryIndex(verbProtoId, out var proto))
-                continue;
-
-            // Check if verb is allowed for this target
-            if (!IsVerbApplicable(proto, user, target, hasHands, args.CanAccess, args.CanInteract))
-                continue;
-
-            var verb = CreateVerb(proto, user, target, hasHands, args.CanAccess, args.CanInteract);
-            if (verb != null)
-                args.Verbs.Add(verb);
-        }
-
-        // Handle global verbs
-        foreach (var proto in PrototypeManager.EnumeratePrototypes<InteractionVerbPrototype>())
-        {
-            if (!proto.Global)
-                continue;
-
-            if (component.AllowedVerbs.Contains(proto.ID))
-                continue; // Already added
-
-            if (!IsVerbApplicable(proto, user, target, hasHands, args.CanAccess, args.CanInteract))
-                continue;
-
-            var verb = CreateVerb(proto, user, target, hasHands, args.CanAccess, args.CanInteract);
-            if (verb != null)
-                args.Verbs.Add(verb);
-        }
     }
 
     private bool IsVerbApplicable(InteractionVerbPrototype proto, EntityUid user, EntityUid target, bool hasHands, bool canAccess, bool canInteract)
@@ -143,56 +99,6 @@ public abstract class SharedInteractionVerbsSystem : EntitySystem
             return false;
 
         return true;
-    }
-
-    private InteractionVerb? CreateVerb(InteractionVerbPrototype proto, EntityUid user, EntityUid target, bool hasHands, bool canAccess, bool canInteract)
-    {
-        // Get the active hand item if the user has hands
-        EntityUid? usedItem = null;
-        if (hasHands)
-        {
-            usedItem = _hands.GetActiveItem(user);
-        }
-
-        var args = new InteractionArgs(user, target, usedItem, canAccess, canInteract, hasHands, null);
-
-        // Check requirement
-        if (proto.Requirement != null && !proto.Requirement.IsMet(args, proto, _verbDependencies))
-        {
-            if (proto.HideByRequirement)
-                return null;
-        }
-
-        // Server-only action check happens server-side
-        var verb = new InteractionVerb
-        {
-            Text = proto.Name,
-            Message = proto.Description,
-            Icon = proto.Icon,
-            Priority = proto.Priority,
-            Act = () => TryPerformVerb(proto, user, target)
-        };
-
-        // Set category
-        if (!string.IsNullOrEmpty(proto.CategoryKey))
-        {
-            verb.Category = GetVerbCategory(proto.CategoryKey);
-        }
-        else
-        {
-            verb.Category = VerbCategory.Interaction;
-        }
-
-        return verb;
-    }
-
-    private VerbCategory GetVerbCategory(string categoryKey)
-    {
-        return categoryKey switch
-        {
-            "interaction" => VerbCategory.Interaction,
-            _ => VerbCategory.Interaction
-        };
     }
 
     protected virtual void TryPerformVerb(InteractionVerbPrototype proto, EntityUid user, EntityUid target)

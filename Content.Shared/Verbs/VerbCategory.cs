@@ -111,6 +111,6 @@ namespace Content.Shared.Verbs
             new("verb-categories-radio-channels", "/Textures/Interface/VerbIcons/dot.svg.192dpi.png");
 
         // Interaction verbs system
-        public static readonly VerbCategory Interaction = new("verb-categories-interaction", (string?)null);
+        // public static readonly VerbCategory Interaction = new("verb-categories-interaction", (string?)null); // FS: kill fast emoute
     }
 }
