@@ -20,6 +20,12 @@ public sealed class AnalysisConsoleBoundUserInterface(EntityUid owner, Enum uiKe
     {
         base.Open();
 
+        if (_consoleMenu is { Disposed: false }) // FS
+        {
+            _consoleMenu.SetOwner(Owner);
+            _consoleMenu.OpenCentered();
+            return;
+        }
         _consoleMenu = this.CreateWindow<AnalysisConsoleMenu>();
         _consoleMenu.SetOwner(Owner);
 

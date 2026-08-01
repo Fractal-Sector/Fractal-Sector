@@ -284,3 +284,135 @@ Entries:
   id: 20
   time: '2026-06-21T17:59:59.0000000+00:00'
   url: https://github.com/Fractal-Sector/Fractal-Sector/pull/34
+- author: WF Team
+  changes:
+    - type: Remove
+      message: Торговый Аванпост был упразднен
+    - type: Tweak
+      message: Грузовые Депо были модернизованы
+    - type: Tweak
+      message: Сделали газовые баллончики и гранаты дороже.
+    - type: Tweak
+      message: >-
+        Перебалансировка андезитовых и хромитовых астероидов сделала их более
+        полезными.
+    - type: Add
+      message: >-
+        Теперь путешественники могут менять свои должности и значки
+        непосредственно в своих удостоверениях личности.
+    - type: Add
+      message: Сумка для еды с магнитом
+    - type: Add
+      message: Можно осмотреть док, чтобы узнать, как долго что-либо там находилось.
+    - type: Add
+      message: >-
+        Теперь некоторые РПС/пояса позволяют размещать в них пистолеты, а
+        медицинские — аптечки!
+    - type: Tweak
+      message: Увеличено время, необходимое для начала разложения трупов.
+    - type: Tweak
+      message: Теперь турели будут целиться в вас сквозь ящики и окна.
+    - type: Tweak
+      message: >-
+        Теперь башни вращаются медленнее, имеют большую дальность стрельбы и
+        менее точны в первых нескольких выстрелах.
+    - type: Tweak
+      message: >-
+        Идентификатор, позволяющий мгновенно менять название должности и значок,
+        необходимо приобретать у компании
+    - type: Tweak
+      message: Снижено время восстановления после возрождения.
+  id: 21
+  time: '2026-07-01T07:14:08.0000000+00:00'
+  url: https://github.com/Fractal-Sector/Fractal-Sector/pull/37
+- author: IsNotAcceptable
+  changes:
+    - type: Tweak
+      message: Увеличен радиус обзора в консоли управления шаттла
+  id: 22
+  time: '2026-07-02T08:35:36.0000000+00:00'
+  url: https://github.com/Fractal-Sector/Fractal-Sector/pull/38
+- author: IsNotAcceptable
+  changes:
+    - type: Fix
+      message: Аналитическая консоль теперь открывает окна
+  id: 23
+  time: '2026-07-06T03:11:30.0000000+00:00'
+  url: https://github.com/Fractal-Sector/Fractal-Sector/pull/39
+- author: IsNotAcceptable
+  changes:
+    - type: Tweak
+      message: Автобусные доки не ограждены
+  id: 24
+  time: '2026-07-06T03:56:11.0000000+00:00'
+  url: https://github.com/Fractal-Sector/Fractal-Sector/pull/40
+- author: IsNotAcceptable
+  changes:
+    - type: Add
+      message: >-
+        В игровое руководство добавлено оглавление для каждой статьи,
+        облегчающее переход по её разделам.
+  id: 25
+  time: '2026-07-08T03:24:02.0000000+00:00'
+  url: https://github.com/Fractal-Sector/Fractal-Sector/pull/42
+- author: IsNotAcceptable
+  changes:
+    - type: Add
+      message: >-
+        Аномалит можно добыть из руды, шанс появление руды на 1/100 больше чем у
+        алмазной руды
+  id: 26
+  time: '2026-07-11T07:35:59.0000000+00:00'
+  url: https://github.com/Fractal-Sector/Fractal-Sector/pull/43
+- author: IsNotAcceptable
+  changes:
+    - type: Add
+      message: В секторе произошла эволюция карпов и акул
+  id: 27
+  time: '2026-07-13T04:22:17.0000000+00:00'
+  url: https://github.com/Fractal-Sector/Fractal-Sector/pull/44
+- author: IsNotAcceptable
+  changes:
+    - type: Tweak
+      message: ИИ у Мобов был ухудшен, предположительно радиус атаки уменьшен в двое
+    - type: Fix
+      message: Пункт с переключением IFF на консоле управления шаттла стал понятным
+    - type: Tweak
+      message: Топливо подается в 30 единицах вместо 20
+  id: 28
+  time: '2026-07-24T15:41:30.0000000+00:00'
+  url: https://github.com/Fractal-Sector/Fractal-Sector/pull/46
+- author: IsNotAcceptable
+  changes:
+    - type: Add
+      message: >-
+        При взаимодействии с некоторыми материалами открывается радиальное меню,
+        содержащее наиболее часто используемые рецепты для этого материала.
+  id: 29
+  time: '2026-07-25T11:36:11.0000000+00:00'
+  url: https://github.com/Fractal-Sector/Fractal-Sector/pull/48
+- author: IsNotAcceptable
+  changes:
+    - type: Tweak
+      message: Система биомов/чанков разбита на более мелкие системы и оптимизирована.
+  id: 30
+  time: '2026-07-26T16:17:45.0000000+00:00'
+  url: https://github.com/Fractal-Sector/Fractal-Sector/pull/49
+- author: IsNotAcceptable
+  changes:
+    - type: Tweak
+      message: изменения мест компонентов в исследований РНД
+    - type: Add
+      message: в казино теперь есть слот-машины
+  id: 31
+  time: '2026-07-30T14:44:58.0000000+00:00'
+  url: https://github.com/Fractal-Sector/Fractal-Sector/pull/50
+- author: IsNotAcceptable
+  changes:
+    - type: Tweak
+      message: >-
+        Обновление движка с 271.2.0 до 271.2.2 - Обновление Lidgren.Network для
+        уменьшение потребление ОЗУ
+  id: 32
+  time: '2026-07-31T07:09:44.0000000+00:00'
+  url: https://github.com/Fractal-Sector/Fractal-Sector/pull/51

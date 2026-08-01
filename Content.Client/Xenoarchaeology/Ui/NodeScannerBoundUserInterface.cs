@@ -15,6 +15,13 @@ public sealed class NodeScannerBoundUserInterface(EntityUid owner, Enum uiKey) :
     {
         base.Open();
 
+        if (_scannerDisplay is { Disposed: false }) // FS
+        {
+            _scannerDisplay.SetOwner(Owner);
+            return;
+        }
+
+
         _scannerDisplay = this.CreateWindow<NodeScannerDisplay>();
         _scannerDisplay.SetOwner(Owner);
     }

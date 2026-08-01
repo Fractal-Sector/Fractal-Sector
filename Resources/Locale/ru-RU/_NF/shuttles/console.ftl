@@ -1,42 +1,42 @@
-shuttle-console-designation = Designation:
-shuttle-console-designation-unknown = Unknown
-shuttle-console-maximum-iff-distance = Maximum IFF Distance
+shuttle-console-designation = Обозначение:
+shuttle-console-designation-unknown = Неизвестно
+shuttle-console-maximum-iff-distance = Макс. дальность IFF
 
-shuttle-console-iff-search = Search IFF
-shuttle-console-inertia-dampener-off = Cruise
-shuttle-console-inertia-dampener-dampen = Drive
-shuttle-console-inertia-dampener-anchor = Park
+shuttle-console-iff-search = Поиск IFF
+shuttle-console-inertia-dampener-off = Круиз
+shuttle-console-inertia-dampener-dampen = Драйв
+shuttle-console-inertia-dampener-anchor = Парковка
 
-shuttle-console-service-flags = Advertise Features
-shuttle-console-service-flag-Services-label = Services
-shuttle-console-service-flag-Trade-label = Shopping
-shuttle-console-service-flag-Social-label = Social
+shuttle-console-service-flags = Реклама услуг
+shuttle-console-service-flag-Services-label = Сервис
+shuttle-console-service-flag-Trade-label = Торговля
+shuttle-console-service-flag-Social-label = Отдых
 
 shuttle-console-service-flag-Services-shortform = ♫
 shuttle-console-service-flag-Trade-shortform = $
 shuttle-console-service-flag-Social-shortform = ☺
 
-shuttle-console-service-flag-Services-description = Services (e.g. medical, dining, engineering) offered onboard.
-shuttle-console-service-flag-Trade-description = Goods sold onboard.
-shuttle-console-service-flag-Social-description = A social space to gather and hang out.
+shuttle-console-service-flag-Services-description = Услуги (напр. медицина, питание, ремонт), доступные на борту.
+shuttle-console-service-flag-Trade-description = Товары, продаваемые на борту.
+shuttle-console-service-flag-Social-description = Зона для общения и отдыха.
 
-shuttle-console-target = Radar Target
-shuttle-console-set-target = Set
-shuttle-console-set-target-description = Sets a target waypoint coordinate on the radar console.
-shuttle-console-hide-target = Show
-shuttle-console-hide-target-description = Toggles the visibility of the target waypoint on the radar console.
-shuttle-console-target-name = Target
+shuttle-console-target = Цель на радаре
+shuttle-console-set-target = Установить
+shuttle-console-set-target-description = Устанавливает координаты целевой точки на консоли радара.
+shuttle-console-hide-target = Показать
+shuttle-console-hide-target-description = Переключает отображение целевой точки на консоли радара.
+shuttle-console-target-name = Цель
 shuttle-console-map-track = ⌖
 
 # Mono: Network Port Buttons
-shuttle-console-network-ports = Network Ports
+shuttle-console-network-ports = Сетевые порты
 
 # Mono: Device Link Buttons
-shuttle-console-device-button-1 = Button 1
-shuttle-console-device-button-2 = Button 2
-shuttle-console-device-button-3 = Button 3
-shuttle-console-device-button-4 = Button 4
-shuttle-console-device-button-5 = Button 5
-shuttle-console-device-button-6 = Button 6
-shuttle-console-device-button-7 = Button 7
-shuttle-console-device-button-8 = Button 8
+shuttle-console-device-button-1 = Кнопка 1
+shuttle-console-device-button-2 = Кнопка 2
+shuttle-console-device-button-3 = Кнопка 3
+shuttle-console-device-button-4 = Кнопка 4
+shuttle-console-device-button-5 = Кнопка 5
+shuttle-console-device-button-6 = Кнопка 6
+shuttle-console-device-button-7 = Кнопка 7
+shuttle-console-device-button-8 = Кнопка 8

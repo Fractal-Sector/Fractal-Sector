@@ -1,0 +1,13 @@
+- type: biomeMarkerLayer
+  id: OreAnomalite
+  entityMask:
+    AsteroidRock: AsteroidRockAnomalite
+    WallRock: WallRockAnomalite
+    WallRockBasalt: WallRockBasaltAnomalite
+    WallRockChromite: WallRockChromiteAnomalite
+    WallRockSand: WallRockSandAnomalite
+    WallRockSnow: WallRockSnowAnomalite
+  maxCount: 6
+  minGroupSize: 1
+  maxGroupSize: 2
+  radius: 4

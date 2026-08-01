@@ -273,6 +273,24 @@ namespace Content.Shared.Stacks
         }
 
         /// <summary>
+        /// Reduce a stack count by an amount, even if it would go below 0.
+        /// If it reaches 0 the stack will despawn.
+        /// </summary>
+        /// <seealso cref="TryUse"/>
+        [PublicAPI]
+        public void ReduceCount(Entity<StackComponent?> ent, int amount)
+        {
+            if (!Resolve(ent.Owner, ref ent.Comp))
+                return;
+
+            // Don't reduce unlimited stacks
+            if (ent.Comp.Unlimited)
+                return;
+
+            SetCount(ent, ent.Comp.Count - amount);
+        }
+
+        /// <summary>
         /// Gets the max count for a given entity prototype
         /// </summary>
         /// <param name="entityId"></param>
