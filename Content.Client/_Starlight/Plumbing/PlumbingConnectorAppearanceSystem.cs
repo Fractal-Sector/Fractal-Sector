@@ -41,6 +41,22 @@ public sealed class PlumbingConnectorAppearanceSystem : EntitySystem
         if (!TryComp(uid, out SpriteComponent? sprite))
             return;
 
+        // FS start
+        // GranularLayersRendering allows each layer to have its own rendering strategy.
+        // Without this, all layers inherit sprite.SnapCardinals.
+        // If SnapCardinals=true and the layer has a Dir4 (ductConnector) — SpriteSystem.CalculateLocalBounds
+        // will drop with Assert(RsiDirections == Dir1).
+        sprite.GranularLayersRendering = true;
+
+        // Marking existing layers as UseSpriteStrategy so that they retain
+        // the SnapCardinals/NoRotation behavior that existed before enabling GranularLayersRendering.
+        var layerIndex = 0;
+        foreach (var _ in sprite.AllLayers)
+        {
+            _sprite.LayerSetRenderingStrategy((uid, sprite), layerIndex, LayerRenderingStrategy.UseSpriteStrategy);
+            layerIndex++;
+        }
+
         // Create one layer for each cardinal direction
         // The layer will swap between disconnected/connected sprites based on connection state
         // Insert at layer 0 so connectors render UNDER the plumbing machine sprite
@@ -58,10 +74,11 @@ public sealed class PlumbingConnectorAppearanceSystem : EntitySystem
             _sprite.LayerSetRsi((uid, sprite), 0, component.Disconnected.RsiPath);
             _sprite.LayerSetRsiState((uid, sprite), 0, component.Disconnected.RsiState);
             _sprite.LayerSetDirOffset((uid, sprite), 0, ToOffset(layerKey));
-
+            _sprite.LayerSetRenderingStrategy((uid, sprite), 0, LayerRenderingStrategy.Default);
             if (offset != Vector2.Zero)
                 _sprite.LayerSetOffset((uid, sprite), 0, offset);
         }
+        // FS end
     }
 
     private static Vector2 GetDirectionOffset(PlumbingConnectionLayer layer, float offset)
