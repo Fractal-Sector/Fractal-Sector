@@ -51,13 +51,14 @@ public sealed class PlumbingConnectorAppearanceSystem : EntitySystem
             // Each insertion at 0 pushes previous layers up, so we use index 0 for all operations
             var layerName = layerKey.ToString();
             _sprite.AddBlankLayer((uid, sprite), 0);
+            _sprite.LayerSetVisible((uid, sprite), 0, false);
             _sprite.LayerMapSet((uid, sprite), layerName, 0);
 
-            // Disconnected connectors are offset from center to show under big machine sprites. 
+            // Disconnected connectors are offset from center to show under big machine sprites.
             _sprite.LayerSetRsi((uid, sprite), 0, component.Disconnected.RsiPath);
             _sprite.LayerSetRsiState((uid, sprite), 0, component.Disconnected.RsiState);
             _sprite.LayerSetDirOffset((uid, sprite), 0, ToOffset(layerKey));
-            _sprite.LayerSetVisible((uid, sprite), 0, false);
+
             if (offset != Vector2.Zero)
                 _sprite.LayerSetOffset((uid, sprite), 0, offset);
         }
@@ -131,8 +132,20 @@ public sealed class PlumbingConnectorAppearanceSystem : EntitySystem
             if (_sprite.LayerMapTryGet((uid, args.Sprite), layerName, out var layerKey2, false))
             {
                 var layer = args.Sprite[layerKey2];
-                layer.Visible = hasNode && !coveredByFloor;
-                
+
+                // FS: debug protection
+                var shouldShow = hasNode && !coveredByFloor;
+
+                if (shouldShow && layer.RsiState.IsValid)
+                {
+                    layer.Visible = true;
+                }
+                else
+                {
+                    layer.Visible = false;
+                }
+                // FS end
+
                 if (layer.Visible)
                 {
                     // Swap sprite based on connection state
