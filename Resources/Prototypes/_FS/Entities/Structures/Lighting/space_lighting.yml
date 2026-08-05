@@ -3,8 +3,6 @@
   name: космический маяк магистрали
   description: Маяк разгонной магистрали. Пролетайте сквозь него для получения ускорения.
   components:
-  - type: Transform
-    anchored: true
   - type: Sprite
     sprite: _FS/Structures/Lights/beacon.rsi
     state: lightbeacon
