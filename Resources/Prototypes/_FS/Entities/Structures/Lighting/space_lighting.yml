@@ -13,7 +13,7 @@
     energy: 2.0
     color: "#00FFCC"
   - type: Physics
-    bodyType: Dynamic
+    bodyType: Static
   - type: Fixtures
     fixtures:
       boostZone:
