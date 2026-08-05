@@ -1,0 +1,38 @@
+- type: entity
+  id: SpaceBeaconLight
+  name: космический маяк магистрали
+  description: Маяк разгонной магистрали. Пролетайте сквозь него для получения ускорения.
+  components:
+  - type: Transform
+    anchored: true
+  - type: Sprite
+    sprite: _FS/Structures/Lights/beacon.rsi
+    state: lightbeacon
+  - type: PointLight
+    radius: 5.0
+    energy: 2.0
+    color: "#00FFCC"
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      boostZone:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-3.0,-3.0,3.0,3.0"
+        hard: false
+        mask:
+        - Impassable
+        - HighImpassable
+        - MidImpassable
+  - type: NavMapBeacon
+    text: ""
+    color: "#00FFCC"
+  - type: RadarBlip
+    scale: 1.5
+    shape: Square
+    radarColor: '#00FFCC'
+    visibleFromOtherGrids: true
+  - type: BeaconBoost
+    boost: 5.0
+    cooldown: 1.5
