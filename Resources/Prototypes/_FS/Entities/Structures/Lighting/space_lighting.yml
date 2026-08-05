@@ -19,7 +19,7 @@
       boostZone:
         shape:
           !type:PhysShapeAabb
-          bounds: "-3.0,-3.0,3.0,3.0"
+          bounds: "-6.0,-6.0,6.0,6.0"
         hard: false
         mask:
         - Impassable
