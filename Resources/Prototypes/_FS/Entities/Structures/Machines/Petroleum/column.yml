@@ -7,7 +7,7 @@
     Рецепты подбираются автоматически по поступающему реагенту.
   components:
   - type: Sprite
-    sprite: Structures/Machines/diagnoser.rsi
+    sprite: _FS/Structures/Machines/Petroleum/reactivecolumn.rsi
     layers:
     - state: icon
       map: [ "enum.PowerDeviceVisualLayers.Powered" ]
@@ -15,7 +15,7 @@
     visuals:
       enum.PowerDeviceVisualLayers.Powered:
         enum.PowerDeviceVisualLayers.Powered:
-          True:  { state: running }
+          True:  { state: icon }
           False: { state: icon }
   - type: Appearance
   - type: PlumbingConnectorAppearance
