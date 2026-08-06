@@ -8,8 +8,8 @@
   id: arraystation
   parent: BasePOI
   name: "Антенный комплекс СРРОУ"
-  minimumDistance: 350
-  maximumDistance: 6000
+  minimumDistance: 1200
+  maximumDistance: 2000
   gridPath: /Maps/_WF/POI/array.yml
   addComponents:
   - type: StationTransit
