@@ -33,7 +33,7 @@ public sealed partial class CCVars
     ///     The default shift end time in hours from when the round starts. Set to 0 to disable automatic shift end time. Defaults to 72 hours.
     /// </summary>
     public static readonly CVarDef<double>
-        GameShiftEndTime = CVarDef.Create("game.shift_end_time", 72.0, CVar.ARCHIVE | CVar.SERVERONLY);
+        GameShiftEndTime = CVarDef.Create("game.shift_end_time", 60.0, CVar.ARCHIVE | CVar.SERVERONLY);
 
     /// <summary>
     ///     Controls the default game preset.
