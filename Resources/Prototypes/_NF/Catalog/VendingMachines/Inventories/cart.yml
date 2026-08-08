@@ -31,6 +31,7 @@
     EncryptionKeyNfsd: 5
     EncryptionKeyCommand: 5
     AccessConfigurator: 2
+    CorporationCartridge: 20 #Wayfarer
   contrabandInventory:
     BalloonNT: 2
     LuxuryPen: 1
