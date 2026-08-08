@@ -34,4 +34,9 @@ public sealed class WFCCVars
     /// </summary>
     public static readonly CVarDef<bool> CorporationStationPurchaseEnabled =
         CVarDef.Create("wf.corporation.station_purchase_enabled", true, CVar.SERVER);
+
+    // FS start
+    public static readonly CVarDef<int> StationAutosaveIntervalHours =
+        CVarDef.Create("wf.corporation.station_autosave_interval_hours", 2, CVar.SERVER);
+    // FS end
 }
