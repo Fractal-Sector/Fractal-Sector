@@ -89,7 +89,8 @@ public sealed class CorporationStationSystem : EntitySystem
         if (_timing.CurTime < _nextAutosave)
             return;
 
-        _nextAutosave = _timing.CurTime + TimeSpan.FromHours(4);
+        var autosaveHours = Math.Max(1, _cfg.GetCVar(WFCCVars.StationAutosaveIntervalHours));
+        _nextAutosave = _timing.CurTime + TimeSpan.FromHours(autosaveHours);
         SaveAllStations(stripBlacklist: false);
     }
 
@@ -97,7 +98,8 @@ public sealed class CorporationStationSystem : EntitySystem
     {
         _activeStations.Clear();
         _stationVisible.Clear();
-        _nextAutosave = _timing.CurTime + TimeSpan.FromHours(4);
+        var autosaveHours = Math.Max(1, _cfg.GetCVar(WFCCVars.StationAutosaveIntervalHours));
+        _nextAutosave = _timing.CurTime + TimeSpan.FromHours(autosaveHours);
 
         List<(int corpId, string stationName, string savePath)> toLoad = new();
         try
