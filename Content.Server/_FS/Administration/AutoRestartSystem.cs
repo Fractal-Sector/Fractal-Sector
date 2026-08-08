@@ -54,7 +54,7 @@ public sealed class AutoRestartSystem : EntitySystem
             try
             {
                 using var http = new HttpClient();
-                var request = new HttpRequestMessage(HttpMethod.Post, $"http://127.0.0.1:{port}/update");
+                var request = new HttpRequestMessage(HttpMethod.Post, $"http://127.0.0.1:5000/update");
                 request.Headers.Add("WatchdogToken", token);
 
                 using var cts = new CancellationTokenSource(RequestTimeout);
