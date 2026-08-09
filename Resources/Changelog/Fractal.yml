@@ -441,3 +441,15 @@ Entries:
   id: 35
   time: '2026-08-09T07:47:02.0000000+00:00'
   url: https://github.com/Fractal-Sector/Fractal-Sector/pull/58
+- author: IsNotAcceptable
+  changes:
+    - type: Add
+      message: >-
+        Добавлена ​​новая система — система торговых токенов, которая
+        вознаграждает за доставку ящиков специальной валютой, которую затем
+        можно обменять на эксклюзивные предметы!
+    - type: Tweak
+      message: Изменены цены на ящики
+  id: 36
+  time: '2026-08-09T08:54:17.0000000+00:00'
+  url: https://github.com/Fractal-Sector/Fractal-Sector/pull/59
