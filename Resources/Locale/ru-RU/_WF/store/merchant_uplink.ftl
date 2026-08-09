@@ -38,7 +38,6 @@ uplink-merchant-clothcrate-desc = Ящик, полный текстиля
 uplink-merchant-datadiskencrypt-name = Жеский Диск
 uplink-merchant-datadiskencrypt-desc = Древний диск неизвестного назначения, по-видимому, содержащий изображения кошек.
 
-+
 uplink-merchant-beretmerchant-name = Торговый берет
 uplink-merchant-beretmerchant-desc = Для тех, кто предан делу доставки товаров из пункта А в пункт Б.
 uplink-merchant-coatmerchant-name = Торговое бронированное пальто
