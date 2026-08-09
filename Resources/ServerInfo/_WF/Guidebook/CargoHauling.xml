@@ -1,39 +1,31 @@
 <Document>
-  # Cargo Hauling
+  # Грузоперевозки
 
-One of the ways you can make money on the Frontier is by moving shipments of [color=peru]trading crates[/color].
+  Один из способов заработать деньги на Фронтире — это перевозка грузов [color=peru]торговых ящиков[/color].
 
   <Box>
     <GuideEntityEmbed Entity="CrateTradeSecureNormal"/>
-    <GuideEntityEmbed Entity="CrateTradeContrabandSecure1" Caption="Outlaw contraband crate"/>
+    <GuideEntityEmbed Entity="CrateTradeContrabandSecure1" Caption="Ящик с контрабандой"/>
   </Box>
   <!-- Wayfarer: added caption to contraband crate.-->
-You can find these by:
-  - Buying them at [color=peru]cargo request computers[/color] at the [color=forestgreen]Trade Outpost[/color]
-  - Salvaging them from [color=#88b0d1]space wrecks[/color]
-  - Finding [color=#c83737]contraband crates[/color] to be smuggled (ask around to find out how)
-
-Each trading crate starts with a [bold]label[/bold] saying [bold]where the create is headed[/bold], and will have a [bold][color=orange]destination symbol[/color][/bold] on the right side of the crate. Examining the crate ([color=yellow]Shift+Click[/color]) shows the name of the station it should be delivered to.
-
-[bold]Selling a crate at its destination[/bold] station will result in receiving [bold][color=lightgreen]more money[/color][/bold] than the crate is worth, while [bold]selling it at other stations[/bold] will result in [bold][color=lightpink]less money[/color][/bold].
-
-## Express Deliveries
-
-Some crates are labelled as [color=yellow]express deliveries[/color]. These provide a bonus if delivered [bolditalic]to the destination[/bolditalic] on time.
+  Вы можете найти их следующим образом:
+  - Их можно приобрести на консолях [color=peru]для запроса груза[/color] на [color=forestgreen]торговом посту[/color]
+  - Извлечение их из [color=#88b0d1]космических обломков[/color]
+  - Обнаружение [color=#c83737]контрабандных ящиков[/color], предназначенных для контрабанды (поспрашивайте у окружающих, как это делается).
+  Каждый торговый ящик начинается с [bold]метки[/bold], указывающей [bold]адрес доставки[/bold], и имеет [bold][color=orange]символ назначения[/color][/bold] справа от ящика. При осмотре ящика ([color=yellow]Shift+Click[/color]) отображается название станции, на которую он должен быть доставлен.
+  [bold]Продажа ящика на станции назначения[/bold] принесет [bold][color=lightgreen]больше денег[/color][/bold], чем стоит сам ящик, в то время как [bold]продажа его на других станциях[/bold] принесет [bold][color=lightpink]меньше денег[/color][/bold].
+  ## Экспресс-доставка
+  Некоторые ящики помечены как [color=yellow]экспресс-доставка[/color]. За доставку [bolditalic]в пункт назначения[/bolditalic] вовремя начисляется бонус.
 
   <Box>
     <GuideEntityEmbed Entity="CrateTradeSecureHigh"/>
-    <GuideEntityEmbed Entity="CrateTradeContrabandSecure2" Caption="Outlaw contraband crate"/>
+    <GuideEntityEmbed Entity="CrateTradeContrabandSecure2"/>
   </Box>
   <!-- Wayfarer: added caption to contraband crate.-->
-To make deliveries in time, make sure to keep your cargo bay organized so the crates for each destination can be removed from the cargo bay in order.
-
-Remember, more hands make light work, so crew up to help deliveries run smoothly!
-
-## Cargo Storage
-
-One of the ways to store more trading crates on a ship at one time is by using [color=dodgerblue]crate storage racks[/color]. These racks take up only one tile, but can hold up to [bold][color=forestgreen]four[/color] trading crates at a time[/bold]!
-
+  Чтобы обеспечить своевременную доставку, следите за порядком в грузовом отсеке, чтобы ящики для каждого пункта назначения можно было выгружать в нужном порядке.
+  Помните, чем больше рук, тем легче работа, поэтому объединяйтесь в команду, чтобы доставка проходила гладко!
+  ## Хранение грузов
+  Один из способов одновременно хранить больше торговых ящиков на корабле — использовать стеллажи для ящиков. Эти стеллажи занимают всего одну клетку, но могут вместить до четырех торговых ящиков одновременно!
   <Box>
     <GuideEntityEmbed Entity="CrateStorageRackBase" Caption=""/>
     <GuideEntityEmbed Entity="CrateStorageRackFrameEmpty" Caption=""/>
@@ -41,36 +33,29 @@ One of the ways to store more trading crates on a ship at one time is by using [
     <GuideEntityEmbed Entity="CrateStorageRack" Caption=""/>
   </Box>
 
-If your ship doesn't come with any, you can [bold][color=dodgerblue]construct these yourself![/color][/bold] You'll need a welder, a welding mask, some steel and some metal rods. All in all, each rack takes [bold]7 sheets of steel[/bold] to construct.
-
-In order to insert or remove trading crates to a [color=dodgerblue]crate storage rack[/color], a [color=yellow]mech[/color] with a [color=yellow]power fork[/color] module [bolditalic]must be used[/bolditalic] with the rack.
-
-Each power fork can hold up to four crates at a time. When picking crates up off the ground, a fork picks up one crate at a time. When inserting or removing crates from a [color=dodgerblue]crate storage rack[/color], the fork can completely fill or empty a rack if there's space.
-
-### Cargo Mechs
-
-To acquire a cargo mech:
-- Buy a [color=yellow]Ripley[/color] from a scientist, ask them to put one or two power fork modules in it. Make sure to get a large battery!
-- Buy an [color=orange]Emu[/color] from the cargo request consoles on the Trade Outpost for $10,000.
+  Если на вашем корабле их нет, вы можете [bold][color=dodgerblue]сделать их сами![/color][/bold] Вам понадобится сварочный аппарат, сварочная маска, сталь и металлические прутки. В общей сложности для изготовления каждой стойки потребуется [bold]7 листов стали[/bold].
+  Для установки или извлечения торговых ящиков из стойки для хранения ящиков необходимо использовать с ней механизм с модулем силовой вилки.
+  Каждый вилочный погрузчик может одновременно удерживать до четырех ящиков. При подъеме ящиков с земли погрузчик поднимает по одному ящику за раз. При установке или извлечении ящиков из стеллажа для хранения ящиков вилочный погрузчик может полностью заполнить или опустошить стеллаж, если есть свободное место.
+  ### Грузовые механизмы
+  Для приобретения грузового робота:
+  — Купите у учёного [color=yellow]Рипли[/color] и попросите его установить в него один или два модуля силовой вилки. Обязательно возьмите большую батарею!
+  - Купите [color=orange]Эму[/color] на консолях запросов на груз на Торговом аванпосте за 10 000 кредитов.
 
   <Box>
     <GuideEntityEmbed Entity="MechRipley"/>
     <GuideEntityEmbed Entity="MechEmu"/>
   </Box>
 
-The [color=orange]Emu[/color] is [bold]fast[/bold], but has [bold]only one power fork[/bold].
-
-The [color=yellow]Ripley[/color] is [bold]slower, upgradeable,[/bold] and has [bold]two slots for power forks[/bold].
-
-### Merchant Tokens
-
+  Эму очень быстрый, но у него всего одна силовая вилка.
+  Модель [color=yellow]Риплей[/color] [bold]медленнее, её можно модернизировать[/bold] и у неё [bold]два слота для силовых вилок[/bold].
+  ### Торговые токены
   <Box>
     <GuideEntityEmbed Entity="WFVendingMachineMerchantToken"/>
     <GuideEntityEmbed Entity="WayfarerMerchantToken"/>
   </Box>
 
-[color=orange]Merchant tokens[/color] are provided to you when you deliver a legal crate to the correct location. Trade them in at the [bold]Merchant vending machine[/bold] found within each cargo depot. for special rewards
 
-Use this knowledge to help move freight faster. Good luck out there.
+  [color=orange]Торговые токены[/color] выдаются вам за доставку легального ящика в нужное место. Обменяйте их в [bold]торговом автомате[/bold], расположенном на каждом грузовом терминале, на специальные награды.
+  Используйте эти знания, чтобы ускорить доставку грузов. Удачи!
 
 </Document>
