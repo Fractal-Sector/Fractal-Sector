@@ -1,5 +1,5 @@
 ---
-name: Запрос на добавление функции
+name: Request for adding a function
 about: Предложите идею для этого проекта.
 title: ''
 labels: 'S: Untriaged'

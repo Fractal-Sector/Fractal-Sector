@@ -1,5 +1,5 @@
 ---
-name: Запрос на Cherry-pick
+name: Cherry-pick Request
 about: Предложите идею для этого проекта.
 title: ''
 labels: 'S: Untriaged'

@@ -1,5 +1,5 @@
 ---
-name: Запрос на добавление функции в Toolshed
+name: Request for adding a function Toolshed
 about: Предложите функцию для Toolshed (for game admins/developers)
 title: "[TOOLSHED REQUEST]"
 labels: 'S: Untriaged'

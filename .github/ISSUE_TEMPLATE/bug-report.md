@@ -1,8 +1,8 @@
 ---
-name: Баг репорт
+name: Bug-Report
 about: Создайте отчет, который поможет нам улучшить работу.
 title: ''
-labels: ''
+labels: 'S: Untriaged'
 assignees: ''
 
 ---
