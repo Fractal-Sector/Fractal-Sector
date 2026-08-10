@@ -1,0 +1,17 @@
+name: Create Issue from Discord
+on:
+  repository_dispatch:
+    types: [discord_suggestion]
+
+jobs:
+  create_issue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create GitHub Issue
+        uses: imjohnbo/issue-bot@v3
+        with:
+          assignees: "${{ github.event.client_payload.author }}"
+          title: "${{ github.event.client_payload.title }}"
+          body: "${{ github.event.client_payload.content }}\n\n_Отправлено из Discord пользователем ${{ github.event.client_payload.author }}_"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
