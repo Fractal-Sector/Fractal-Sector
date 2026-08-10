@@ -348,7 +348,6 @@ namespace Content.Client.Lobby
                     _ => "lobby-state-playtime-comment-selfdestructive"
                 };
 
-                Lobby.PlaytimeComment.SetMarkup(Loc.GetString(chosenString, ("hours", hoursToday)));
             }
             else
                 Lobby!.PlaytimeComment.Visible = false;
