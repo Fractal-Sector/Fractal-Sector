@@ -453,3 +453,12 @@ Entries:
   id: 36
   time: '2026-08-09T08:54:17.0000000+00:00'
   url: https://github.com/Fractal-Sector/Fractal-Sector/pull/59
+- author: IsNotAcceptable
+  changes:
+    - type: Add
+      message: >-
+        Многострочное окно чата. Теперь окно чата будет расширяться вверх,
+        отображая всё ваше сообщение целиком, вместо горизонтальной прокрутки.
+  id: 37
+  time: '2026-08-10T07:04:49.0000000+00:00'
+  url: https://github.com/Fractal-Sector/Fractal-Sector/pull/61
