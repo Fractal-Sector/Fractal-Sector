@@ -549,6 +549,11 @@ namespace Content.Server.Database
         public bool HideFromPlayerlist { get; set; } = false; // Wayfarer
         public float Height { get; set; } = 1f; // Wayfarer
         public float Width { get; set; } = 1f; // Wayfarer
+        public string BarkVoice { get; set; } = "Default"; // FS
+        public byte BarkPitch { get; set; } = byte.MaxValue / 2; // FS
+        public byte BarkPitchVariance { get; set; } = byte.MaxValue / 2; // FS
+        public byte BarkPause { get; set; } = byte.MaxValue / 2; // FS
+        public byte BarkVolume { get; set; } = byte.MaxValue / 2; // FS
         public List<Job> Jobs { get; } = new();
         public List<Antag> Antags { get; } = new();
         public List<Trait> Traits { get; } = new();
