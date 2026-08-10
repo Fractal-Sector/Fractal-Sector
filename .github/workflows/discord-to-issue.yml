@@ -1,7 +1,7 @@
-name: Create Issue from Discord
+name: Auto Create Issue from Discord Forum
 on:
   repository_dispatch:
-    types: [discord_suggestion]
+    types: [discord_new_post]
 
 jobs:
   create_issue:
@@ -10,8 +10,13 @@ jobs:
       - name: Create GitHub Issue
         uses: imjohnbo/issue-bot@v3
         with:
-          assignees: "${{ github.event.client_payload.author }}"
-          title: "${{ github.event.client_payload.title }}"
-          body: "${{ github.event.client_payload.content }}\n\n_Отправлено из Discord пользователем ${{ github.event.client_payload.author }}_"
+          title: "${{ github.event.client_payload.thread_name }}"
+          body: |
+            ### Предложение по игре
+            
+            ${{ github.event.client_payload.message_content }}
+            
+            ---
+            _Автор в Discord: ${{ github.event.client_payload.author_name }}_
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
