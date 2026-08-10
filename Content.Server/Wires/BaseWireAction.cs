@@ -1,6 +1,7 @@
 using Content.Server.Power.EntitySystems;
 using Content.Shared.Administration.Logs;
 using Content.Shared.Database;
+using Content.Shared.Doors.Components;
 using Content.Shared.Wires;
 
 namespace Content.Server.Wires;
@@ -88,4 +89,17 @@ public abstract partial class BaseWireAction : IWireAction
     {
         return WiresSystem.IsPowered(uid, EntityManager);
     }
+
+    // FS: Sparks during hacking
+    public void WireCutSparks(EntityUid uid)
+    {
+        if (!IsPowered(uid))
+            return;
+        if (!EntityManager.TryGetComponent<DoorComponent>(uid, out var door)
+            || !door.WireCutSparks
+            || !EntityManager.TryGetComponent<TransformComponent>(uid, out var transform))
+            return;
+        EntityManager.SpawnAttachedTo("FSEffectSparks", transform.Coordinates);
+    }
+    // FS end
 }
