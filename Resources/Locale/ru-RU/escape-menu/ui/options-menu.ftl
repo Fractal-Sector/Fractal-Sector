@@ -98,6 +98,7 @@ ui-options-ambient-occlusion = Показывать эффект затенен�
 ui-options-fps-counter = Показать счётчик FPS
 ui-options-vp-width = Ширина окна игры:
 ui-options-hud-layout = Тип HUD:
+ui-options-hud-chatbar = Максимальная высота окна чата:
 
 ## Controls menu
 
