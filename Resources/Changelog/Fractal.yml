@@ -462,3 +462,10 @@ Entries:
   id: 37
   time: '2026-08-10T07:04:49.0000000+00:00'
   url: https://github.com/Fractal-Sector/Fractal-Sector/pull/61
+- author: IsNotAcceptable
+  changes:
+    - type: Add
+      message: Во время взлома появляются искры
+  id: 38
+  time: '2026-08-10T10:32:52.0000000+00:00'
+  url: https://github.com/Fractal-Sector/Fractal-Sector/pull/63
