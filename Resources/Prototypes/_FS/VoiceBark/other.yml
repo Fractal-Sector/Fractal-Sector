@@ -1,0 +1,89 @@
+- type: voiceBark
+  id: Flowey
+  barkSound:
+    path: /Audio/_White/Voice/Barks/other/snd_floweytalk1.wav
+
+- type: voiceBark
+  id: Txt1
+  barkSound:
+    path: /Audio/_White/Voice/Barks/other/SND_TXT1.wav
+
+- type: voiceBark
+  id: Txt2
+  barkSound:
+    path: /Audio/_White/Voice/Barks/other/SND_TXT2.wav
+
+- type: voiceBark
+  id: TxtAl
+  barkSound:
+    path: /Audio/_White/Voice/Barks/other/snd_txtal.wav
+
+- type: voiceBark
+  id: TxtAsg
+  barkSound:
+    path: /Audio/_White/Voice/Barks/other/snd_txtasg.wav
+
+- type: voiceBark
+  id: TxtAsr
+  barkSound:
+    path: /Audio/_White/Voice/Barks/other/snd_txtasr.wav
+
+- type: voiceBark
+  id: TxtBer
+  barkSound:
+    path: /Audio/_White/Voice/Barks/other/snd_txtber.wav
+
+- type: voiceBark
+  id: TxtJok
+  barkSound:
+    path: /Audio/_White/Voice/Barks/other/snd_txtjok.wav
+
+- type: voiceBark
+  id: TxtLan
+  barkSound:
+    path: /Audio/_White/Voice/Barks/other/snd_txtlan.wav
+
+- type: voiceBark
+  id: TxtNoe
+  barkSound:
+    path: /Audio/_White/Voice/Barks/other/snd_txtnoe.wav
+
+- type: voiceBark
+  id: TxtPap
+  barkSound:
+    path: /Audio/_White/Voice/Barks/other/snd_txtpap.wav
+
+- type: voiceBark
+  id: TxtQueen
+  barkSound:
+    path: /Audio/_White/Voice/Barks/other/snd_txtq_2.wav
+
+- type: voiceBark
+  id: TxtSans
+  barkSound:
+    path: /Audio/_White/Voice/Barks/other/snd_txtsans.wav
+
+- type: voiceBark
+  id: TxtSpam
+  barkSound:
+    path: /Audio/_White/Voice/Barks/other/snd_txtspam.wav
+
+- type: voiceBark
+  id: TxtSus
+  barkSound:
+    path: /Audio/_White/Voice/Barks/other/snd_txtsus.wav
+
+- type: voiceBark
+  id: TxtTor
+  barkSound:
+    path: /Audio/_White/Voice/Barks/other/snd_txttor.wav
+
+- type: voiceBark
+  id: TxtUnd
+  barkSound:
+    path: /Audio/_White/Voice/Barks/other/snd_txtund.wav
+
+- type: voiceBark
+  id: Gav
+  barkSound:
+    path: /Audio/_White/Voice/Barks/other/gav.wav
