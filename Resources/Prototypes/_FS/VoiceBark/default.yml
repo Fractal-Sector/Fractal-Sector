@@ -1,0 +1,17 @@
+# Placeholder bark voice for testing. Reuses existing, clearly-licensed
+# short sound effects already in the repo (see Resources/Audio/Effects/Cargo/attributions.yml)
+# rather than shipping new, unlicensed audio. Swap this out (and add more
+# voices to the list below) once the client provides real bark voice packs.
+
+- type: soundCollection
+  id: VoiceBarkDefaultBeeps
+  files:
+  - /Audio/Effects/Cargo/beep.ogg
+  - /Audio/Effects/Cargo/ping.ogg
+
+- type: voiceBark
+  id: Default
+  barkSound:
+    collection: VoiceBarkDefaultBeeps
+  clampData:
+    volumeMax: 0.5

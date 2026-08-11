@@ -3,6 +3,7 @@
          xmlns:humanoid="clr-namespace:Content.Client.Humanoid"
          xmlns:cc="clr-namespace:Content.Client.Administration.UI.CustomControls"
          xmlns:ui="clr-namespace:Content.Client.Lobby.UI"
+         xmlns:fscontrols="clr-namespace:Content.Client._FS.UserInterface.Controls"
          HorizontalExpand="True">
         <!-- Left side -->
         <BoxContainer Orientation="Vertical" Margin="10 10 10 10" HorizontalExpand="True">
@@ -112,6 +113,28 @@
                                     </BoxContainer>
                                 </BoxContainer>
                                 <!-- End Wayfarer -->
+                                <!-- FS: bark voice -->
+                                <BoxContainer HorizontalExpand="True" Orientation="Horizontal">
+                                    <Label Text="{Loc 'humanoid-profile-editor-bark-voice-label'}" />
+                                    <Control HorizontalExpand="True"/>
+                                    <OptionButton Name="VoiceBarkButton" HorizontalAlignment="Right" />
+                                    <Button Name="VoiceBarkPlayButton" Text="▶" MaxWidth="80" />
+                                </BoxContainer>
+                                <BoxContainer HorizontalExpand="True" Orientation="Horizontal">
+                                    <BoxContainer HorizontalExpand="True" Orientation="Vertical">
+                                        <fscontrols:Knob Name="BarkPitchSlider" MinValue="0" MaxValue="255" HorizontalExpand="True" Margin="5 0 5 0" />
+                                        <Label Text="{Loc 'humanoid-profile-editor-bark-pitch-label'}" HorizontalAlignment="Center"/>
+                                    </BoxContainer>
+                                    <BoxContainer HorizontalExpand="True" Orientation="Vertical">
+                                        <fscontrols:Knob Name="BarkPitchVarianceSlider" MinValue="0" MaxValue="255" HorizontalExpand="True" Margin="5 0 5 0" />
+                                        <Label Text="{Loc 'humanoid-profile-editor-bark-pitch-variance-label'}" HorizontalAlignment="Center"/>
+                                    </BoxContainer>
+                                    <BoxContainer HorizontalExpand="True" Orientation="Vertical">
+                                        <fscontrols:Knob Name="BarkPauseSlider" MinValue="0" MaxValue="255" HorizontalExpand="True" Margin="5 0 5 0" />
+                                        <Label Text="{Loc 'humanoid-profile-editor-bark-pause-label'}" HorizontalAlignment="Center"/>
+                                    </BoxContainer>
+                                </BoxContainer>
+                                <!-- End FS -->
                                 <!-- Show clothing -->
                                 <BoxContainer HorizontalExpand="True">
                                     <Label Text="{Loc 'humanoid-profile-editor-clothing'}" />

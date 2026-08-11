@@ -1,0 +1,7 @@
+# Master menu of bark voices shown in the character editor.
+# No gender/species gating - keep the list flat until real voice packs exist.
+
+- type: voiceBarkList
+  id: Default
+  voiceList:
+  - Default

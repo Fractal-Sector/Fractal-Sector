@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Content.Server.Administration.Logs;
 using Content.Server.Administration.Managers;
+using Content.Shared._FS.VoiceBark;
 using Content.Shared.Administration.Logs;
 using Content.Shared.Consent; // Floofstation
 using Content.Shared.Construction.Prototypes;
@@ -327,7 +328,14 @@ namespace Content.Server.Database
                 traits.ToHashSet(),
                 loadouts)
             .WithHeight(profile.Height) // Wayfarer
-            .WithWidth(profile.Width);  // Wayfarer
+            .WithWidth(profile.Width)   // Wayfarer
+            .WithBarkVoice(profile.BarkVoice, new VoiceBarkPercentageApplyData // FS
+            {
+                Pitch = profile.BarkPitch,
+                PitchVariance = profile.BarkPitchVariance,
+                Pause = profile.BarkPause,
+                Volume = profile.BarkVolume,
+            });
         }
 
         private static Profile ConvertProfiles(HumanoidCharacterProfile humanoid, int slot, Profile? profile = null)
@@ -358,6 +366,11 @@ namespace Content.Server.Database
             profile.SpawnPriority = (int) humanoid.SpawnPriority;
             profile.Height = humanoid.Height; // Wayfarer
             profile.Width = humanoid.Width;   // Wayfarer
+            profile.BarkVoice = humanoid.BarkVoice; // FS
+            profile.BarkPitch = humanoid.BarkPitch; // FS
+            profile.BarkPitchVariance = humanoid.BarkPitchVariance; // FS
+            profile.BarkPause = humanoid.BarkPause; // FS
+            profile.BarkVolume = humanoid.BarkVolume; // FS
             profile.Markings = markings;
             profile.Slot = slot;
             profile.PreferenceUnavailable = (DbPreferenceUnavailableMode) humanoid.PreferenceUnavailable;
