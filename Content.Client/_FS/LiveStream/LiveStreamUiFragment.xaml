@@ -1,0 +1,65 @@
+<BoxContainer xmlns="https://spacestation14.io"
+              xmlns:viewport="clr-namespace:Content.Client.Viewport"
+              Orientation="Vertical"
+              MinSize="280 400" HorizontalExpand="True" VerticalExpand="True" Margin="4">
+
+        <!-- List of streams + start-your-own panel -->
+        <BoxContainer Name="ListScreen" Orientation="Vertical" HorizontalExpand="True" VerticalExpand="True">
+            <BoxContainer Orientation="Horizontal">
+                <LineEdit Name="StreamTitleInput" HorizontalExpand="True" PlaceHolder="{Loc 'live-stream-title-placeholder'}" />
+                <Button Name="StartStreamBtn" Text="{Loc 'live-stream-start-button'}" />
+            </BoxContainer>
+            <Label Name="StreamCountLabel" Margin="0 4 0 4" />
+            <ScrollContainer VerticalExpand="True" HorizontalExpand="True">
+                <BoxContainer Name="StreamListContainer" Orientation="Vertical" />
+            </ScrollContainer>
+        </BoxContainer>
+
+        <!-- You are streaming -->
+        <BoxContainer Name="StreamerScreen" Orientation="Vertical" HorizontalExpand="True" VerticalExpand="True" Visible="False">
+            <BoxContainer Orientation="Horizontal">
+                <Label Name="StreamerLiveLabel" />
+                <Control HorizontalExpand="True" />
+                <Label Name="StreamerViewerLabel" />
+            </BoxContainer>
+            <ScrollContainer VerticalExpand="True" HorizontalExpand="True">
+                <BoxContainer Name="StreamerChatContainer" Orientation="Vertical" />
+            </ScrollContainer>
+            <BoxContainer Orientation="Horizontal">
+                <LineEdit Name="StreamerChatInput" HorizontalExpand="True" />
+                <Button Name="StreamerChatSendBtn" Text="{Loc 'live-stream-send-button'}" />
+            </BoxContainer>
+            <Button Name="StopStreamBtn" Text="{Loc 'live-stream-stop-button'}" />
+        </BoxContainer>
+
+        <!-- Watching someone else's stream -->
+        <BoxContainer Name="ViewerScreen" Orientation="Vertical" HorizontalExpand="True" VerticalExpand="True" Visible="False">
+            <BoxContainer Orientation="Horizontal">
+                <Label Name="ViewerStreamerLabel" />
+                <Control HorizontalExpand="True" />
+                <Label Name="ViewerLiveLabel" />
+            </BoxContainer>
+            <Control MinHeight="160" HorizontalExpand="True" Margin="0 2 0 2">
+                <viewport:ScalingViewport Name="CameraView"
+                                          HorizontalExpand="True"
+                                          VerticalExpand="True"
+                                          MinSize="260 160"
+                                          MouseFilter="Ignore" />
+            </Control>
+            <ScrollContainer VerticalExpand="True" HorizontalExpand="True">
+                <BoxContainer Name="ViewerChatContainer" Orientation="Vertical" />
+            </ScrollContainer>
+            <BoxContainer Orientation="Horizontal">
+                <LineEdit Name="ViewerChatInput" HorizontalExpand="True" />
+                <Button Name="ViewerSendBtn" Text="{Loc 'live-stream-send-button'}" />
+            </BoxContainer>
+            <Button Name="ViewerDonateBtn" Text="{Loc 'live-stream-donate-button'}" ToggleMode="True" />
+            <BoxContainer Name="DonatePanel" Orientation="Horizontal" Visible="False">
+                <LineEdit Name="DonateAmountInput" MinSize="60 0" PlaceHolder="{Loc 'live-stream-donate-amount-placeholder'}" />
+                <LineEdit Name="DonateMessageInput" HorizontalExpand="True" PlaceHolder="{Loc 'live-stream-donate-message-placeholder'}" />
+                <Button Name="DonateSubmitBtn" Text="{Loc 'live-stream-donate-submit-button'}" />
+            </BoxContainer>
+            <Button Name="BackToListBtn" Text="{Loc 'live-stream-back-button'}" />
+        </BoxContainer>
+
+</BoxContainer>

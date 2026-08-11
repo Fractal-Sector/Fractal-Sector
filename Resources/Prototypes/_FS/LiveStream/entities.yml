@@ -1,0 +1,36 @@
+# Placeholder art: reuses the existing camera_bug.rsi sprite (CC-BY-SA-3.0, already in this repo -
+# see Resources/Textures/Objects/Devices/camera_bug.rsi/meta.json) rather than shipping new, unlicensed art.
+
+- type: entity
+  id: LiveStreamCam
+  parent: BaseItem
+  name: stream cam
+  description: A small camera that broadcasts a live feed to anyone tuned in through the live stream app on their PDA.
+  components:
+  - type: Sprite
+    sprite: Objects/Devices/camera_bug.rsi
+    layers:
+    - state: camera_bug
+  - type: Item
+    sprite: Objects/Devices/camera_bug.rsi
+  - type: Eye
+  - type: SurveillanceCamera
+  - type: LiveStreamCam
+
+- type: entity
+  parent: NFBasePDACartridge
+  id: LiveStreamCartridge
+  name: live stream cartridge
+  description: A PDA program for watching (and starting) live streams from stream cams.
+  components:
+  - type: Sprite
+    sprite: Objects/Devices/cartridge.rsi
+    state: cart-eye
+  - type: UIFragment
+    ui: !type:LiveStreamUi
+  - type: Cartridge
+    programName: live-stream-program-name
+    icon:
+      sprite: Objects/Devices/camera_bug.rsi
+      state: camera_bug
+  - type: LiveStreamCartridge
