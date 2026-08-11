@@ -105,21 +105,21 @@ public sealed class LiveStreamCartridgeSystem : EntitySystem
                 break;
 
             case LiveStreamMessageType.SendChat:
-                SendChat(component, holder, message.Content);
-                UpdateAllLiveUIs();
+                if (SendChat(component, holder, message.Content) is { } chatCam)
+                    UpdateUIsWatching(chatCam);
                 break;
 
             case LiveStreamMessageType.SendDonate:
-                SendDonation(component, holder, message.Content);
-                UpdateAllLiveUIs();
+                if (SendDonation(component, holder, message.Content) is { } donateCam)
+                    UpdateUIsWatching(donateCam);
                 break;
         }
     }
 
-    private void SendChat(LiveStreamCartridgeComponent component, EntityUid holder, string text)
+    private EntityUid? SendChat(LiveStreamCartridgeComponent component, EntityUid holder, string text)
     {
         if (string.IsNullOrWhiteSpace(text))
-            return;
+            return null;
 
         EntityUid? targetCam = null;
 
@@ -129,24 +129,25 @@ public sealed class LiveStreamCartridgeSystem : EntitySystem
             targetCam = watched;
 
         if (targetCam is not { } cam)
-            return;
+            return null;
 
         _liveStream.AddChatMessage(cam, MetaData(holder).EntityName, text, false);
+        return cam;
     }
 
-    private void SendDonation(LiveStreamCartridgeComponent component, EntityUid holder, string content)
+    private EntityUid? SendDonation(LiveStreamCartridgeComponent component, EntityUid holder, string content)
     {
         if (component.WatchedCamUid is not { } cam)
-            return;
+            return null;
 
         var parts = content.Split('|', 2);
         if (parts.Length < 1 || !int.TryParse(parts[0], out var amount))
-            return;
+            return null;
 
         if (!_liveStream.TrySendDonation(holder, cam, amount, out var err))
         {
             ShowError(holder, err);
-            return;
+            return null;
         }
 
         var donateMessage = parts.Length > 1 ? parts[1] : string.Empty;
@@ -156,6 +157,7 @@ public sealed class LiveStreamCartridgeSystem : EntitySystem
             : Loc.GetString("live-stream-chat-donate-message", ("sender", senderName), ("amount", amount), ("message", donateMessage));
 
         _liveStream.AddChatMessage(cam, Loc.GetString("live-stream-chat-system-sender"), text, true);
+        return cam;
     }
 
     private void ShowError(EntityUid holder, string? locKey)
@@ -223,13 +225,35 @@ public sealed class LiveStreamCartridgeSystem : EntitySystem
         _cartridgeLoaderSystem?.UpdateCartridgeUiState(loaderUid, state);
     }
 
-    /// <summary>Refreshes every open live-stream cartridge - used after anything that changes global stream state.</summary>
+    /// <summary>Refreshes every open live-stream cartridge - used after anything that changes the global stream
+    /// list (starting/stopping a stream changes what everyone browsing the list sees).</summary>
     private void UpdateAllLiveUIs()
     {
         var query = EntityQueryEnumerator<LiveStreamCartridgeComponent>();
         while (query.MoveNext(out var uid, out var comp))
         {
             if (comp.LoaderUid is { } loader)
+                UpdateUiState(uid, loader, comp);
+        }
+    }
+
+    /// <summary>
+    /// Refreshes only the cartridges that actually care about <paramref name="cam"/> - its streamer and its
+    /// current viewers - instead of every open cartridge on the station. A busy chat would otherwise force a
+    /// full state resend (up to 100 chat lines + the stream list) to everyone's PDA on every single message.
+    /// </summary>
+    private void UpdateUIsWatching(EntityUid cam)
+    {
+        var query = EntityQueryEnumerator<LiveStreamCartridgeComponent>();
+        while (query.MoveNext(out var uid, out var comp))
+        {
+            if (comp.LoaderUid is not { } loader)
+                continue;
+
+            var holder = Transform(loader).ParentUid;
+            var isRelevant = comp.WatchedCamUid == cam || FindStreamCam(holder) == cam;
+
+            if (isRelevant)
                 UpdateUiState(uid, loader, comp);
         }
     }
