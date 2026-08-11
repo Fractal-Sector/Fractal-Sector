@@ -483,3 +483,10 @@ Entries:
   id: 40
   time: '2026-08-11T07:48:36.0000000+00:00'
   url: https://github.com/Fractal-Sector/Fractal-Sector/pull/67
+- author: IsNotAcceptable
+  changes:
+    - type: Add
+      message: Космический свет
+  id: 41
+  time: '2026-08-11T08:35:38.0000000+00:00'
+  url: https://github.com/Fractal-Sector/Fractal-Sector/pull/68
