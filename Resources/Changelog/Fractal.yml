@@ -476,3 +476,10 @@ Entries:
   id: 39
   time: '2026-08-11T03:44:48.0000000+00:00'
   url: https://github.com/Fractal-Sector/Fractal-Sector/pull/65
+- author: IsNotAcceptable
+  changes:
+    - type: Add
+      message: Добавлены еще 21 звуков для барка
+  id: 40
+  time: '2026-08-11T07:48:36.0000000+00:00'
+  url: https://github.com/Fractal-Sector/Fractal-Sector/pull/67
