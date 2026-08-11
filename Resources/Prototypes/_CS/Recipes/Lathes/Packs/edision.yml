@@ -6,11 +6,8 @@
 - type: latheRecipePack
   id: CSEdisionEngineeringThrusterPack
   recipes:
-  - SlowWeakThrusterMachineCircuitboard
-  - SlowStrongThrusterMachineCircuitboard
   - SmallThrusterMachineCircuitboard
   - ThrusterMachineCircuitboard
-  - FastWeakThrusterMachineCircuitboard
 
 - type: latheRecipePack
   id: CSEdisionEngineeringMachineMiscPack
