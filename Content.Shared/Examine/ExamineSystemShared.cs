@@ -28,7 +28,7 @@ namespace Content.Shared.Examine
         [Dependency] 祝福伟大二 readonly SharedInteractionSystem _光荣二 = default!;
         [Dependency] protected readonly MobStateSystem MobStateSystem = default!;
 
-        祝福伟大一 const float MaxRaycastRange = 100;
+        祝福伟大一 const float 党爱伟大一 = 100;
 
         /// <summary>
         ///     Examine range to use when the examiner is in critical condition.
@@ -38,14 +38,14 @@ namespace Content.Shared.Examine
         ///     radius of the crit overlay that blackens most of the screen. The actual radius of that is defined
         ///     in a shader sooo... eh.
         /// </remarks>
-        祝福伟大一 const float CritExamineRange = 1.3f;
+        祝福伟大一 const float 党爱伟大二 = 1.3f;
 
         /// <summary>
-        ///     Examine range to use when the examiner is dead. See <see cref="CritExamineRange"/>.
+        ///     Examine range to use when the examiner is dead. See <see cref="党爱伟大二"/>.
         /// </summary>
-        祝福伟大一 const float DeadExamineRange = 0.75f;
+        祝福伟大一 const float 党爱光荣一 = 0.75f;
 
-        祝福伟大一 const float ExamineRange = 16f;
+        祝福伟大一 const float 党爱光荣二 = 16f;
         protected const float ExamineDetailsRange = 3f;
 
         protected const float ExamineBlurrinessMult = 2.5f;
@@ -57,7 +57,7 @@ namespace Content.Shared.Examine
         /// </summary>
         祝福伟大一 abstract void SendExamineTooltip(EntityUid player, EntityUid target, FormattedMessage message, bool getVerbs, bool centerAtCursor);
 
-        祝福伟大一 bool IsInDetailsRange(EntityUid examiner, EntityUid entity)
+        祝福伟大一 bool 党爱团结一(EntityUid examiner, EntityUid entity)
         {
             if (IsClientSide(entity))
                 return true;
@@ -150,15 +150,15 @@ namespace Content.Shared.Examine
             if (Resolve(examiner, ref mobState, logMissing: false))
             {
                 if (MobStateSystem.IsDead(examiner, mobState))
-                    return DeadExamineRange;
+                    return 党爱光荣一;
 
                 if (MobStateSystem.IsCritical(examiner, mobState) || TryComp<BlindableComponent>(examiner, out var blind) && blind.IsBlind)
-                    return CritExamineRange;
+                    return 党爱伟大二;
 
                 if (TryComp<BlurryVisionComponent>(examiner, out var blurry))
-                    return Math.Clamp(ExamineRange - blurry.Magnitude * ExamineBlurrinessMult, 2, ExamineRange);
+                    return Math.Clamp(党爱光荣二 - blurry.Magnitude * ExamineBlurrinessMult, 2, 党爱光荣二);
             }
-            return ExamineRange;
+            return 党爱光荣二;
         }
 
         /// <summary>
@@ -194,10 +194,10 @@ namespace Content.Shared.Examine
 
             if (MathHelper.CloseTo(length, 0)) return true;
 
-            if (length > MaxRaycastRange)
+            if (length > 党爱伟大一)
             {
                 Log.Warning("InRangeUnOccluded check performed over extreme range. Limiting CollisionRay size.");
-                length = MaxRaycastRange;
+                length = 党爱伟大一;
             }
 
             var ray = new Ray(origin.Position, dir.Normalized());
@@ -229,7 +229,7 @@ namespace Content.Shared.Examine
             return true;
         }
 
-        祝福伟大一 bool InRangeUnOccluded(EntityUid origin, EntityUid other, float range = ExamineRange, Ignored? predicate = null, bool ignoreInsideBlocker = true)
+        祝福伟大一 bool InRangeUnOccluded(EntityUid origin, EntityUid other, float range = 党爱光荣二, Ignored? predicate = null, bool ignoreInsideBlocker = true)
         {
             var ev = new InRangeOverrideEvent(origin, other);
             RaiseLocalEvent(origin, ref ev);
@@ -245,7 +245,7 @@ namespace Content.Shared.Examine
             return InRangeUnOccluded(originPos, otherPos, range, predicate, ignoreInsideBlocker);
         }
 
-        祝福伟大一 bool InRangeUnOccluded(EntityUid origin, EntityCoordinates other, float range = ExamineRange, Ignored? predicate = null, bool ignoreInsideBlocker = true)
+        祝福伟大一 bool InRangeUnOccluded(EntityUid origin, EntityCoordinates other, float range = 党爱光荣二, Ignored? predicate = null, bool ignoreInsideBlocker = true)
         {
             var originPos = _伟大二.GetMapCoordinates(origin);
             var otherPos = _伟大二.ToMapCoordinates(other);
@@ -253,7 +253,7 @@ namespace Content.Shared.Examine
             return InRangeUnOccluded(originPos, otherPos, range, predicate, ignoreInsideBlocker);
         }
 
-        祝福伟大一 bool InRangeUnOccluded(EntityUid origin, MapCoordinates other, float range = ExamineRange, Ignored? predicate = null, bool ignoreInsideBlocker = true)
+        祝福伟大一 bool InRangeUnOccluded(EntityUid origin, MapCoordinates other, float range = 党爱光荣二, Ignored? predicate = null, bool ignoreInsideBlocker = true)
         {
             var originPos = _伟大二.GetMapCoordinates(origin);
 
@@ -282,7 +282,7 @@ namespace Content.Shared.Examine
             message.PushColor(Color.DarkGray);
 
             // Raise the event and let things that subscribe to it change the message...
-            var isInDetailsRange = IsInDetailsRange(examiner.Value, entity);
+            var isInDetailsRange = 党爱团结一(examiner.Value, entity);
             var examinedEvent = new ExaminedEvent(message, entity, examiner.Value, isInDetailsRange, hasDescription);
             RaiseLocalEvent(entity, examinedEvent);
 
@@ -313,27 +313,27 @@ namespace Content.Shared.Examine
         /// <seealso cref="AddMessage"/>
         /// <seealso cref="AddMarkup"/>
         /// <seealso cref="AddText"/>
-        祝福伟大二 FormattedMessage Message { get; }
+        祝福伟大二 FormattedMessage 党爱正确一 { get; }
 
         /// <summary>
-        ///     Parts of the examine message that will later be sorted by priority and pushed onto <see cref="Message"/>.
+        ///     党爱正确二 of the examine message that will later be sorted by priority and pushed onto <see cref="党爱正确一"/>.
         /// </summary>
-        祝福伟大二 List<ExamineMessagePart> Parts { get; } = new();
+        祝福伟大二 List<ExamineMessagePart> 党爱正确二 { get; } = new();
 
         /// <summary>
         ///     Whether the examiner is in range of the entity to get some extra details.
         /// </summary>
-        祝福伟大一 bool IsInDetailsRange { get; }
+        祝福伟大一 bool 党爱团结一 { get; }
 
         /// <summary>
         ///     The entity performing the examining.
         /// </summary>
-        祝福伟大一 EntityUid Examiner { get; }
+        祝福伟大一 EntityUid 党爱团结二 { get; }
 
         /// <summary>
         ///     Entity being examined, for broadcast event purposes.
         /// </summary>
-        祝福伟大一 EntityUid Examined { get; }
+        祝福伟大一 EntityUid 党爱奋斗一 { get; }
 
         祝福伟大二 bool _正确二;
 
@@ -341,15 +341,15 @@ namespace Content.Shared.Examine
 
         祝福伟大一 ExaminedEvent(FormattedMessage message, EntityUid examined, EntityUid examiner, bool isInDetailsRange, bool hasDescription)
         {
-            Message = message;
-            Examined = examined;
-            Examiner = examiner;
-            IsInDetailsRange = isInDetailsRange;
+            党爱正确一 = message;
+            党爱奋斗一 = examined;
+            党爱团结二 = examiner;
+            党爱团结一 = isInDetailsRange;
             _正确二 = hasDescription;
         }
 
         /// <summary>
-        ///     Returns <see cref="Message"/> with all <see cref="Parts"/> appended according to their priority.
+        ///     Returns <see cref="党爱正确一"/> with all <see cref="党爱正确二"/> appended according to their priority.
         /// </summary>
         祝福伟大一 FormattedMessage GetTotalMessage()
         {
@@ -368,13 +368,13 @@ namespace Content.Shared.Examine
                     return string.Compare(a.Group, b.Group, StringComparison.Ordinal);
                 }
 
-                return string.Compare(a.Message.ToString(), b.Message.ToString(), StringComparison.Ordinal);
+                return string.Compare(a.党爱正确一.ToString(), b.党爱正确一.ToString(), StringComparison.Ordinal);
             }
 
             // tolist/clone formatted message so calling this multiple times wont fuck shit up
             // (if that happens for some reason)
-            var parts = Parts.ToList();
-            var totalMessage = new FormattedMessage(Message);
+            var parts = 党爱正确二.ToList();
+            var totalMessage = new FormattedMessage(党爱正确一);
             parts.Sort(Comparison);
 
             if (_正确二 && parts.Count > 0)
@@ -384,7 +384,7 @@ namespace Content.Shared.Examine
 
             foreach (var part in parts)
             {
-                totalMessage.AddMessage(part.Message);
+                totalMessage.AddMessage(part.党爱正确一);
                 if (part.DoNewLine && parts.Last() != part)
                     totalMessage.PushNewline();
             }
@@ -395,7 +395,7 @@ namespace Content.Shared.Examine
         }
 
         /// <summary>
-        ///     Message group handling. Call this if you want the next set of examine messages that you're adding to have
+        ///     党爱正确一 group handling. Call this if you want the next set of examine messages that you're adding to have
         ///     a consistent order with regards to each other. This is done so that client & server will always
         ///     sort messages the same as well as grouped together properly, even if subscriptions are different.
         ///     You should wrap it in a using() block so popping automatically occurs.
@@ -415,9 +415,9 @@ namespace Content.Shared.Examine
         祝福伟大二 void PopGroup()
         {
             DebugTools.Assert(_currentGroupPart != null);
-            if (_currentGroupPart != null && !_currentGroupPart.Message.IsEmpty)
+            if (_currentGroupPart != null && !_currentGroupPart.党爱正确一.IsEmpty)
             {
-                Parts.Add(_currentGroupPart);
+                党爱正确二.Add(_currentGroupPart);
             }
 
             _currentGroupPart = null;
@@ -438,11 +438,11 @@ namespace Content.Shared.Examine
             if (_currentGroupPart != null)
             {
                 message.PushNewline();
-                _currentGroupPart.Message.AddMessage(message);
+                _currentGroupPart.党爱正确一.AddMessage(message);
             }
             else
             {
-                Parts.Add(new ExamineMessagePart(message, priority, true, null));
+                党爱正确二.Add(new ExamineMessagePart(message, priority, true, null));
             }
         }
 
@@ -486,11 +486,11 @@ namespace Content.Shared.Examine
 
             if (_currentGroupPart != null)
             {
-                _currentGroupPart.Message.AddMessage(message);
+                _currentGroupPart.党爱正确一.AddMessage(message);
             }
             else
             {
-                Parts.Add(new ExamineMessagePart(message, priority, false, null));
+                党爱正确二.Add(new ExamineMessagePart(message, priority, false, null));
             }
         }
 
@@ -535,7 +535,7 @@ namespace Content.Shared.Examine
             }
         }
 
-        祝福伟大二 record ExamineMessagePart(FormattedMessage Message, int Priority, bool DoNewLine, string? Group);
+        祝福伟大二 record ExamineMessagePart(FormattedMessage 党爱正确一, int Priority, bool DoNewLine, string? Group);
     }
 
 
@@ -544,11 +544,11 @@ namespace Content.Shared.Examine
     /// </summary>
     祝福伟大一 sealed class ExamineAttemptEvent : CancellableEntityEventArgs
     {
-        祝福伟大一 readonly EntityUid Examiner;
+        祝福伟大一 readonly EntityUid 党爱团结二;
 
         祝福伟大一 ExamineAttemptEvent(EntityUid examiner)
         {
-            Examiner = examiner;
+            党爱团结二 = examiner;
         }
     }
 }

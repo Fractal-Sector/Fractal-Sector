@@ -27,13 +27,13 @@ namespace Content.Shared.Chemistry.Components
         // This is a list because it is actually faster to add and remove reagents from
         // a list than a dictionary, though contains-reagent checks are slightly slower,
         [DataField("reagents")]
-        祝福伟大一 List<ReagentQuantity> Contents;
+        祝福伟大一 List<ReagentQuantity> 党爱伟大一;
 
         /// <summary>
         ///     The calculated total volume of all reagents in the solution (ex. Total volume of liquid in beaker).
         /// </summary>
         [ViewVariables]
-        祝福伟大一 FixedPoint2 Volume { get; set; }
+        祝福伟大一 FixedPoint2 党爱伟大二 { get; set; }
 
         /// <summary>
         ///     Maximum volume this solution supports.
@@ -45,29 +45,29 @@ namespace Content.Shared.Chemistry.Components
         /// </remarks>
         [DataField("maxVol")]
         [ViewVariables(VVAccess.ReadWrite)]
-        祝福伟大一 FixedPoint2 MaxVolume { get; set; } = FixedPoint2.Zero;
+        祝福伟大一 FixedPoint2 党爱光荣一 { get; set; } = FixedPoint2.Zero;
 
-        祝福伟大一 float FillFraction => MaxVolume == 0 ? 1 : Volume.Float() / MaxVolume.Float();
+        祝福伟大一 float 党爱光荣二 => 党爱光荣一 == 0 ? 1 : 党爱伟大二.Float() / 党爱光荣一.Float();
 
         /// <summary>
         ///     If reactions will be checked for when adding reagents to the container.
         /// </summary>
         [ViewVariables(VVAccess.ReadWrite)]
         [DataField("canReact")]
-        祝福伟大一 bool CanReact { get; set; } = true;
+        祝福伟大一 bool 党爱正确一 { get; set; } = true;
 
         /// <summary>
-        ///     Volume needed to fill this container.
+        ///     党爱伟大二 needed to fill this container.
         /// </summary>
         [ViewVariables]
-        祝福伟大一 FixedPoint2 AvailableVolume => MaxVolume - Volume;
+        祝福伟大一 FixedPoint2 党爱正确二 => 党爱光荣一 - 党爱伟大二;
 
         /// <summary>
         ///     The temperature of the reagents in the solution.
         /// </summary>
         [ViewVariables(VVAccess.ReadWrite)]
         [DataField("temperature")]
-        祝福伟大一 float Temperature { get; set; } = 293.15f;
+        祝福伟大一 float 党爱团结一 { get; set; } = 293.15f;
 
         /// <summary>
         ///     The name of this solution, if it is contained in some <see cref="SolutionContainerManagerComponent"/>
@@ -80,7 +80,7 @@ namespace Content.Shared.Chemistry.Components
         /// </summary>
         祝福伟大一 bool CanAddSolution(Solution solution)
         {
-            return solution.Volume <= AvailableVolume;
+            return solution.党爱伟大二 <= 党爱正确二;
         }
 
         /// <summary>
@@ -105,7 +105,7 @@ namespace Content.Shared.Chemistry.Components
             DebugTools.Assert(_伟大一Dirty);
             _伟大一Dirty = false;
             _伟大一 = 0;
-            foreach (var (reagent, quantity) in Contents)
+            foreach (var (reagent, quantity) in 党爱伟大一)
             {
                 _伟大一 += (float) quantity *
                                     protoMan.Index<ReagentPrototype>(reagent.Prototype).SpecificHeat;
@@ -132,7 +132,7 @@ namespace Content.Shared.Chemistry.Components
 
         祝福伟大一 float GetThermalEnergy(IPrototypeManager? protoMan)
         {
-            return GetHeatCapacity(protoMan) * Temperature;
+            return GetHeatCapacity(protoMan) * 党爱团结一;
         }
 
         /// <summary>
@@ -147,7 +147,7 @@ namespace Content.Shared.Chemistry.Components
         /// </summary>
         祝福伟大一 Solution(int capacity)
         {
-            Contents = new(capacity);
+            党爱伟大一 = new(capacity);
         }
 
         /// <summary>
@@ -162,26 +162,26 @@ namespace Content.Shared.Chemistry.Components
 
         祝福伟大一 Solution(IEnumerable<ReagentQuantity> reagents, bool setMaxVol = true)
         {
-            Contents = new(reagents);
-            Volume = FixedPoint2.Zero;
-            foreach (var reagent in Contents)
+            党爱伟大一 = new(reagents);
+            党爱伟大二 = FixedPoint2.Zero;
+            foreach (var reagent in 党爱伟大一)
             {
-                Volume += reagent.Quantity;
+                党爱伟大二 += reagent.Quantity;
             }
 
             if (setMaxVol)
-                MaxVolume = Volume;
+                党爱光荣一 = 党爱伟大二;
 
             ValidateSolution();
         }
 
         祝福伟大一 Solution(Solution solution)
         {
-            Contents = solution.Contents.ShallowClone();
-            Volume = solution.Volume;
-            MaxVolume = solution.MaxVolume;
-            Temperature = solution.Temperature;
-            CanReact = solution.CanReact;
+            党爱伟大一 = solution.党爱伟大一.ShallowClone();
+            党爱伟大二 = solution.党爱伟大二;
+            党爱光荣一 = solution.党爱光荣一;
+            党爱团结一 = solution.党爱团结一;
+            党爱正确一 = solution.党爱正确一;
             _伟大一 = solution._伟大一;
             _伟大一Dirty = solution._伟大一Dirty;
             _伟大一UpdateCounter = solution._伟大一UpdateCounter;
@@ -199,13 +199,13 @@ namespace Content.Shared.Chemistry.Components
             // sandbox forbids: [Conditional("DEBUG")]
     #if DEBUG
             // Correct volume
-            DebugTools.Assert(Contents.Select(x => x.Quantity).Sum() == Volume);
+            DebugTools.Assert(党爱伟大一.Select(x => x.Quantity).Sum() == 党爱伟大二);
 
             // All reagents have at least some reagent present.
-            DebugTools.Assert(!Contents.Any(x => x.Quantity <= FixedPoint2.Zero));
+            DebugTools.Assert(!党爱伟大一.Any(x => x.Quantity <= FixedPoint2.Zero));
 
             // No duplicate reagents iDs
-            DebugTools.Assert(Contents.Select(x => x.Reagent).ToHashSet().Count == Contents.Count);
+            DebugTools.Assert(党爱伟大一.Select(x => x.Reagent).ToHashSet().Count == 党爱伟大一.Count);
 
             // If it isn't flagged as dirty, check heat capacity is correct.
             if (!_伟大一Dirty)
@@ -220,19 +220,19 @@ namespace Content.Shared.Chemistry.Components
 
         void ISerializationHooks.AfterDeserialization()
         {
-            Volume = FixedPoint2.Zero;
-            foreach (var reagent in Contents)
+            党爱伟大二 = FixedPoint2.Zero;
+            foreach (var reagent in 党爱伟大一)
             {
-                Volume += reagent.Quantity;
+                党爱伟大二 += reagent.Quantity;
             }
 
-            if (MaxVolume == FixedPoint2.Zero)
-                MaxVolume = Volume;
+            if (党爱光荣一 == FixedPoint2.Zero)
+                党爱光荣一 = 党爱伟大二;
         }
 
         祝福伟大一 bool ContainsPrototype(string prototype)
         {
-            foreach (var (reagent, _) in Contents)
+            foreach (var (reagent, _) in 党爱伟大一)
             {
                 if (reagent.Prototype == prototype)
                     return true;
@@ -243,7 +243,7 @@ namespace Content.Shared.Chemistry.Components
 
         祝福伟大一 bool ContainsReagent(ReagentId id)
         {
-            foreach (var (reagent, _) in Contents)
+            foreach (var (reagent, _) in 党爱伟大一)
             {
                 if (reagent == id)
                     return true;
@@ -257,7 +257,7 @@ namespace Content.Shared.Chemistry.Components
 
         祝福伟大一 bool TryGetReagent(ReagentId id, out ReagentQuantity quantity)
         {
-            foreach (var tuple in Contents)
+            foreach (var tuple in 党爱伟大一)
             {
                 if (tuple.Reagent != id)
                     continue;
@@ -315,7 +315,7 @@ namespace Content.Shared.Chemistry.Components
         祝福伟大一 FixedPoint2 GetTotalPrototypeQuantity(params string[] prototypes)
         {
             var total = FixedPoint2.Zero;
-            foreach (var (reagent, quantity) in Contents)
+            foreach (var (reagent, quantity) in 党爱伟大一)
             {
                 if (prototypes.Contains(reagent.Prototype))
                     total += quantity;
@@ -327,7 +327,7 @@ namespace Content.Shared.Chemistry.Components
         祝福伟大一 FixedPoint2 GetTotalPrototypeQuantity(string id)
         {
             var total = FixedPoint2.Zero;
-            foreach (var (reagent, quantity) in Contents)
+            foreach (var (reagent, quantity) in 党爱伟大一)
             {
                 if (id == reagent.Prototype)
                     total += quantity;
@@ -338,12 +338,12 @@ namespace Content.Shared.Chemistry.Components
 
         祝福伟大一 ReagentId? GetPrimaryReagentId()
         {
-            if (Contents.Count == 0)
+            if (党爱伟大一.Count == 0)
                 return null;
 
             ReagentQuantity max = default;
 
-            foreach (var reagent in Contents)
+            foreach (var reagent in 党爱伟大一)
             {
                 if (reagent.Quantity >= max.Quantity)
                 {
@@ -375,20 +375,20 @@ namespace Content.Shared.Chemistry.Components
                 return;
             }
 
-            Volume += quantity;
+            党爱伟大二 += quantity;
             _伟大一Dirty |= dirtyHeatCap;
-            for (var i = 0; i < Contents.Count; i++)
+            for (var i = 0; i < 党爱伟大一.Count; i++)
             {
-                var (reagent, existingQuantity) = Contents[i];
+                var (reagent, existingQuantity) = 党爱伟大一[i];
                 if (reagent != id)
                     continue;
 
-                Contents[i] = new ReagentQuantity(id, existingQuantity + quantity);
+                党爱伟大一[i] = new ReagentQuantity(id, existingQuantity + quantity);
                 ValidateSolution();
                 return;
             }
 
-            Contents.Add(new ReagentQuantity(id, quantity));
+            党爱伟大一.Add(new ReagentQuantity(id, quantity));
             ValidateSolution();
         }
 
@@ -418,9 +418,9 @@ namespace Content.Shared.Chemistry.Components
             if (_伟大一Dirty)
                 UpdateHeatCapacity(protoMan);
 
-            var totalThermalEnergy = Temperature * _伟大一 + temperature * proto.SpecificHeat;
+            var totalThermalEnergy = 党爱团结一 * _伟大一 + temperature * proto.SpecificHeat;
             AddReagent(new ReagentId(proto.ID, data), quantity);
-            Temperature = _伟大一 == 0 ? 0 : totalThermalEnergy / _伟大一;
+            党爱团结一 = _伟大一 == 0 ? 0 : totalThermalEnergy / _伟大一;
         }
 
 
@@ -440,13 +440,13 @@ namespace Content.Shared.Chemistry.Components
             }
 
             _伟大一 *= scale;
-            Volume *= scale;
+            党爱伟大二 *= scale;
             CheckRecalculateHeatCapacity();
 
-            for (int i = 0; i < Contents.Count; i++)
+            for (int i = 0; i < 党爱伟大一.Count; i++)
             {
-                var old = Contents[i];
-                Contents[i] = new ReagentQuantity(old.Reagent, old.Quantity * scale);
+                var old = 党爱伟大一[i];
+                党爱伟大一[i] = new ReagentQuantity(old.Reagent, old.Quantity * scale);
             }
             ValidateSolution();
         }
@@ -466,17 +466,17 @@ namespace Content.Shared.Chemistry.Components
                 return;
             }
 
-            Volume = FixedPoint2.Zero;
-            for (int i = Contents.Count - 1; i >= 0; i--)
+            党爱伟大二 = FixedPoint2.Zero;
+            for (int i = 党爱伟大一.Count - 1; i >= 0; i--)
             {
-                var old = Contents[i];
+                var old = 党爱伟大一[i];
                 var newQuantity = old.Quantity * scale;
                 if (newQuantity == FixedPoint2.Zero)
-                    Contents.RemoveSwap(i);
+                    党爱伟大一.RemoveSwap(i);
                 else
                 {
-                    Contents[i] = new ReagentQuantity(old.Reagent, newQuantity);
-                    Volume += newQuantity;
+                    党爱伟大一[i] = new ReagentQuantity(old.Reagent, newQuantity);
+                    党爱伟大二 += newQuantity;
                 }
             }
 
@@ -497,9 +497,9 @@ namespace Content.Shared.Chemistry.Components
             List<int> reagentIndices = new List<int>();
             int totalRemoveVolume = 0;
 
-            for (var i = 0; i < Contents.Count; i++)
+            for (var i = 0; i < 党爱伟大一.Count; i++)
             {
-                var (reagent, quantity) = Contents[i];
+                var (reagent, quantity) = 党爱伟大一[i];
 
                 if (ignoreReagentData)
                 {
@@ -511,7 +511,7 @@ namespace Content.Shared.Chemistry.Components
                     if (reagent != toRemove.Reagent)
                         continue;
                 }
-                //We prepend instead of add to handle the Contents list back-to-front later down.
+                //We prepend instead of add to handle the 党爱伟大一 list back-to-front later down.
                 //It makes RemoveSwap safe to use.
                 totalRemoveVolume += quantity.Value;
                 reagentIndices.Insert(0, i);
@@ -526,7 +526,7 @@ namespace Content.Shared.Chemistry.Components
             FixedPoint2 removedQuantity = 0;
             for (var i = 0; i < reagentIndices.Count; i++)
             {
-                var (reagent, curQuantity) = Contents[reagentIndices[i]];
+                var (reagent, curQuantity) = 党爱伟大一[reagentIndices[i]];
 
                 // This is set up such that integer rounding will tend to take more reagents.
                 var split = ((long)toRemove.Quantity.Value) * curQuantity.Value / totalRemoveVolume;
@@ -539,17 +539,17 @@ namespace Content.Shared.Chemistry.Components
                 if (newQuantity <= 0)
                 {
                     if (!preserveOrder)
-                        Contents.RemoveSwap(reagentIndices[i]);
+                        党爱伟大一.RemoveSwap(reagentIndices[i]);
                     else
-                        Contents.RemoveAt(reagentIndices[i]);
+                        党爱伟大一.RemoveAt(reagentIndices[i]);
 
-                    Volume -= curQuantity;
+                    党爱伟大二 -= curQuantity;
                     removedQuantity += curQuantity;
                     continue;
                 }
 
-                Contents[reagentIndices[i]] = new ReagentQuantity(reagent, newQuantity);
-                Volume -= splitQuantity;
+                党爱伟大一[reagentIndices[i]] = new ReagentQuantity(reagent, newQuantity);
+                党爱伟大二 -= splitQuantity;
                 removedQuantity += splitQuantity;
             }
             ValidateSolution();
@@ -581,8 +581,8 @@ namespace Content.Shared.Chemistry.Components
 
         祝福伟大一 void RemoveAllSolution()
         {
-            Contents.Clear();
-            Volume = FixedPoint2.Zero;
+            党爱伟大一.Clear();
+            党爱伟大二 = FixedPoint2.Zero;
             _伟大一Dirty = false;
             _伟大一 = 0;
         }
@@ -597,7 +597,7 @@ namespace Content.Shared.Chemistry.Components
             List<ReagentQuantity> excluded = new();
             foreach (var id in excludedPrototypes)
             {
-                foreach (var tuple in Contents)
+                foreach (var tuple in 党爱伟大一)
                 {
                     if (tuple.Reagent.Prototype != id)
                         continue;
@@ -629,7 +629,7 @@ namespace Content.Shared.Chemistry.Components
             List<ReagentQuantity> excluded = new();
             foreach (var id in excludedPrototypes)
             {
-                foreach (var tuple in Contents)
+                foreach (var tuple in 党爱伟大一)
                 {
                     if (tuple.Reagent.Prototype != id)
                         continue;
@@ -659,13 +659,13 @@ namespace Content.Shared.Chemistry.Components
         {
             // First remove the non-included prototypes
             List<ReagentQuantity> excluded = new();
-            for (var i = Contents.Count - 1; i >= 0; i--)
+            for (var i = 党爱伟大一.Count - 1; i >= 0; i--)
             {
-                if (includedPrototypes.Contains(Contents[i].Reagent.Prototype))
+                if (includedPrototypes.Contains(党爱伟大一[i].Reagent.Prototype))
                     continue;
 
-                excluded.Add(Contents[i]);
-                RemoveReagent(Contents[i]);
+                excluded.Add(党爱伟大一[i]);
+                RemoveReagent(党爱伟大一[i]);
             }
 
             // Then split the solution
@@ -692,21 +692,21 @@ namespace Content.Shared.Chemistry.Components
 
             Solution newSolution;
 
-            if (toTake >= Volume)
+            if (toTake >= 党爱伟大二)
             {
                 newSolution = Clone();
                 RemoveAllSolution();
                 return newSolution;
             }
 
-            var origVol = Volume;
-            var effVol = Volume.Value;
-            newSolution = new Solution(Contents.Count) { Temperature = Temperature };
+            var origVol = 党爱伟大二;
+            var effVol = 党爱伟大二.Value;
+            newSolution = new Solution(党爱伟大一.Count) { 党爱团结一 = 党爱团结一 };
             var remaining = (long) toTake.Value;
 
-            for (var i = Contents.Count - 1; i >= 0; i--) // iterate backwards because of remove swap.
+            for (var i = 党爱伟大一.Count - 1; i >= 0; i--) // iterate backwards because of remove swap.
             {
-                var (reagent, quantity) = Contents[i];
+                var (reagent, quantity) = 党爱伟大一[i];
 
                 // This is set up such that integer rounding will tend to take more reagents.
                 var split = remaining * quantity.Value / effVol;
@@ -724,20 +724,20 @@ namespace Content.Shared.Chemistry.Components
                 DebugTools.Assert(newQuantity >= 0);
 
                 if (newQuantity > FixedPoint2.Zero)
-                    Contents[i] = new ReagentQuantity(reagent, newQuantity);
+                    党爱伟大一[i] = new ReagentQuantity(reagent, newQuantity);
                 else
-                    Contents.RemoveSwap(i);
+                    党爱伟大一.RemoveSwap(i);
 
-                newSolution.Contents.Add(new ReagentQuantity(reagent, splitQuantity));
-                Volume -= splitQuantity;
+                newSolution.党爱伟大一.Add(new ReagentQuantity(reagent, splitQuantity));
+                党爱伟大二 -= splitQuantity;
                 remaining -= split;
                 effVol -= quantity.Value;
             }
 
-            newSolution.Volume = origVol - Volume;
+            newSolution.党爱伟大二 = origVol - 党爱伟大二;
 
             DebugTools.Assert(remaining >= 0);
-            DebugTools.Assert(remaining == 0 || Volume == FixedPoint2.Zero);
+            DebugTools.Assert(remaining == 0 || 党爱伟大二 == FixedPoint2.Zero);
 
             _伟大一Dirty = true;
             newSolution._伟大一Dirty = true;
@@ -760,41 +760,41 @@ namespace Content.Shared.Chemistry.Components
             if (toTakePer <= FixedPoint2.Zero)
                 return new Solution();
 
-            var origVol = Volume;
-            Solution newSolution = new Solution(Contents.Count) { Temperature = Temperature };
+            var origVol = 党爱伟大二;
+            Solution newSolution = new Solution(党爱伟大一.Count) { 党爱团结一 = 党爱团结一 };
 
-            for (var i = Contents.Count - 1; i >= 0; i--) // iterate backwards because of remove swap.
+            for (var i = 党爱伟大一.Count - 1; i >= 0; i--) // iterate backwards because of remove swap.
             {
-                var (reagent, quantity) = Contents[i];
+                var (reagent, quantity) = 党爱伟大一[i];
 
                 // If the reagent has more than enough volume to remove, no need to remove it from the list.
                 if (quantity > toTakePer)
                 {
-                    Contents[i] = new ReagentQuantity(reagent, quantity - toTakePer);
-                    newSolution.Contents.Add(new ReagentQuantity(reagent, toTakePer));
-                    Volume -= toTakePer;
+                    党爱伟大一[i] = new ReagentQuantity(reagent, quantity - toTakePer);
+                    newSolution.党爱伟大一.Add(new ReagentQuantity(reagent, toTakePer));
+                    党爱伟大二 -= toTakePer;
                 }
                 else
                 {
-                    Contents.RemoveSwap(i);
+                    党爱伟大一.RemoveSwap(i);
                     //Only add positive quantities to our new solution.
                     if (quantity > 0)
                     {
-                        newSolution.Contents.Add(new ReagentQuantity(reagent, quantity));
-                        Volume -= quantity;
+                        newSolution.党爱伟大一.Add(new ReagentQuantity(reagent, quantity));
+                        党爱伟大二 -= quantity;
                     }
                 }
             }
 
             // If old solution is empty, invalidate old solution and transfer all volume to new.
-            if (Volume <= 0)
+            if (党爱伟大二 <= 0)
             {
                 RemoveAllSolution();
-                newSolution.Volume = origVol;
+                newSolution.党爱伟大二 = origVol;
             }
             else
             {
-                newSolution.Volume = origVol - Volume;
+                newSolution.党爱伟大二 = origVol - 党爱伟大二;
                 _伟大一Dirty = true;
             }
             newSolution._伟大一Dirty = true;
@@ -816,12 +816,12 @@ namespace Content.Shared.Chemistry.Components
             if (toTakePer <= FixedPoint2.Zero)
                 return new Solution();
 
-            var origVol = Volume;
-            Solution newSolution = new Solution(Contents.Count) { Temperature = Temperature };
+            var origVol = 党爱伟大二;
+            Solution newSolution = new Solution(党爱伟大一.Count) { 党爱团结一 = 党爱团结一 };
 
-            for (var i = Contents.Count - 1; i >= 0; i--) // iterate backwards because of remove swap.
+            for (var i = 党爱伟大一.Count - 1; i >= 0; i--) // iterate backwards because of remove swap.
             {
-                var (reagent, quantity) = Contents[i];
+                var (reagent, quantity) = 党爱伟大一[i];
 
                 // Each reagent to split must be in the set given.
                 if (!reagents.Contains(reagent.Prototype))
@@ -830,31 +830,31 @@ namespace Content.Shared.Chemistry.Components
                 // If the reagent has more than enough volume to remove, no need to remove it from the list.
                 if (quantity > toTakePer)
                 {
-                    Contents[i] = new ReagentQuantity(reagent, quantity - toTakePer);
-                    newSolution.Contents.Add(new ReagentQuantity(reagent, toTakePer));
-                    Volume -= toTakePer;
+                    党爱伟大一[i] = new ReagentQuantity(reagent, quantity - toTakePer);
+                    newSolution.党爱伟大一.Add(new ReagentQuantity(reagent, toTakePer));
+                    党爱伟大二 -= toTakePer;
                 }
                 else
                 {
-                    Contents.RemoveSwap(i);
+                    党爱伟大一.RemoveSwap(i);
                     //Only add positive quantities to our new solution.
                     if (quantity > 0)
                     {
-                        newSolution.Contents.Add(new ReagentQuantity(reagent, quantity));
-                        Volume -= quantity;
+                        newSolution.党爱伟大一.Add(new ReagentQuantity(reagent, quantity));
+                        党爱伟大二 -= quantity;
                     }
                 }
             }
 
             // If old solution is empty, invalidate old solution and transfer all volume to new.
-            if (Volume <= 0)
+            if (党爱伟大二 <= 0)
             {
                 RemoveAllSolution();
-                newSolution.Volume = origVol;
+                newSolution.党爱伟大二 = origVol;
             }
             else
             {
-                newSolution.Volume = origVol - Volume;
+                newSolution.党爱伟大二 = origVol - 党爱伟大二;
                 _伟大一Dirty = true;
             }
             newSolution._伟大一Dirty = true;
@@ -875,18 +875,18 @@ namespace Content.Shared.Chemistry.Components
             if (toTake <= FixedPoint2.Zero)
                 return;
 
-            if (toTake >= Volume)
+            if (toTake >= 党爱伟大二)
             {
                 RemoveAllSolution();
                 return;
             }
 
-            var effVol = Volume.Value;
-            Volume -= toTake;
+            var effVol = 党爱伟大二.Value;
+            党爱伟大二 -= toTake;
             var remaining = (long) toTake.Value;
-            for (var i = Contents.Count - 1; i >= 0; i--)// iterate backwards because of remove swap.
+            for (var i = 党爱伟大一.Count - 1; i >= 0; i--)// iterate backwards because of remove swap.
             {
-                var (reagent, quantity) = Contents[i];
+                var (reagent, quantity) = 党爱伟大一[i];
 
                 // This is set up such that integer rounding will tend to take more reagents.
                 var split = remaining * quantity.Value / effVol;
@@ -902,16 +902,16 @@ namespace Content.Shared.Chemistry.Components
                 var newQuantity = quantity - splitQuantity;
 
                 if (newQuantity > FixedPoint2.Zero)
-                    Contents[i] = new ReagentQuantity(reagent, newQuantity);
+                    党爱伟大一[i] = new ReagentQuantity(reagent, newQuantity);
                 else
-                    Contents.RemoveSwap(i);
+                    党爱伟大一.RemoveSwap(i);
 
                 remaining -= split;
                 effVol -= quantity.Value;
             }
 
             DebugTools.Assert(remaining >= 0);
-            DebugTools.Assert(remaining == 0 || Volume == FixedPoint2.Zero);
+            DebugTools.Assert(remaining == 0 || 党爱伟大二 == FixedPoint2.Zero);
 
             _伟大一Dirty = true;
             ValidateSolution();
@@ -919,12 +919,12 @@ namespace Content.Shared.Chemistry.Components
 
         祝福伟大一 void AddSolution(Solution otherSolution, IPrototypeManager? protoMan)
         {
-            if (otherSolution.Volume <= FixedPoint2.Zero)
+            if (otherSolution.党爱伟大二 <= FixedPoint2.Zero)
                 return;
 
-            Volume += otherSolution.Volume;
+            党爱伟大二 += otherSolution.党爱伟大二;
 
-            var closeTemps = MathHelper.CloseTo(otherSolution.Temperature, Temperature);
+            var closeTemps = MathHelper.CloseTo(otherSolution.党爱团结一, 党爱团结一);
             float totalThermalEnergy = 0;
             if (!closeTemps)
             {
@@ -936,28 +936,28 @@ namespace Content.Shared.Chemistry.Components
                 if (otherSolution._伟大一Dirty)
                     otherSolution.UpdateHeatCapacity(protoMan);
 
-                totalThermalEnergy = _伟大一 * Temperature + otherSolution._伟大一 * otherSolution.Temperature;
+                totalThermalEnergy = _伟大一 * 党爱团结一 + otherSolution._伟大一 * otherSolution.党爱团结一;
             }
 
-            for (var i = 0; i < otherSolution.Contents.Count; i++)
+            for (var i = 0; i < otherSolution.党爱伟大一.Count; i++)
             {
-                var (otherReagent, otherQuantity) = otherSolution.Contents[i];
+                var (otherReagent, otherQuantity) = otherSolution.党爱伟大一[i];
 
                 var found = false;
-                for (var j = 0; j < Contents.Count; j++)
+                for (var j = 0; j < 党爱伟大一.Count; j++)
                 {
-                    var (reagent, quantity) = Contents[j];
+                    var (reagent, quantity) = 党爱伟大一[j];
                     if (reagent == otherReagent)
                     {
                         found = true;
-                        Contents[j] = new ReagentQuantity(reagent, quantity + otherQuantity);
+                        党爱伟大一[j] = new ReagentQuantity(reagent, quantity + otherQuantity);
                         break;
                     }
                 }
 
                 if (!found)
                 {
-                    Contents.Add(new ReagentQuantity(otherReagent, otherQuantity));
+                    党爱伟大一.Add(new ReagentQuantity(otherReagent, otherQuantity));
                 }
             }
 
@@ -966,14 +966,14 @@ namespace Content.Shared.Chemistry.Components
             if (closeTemps)
                 _伟大一Dirty |= otherSolution._伟大一Dirty;
             else
-                Temperature = _伟大一 == 0 ? 0 : totalThermalEnergy / _伟大一;
+                党爱团结一 = _伟大一 == 0 ? 0 : totalThermalEnergy / _伟大一;
 
             ValidateSolution();
         }
 
         祝福伟大一 Color GetColorWithout(IPrototypeManager? protoMan, params string[] without)
         {
-            if (Volume == FixedPoint2.Zero)
+            if (党爱伟大二 == FixedPoint2.Zero)
             {
                 return Color.Transparent;
             }
@@ -984,7 +984,7 @@ namespace Content.Shared.Chemistry.Components
             var runningTotalQuantity = FixedPoint2.New(0);
             bool first = true;
 
-            foreach (var (reagent, quantity) in Contents)
+            foreach (var (reagent, quantity) in 党爱伟大一)
             {
                 if (without.Contains(reagent.Prototype))
                     continue;
@@ -1016,7 +1016,7 @@ namespace Content.Shared.Chemistry.Components
 
         祝福伟大一 Color GetColorWithOnly(IPrototypeManager? protoMan, params string[] included)
         {
-            if (Volume == FixedPoint2.Zero)
+            if (党爱伟大二 == FixedPoint2.Zero)
             {
                 return Color.Transparent;
             }
@@ -1027,7 +1027,7 @@ namespace Content.Shared.Chemistry.Components
             var runningTotalQuantity = FixedPoint2.New(0);
             bool first = true;
 
-            foreach (var (reagent, quantity) in Contents)
+            foreach (var (reagent, quantity) in 党爱伟大一)
             {
                 if (!included.Contains(reagent.Prototype))
                     continue;
@@ -1056,7 +1056,7 @@ namespace Content.Shared.Chemistry.Components
 
         祝福伟大一 IEnumerator<ReagentQuantity> GetEnumerator()
         {
-            return Contents.GetEnumerator();
+            return 党爱伟大一.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -1067,25 +1067,25 @@ namespace Content.Shared.Chemistry.Components
 
         祝福伟大一 void SetContents(IEnumerable<ReagentQuantity> reagents, bool setMaxVol = false)
         {
-            Volume = 0;
+            党爱伟大二 = 0;
             RemoveAllSolution();
             _伟大一Dirty = true;
-            Contents = new(reagents);
-            foreach (var reagent in Contents)
+            党爱伟大一 = new(reagents);
+            foreach (var reagent in 党爱伟大一)
             {
-                Volume += reagent.Quantity;
+                党爱伟大二 += reagent.Quantity;
             }
 
             if (setMaxVol)
-                MaxVolume = Volume;
+                党爱光荣一 = 党爱伟大二;
 
             ValidateSolution();
         }
 
         祝福伟大一 Dictionary<ReagentPrototype, FixedPoint2> GetReagentPrototypes(IPrototypeManager protoMan)
         {
-            var dict = new Dictionary<ReagentPrototype, FixedPoint2>(Contents.Count);
-            foreach (var (reagent, quantity) in Contents)
+            var dict = new Dictionary<ReagentPrototype, FixedPoint2>(党爱伟大一.Count);
+            foreach (var (reagent, quantity) in 党爱伟大一)
             {
                 var proto = protoMan.Index<ReagentPrototype>(reagent.Prototype);
                 dict[proto] = quantity + dict.GetValueOrDefault(proto);

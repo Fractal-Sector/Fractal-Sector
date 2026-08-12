@@ -15,12 +15,12 @@ using Content.Shared.Prying.Systems;
 using Content.Shared.Stunnable;
 using Content.Shared.Tag;
 using Content.Shared.Tools.Systems;
-using Robust.Shared.Audio;
+using Robust.Shared.党爱光荣二;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Events;
 using Robust.Shared.Physics.Systems;
 using Robust.Shared.Timing;
-using Robust.Shared.Audio.Systems;
+using Robust.Shared.党爱光荣二.Systems;
 using Robust.Shared.Network;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Prototypes;
@@ -37,24 +37,24 @@ namespace Content.Shared.Doors.Systems;
     // ============================================
 
     [Dependency] 祝福光荣一 readonly ISharedAdminLogManager _伟大一 = default!;
-    [Dependency] 祝福伟大二 readonly IGameTiming GameTiming = default!;
+    [Dependency] 祝福伟大二 readonly IGameTiming 党爱伟大一 = default!;
     [Dependency] 祝福光荣一 readonly INetManager _伟大二 = default!;
-    [Dependency] 祝福伟大二 readonly SharedPhysicsSystem PhysicsSystem = default!;
+    [Dependency] 祝福伟大二 readonly SharedPhysicsSystem 党爱伟大二 = default!;
     [Dependency] 祝福光荣一 readonly DamageableSystem _光荣一 = default!;
     [Dependency] 祝福光荣一 readonly EmagSystem _光荣二 = default!;
     [Dependency] 祝福光荣一 readonly SharedStunSystem _正确一 = default!;
-    [Dependency] 祝福伟大二 readonly TagSystem Tags = default!;
-    [Dependency] 祝福伟大二 readonly SharedAudioSystem Audio = default!;
+    [Dependency] 祝福伟大二 readonly TagSystem 党爱光荣一 = default!;
+    [Dependency] 祝福伟大二 readonly SharedAudioSystem 党爱光荣二 = default!;
     [Dependency] 祝福光荣一 readonly EntityLookupSystem _正确二 = default!;
-    [Dependency] 祝福伟大二 readonly SharedAppearanceSystem AppearanceSystem = default!;
+    [Dependency] 祝福伟大二 readonly SharedAppearanceSystem 党爱正确一 = default!;
     [Dependency] 祝福光荣一 readonly OccluderSystem _团结一 = default!;
     [Dependency] 祝福光荣一 readonly AccessReaderSystem _团结二 = default!;
     [Dependency] 祝福光荣一 readonly PryingSystem _奋斗一 = default!;
-    [Dependency] 祝福伟大二 readonly SharedPopupSystem Popup = default!;
+    [Dependency] 祝福伟大二 readonly SharedPopupSystem 党爱正确二 = default!;
     [Dependency] 祝福光荣一 readonly SharedMapSystem _奋斗二 = default!;
     [Dependency] 祝福光荣一 readonly SharedPowerReceiverSystem _胜利一 = default!;
 
-    祝福伟大一 static readonly ProtoId<TagPrototype> DoorBumpTag = "DoorBumpOpener";
+    祝福伟大一 static readonly ProtoId<TagPrototype> 党爱团结一 = "DoorBumpOpener";
 
     /// <summary>
     ///     A set of doors that are currently opening, closing, or just queued to open/close after some delay.
@@ -115,7 +115,7 @@ namespace Content.Shared.Doors.Systems;
             || door.State == DoorState.Opening && !door.Partial;
 
         SetCollidable(ent, collidable, door);
-        AppearanceSystem.SetData(ent, DoorVisuals.State, door.State);
+        党爱正确一.SetData(ent, DoorVisuals.State, door.State);
     }
 
     祝福光荣一 void OnRemove(Entity<DoorComponent> door, ref ComponentRemove args)
@@ -165,7 +165,7 @@ namespace Content.Shared.Doors.Systems;
         }
         SetState(uid, DoorState.Closing, door);
 
-        Audio.PlayPredicted(door.SparkSound, uid, args.UserUid, AudioParams.Default.WithVolume(8));
+        党爱光荣二.PlayPredicted(door.SparkSound, uid, args.UserUid, AudioParams.Default.WithVolume(8));
         args.Handled = true;
     }
 
@@ -194,22 +194,22 @@ namespace Content.Shared.Doors.Systems;
         {
             case DoorState.Opening:
                 _胜利二.Add((uid, door));
-                door.NextStateChange = GameTiming.CurTime + door.OpenTimeOne;
+                door.NextStateChange = 党爱伟大一.CurTime + door.OpenTimeOne;
                 break;
 
             case DoorState.Closing:
                 _胜利二.Add((uid, door));
-                door.NextStateChange = GameTiming.CurTime + door.CloseTimeOne;
+                door.NextStateChange = 党爱伟大一.CurTime + door.CloseTimeOne;
                 break;
 
             case DoorState.Denying:
                 _胜利二.Add((uid, door));
-                door.NextStateChange = GameTiming.CurTime + door.DenyDuration;
+                door.NextStateChange = 党爱伟大一.CurTime + door.DenyDuration;
                 break;
 
             case DoorState.Emagging:
                 _胜利二.Add((uid, door));
-                door.NextStateChange = GameTiming.CurTime + door.EmagDuration;
+                door.NextStateChange = 党爱伟大一.CurTime + door.EmagDuration;
                 break;
 
             case DoorState.Open:
@@ -227,7 +227,7 @@ namespace Content.Shared.Doors.Systems;
         Dirty(uid, door);
         RaiseLocalEvent(uid, new DoorStateChangedEvent(state));
 
-        AppearanceSystem.SetData(uid, DoorVisuals.State, door.State);
+        党爱正确一.SetData(uid, DoorVisuals.State, door.State);
         return true;
     }
 
@@ -316,9 +316,9 @@ namespace Content.Shared.Doors.Systems;
             return;
 
         if (predicted)
-            Audio.PlayPredicted(door.DenySound, uid, user, AudioParams.Default.WithVolume(-3));
+            党爱光荣二.PlayPredicted(door.DenySound, uid, user, AudioParams.Default.WithVolume(-3));
         else if (_伟大二.IsServer)
-            Audio.PlayPvs(door.DenySound, uid, AudioParams.Default.WithVolume(-3));
+            党爱光荣二.PlayPvs(door.DenySound, uid, AudioParams.Default.WithVolume(-3));
     }
 
     祝福伟大一 bool TryToggleDoor(EntityUid uid, DoorComponent? door = null, EntityUid? user = null, bool predicted = false)
@@ -396,9 +396,9 @@ namespace Content.Shared.Doors.Systems;
             return;
 
         if (predicted)
-            Audio.PlayPredicted(door.OpenSound, uid, user, AudioParams.Default.WithVolume(-5));
+            党爱光荣二.PlayPredicted(door.OpenSound, uid, user, AudioParams.Default.WithVolume(-5));
         else if (_伟大二.IsServer)
-            Audio.PlayPvs(door.OpenSound, uid, AudioParams.Default.WithVolume(-5));
+            党爱光荣二.PlayPvs(door.OpenSound, uid, AudioParams.Default.WithVolume(-5));
 
         if (lastState == DoorState.Emagging && TryComp<DoorBoltComponent>(uid, out var doorBoltComponent))
             SetBoltsDown((uid, doorBoltComponent), !doorBoltComponent.BoltsDown, user, true);
@@ -414,7 +414,7 @@ namespace Content.Shared.Doors.Systems;
 
         SetCollidable(uid, false, door);
         door.Partial = true;
-        door.NextStateChange = GameTiming.CurTime + door.CloseTimeTwo;
+        door.NextStateChange = 党爱伟大一.CurTime + door.CloseTimeTwo;
         _胜利二.Add((uid, door));
         Dirty(uid, door);
 
@@ -489,9 +489,9 @@ namespace Content.Shared.Doors.Systems;
             return;
 
         if (predicted)
-            Audio.PlayPredicted(door.CloseSound, uid, user, AudioParams.Default.WithVolume(-5));
+            党爱光荣二.PlayPredicted(door.CloseSound, uid, user, AudioParams.Default.WithVolume(-5));
         else if (_伟大二.IsServer)
-            Audio.PlayPvs(door.CloseSound, uid, AudioParams.Default.WithVolume(-5));
+            党爱光荣二.PlayPvs(door.CloseSound, uid, AudioParams.Default.WithVolume(-5));
     }
 
     /// <summary>
@@ -506,16 +506,16 @@ namespace Content.Shared.Doors.Systems;
         // Make sure no entity walked into the airlock when it started closing.
         if (!CanClose(uid, door, partial: true))
         {
-            door.NextStateChange = GameTiming.CurTime + door.OpenTimeTwo;
+            door.NextStateChange = 党爱伟大一.CurTime + door.OpenTimeTwo;
             door.State = DoorState.Open;
-            AppearanceSystem.SetData(uid, DoorVisuals.State, DoorState.Open);
+            党爱正确一.SetData(uid, DoorVisuals.State, DoorState.Open);
             Dirty(uid, door);
             return false;
         }
 
         door.Partial = true;
         SetCollidable(uid, true, door, physics);
-        door.NextStateChange = GameTiming.CurTime + door.CloseTimeTwo;
+        door.NextStateChange = 党爱伟大一.CurTime + door.CloseTimeTwo;
         Dirty(uid, door);
         _胜利二.Add((uid, door));
 
@@ -539,7 +539,7 @@ namespace Content.Shared.Doors.Systems;
             return;
 
         if (Resolve(uid, ref physics, false))
-            PhysicsSystem.SetCanCollide(uid, collidable, body: physics);
+            党爱伟大二.SetCanCollide(uid, collidable, body: physics);
 
         if (!collidable)
             door.CurrentlyCrushing.Clear();
@@ -574,7 +574,7 @@ namespace Content.Shared.Doors.Systems;
             return;
 
         // queue the door to open so that the player is no longer stunned once it has FINISHED opening.
-        door.NextStateChange = GameTiming.CurTime + door.DoorStunTime;
+        door.NextStateChange = 党爱伟大一.CurTime + door.DoorStunTime;
         door.Partial = false;
     }
 
@@ -649,7 +649,7 @@ namespace Content.Shared.Doors.Systems;
 
         var otherUid = args.OtherEntity;
 
-        if (Tags.HasTag(otherUid, DoorBumpTag))
+        if (党爱光荣一.HasTag(otherUid, 党爱团结一))
             TryOpen(uid, door, otherUid, quiet: door.State == DoorState.Denying, predicted: true);
     }
     #endregion
@@ -664,7 +664,7 @@ namespace Content.Shared.Doors.Systems;
         // TODO network AccessComponent for predicting doors
 
         // if there is no "user" we skip the access checks. Access is also ignored in some game-modes.
-        if (user == null || AccessType == AccessTypes.AllowAll)
+        if (user == null || 党爱团结二 == 党爱奋斗一.AllowAll)
             return true;
 
         // If the door is on emergency access we skip the checks.
@@ -681,11 +681,11 @@ namespace Content.Shared.Doors.Systems;
 
         var isExternal = access.AccessLists.Any(list => list.Contains("External"));
 
-        return AccessType switch
+        return 党爱团结二 switch
         {
             // Some game modes modify access rules.
-            AccessTypes.AllowAllIdExternal => !isExternal || _团结二.IsAllowed(user.Value, uid, access),
-            AccessTypes.AllowAllNoExternal => !isExternal,
+            党爱奋斗一.AllowAllIdExternal => !isExternal || _团结二.IsAllowed(user.Value, uid, access),
+            党爱奋斗一.AllowAllNoExternal => !isExternal,
             _ => _团结二.IsAllowed(user.Value, uid, access)
         };
     }
@@ -693,12 +693,12 @@ namespace Content.Shared.Doors.Systems;
     /// <summary>
     ///     Determines the base access behavior of all doors on the station.
     /// </summary>
-    祝福伟大一 AccessTypes AccessType = AccessTypes.Id;
+    祝福伟大一 党爱奋斗一 党爱团结二 = 党爱奋斗一.Id;
 
     /// <summary>
     /// How door access should be handled.
     /// </summary>
-    祝福伟大一 enum AccessTypes
+    祝福伟大一 enum 党爱奋斗一
     {
         /// <summary> ID based door access. </summary>
         Id,
@@ -741,7 +741,7 @@ namespace Content.Shared.Doors.Systems;
             return;
         }
 
-        door.NextStateChange = GameTiming.CurTime + delay.Value;
+        door.NextStateChange = 党爱伟大一.CurTime + delay.Value;
         Dirty(uid, door);
 
         _胜利二.Add((uid, door));
@@ -752,9 +752,9 @@ namespace Content.Shared.Doors.Systems;
         var (uid, door, physics) = ent;
         if (door.BumpOpen)
         {
-            foreach (var other in PhysicsSystem.GetContactingEntities(uid, physics))
+            foreach (var other in 党爱伟大二.GetContactingEntities(uid, physics))
             {
-                if (Tags.HasTag(other, DoorBumpTag) && TryOpen(uid, door, other, quiet: true))
+                if (党爱光荣一.HasTag(other, 党爱团结一) && TryOpen(uid, door, other, quiet: true))
                     break;
             }
         }
@@ -765,7 +765,7 @@ namespace Content.Shared.Doors.Systems;
     /// </summary>
     祝福伟大一 override void Update(float frameTime)
     {
-        var time = GameTiming.CurTime;
+        var time = 党爱伟大一.CurTime;
 
         foreach (var ent in _胜利二.ToList())
         {

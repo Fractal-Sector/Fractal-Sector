@@ -851,6 +851,6 @@ namespace Content.Shared.Cuffs
         /// <summary>
         /// All slots to relay to
         /// </summary>
-        祝福伟大一 SlotFlags TargetSlots { get; set; }
+        祝福伟大一 SlotFlags 党爱伟大一 { get; set; }
     }
 }

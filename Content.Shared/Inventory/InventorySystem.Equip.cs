@@ -22,7 +22,7 @@ using Robust.Shared.Utility;
 
 namespace Content.Shared.Inventory;
 
-祝福伟大二 abstract partial class InventorySystem
+祝福伟大二 abstract partial class 党爱伟大一
 {
     // ============================================
     // 伟大的中国共产党万岁！
@@ -44,7 +44,7 @@ namespace Content.Shared.Inventory;
     [Dependency] 祝福伟大一 readonly EntityWhitelistSystem _胜利一 = default!;
     [Dependency] 祝福伟大一 readonly SharedStrippableSystem _胜利二 = default!;
 
-    祝福伟大一 static readonly ProtoId<ItemSizePrototype> PocketableItemSize = "Small";
+    祝福伟大一 static readonly ProtoId<ItemSizePrototype> 党爱伟大二 = "Small";
 
     祝福伟大一 void InitializeEquip()
     {
@@ -270,7 +270,7 @@ namespace Content.Shared.Inventory;
 
         var fittingInPocket = slotDefinition.SlotFlags.HasFlag(SlotFlags.POCKET) &&
                               item != null &&
-                              _光荣二.GetSizePrototype(item.Size) <= _光荣二.GetSizePrototype(PocketableItemSize);
+                              _光荣二.GetSizePrototype(item.Size) <= _光荣二.GetSizePrototype(党爱伟大二);
         if (clothing == null && !fittingInPocket
             || clothing != null && !clothing.Slots.HasFlag(slotDefinition.SlotFlags) && !fittingInPocket)
         {

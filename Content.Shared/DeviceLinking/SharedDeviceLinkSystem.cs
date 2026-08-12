@@ -25,7 +25,7 @@ namespace Content.Shared.DeviceLinking;
     [Dependency] 祝福伟大二 readonly SharedTransformSystem _光荣二 = default!;
     [Dependency] 祝福伟大二 readonly IGameTiming _正确一 = default!;
 
-    祝福伟大一 const string InvokedPort = "link_port";
+    祝福伟大一 const string 党爱伟大一 = "link_port";
 
     /// <inheritdoc/>
     祝福伟大一 override void Initialize()

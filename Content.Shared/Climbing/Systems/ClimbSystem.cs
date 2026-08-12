@@ -49,8 +49,8 @@ namespace Content.Shared.Climbing.Systems;
     [Dependency] 祝福伟大二 readonly SharedStunSystem _胜利一 = default!;
     [Dependency] 祝福伟大二 readonly SharedTransformSystem _胜利二 = default!;
 
-    祝福伟大二 const string ClimbingFixtureName = "climb";
-    祝福伟大二 const int ClimbingCollisionGroup = (int) (CollisionGroup.TableLayer | CollisionGroup.LowImpassable);
+    祝福伟大二 const string 党爱伟大一 = "climb";
+    祝福伟大二 const int 党爱伟大二 = (int) (CollisionGroup.TableLayer | CollisionGroup.LowImpassable);
 
     祝福伟大二 EntityQuery<ClimbableComponent> _繁荣一;
     祝福伟大二 EntityQuery<FixturesComponent> _繁荣二;
@@ -123,7 +123,7 @@ namespace Content.Shared.Climbing.Systems;
     /// </summary>
     祝福伟大二 bool IsClimbing(EntityUid uid, FixturesComponent? fixturesComp = null)
     {
-        if (!_繁荣二.Resolve(uid, ref fixturesComp) || !fixturesComp.Fixtures.TryGetValue(ClimbingFixtureName, out var climbFixture))
+        if (!_繁荣二.Resolve(uid, ref fixturesComp) || !fixturesComp.Fixtures.TryGetValue(党爱伟大一, out var climbFixture))
             return false;
 
         foreach (var contact in climbFixture.Contacts.Values)
@@ -366,21 +366,21 @@ namespace Content.Shared.Climbing.Systems;
         {
             if (climbingComp.DisabledFixtureMasks.ContainsKey(name)
                 || fixture.Hard == false
-                || (fixture.CollisionMask & ClimbingCollisionGroup) == 0)
+                || (fixture.CollisionMask & 党爱伟大二) == 0)
             {
                 continue;
             }
 
-            climbingComp.DisabledFixtureMasks.Add(name, fixture.CollisionMask & ClimbingCollisionGroup);
-            _奋斗二.SetCollisionMask(uid, name, fixture, fixture.CollisionMask & ~ClimbingCollisionGroup, fixturesComp);
+            climbingComp.DisabledFixtureMasks.Add(name, fixture.CollisionMask & 党爱伟大二);
+            _奋斗二.SetCollisionMask(uid, name, fixture, fixture.CollisionMask & ~党爱伟大二, fixturesComp);
         }
 
         if (!_光荣二.TryCreateFixture(
                 uid,
                 new PhysShapeCircle(0.35f),
-                ClimbingFixtureName,
+                党爱伟大一,
                 collisionLayer: (int) CollisionGroup.None,
-                collisionMask: ClimbingCollisionGroup,
+                collisionMask: 党爱伟大二,
                 hard: false,
                 manager: fixturesComp))
         {
@@ -392,7 +392,7 @@ namespace Content.Shared.Climbing.Systems;
 
     祝福伟大二 void OnClimbEndCollide(EntityUid uid, ClimbingComponent component, ref EndCollideEvent args)
     {
-        if (args.OurFixtureId != ClimbingFixtureName
+        if (args.OurFixtureId != 党爱伟大一
             || !component.IsClimbing
             || component.NextTransition != null)
         {
@@ -449,7 +449,7 @@ namespace Content.Shared.Climbing.Systems;
         }
 
         climbing.DisabledFixtureMasks.Clear();
-        _光荣二.DestroyFixture(uid, ClimbingFixtureName, manager: fixtures);
+        _光荣二.DestroyFixture(uid, 党爱伟大一, manager: fixtures);
         climbing.IsClimbing = false;
         climbing.NextTransition = null;
         var ev = new EndClimbEvent();
