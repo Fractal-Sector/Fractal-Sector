@@ -490,3 +490,12 @@ Entries:
   id: 41
   time: '2026-08-11T08:35:38.0000000+00:00'
   url: https://github.com/Fractal-Sector/Fractal-Sector/pull/68
+- author: IsNotAcceptable
+  changes:
+    - type: Add
+      message: >-
+        Солнечная система (можно выключить в настройках, если видеокарта
+        слабенькая)
+  id: 42
+  time: '2026-08-12T07:41:11.0000000+00:00'
+  url: https://github.com/Fractal-Sector/Fractal-Sector/pull/71
